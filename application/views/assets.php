@@ -212,6 +212,6 @@ fa fa-area-chart w3-text-red"></i>Purchase Price</div>
     //         endif;
 
             
-    //          ?>
+    ////          ?>
 
 </div>
