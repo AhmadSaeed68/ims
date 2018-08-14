@@ -78,6 +78,7 @@
 
                 $this->load->model('prd/addprd');
                $this->addprd->upd_sales($upd_sales);
+            
             }
     }  
     

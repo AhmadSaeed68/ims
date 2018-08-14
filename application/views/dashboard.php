@@ -34,7 +34,7 @@
     
     <div class="div-action pull pull-right">
      
-     <?= anchor('prd/load_prd_view',' Add Stock',['class'=>'btn btn-outline-success w3-red fa fa-plus-square','data-toggle'=>'modal'])?> 
+     <?= anchor('prd/load_prd_view',' Add Stock',['class'=>'btn btn-outline-success w3-red fa fa-plus-square',])?> <!-- 'data-toggle'=>'modal' -->
       </div>
    
       

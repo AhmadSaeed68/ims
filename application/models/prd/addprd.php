@@ -50,6 +50,8 @@
                         ->where('item_code', $item_name)
                         ->set('item_qty', 'item_qty-'.$item_qty, FALSE)
                         ->update('purchase');
+
+                        
                         
             //UPDATE `purchase` SET `item_qty` = `item_qty` - 8 WHERE `item_code` = 'xl1' 
  

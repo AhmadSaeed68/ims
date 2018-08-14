@@ -1,36 +1,89 @@
 <?php
 ?>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
- 
+
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
-        <?= link_tag('assets/css/bootstrap.min.css');?>
-        <?= link_tag('assets/css/w3.css');?>
-        <?= link_tag('assets/css/font-awesome.css');?>
-        <?= link_tag('assets/css/dataTables.bootstrap4.css');?>
-        <?= link_tag('assets/js/jquery.min.js');?>
-        <?= link_tag('assets/js/bootstrap.min.js');?>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+        <!-- 
+          
+          css files  
+        
+        -->
+        <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/bootstrap.min.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/w3.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/font-awesome.min.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/bootstrap-glyphicons.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/jquery-ui.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/font-awesome.min.css"> 
+
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/dataTables.bootstrap4.css"> 
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/all.css"> 
+
+
+       
+
+
+        <!--
+
+          js files
+          
+           -->
+           <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/jquery.min.js"></script> 
+
+          <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/jquery-1.12.4.js"></script> 
+
+          <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/popper.min.js"></script> 
+
+          <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/jquery-ui.js"></script> 
+
+          <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/jquery-3.3.1.slim.min.js"></script>
+
+          <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/bootstrap.min.js"></script> 
+
+        
+
+
+
+        <!-- 
+          
+          CDN FILES
+        
+         -->
+        
+ 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
-        <script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
-		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="http://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
+       <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+        <!--<script src="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+    
+       <link href="http://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous"> -->
     <?php $id=$this->session->userdata('user_id');
       if($id){
     ?>
@@ -65,7 +118,7 @@ and open the template in the editor.
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
 
-                   <?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out','data-toggle'=>'modal'])?>
+                   <?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?> <!--,'data-toggle'=>'modal'-->
                          
                           </form>
                     
