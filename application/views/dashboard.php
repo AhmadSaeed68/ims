@@ -75,7 +75,7 @@
               </div>
               <div class="mr-5">View Vendors</div>
             </div>
-            <?= anchor('prd/prd_sales','View Vendors',['class'=>'w3-inverse fa fa-angle-right float-right card-footer text-white clearfix small z-1',])?> 
+            <?= anchor('prd/vendors','View Vendors',['class'=>'w3-inverse fa fa-angle-right float-right card-footer text-white clearfix small z-1',])?> 
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-3">

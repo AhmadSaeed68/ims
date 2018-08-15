@@ -80,6 +80,14 @@
                $this->addprd->upd_sales($upd_sales);
             
             }
+
+            function vendors(){
+                
+                $this->load->model('prd/addprd');
+               $vendors= $this->addprd->vendors();
+               $this->load->view('vendors',['vendors'=>$vendors]);
+
+            }
     }  
     
     

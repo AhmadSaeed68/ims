@@ -9,11 +9,16 @@
         });
 
     </script>
+    
             <div class="container-fluid w3-padding-32">
                 <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
             <div class="card-header w3-center"> <span class="w3-center"> <i class="fa  fa-2x fa-bar-chart w3-text-yellow" ></i> Stock List</span> </div>
+            
             <div class="card-body">
-                
+            <form class="form-inline w3-right my-2 my-lg-0">
+      <input class="form-control mr-sm-2" placeholder="Search" type="text">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
             <div class="container-fluid w3-padding-32">
     <div class="table table-success">
         <div class="col-sm-12">

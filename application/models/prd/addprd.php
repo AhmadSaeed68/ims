@@ -60,6 +60,16 @@
             // ->update('purchase',$item_name = $item_name-$item_qty);
         }
 
+
+        function vendors(){
+
+            //$vendors=$this->db->query("SELECT DISTINCT 'item_company' from 'purchase'");
+            $vendors=$this->db->group_by('item_company')
+            ->from('purchase')
+            ->get();
+           return $vendors->result_array();
+        }
+
         
     }
 
