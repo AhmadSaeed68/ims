@@ -70,6 +70,14 @@
            return $vendors->result_array();
         }
 
+
+        function prd_search($query){
+            
+            $q= $this->db->from('purchase')
+            ->like('item_name',$query)
+            ->get();
+                return $q->result();
+        }
         
     }
 

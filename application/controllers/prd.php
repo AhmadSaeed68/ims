@@ -31,7 +31,7 @@
         }
      }
             function stock_list(){
-
+                $this->load->helper('form');
                 $this->load->model('prd/addprd');
                $query= $this->addprd->stock_list();
              $this->load->view('stock_list',['query'=>$query]);
@@ -87,6 +87,14 @@
                $vendors= $this->addprd->vendors();
                $this->load->view('vendors',['vendors'=>$vendors]);
 
+            }
+
+            function search_prd(){
+                $query=$this->input->post('query');
+                $this->load->model('prd/addprd');
+               $prd_search=$this->addprd->prd_search($query);
+               
+               $this->load->view('prd_search',['prd_search'=>$prd_search]);
             }
     }  
     
