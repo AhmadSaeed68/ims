@@ -75,6 +75,10 @@
             
             $q= $this->db->from('purchase')
             ->like('item_name',$query)
+            ->or_like('item_code',$query)
+            ->or_like('item_company',$query)
+            
+            
             ->get();
                 return $q->result();
         }

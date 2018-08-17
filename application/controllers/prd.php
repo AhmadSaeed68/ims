@@ -90,6 +90,7 @@
             }
 
             function search_prd(){
+                $this->load->helper('form');
                 $query=$this->input->post('query');
                 $this->load->model('prd/addprd');
                $prd_search=$this->addprd->prd_search($query);

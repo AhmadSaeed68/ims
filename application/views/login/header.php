@@ -110,7 +110,7 @@ body {font-family: "Open Sans"}
                             
                             <?= anchor('prd/stock_list',' view Stock',['class'=>'fa fa-1x fa-home w3-text-blue dropdown-item'])?>
                             <?= anchor('prd/assets',' view Assets',['class'=>'fa fa-chart-bar w3-text-orange dropdown-item'])?>
-                            <?= anchor('prd/stock_list',' view vendors',['class'=>'fab fa-1x w3-text-red fa-creative-commons-remix dropdown-item'])?>
+                            <?= anchor('prd/vendors',' view vendors',['class'=>'fab fa-1x w3-text-red fa-creative-commons-remix dropdown-item'])?>
                             <?= anchor('prd/prd_sales',' Add Sales',['class'=>'fas fa fa-briefcase-medical w3-text-green dropdown-item'])?>
                             
                             
