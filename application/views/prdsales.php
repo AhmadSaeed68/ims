@@ -3,6 +3,19 @@
     <div class="container w3-padding-32">
         <div>
             <div>
+            <?php if($feedback=$this->session->flashdata('feedback')) :
+            $feedback_msg=$this->session->flashdata('feedback_msg');
+            ?>
+            <div class="row">
+                <div class="col-sm-8 w3-wide w3-padding-24">
+                    <div class="alert alert-dismissible <?= $feedback_msg; ?>">
+                    <?php echo $feedback ;?>
+                    
+                    </div>
+                    
+                </div>
+            </div>
+            <?php endif;?>
             <div class="card border-primary mb-3" style="max-width: 200rem;">
                 <div class="card-header">Add Sales</div>
                 <div class="card-body">

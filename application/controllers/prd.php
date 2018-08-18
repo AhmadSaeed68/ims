@@ -77,7 +77,16 @@
                $upd_sales= $this->input->post();
 
                 $this->load->model('prd/addprd');
-               $this->addprd->upd_sales($upd_sales);
+              if($this->addprd->upd_sales($upd_sales)){
+                $this->session->set_flashdata('feedback','*** Sales Added Successfully ***');
+                $this->session->set_flashdata('feedback_msg','alert-success');
+              }else{
+                $this->session->set_flashdata('feedback','*** SOme System Error*** ! Contact To Developer :(');
+                $this->session->set_flashdata('feedback_msg','alert-success');
+                 
+              }
+               return redirect('prd/prd_sales');
+               
             
             }
 

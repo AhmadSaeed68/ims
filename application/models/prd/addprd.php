@@ -46,11 +46,12 @@
         function upd_sales($upd_sales){
             $item_name=$upd_sales['item_name'];
             $item_qty=$upd_sales['item_qty'];
-            $this->db
+           $this->db
                         ->where('item_code', $item_name)
                         ->set('item_qty', 'item_qty-'.$item_qty, FALSE)
                         ->update('purchase');
-
+                        return $upd_sales;
+                        
                         
                         
             //UPDATE `purchase` SET `item_qty` = `item_qty` - 8 WHERE `item_code` = 'xl1' 
