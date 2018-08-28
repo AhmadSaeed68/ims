@@ -99,6 +99,16 @@
             $res2 = $this->db->get('user');
             return $res2;
             }
+
+            function update_user($id,Array $post){
+                
+                
+                // print_r($array);
+                // echo $article_id;
+                return $this->db
+                ->where('id',$id)
+                ->update('user',$post);
+        }
                 
     }
 

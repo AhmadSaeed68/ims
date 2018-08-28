@@ -130,16 +130,28 @@
                  </div>
                  <?php echo form_open("prd/update_user/{$row['id']}",['class'=>'form-vertical']);?>
                  <div class="form-group">
+                 <label for="pwd">User Id:</label>
+                        <?php echo form_input(['name'=>'id','placeholder'=>'User ID:',
+          'class'=>'form-control','disabled'=>'true','value'=> set_value('title',$row['id'])])?>
+                        
+                        
+                    </div>
+                 <div class="form-group">
                         <label for="pwd">Name:</label>
-                        <input type="text" value="<?=$row['name'];?>" class="form-control" id="email">
+                        <?php echo form_input(['name'=>'name','placeholder'=>'Name:',
+          'class'=>'form-control','type'=>'text','value'=> set_value('title',$row['name'])])?>
                     </div>
                     <div class="form-group">
                         <label for="pwd">Email:</label>
-                        <input type="email" value="<?=$row['email'];?>" class="form-control" id="email">
+                        <?php echo form_input(['name'=>'email','placeholder'=>'Email:',
+          'class'=>'form-control','type'=>'email','value'=> set_value('title',$row['email'])])?>
                     </div>
+                    
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="text" value="<?=$row['password'];?>" class="form-control" id="password">
+                        <?php echo form_input(['name'=>'password','placeholder'=>'Password',
+          'class'=>'form-control','type'=>'text','value'=> set_value('title',$row['password'])])?>
+                        
                     </div>
                     
                     <?php echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
@@ -153,9 +165,17 @@
                    }
             }
 
+            
             function update_user($id){
+                $this->load->helper('form');
                 $post=$this->input->post();
+                unset($post['submit']);
                 
+               
+                $this->load->model('prd/addprd');
+                $this->addprd->update_user($id,$post);
+                $this->load->library('../controllers/prd');
+                $this->prd->user();
             }
     }  
     
