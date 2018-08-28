@@ -106,6 +106,57 @@
                
                $this->load->view('prd_search',['prd_search'=>$prd_search]);
             }
+
+            function user(){
+                $this->load->helper('form');
+                $this->load->model('prd/addprd');
+               $user= $this->addprd->user();
+               $this->load->view('user',['user'=>$user]);
+
+            }
+            public function get_phone_result()
+            {
+                $this->load->helper('form');
+                   $phoneData = $this->input->post('phoneData');
+                   if(isset($phoneData) and !empty($phoneData)){
+                       $this->load->model('prd/addprd');
+                       $records = $this->addprd->get_search($phoneData);
+                       $output = '';
+                       foreach($records->result_array() as $row){
+                        ?>    
+                    <h4 class="text-center">'<?=$row["name"]?>'</h4><br>
+                    
+                      </div>
+                 </div>
+                 <?php echo form_open("prd/update_user/{$row['id']}",['class'=>'form-vertical']);?>
+                 <div class="form-group">
+                        <label for="pwd">Name:</label>
+                        <input type="text" value="<?=$row['name'];?>" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Email:</label>
+                        <input type="email" value="<?=$row['email'];?>" class="form-control" id="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="text" value="<?=$row['password'];?>" class="form-control" id="password">
+                    </div>
+                    
+                    <?php echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+                </form>
+                 <?php
+                       }    
+                       echo $output;
+                   }
+                   else {
+                    echo '<center><ul class="list-group"><li class="list-group-item">'.'Select a Phone'.'</li></ul></center>';
+                   }
+            }
+
+            function update_user($id){
+                $post=$this->input->post();
+                
+            }
     }  
     
     

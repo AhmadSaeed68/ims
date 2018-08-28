@@ -25,7 +25,7 @@
     <div class="table table-success">
         <div class="col-sm-12">
 
-                 <table id="mytable" class="table table-bordered">
+                 <table id="mytable" class="table table-bordered w3-black">
         <thead>
         <tr>
             <th><i class="glyphicon glyphicon-bookmark"></i>No: </th>

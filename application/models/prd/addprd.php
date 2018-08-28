@@ -83,7 +83,23 @@
             ->get();
                 return $q->result();
         }
-        
+
+        function user(){
+            $query=$this->db
+                        
+                        ->select()
+                        ->  get('user');
+                     
+                    return $query->result();
+        }
+        public function get_search($phoneData)
+            {
+            $this->db->select('*');
+            $this->db->where('id',$phoneData);
+            $res2 = $this->db->get('user');
+            return $res2;
+            }
+                
     }
 
 ?>

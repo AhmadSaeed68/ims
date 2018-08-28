@@ -1,6 +1,13 @@
+
+
 <?php include"login/header.php"; 
      $id=$this->session->userdata('user_id');
      //print_r($id->id); ?>
+     <div class="container">
+       <div class="w3-padding-32 w3-center">
+         <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Inventory Managment System</h1>
+       </div>
+     </div>
         <?php if($feedback=$this->session->flashdata('feedback')) :
             $feedback_msg=$this->session->flashdata('feedback_msg');
             ?>
@@ -109,5 +116,7 @@
 </div>
         
 
-<?php include"login/footer.php"; ?>
+<?php include "login/footer.php";
+
+?>
 

@@ -13,7 +13,8 @@
         -->
         <link rel = "stylesheet" type = "text/css" 
          href = "<?php echo base_url(); ?>assets/css/bootstrap.min.css"> 
-
+         <link rel = "stylesheet" type = "text/css" 
+         href = "<?php echo base_url(); ?>assets/css/dataTables.bootstrap.min.css"> 
          <link rel = "stylesheet" type = "text/css" 
          href = "<?php echo base_url(); ?>assets/css/w3.css"> 
 
@@ -45,6 +46,12 @@
            -->
            <script type = 'text/javascript' src = "<?php echo base_url(); 
          ?>assets/js/jquery.min.js"></script> 
+         <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/jquery.dataTables.min.js"></script> 
+
+         <script type = 'text/javascript' src = "<?php echo base_url(); 
+         ?>assets/js/dataTables.bootstrap.min.js"></script> 
+
 
           <script type = 'text/javascript' src = "<?php echo base_url(); 
          ?>assets/js/jquery-1.12.4.js"></script> 
@@ -117,12 +124,19 @@ body {font-family: "Open Sans"}
                             
                           </div>
                         </li>
+                        
 
 
                 
 
                       <li class="nav-item">
-                        <a class="nav-link " href="#" ><i class="glyphicon glyphicon-calendar" style="font-size:15px"></i>Report</a>
+                      <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+                      </li>
+                      <li class="nav-item">
+                        <?= anchor('login/logout','Category',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+                      </li>
+                      <li class="nav-item">
+                      <?= anchor('login/logout','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
                     </ul>
                     <form class="form-inline my-2 my-lg-0">
@@ -135,5 +149,7 @@ body {font-family: "Open Sans"}
                 </nav>
       <?php }?> 
     <body>
+        
+
         
     
