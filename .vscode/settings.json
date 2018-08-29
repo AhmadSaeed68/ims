@@ -1,2 +1,7 @@
 {
+    "php.validate.executablePath": "E:/xampp/php/php.exe",
+    "git.autofetch": true,
+    "workbench.iconTheme": "vscode-icons",
+    "editor.matchBrackets": false,
+    "git.enableSmartCommit": true
 }
