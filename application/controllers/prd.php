@@ -177,6 +177,89 @@
                 $this->load->library('../controllers/prd');
                 $this->prd->user();
             }
+
+            function category(){
+                $this->load->helper('form');
+                $this->load->model('prd/addprd');
+                $category=$this->addprd->category();
+               
+                $this->load->view('category',['category'=>$category]);
+
+            }
+
+            function get_category_result(){
+
+                $this->load->helper('form');
+                $category_id = $this->input->post('phoneData');
+                if(isset($category_id) and !empty($category_id)){
+                    $this->load->model('prd/addprd');
+                    $records = $this->addprd->category_search($category_id);
+                    
+                    
+                    
+                    foreach($records as $row){
+                     ?>    
+                 <h4 class="text-center">'<?=$row["category_id"]?>'</h4><br>
+                 
+                   </div>
+              </div>
+              <?php echo form_open("prd/update_category/{$row['category_id']}",['class'=>'form-vertical']);?>
+              <div class="form-group">
+              <label for="pwd">User Id:</label>
+                     <?php echo form_input(['name'=>'user_id','placeholder'=>'User ID:',
+       'class'=>'form-control','disabled'=>'true','value'=> set_value('title',$row['user_id'])])?>
+                     
+                     
+                 </div>
+                 <div class="form-group">
+              <label for="pwd">Category Id:</label>
+                     <?php echo form_input(['name'=>'user_id','placeholder'=>'User ID:',
+       'class'=>'form-control','disabled'=>'true','value'=> set_value('title',$row['category_id'])])?>
+                     
+                     
+                 </div>
+              <div class="form-group">
+                     <label for="pwd">Category Name:</label>
+                     <?php echo form_input(['name'=>'category_name','placeholder'=>'Category Name:',
+       'class'=>'form-control','type'=>'text','value'=> set_value('title',$row['category_name'])])?>
+                 </div>
+                 <div class="form-group">
+                     <label for="pwd">Category_status</label>
+                     <?php echo form_input(['name'=>'category_status','placeholder'=>'Category Status',
+       'class'=>'form-control','type'=>'text','value'=> set_value('title',$row['category_status'])])?>
+                 </div>
+                 <div class="form-group">
+                 <select class="form-control" value="<?php echo $row['category_status']?>">
+                        <option value="active" name="active">active</option>
+                        <option value="inactive" name="inactive">inactive</option>
+                </select>
+                </div>
+                 
+                 
+                 <?php echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+             </form>
+              <?php
+                    }    
+                    
+                }
+                else {
+                 echo '<center><ul class="list-group"><li class="list-group-item">'.'Select a Phone'.'</li></ul></center>';
+                }
+
+
+            }
+
+            function update_category($category_id){
+                
+                $post=$this->input->post();
+                unset($post['submit']);
+                $this->load->model('prd/addprd');
+                $this->addprd->update_category($category_id,$post);
+                $this->load->library('../controllers/prd');
+                $this->prd->category();
+                
+            }
+            
     }  
     
     

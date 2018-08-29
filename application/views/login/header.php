@@ -99,57 +99,64 @@ body {font-family: "Open Sans"}
     <?php $id=$this->session->userdata('user_id');
       if($id){
     ?>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                  
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                
-                  <div class="collapse navbar-collapse" id="navbarColor01">
-                    <ul class="navbar-nav mr-auto">
-                      <li class="nav-item active">
-                        
-                        <?= anchor('admin/dashboard',' Dashboard',['class'=>'nav-link fa fa-dashboard w3-text-red'])?>
-                      </li>
-                      <li class="nav-item dropdown" >
-                          <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-list-alt" style="font-size:15px"></i> Category</a>
-                          <div class="dropdown-menu w3-white" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 38px, 0px);font-size:15px">
-                            
-                            <?= anchor('prd/stock_list',' view Stock',['class'=>'fa fa-1x fa-home w3-text-blue dropdown-item'])?>
-                            <?= anchor('prd/assets',' view Assets',['class'=>'fa fa-chart-bar w3-text-orange dropdown-item'])?>
-                            <?= anchor('prd/vendors',' view vendors',['class'=>'fab fa-1x w3-text-red fa-creative-commons-remix dropdown-item'])?>
-                            <?= anchor('prd/prd_sales',' Add Sales',['class'=>'fas fa fa-briefcase-medical w3-text-green dropdown-item'])?>
-                            
-                            
-                            
-                          </div>
-                        </li>
-                        
 
-
-                
-
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active">
+      <?= anchor('admin/dashboard',' Dashboard',['class'=>'nav-link fa fa-dashboard w3-text-red'])?>
+      </li>
+      <li class="dropdown">
+        <a class="dropdown-toggle glyphicon glyphicon-list-alt" data-toggle="dropdown" href="#">Category
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li>
+          <?= anchor('prd/stock_list',' view Stock',['class'=>'fa fa-1x fa-home w3-text-blue dropdown-item'])?>
+          </li>
+          <li>
+          <?= anchor('prd/assets',' view Assets',['class'=>'fa fa-chart-bar w3-text-orange dropdown-item'])?>
+          </li>
+          <li>
+          <?= anchor('prd/vendors',' view vendors',['class'=>'fab fa-1x w3-text-red fa-creative-commons-remix dropdown-item'])?>
+          </li>
+          <li>
+      <?= anchor('prd/prd_sales',' Add Sales',['class'=>'fas fa fa-briefcase-medical w3-text-green dropdown-item'])?>
+      </li>
+        </ul>
+      </li>
+      <li>
+      <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+      </li>
+      <li class="nav-item">
+       <?= anchor('prd/category','Category',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+      </li>
+       <li class="nav-item">
+          <?= anchor('','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
+        </li>
                       <li class="nav-item">
-                      <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+                      <?= anchor('','Invoice',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
                       <li class="nav-item">
-                        <?= anchor('login/logout','Category',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+                      <?= anchor('','PurchaseOrder',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
-                      <li class="nav-item">
-                      <?= anchor('login/logout','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
-                      </li>
-                    </ul>
-                    <form class="form-inline my-2 my-lg-0">
+     
+    </ul>
+    
 
-                   <?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?> <!--,'data-toggle'=>'modal'-->
-                         
-                          </form>
-                    
-                  </div>
-                </nav>
-      <?php }?> 
+<?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?> <!--,'data-toggle'=>'modal'-->
+      
+       
+  </div>
+</nav>
+ <?php }?> 
     <body>
         
 
         
-    
+       
+                            
+                          
+                            

@@ -1,69 +1,90 @@
 <?php
-    require_once "login/header.php";
+    include_once"login/header.php";
 ?>
+
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
  <!-- DataTables CSS CDN -->
  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
  <!-- Font Awesome CSS CDN -->
  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+ 
 <script>
 
 $(document).ready(function(){
     $("#mytable").dataTable();
 });
 
+
 </script>
+
 
     <div class="container-fluid w3-padding-32">
         <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
     <div class="card-header w3-center"> <span class="w3-center"> <i class="fa  fa-2x fa-bar-chart w3-text-yellow" ></i> Stock List</span> </div>
     
     <div class="card-body">
-    <?= form_open('prd/search_prd',['class'=>'form-inline my-2 my-lg-0 w3-right'])?>
-<input class="form-control mr-sm-2" name='query' placeholder="Search" type="text">
-
-<button class="btn btn-secondary my-2 my-sm-0 fab  fa-searchengin w3-text-red" type="submit"></button>
-<?= form_close() ?>
-<?= form_error('query','<p class="navbar-text text-danger" font-family="serif">','</p>');?>
+    
     <div class="container-fluid w3-padding-32">
-<div class="table table-success">
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+  
+  <div class="panel-body">
 <div class="col-sm-12">
-       <table id="mytable" class="table table-bordered w3-black">
+
+         <table id="mytable" class="table table-bordered w3-black">
 <thead>
 <tr>
-    <th><i class="glyphicon glyphicon-bookmark"></i>Id</th>
+    <th><i class="glyphicon glyphicon-bookmark"></i>Category Id</th>
     <th><i class=" 
-    glyphicon glyphicon-user w3-text-blue"></i>Name</th>
-<th><i class="glyphicon glyphicon-lock w3-text-red"></i>Password</th>
-    <th><i class="glyphicon glyphicon-envelope w3-teal"></i>Email</th>
-    <th><i class="glyphicon glyphicon-exclamation-sign w3-text-blue"></i>Edit</th>
-    <th><i class="glyphicon glyphicon-trash w3-text-red"></i>Delete</th>
-    
-    <th><i class="glyphicon glyphicon-calendar w3-text-blue"></i>Date</th>
+    glyphicon glyphicon-user w3-text-blue"></i>User Id</th>
+<th><i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name</th>
+<th><i class="glyphicon glyphicon-open-file w3-text-green"></i>Status</th>
+<th><i class="glyphicon glyphicon-open-file w3-text-blue"></i>Edit</th>
+<th><i class="glyphicon glyphicon-open-file w3-text-red"></i>Delete</th>
+  
+   
 </tr>
 
 </thead>
 <tbody>
 <?php 
-  
-   foreach($user as $query):
+  foreach($category as $query):
    ?>
-         <tr>
+      <tr>
+     <td>
+     <?= $query->category_id?>
+     </td>
+     <td>
+     <?= $query->user_id?>
+     </td>
+     <td>
+     <?= $query->category_name?>
+     </td>
+     <td>
+     <?= $query->category_status?>
+     </td>
+     <td>
+     <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->category_id; ?>">
+     </td>
+     <td>
      
-     <td><?= $query->id?></td>
-     <td><?= $query->name?></td>
-     <td><?= $query->password?></td>
-     <td><?= $query->email?></td>
-     <td><input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->id; ?>"></td>
-     
- </tr>
-
-   <?php endforeach;?>
+     </td>
+</tr>
+<?php endforeach;?>
 </tbody>
 
 </table>
 
+
+
 </div>
 
 </div>
@@ -72,6 +93,9 @@ $(document).ready(function(){
 
     </div>
     </div>
+    </div>
+    </div>
+    </div></div>
     </div>
     <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
    <div class="modal-dialog modal-lg">
@@ -85,6 +109,7 @@ $(document).ready(function(){
         <!-- Place to print the fetched phone -->
          <div id="phone_result">
          
+         ?>
          </div>
        </div>
        <div class="modal-footer">
@@ -113,7 +138,7 @@ $(document).ready(function(){
                 // Start AJAX function
                 $.ajax({
                  // Path for controller function which fetches selected phone data
-                    url: "<?php echo base_url() ?>prd/get_phone_result",
+                    url: "<?php echo base_url() ?>prd/get_category_result",
                     // Method of getting data
                     method: "POST",
                     // Data is sent to the server
@@ -136,4 +161,5 @@ $(document).ready(function(){
 <?php include"login/footer.php"; ?>
 
 
-  
+
+

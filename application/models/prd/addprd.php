@@ -109,6 +109,30 @@
                 ->where('id',$id)
                 ->update('user',$post);
         }
+        
+        function category(){
+            $query=$this->db
+                        
+                        ->select()
+                        ->  get('category');
+                     
+                    return $query->result();
+        }
+        function category_search($category_id){
+           $query= $this->db
+                    ->select('')
+                    ->where('category_id',$category_id)
+                    ->get('category');
+            return $query->result_array();
+        }
+
+
+        function update_category($category_id,Array $post){
+            
+            return $this->db
+                ->where('category_id',$category_id)
+                ->update('category',$post);
+        }
                 
     }
 
