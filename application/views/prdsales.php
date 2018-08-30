@@ -19,7 +19,7 @@
             <div class="card border-primary mb-3" style="max-width: 200rem;">
                 <div class="card-header">Add Sales</div>
                 <div class="card-body">
-                <?php echo form_open('prd/updatesale');?>
+                <?php echo form_open('prd/add_category');?>
                 <legend class="w3-center w3-padding">
                         <h1 class="w3-text-green">Add Daily Sales</h1>
                         </legend>

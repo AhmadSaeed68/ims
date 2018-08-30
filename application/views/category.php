@@ -3,6 +3,7 @@
       $id=$this->session->userdata('user_id');
       $user_id=$id->id;
   ?>
+  <input type="text" hidden="true" id='user_id' value="<?=$user_id;?>">
 
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -38,8 +39,8 @@
   <div class="panel panel-default">
     <div class="panel-heading">
     <div class="pull pull-right w3-padding-24">
-       <div id="feedback" class="feedback"></div>
-        <input type="button" class="btn btn-outline-success w3-red " data-toggle="modal" data-target="#add_category" value="Add Category" id="">
+       
+        <input type="button" class="btn btn-outline-success w3-red " data-toggle="modal" data-target="#add_category" value="Add Category" aria-hidden="true">
         <div id="add_category" class="modal" role="dialog">
     <div class="modal-dialog">
 
@@ -50,22 +51,24 @@
           <h4 class="modal-title">Add Category</h4>
         </div>
         <div class="modal-body">
-            <form action="" method="post">
-            <div class="form-group">
-                <label for="usr">Category Name:</label>
-                <input type="text" class="form-control" id="category_name" name="category_name">
-                </div>
-                <div class="form-group">
-                <label for="pwd">Status:</label>
-                
-                    <select class="form-control" name="status" id="status">
-                      <option value="active">active</option>
-                      <option value="inactive">Inactive</option>
-                     </select>
-            </div>
-            <div class="form_group"></div>
-            <input type="submit" value="Add" id="category_submit" name="category_submit">
-            </form>
+        <?php //echo form_open("prd/add_category/{$user_id}");?>
+        <form method="POST" action="">
+              <div class="form-group">
+                  <label for="usr">Category Name:</label>
+                  <input type="text" class="form-control" id="category_name" name="category_name">
+                  </div>
+                  <div class="form-group">
+                  <label for="pwd">Status:</label>
+                  
+                      <select class="form-control" name="category_status" id="category_status">
+                        <option value="active">active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+              </div>
+              <div class="form_group"><input type="submit" value="submit"  id="category_submit" name="category_submit"></div>
+              
+              
+              </form>
             
         </div>
         <div class="modal-footer">
@@ -165,23 +168,28 @@
   <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
   <!-- Bootstrap JS CDN -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+
     <script type="text/javascript">
     $(document).ready(function(){
       $("#category_submit").click(function(){
         
         var name=$("#category_name").val();
-        var status=$("#status").val();
-        alert(data);
+        var status=$("#category_status").val();
+        var id=$("#user_id").val();
+        
         $.ajax({
-          type: 'GET',
-          url  : "<?php echo base_url(); ?>/prd/add_category",
-          data: {category_name:name,status:status},
+          type: 'POST',
+          url  : "<?php echo base_url(); ?>prd/add_category",
+          data: {category_name:name,category_status:status,id:id},
           success:  function(feedback){
-            $('.feedback').html(feedback);
+            $('#feedback1').html(feedback);
+            // $('#add_category').modal('show');
+            // return false;
+            
           }
         });
       });
-  //});
+  });
     </script> 
   <script type="text/javascript">
 
@@ -220,7 +228,8 @@
 
 
   <?php include"login/footer.php"; ?>
-
+  <div id="feedback1" class="feedback1"></div>
+  
 
 
 

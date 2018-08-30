@@ -263,7 +263,19 @@
 
                 function add_category(){
 
-                    echo"this is ";
+                    echo "Success";
+                     $name=$_POST['category_name'];
+                     $status=$_POST['category_status'];
+                     $id=$_POST['id'];
+                     $post=['category_name'=>$name,'category_status'=>$status,'user_id',$id];
+                     
+                    
+                    
+                    $post=$this->input->post();
+                    
+                     $this->load->model('prd/addprd');
+                     $this->addprd->add_category($post);
+                    
                 }
                 
         }  

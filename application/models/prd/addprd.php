@@ -133,6 +133,15 @@
                 ->where('category_id',$category_id)
                 ->update('category',$post);
         }
+        
+        function add_category(Array $post){
+           
+           $name=$post['category_name'];
+           $status=$post['category_status'];
+            $id=$post['id'];
+        
+            return $this->db->insert('category',['category_name'=>$name,'category_status'=>$status,'user_id'=>$id]);
+        }
                 
     }
 
