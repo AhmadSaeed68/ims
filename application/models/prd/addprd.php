@@ -92,10 +92,10 @@
                      
                     return $query->result();
         }
-        public function get_search($phoneData)
+        public function user_fetch($user_id)
             {
             $this->db->select('*');
-            $this->db->where('id',$phoneData);
+            $this->db->where('id',$user_id);
             $res2 = $this->db->get('user');
             return $res2;
             }

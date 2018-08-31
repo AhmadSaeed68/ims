@@ -17,48 +17,61 @@
 
     </script>
 
-        <div class="container-fluid w3-padding-32">
-            <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
+<div class="container-fluid w3-padding-32">
+    <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
         <div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa  fa-2x fa-user w3-text-yellow" ></i> Users Detail</h2> </div>
-        
-        <div class="card-body">
-        <?= form_open('prd/search_prd',['class'=>'form-inline my-2 my-lg-0 w3-right'])?>
-    <input class="form-control mr-sm-2" name='query' placeholder="Search" type="text">
+            <div class="card-body">
+            <?= form_open('prd/search_prd',['class'=>'form-inline my-2 my-lg-0 w3-right'])?>
+            <input class="form-control mr-sm-2" name='query' placeholder="Search" type="text">
 
-    <button class="btn btn-secondary my-2 my-sm-0 fab  fa-searchengin w3-text-red" type="submit"></button>
-    <?= form_close() ?>
-    <?= form_error('query','<p class="navbar-text text-danger" font-family="serif">','</p>');?>
+            <button class="btn btn-secondary my-2 my-sm-0 fab  fa-searchengin w3-text-red" type="submit"></button>
+            <?= form_close() ?>
+            <?= form_error('query','<p class="navbar-text text-danger" font-family="serif">','</p>');?>
         <div class="container-fluid w3-padding-32">
-    <div class="table table-success">
-    <div class="col-sm-12">
-        <table id="mytable" class="table table-bordered w3-black">
+        <div class="table table-success">
+        <div class="col-sm-12">
+
+    <table id="mytable" class="table table-bordered w3-black">
     <thead>
-    <tr>
-        <th><i class="glyphicon glyphicon-bookmark"></i>Id</th>
-        <th><i class=" 
-        glyphicon glyphicon-user w3-text-blue"></i>Name</th>
-    <th><i class="glyphicon glyphicon-lock w3-text-red"></i>Password</th>
-        <th><i class="glyphicon glyphicon-envelope w3-teal"></i>Email</th>
-        <th><i class="glyphicon glyphicon-exclamation-sign w3-text-blue"></i>Edit</th>
-        <th><i class="glyphicon glyphicon-trash w3-text-red"></i>Delete</th>
-        
-        <th><i class="glyphicon glyphicon-calendar w3-text-blue"></i>Date</th>
-    </tr>
+        <tr>
+            <th>
+                <i class="glyphicon glyphicon-bookmark"></i>Id
+            </th>
+            <th>
+                <i class="glyphicon glyphicon-user w3-text-blue"></i>Name
+            </th>
+            <th>
+                <i class="glyphicon glyphicon-lock w3-text-red"></i>Password
+            </th>
+            <th>
+                <i class="glyphicon glyphicon-envelope w3-teal"></i>Email
+            </th>
+            <th>
+                <i class="glyphicon glyphicon-exclamation-sign w3-text-blue"></i>Edit
+            </th>
+            <th>
+                <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
+            </th>
+            
+            <th>
+                <i class="glyphicon glyphicon-calendar w3-text-blue"></i>Date
+            </th>
+        </tr>
 
     </thead>
     <tbody>
-    <?php 
-    
-    foreach($user as $query):
-    ?>
-            <tr>
-        
+    <?php foreach($user as $query):?>
+        <tr>
         <td><?= $query->id?></td>
         <td><?= $query->name?></td>
         <td><?= $query->password?></td>
         <td><?= $query->email?></td>
-        <td><input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->id; ?>"></td>
-        <td><input type="button" class="btn btn-info btn-sm view_data" value="Delete" id="<?php echo $query->id; ?>"></td>
+        <td>
+            <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->id; ?>">
+        </td>
+        <td>
+            <input type="button" class="btn btn-info btn-sm view_data" value="Delete" id="<?php echo $query->id; ?>">
+        </td>
         <td><?= $query->reg_date?></td>
     </tr>
 
@@ -112,28 +125,25 @@
             // Start jQuery click function to view Bootstrap modal when view info button is clicked
                 $('.view_data').click(function(){
                 // Get the id of selected phone and assign it in a variable called phoneData
-                    var phoneData = $(this).attr('id');
+                    var user_id = $(this).attr('id');
                     // Start AJAX function
                     $.ajax({
-                    // Path for controller function which fetches selected phone data
-                        url: "<?php echo base_url() ?>prd/get_phone_result",
-                        // Method of getting data
-                        method: "POST",
-                        // Data is sent to the server
-                        data: {phoneData:phoneData},
-                        // Callback function that is executed after data is successfully sent and recieved
-                        success: function(data){
+                            url: "<?php echo base_url() ?>prd/get_phone_result",
+                            method: "POST",
+                            data: {user_id:user_id},
+                            success: function(data)
+                            {
                         // Print the fetched data of the selected phone in the section called #phone_result 
                         // within the Bootstrap modal
                             $('#phone_result').html(data);
                             // Display the Bootstrap modal
                             $('#phoneModal').modal('show');
-                        }
+                            }
                 });
                 // End AJAX function
             });
         });  
-        </script>
+    </script>
 
         
     <?php include"login/footer.php";

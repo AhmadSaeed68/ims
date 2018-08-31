@@ -4,20 +4,17 @@
     
     <div class="container">
         <div class="w3-padding-64">
-        <div class="card border-secondary mb-3" style="max-width: 200rem;">
+          <div class="card border-secondary mb-3" style="max-width: 200rem;">
             <div class="card-header">Products Detail</div>
-            <div class="card-body">
-            <div class="container">
-        <div class="row">
-            <div class="col-sm-8">
-
-        <?php echo form_open('prd/add_prd');?>
-
-    
-                <legend class="w3-center w3-padding">
-                <h1 class="w3-text-green">Add Product Detail</h1>
-                </legend>
-                <?php echo form_error('item_qlty'); ?>
+              <div class="card-body">
+                <div class="container">
+                  <div class="row">
+                     <div class="col-sm-8">
+                   <?php echo form_open('prd/add_prd');?>
+                     <legend class="w3-center w3-padding">
+                      <h1 class="w3-text-green">Add Product Detail</h1>
+                       </legend>
+                       <?php echo form_error('item_qlty'); ?>
 
                 <div class="form-row">
                     <div class="form-group col-md-4">
