@@ -142,7 +142,22 @@
         
             return $this->db->insert('category',['category_name'=>$name,'category_status'=>$status,'user_id'=>$id]);
         }
-                
-    }
+        function item(){
+            // $data=$this->db->query('SELECT category.category_name,items.item_id,category.category_id,items.item_code,items.item_name,items.item_description,items.item_status FROM category INNER JOIN items ON category.category_id=items.category_id ORDER BY items.item_id');
+            // return $data->result_array();
+            $data=$this->db->query('SELECT * FROM items INNER JOIN category ON category.category_id=items.category_id');
+            return $data->result_array();
+            
+        }
+        function item_search($phoneData){
+            // $this->db->select('');
+            // $this->db->where('category_id',$phoneData);
+            // $res2 = $this->db->get('items_in_stock');
+            // return $res2->result_array();
+           $res= $this->db->query('SELECT category_name,category_id FROM category WHERE category_status="active"');
+        return $res->result_array();
+        }
+    }   
+    
 
 ?>

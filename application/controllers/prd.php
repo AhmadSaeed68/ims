@@ -278,6 +278,79 @@
                     
                 }
                 
+                function item(){
+                   $this->load->model('prd/addprd');
+                   $item=$this->addprd->item();
+                  
+                   $this->load->view('items',['item'=>$item]);
+                   
+                }
+
+                function get_item(){
+                   
+                    $this->load->helper('form');
+                    $phoneData = $this->input->post('phoneData');
+                    if(isset($phoneData) and !empty($phoneData)){
+                        $this->load->model('prd/addprd');
+                        $records = $this->addprd->item_search($phoneData);
+                       
+                            ?> 
+        <div class="container">
+        <div class='row'>
+        <div class="col-sm-8">
+        <?= form_open('prd/add_item',['class'=>'form-horizontal'])?>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="email">Categore</label>
+    <div class="col-sm-10">
+    <select class="form-control" name="category_id">
+        <?php 
+         foreach($records as $each) { ?>
+         <option id="<?php echo $each['category_id']; ?>" value="<?php echo $each['category_id'] ?>" id="<?php echo $each['category_id'] ?>"><?php echo $each['category_name']?></option>';
+                <?php } ?>
+                </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Item Name:</label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" name="item_name" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Item Code:</label>
+    <div class="col-sm-10">
+    <input type="text" class="form-control" name="item_code" required>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="control-label col-sm-2" for="pwd">Description:</label>
+    <div class="col-sm-10">
+    <textarea name="description" id="" cols="87" rows="6"></textarea>
+    </div>
+  </div>
+  
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+    <?php echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+    </div>
+  </div>
+</form> 
+                  </div></div></div>
+                    <?php
+                               
+                            
+                        }
+                        else {
+                        echo '<center><ul class="list-group"><li class="list-group-item">'.'Select a Phone'.'</li></ul></center>';
+                        
+                }
+
+            }
+            function add_item(){
+               print_r($this->input->post());
+            }
+                
         }  
         
         

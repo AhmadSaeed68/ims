@@ -1,6 +1,7 @@
 
     <?php
         require_once "login/header.php";
+        ?>
     ?>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
@@ -57,7 +58,8 @@
         <td><?= $query->password?></td>
         <td><?= $query->email?></td>
         <td><input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->id; ?>"></td>
-        
+        <td><input type="button" class="btn btn-info btn-sm view_data" value="Delete" id="<?php echo $query->id; ?>"></td>
+        <td><?= $query->reg_date?></td>
     </tr>
 
     <?php endforeach;?>
