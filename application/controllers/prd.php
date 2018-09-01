@@ -306,11 +306,11 @@
             <div class='row'>
                 <div class="col-sm-8">
         <?= 
-            form_open('prd/add_item',['class'=>'form-horizontal'])?>
+            form_open('',['class'=>'form-horizontal','id'=>'item_form','method'=>'POST'])?>
                 <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Categore</label>
                 <div class="col-sm-10">
-                <select class="form-control" name="category_id">
+                <select class="form-control" id="category_id" name="category_id">
         <?php 
         foreach($records as $each) { 
         ?>
@@ -326,21 +326,21 @@
         <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Item Name:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="item_name" required>
+                <input type="text" class="form-control" id="item_name" name="item_name" required>
             </div>
         </div>
                 <!-- Item Code -->
         <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Item Code:</label>
             <div class="col-sm-10">
-            <input type="text" class="form-control" name="item_code" required>
+            <input type="text" class="form-control" id="item_code" name="item_code" required>
         </div>
     </div>
                 <!-- Text Area -->
         <div class="form-group">
             <label class="control-label col-sm-2" for="pwd">Description:</label>
             <div class="col-sm-10">
-            <textarea name="description" id="" cols="87" rows="6"></textarea>
+            <textarea name="description" id="item_desc" cols="87" rows="6"></textarea>
         </div>
     </div>
     
@@ -348,7 +348,7 @@
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
         <?php 
-        echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+        echo form_submit(['name'=>'submit','type'=>'submit','value'=>'Add','class'=>'btn btn-primary']);?>
         </div>
     </div>
     </form> 
@@ -365,8 +365,27 @@
         }
 
 
-            function add_item(){
-            print_r($this->input->post());
+        function add_item(){
+            //if($_POST["submit"]=="Add"){
+            $insert_data=array(
+                'category_id'=>$this->input->post('category_id'),
+                'item_name'=>$this->input->post('itemName'),
+                'item_code'=>$this->input->post('item_code'),
+                'item_description'=>$this->input->post('item_desc'),
+            );
+            print_r($insert_data);
+            //   $this->load->model('prd/addprd');
+            //   $this->addprd->add_items($insert_data);
+        //}
+            }
+
+            function fetch_item(){
+                
+            }
+
+
+            function stock_items(){
+                $this->load->view('stock_items');
             }
                 
         }  

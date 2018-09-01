@@ -21,7 +21,7 @@
   <script>
 
   $(document).ready(function(){
-      $("#mytable").dataTable();
+     var datatable= $("#mytable").dataTable();
   });
 
 
@@ -183,7 +183,8 @@
           data: {category_name:name,category_status:status,id:id},
           success:  function(feedback){
             $('#feedback1').html(feedback);
-            // $('#add_category').modal('show');
+             $('#add_category').modal('show');
+             datatable.ajax.reload();
             // return false;
             
           }

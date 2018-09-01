@@ -4,7 +4,7 @@
     ?>
     
 <div class="container">
-    <div class="w3-right"><input type="button" class="btn btn-info btn-sm view_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
+    <div class="w3-right"><input type="button" class="btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
     <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Items Detail</h3>
@@ -75,10 +75,10 @@
                 <?=$item['item_status']?>
             </td>
             <td>
-                <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="edit">
+                <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
             </td>
             <td>
-                <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="edit">
+                <input type="button" class="btn btn-info btn-sm delete" value="Edit" id="<?=$item['item_id']?>">
             </td>
         </tr>
             <?php endforeach;?>
@@ -101,6 +101,7 @@
                 <div id="phone_result"></div>
             </div>
             <div class="modal-footer">
+            
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             </div>
@@ -125,7 +126,7 @@
             // Initiate DataTable function comes with plugin
             $('#dataTable').DataTable();
             // Start jQuery click function to view Bootstrap modal when view info button is clicked
-                $('.view_data').click(function(){
+                $('.add_data').click(function(){
                 // Get the id of selected phone and assign it in a variable called phoneData
                     var phoneData = $(this).attr('id');
                     // Start AJAX function
@@ -145,6 +146,47 @@
                 // End AJAX function
             });
         });  
+        
+        $(document).on('submit','#item_form',function(event){
+            event.preventDefault();
+            var itemName=$('#item_name').val();
+            var category_id=$('#category_id').val();
+            var item_code=$('#item_code').val();
+            var item_desc=$('#item_desc').val();
+        if(itemName !='' && category_id !='' && item_code !='' && item_desc !=''){
+                $.ajax({
+                    url: "<?php echo base_url() ?>prd/add_item",
+                    method:'POST',
+                    data:{itemName:itemName,category_id:category_id,item_code:item_code,item_desc:item_desc},
+                    //data:new FormData($this),
+                    //contentType:false,
+                    //processData:false,
+                    success:function(data){
+                        $('.msg').html(data);
+                         alert(data);
+                         $('#item_form')[0].reset();
+                        $('#datatable').modal('hide');
+                        dataTable.ajax.reload();
+                    }
+                });
+        }else
+        {
+            alert('All fields are required');
+        }
+        });
 
+        $(document).on('click','.edit',function(){
+            var item_id=$(this).attr('id');
+            $.ajax({
+                url: "<?php echo base_url() ?>prd/fetch_item",
+                method:"POST",
+                data:{item_id:item_id},
+                datatypr:"json",
+                success:function(data){
+                    
+                }
+            });
+        });
 
     </script>
+<span class="msg"></span>

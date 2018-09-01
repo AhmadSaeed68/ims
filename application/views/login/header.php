@@ -150,6 +150,9 @@ body {font-family: "Open Sans"}
        <li class="nav-item">
           <?= anchor('','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
         </li>
+        <li class="nav-item">
+          <?= anchor('prd/stock_items','stock_item',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
+        </li>
                       <li class="nav-item">
                       <?= anchor('','Invoice',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>

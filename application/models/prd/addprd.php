@@ -173,6 +173,12 @@
                             ->query('SELECT category_name,category_id FROM category WHERE category_status="active"');
                 return $res->result_array();
         }
+
+        function add_items($insert_data){
+            $this->db->insert('items',$insert_data);
+
+        }
+        
     }   
     
 
