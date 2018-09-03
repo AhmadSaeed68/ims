@@ -1,6 +1,13 @@
     <?php
         class Prd extends CI_Controller{
 
+            function __construct()
+            {
+                parent::__construct();
+                if(! $this->session->userdata('user_id')){
+                    return redirect('login');
+                }
+            }
         
         function load_prd_view()
         {
@@ -120,7 +127,7 @@
                     $this->load->view('user',['user'=>$user]);
 
                 }
-                public function get_phone_result()
+                public function get_user_result()
                 {
                     $this->load->helper('form');
                     $user_id = $this->input->post('user_id');
@@ -196,7 +203,7 @@
                 function get_category_result(){
 
                     $this->load->helper('form');
-                    $category_id = $this->input->post('phoneData');
+                    $category_id = $this->input->post('item_id');
                     if(isset($category_id) and !empty($category_id)){
                     $this->load->model('prd/addprd');
                     $records = $this->addprd->category_search($category_id);
@@ -230,14 +237,12 @@
 
         <div class="form-group">
             <label for="pwd">Category_status</label>
-        <?php 
-        echo form_input(['name'=>'category_status','placeholder'=>'Category Status',
-        'class'=>'form-control','type'=>'text','value'=> set_value('title',$row['category_status'])])?>
+   
         </div>
 
             <!-- Fetch data from data base and display select optionn -->
         <div class="form-group">
-            <select class="form-control" value="<?php echo $row['category_status']?>">
+            <select class="form-control" name="category_status" value="<?php echo $row['category_status']?>">
                 <option value="active" name="active">active</option>
                 <option value="inactive" name="inactive">inactive</option>
             </select>
@@ -373,13 +378,85 @@
                 'item_code'=>$this->input->post('item_code'),
                 'item_description'=>$this->input->post('item_desc'),
             );
-            print_r($insert_data);
-            //   $this->load->model('prd/addprd');
-            //   $this->addprd->add_items($insert_data);
+            //print_r($insert_data);
+            $this->load->model('prd/addprd');
+            $this->addprd->add_items($insert_data);
         //}
             }
 
             function fetch_item(){
+                $output='';
+                $this->load->helper('form');
+                $prd_id=$_POST['item_id'];
+                if(isset($prd_id) and !empty($prd_id)){
+                $this->load->model('prd/addprd');
+                $data= $this->addprd->fetch_item($prd_id);
+                
+                foreach($data as $row){
+                    ?>
+                   <div class="container">
+                       <div>
+                       <h4 class="text-center">Items Detail</h4><br>
+                        
+                        </div>
+                    </div>
+                    <?php echo form_open("",['class'=>'form-vertical update_item','id'=>'update_item_form']);?>
+                    <div class="form-group">
+                    <label for="pwd">item Id:</label>
+                            <?php echo form_input(['name'=>'id','placeholder'=>'User ID:',
+            'class'=>'form-control','disabled'=>'true','id'=>'item_id','value'=> set_value('title',$row['item_id'])])?>
+                            
+                            
+                        </div>
+                        <div class="form-group">
+                    <label for="pwd">category Id:</label>
+                            <?php echo form_input(['name'=>'id','placeholder'=>'Category ID:',
+            'class'=>'form-control','disabled'=>'true','id'=>'category_id','value'=> set_value('title',$row['category_id'])])?>
+                            
+                            
+                        </div>
+                    <div class="form-group">
+                            <label for="pwd">Item Name:</label>
+                            <?php echo form_input(['name'=>'name','placeholder'=>'Item Name:',
+            'class'=>'form-control','type'=>'text','id'=>'item_name','id'=>'item_name','value'=> set_value('title',$row['item_name'])])?>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            <label for="pwd">Item Code:</label>
+                            <?php echo form_input(['name'=>'password','placeholder'=>'Item Code',
+            'class'=>'form-control','type'=>'text','id'=>'item_code','value'=> set_value('title',$row['item_code'])])?>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Item Description:</label>
+                            <?php echo form_textarea(['name'=>'item_description','placeholder'=>'item Description',
+            'class'=>'form-control','type'=>'text','id'=>'item_description','value'=> set_value('title',$row['item_description'])])?>
+                            
+                        </div>
+
+                        <div class="form-group">
+            <label for="pwd">Item status</label>
+   
+        </div>
+
+            <!-- Fetch data from data base and display select optionn -->
+        <div class="form-group">
+            <select class="form-control" id="item_status" name="category_status" value="<?php echo $row['item_status']?>">
+                <option value="active" name="active">active</option>
+                <option value="inactive" name="inactive">inactive</option>
+            </select>
+        </div>
+                        
+                        <?php echo form_submit(['name'=>'update','id'=>'update_item','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+                    </form>
+                    </div>
+                </div>
+                <?php
+                }}else{
+                    echo"Some error";
+                }
+                echo $output."";
                 
             }
 
@@ -387,8 +464,45 @@
             function stock_items(){
                 $this->load->view('stock_items');
             }
+
+            function delete_category()
+            {
+                $category_id=$_POST['category_id'];
+                $this->load->model('prd/addprd');
+                $this->addprd->delete_category($category_id);
                 
-        }  
+            }
+            function delete_user()
+            {
+                $delete_id=$_POST['delete_id'];
+                $this->load->model('prd/addprd');
+                $this->addprd->delete_user($category_id);
+                
+            }
+
+            function delete_item(){
+                $item_id=$_POST['item_id'];
+                $this->load->model('prd/addprd');
+                $this->addprd->delete_item($item_id);
+
+            }
+
+            function update_item(){
+            $item_id= $this->input->post('item_id');
+                $insert_data=array(
+                    'category_id'=>$this->input->post('category_id'),
+                    'item_name'=>$this->input->post('itemName'),
+                    
+                    'item_code'=>$this->input->post('item_code'),
+                    'item_description'=>$this->input->post('item_description'),
+                    'item_status'=>$this->input->post('item_status'),
+                    
+                );
+                //print_r($insert_data);
+                $this->load->model('prd/addprd');
+                $this->addprd->update_item($insert_data);
+            }
+        } 
         
         
 

@@ -2,7 +2,7 @@
     <?php
         require_once "login/header.php";
         ?>
-    ?>
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <!-- DataTables CSS CDN -->
@@ -17,21 +17,12 @@
 
     </script>
 
-<div class="container-fluid w3-padding-32">
-    <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
-        <div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa  fa-2x fa-user w3-text-yellow" ></i> Users Detail</h2> </div>
-            <div class="card-body">
-            <?= form_open('prd/search_prd',['class'=>'form-inline my-2 my-lg-0 w3-right'])?>
-            <input class="form-control mr-sm-2" name='query' placeholder="Search" type="text">
-
-            <button class="btn btn-secondary my-2 my-sm-0 fab  fa-searchengin w3-text-red" type="submit"></button>
-            <?= form_close() ?>
-            <?= form_error('query','<p class="navbar-text text-danger" font-family="serif">','</p>');?>
-        <div class="container-fluid w3-padding-32">
-        <div class="table table-success">
-        <div class="col-sm-12">
-
-    <table id="mytable" class="table table-bordered w3-black">
+<div class="container ">
+  <div class="panel">
+      <div class="panel-heading">
+      <div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa  fa-2x fa-user w3-text-yellow" ></i> Users Detail</h2> </div>
+          <div class="panel-body w3-border">
+          <table id="mytable" class="table table-bordered table-striped">
     <thead>
         <tr>
             <th>
@@ -70,7 +61,7 @@
             <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->id; ?>">
         </td>
         <td>
-            <input type="button" class="btn btn-info btn-sm view_data" value="Delete" id="<?php echo $query->id; ?>">
+            <input type="button" class="btn btn-info btn-sm delete" value="Delete" id="<?php echo $query->id; ?>">
         </td>
         <td><?= $query->reg_date?></td>
     </tr>
@@ -79,17 +70,17 @@
     </tbody>
 
     </table>
+          </div>
+      </div>
+  </div>
+        
+           
+       
 
-    </div>
+    
 
-    </div>
-
-    </div>
-
-        </div>
-        </div>
-        </div>
-        <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    </div></div>
+        <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header ">User Detail
@@ -99,7 +90,7 @@
         <div class="modal-body">
         
             <!-- Place to print the fetched phone -->
-            <div id="phone_result">
+            <div id="user_result">
             
             </div>
         </div>
@@ -128,21 +119,42 @@
                     var user_id = $(this).attr('id');
                     // Start AJAX function
                     $.ajax({
-                            url: "<?php echo base_url() ?>prd/get_phone_result",
+                            url: "<?php echo base_url() ?>prd/get_user_result",
                             method: "POST",
                             data: {user_id:user_id},
                             success: function(data)
                             {
                         // Print the fetched data of the selected phone in the section called #phone_result 
                         // within the Bootstrap modal
-                            $('#phone_result').html(data);
+                            $('#user_result').html(data);
                             // Display the Bootstrap modal
-                            $('#phoneModal').modal('show');
+                            $('#Modal').modal('show');
                             }
                 });
                 // End AJAX function
             });
         });  
+
+        $(document).on('click','.delete',function(){
+            var user_id=$(this).attr('id');
+            if(confirm("Are You sure to delete this")){
+            $.ajax({
+                url: "<?php echo base_url() ?>prd/delete_user",
+                method:"POST",
+                data:{user_id:user_id},
+                datatype:"json",
+                success:function(data)
+                {
+                    alert(data);
+                    $('#mytable').dataTable().reload();
+                    
+                }
+            });
+            }else{
+            return false;
+            }
+            
+        });
     </script>
 
         

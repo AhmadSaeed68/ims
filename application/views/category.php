@@ -20,17 +20,14 @@
   
   <script>
 
-  $(document).ready(function(){
-     var datatable= $("#mytable").dataTable();
-  });
-
+  
 
   </script>
 
 
       <div class="container-fluid w3-padding-32">
           <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
-      <div class="card-header w3-center"> <span class="w3-center"> <i class="fa  fa-2x fa-bar-chart w3-text-yellow" ></i> Stock List</span> </div>
+      <div class="card-header w3-center"><div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa-2x fa fa-address-card-o w3-text-yellow" ></i> Category Detail</h2> </div> </div>
       
       <div class="card-body">
       
@@ -52,7 +49,7 @@
         </div>
         <div class="modal-body">
         <?php //echo form_open("prd/add_category/{$user_id}");?>
-        <form method="POST" action="">
+        <form method="POST">
               <div class="form-group">
                   <label for="usr">Category Name:</label>
                   <input type="text" class="form-control" id="category_name" name="category_name">
@@ -82,16 +79,16 @@
     <div class="panel-body">
   <div class="col-sm-12">
 
-          <table id="mytable" class="table table-bordered w3-black">
+          <table id="mytable" class="table table-bordered table-striped">
   <thead>
   <tr>
       <th><i class="glyphicon glyphicon-bookmark"></i>Category Id</th>
       <th><i class=" 
       glyphicon glyphicon-user w3-text-blue"></i>User Id</th>
   <th><i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name</th>
-  <th><i class="glyphicon glyphicon-open-file w3-text-green"></i>Status</th>
-  <th><i class="glyphicon glyphicon-open-file w3-text-blue"></i>Edit</th>
-  <th><i class="glyphicon glyphicon-open-file w3-text-red"></i>Delete</th>
+  <th><i class="fa fa-heartbeat w3-text-green"></i> Status</th>
+  <th><i class="fa fa-scissors w3-text-orange"></i> Edit</th>
+  <th><i class="glyphicon glyphicon-trash w3-text-red"></i>Delete</th>
     
     
   </tr>
@@ -118,7 +115,7 @@
       <input type="button" class="btn btn-info btn-sm view_data" value="Edit" id="<?php echo $query->category_id; ?>">
       </td>
       <td>
-      
+      <input type="button" class="btn btn-info btn-sm delete" value="Delete" id="<?php echo $query->category_id; ?>">
       </td>
   </tr>
   <?php endforeach;?>
@@ -140,7 +137,7 @@
       </div>
       </div></div>
       </div>
-      <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+      <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header ">User Detail
@@ -183,8 +180,8 @@
           data: {category_name:name,category_status:status,id:id},
           success:  function(feedback){
             $('#feedback1').html(feedback);
-             $('#add_category').modal('show');
-             datatable.ajax.reload();
+            $('#add_category').modal('show');
+              datatable.ajax.reload();
             // return false;
             
           }
@@ -193,6 +190,9 @@
   });
     </script> 
   <script type="text/javascript">
+  $(document).ready(function(){
+     var dataTable= $("#mytable").dataTable();
+  });
 
       // Start jQuery function after page is loaded
           $(document).ready(function(){
@@ -201,7 +201,7 @@
           // Start jQuery click function to view Bootstrap modal when view info button is clicked
               $('.view_data').click(function(){
               // Get the id of selected phone and assign it in a variable called phoneData
-                  var phoneData = $(this).attr('id');
+                  var item_id = $(this).attr('id');
                   // Start AJAX function
                   $.ajax({
                   // Path for controller function which fetches selected phone data
@@ -209,19 +209,40 @@
                       // Method of getting data
                       method: "POST",
                       // Data is sent to the server
-                      data: {phoneData:phoneData},
+                      data: {item_id:item_id},
                       // Callback function that is executed after data is successfully sent and recieved
                       success: function(data){
                       // Print the fetched data of the selected phone in the section called #phone_result 
                       // within the Bootstrap modal
                           $('#phone_result').html(data);
                           // Display the Bootstrap modal
-                          $('#phoneModal').modal('show');
+                          $('#Modal').modal('show');
                       }
               });
               // End AJAX function
           });
       });  
+
+      $(document).on('click','.delete',function(){
+            var category_id=$(this).attr('id');
+            if(confirm("Are You sure to delete this")){
+            $.ajax({
+                url: "<?php echo base_url() ?>prd/delete_category",
+                method:"POST",
+                data:{category_id:category_id},
+                datatype:"json",
+                success:function(data)
+                {
+                    alert(data);
+                    $('#mytable').dataTable().reload();
+                    
+                }
+            });
+            }else{
+              return false;
+            }
+            
+        });
       </script>
 
       

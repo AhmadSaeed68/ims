@@ -142,10 +142,10 @@ body {font-family: "Open Sans"}
       <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
       </li>
       <li class="nav-item">
-       <?= anchor('prd/category','Category',['class'=>'nav-link  glyphicon glyphicon-user'])?>
+       <?= anchor('prd/category',' Category',['class'=>'nav-link  fa fa-address-card-o'])?>
       </li>
       <li class="nav-item">
-          <?= anchor('prd/item','Items',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
+          <?= anchor('prd/item',' Items',['class'=>'nav-link fa fa-columns'])?>
         </li>
        <li class="nav-item">
           <?= anchor('','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
@@ -159,8 +159,9 @@ body {font-family: "Open Sans"}
                       <li class="nav-item">
                       <?= anchor('','PurchaseOrder',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
-     
-    </ul>
+                      
+</ul>
+
     
 
 <?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?> <!--,'data-toggle'=>'modal'-->

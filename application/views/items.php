@@ -1,13 +1,14 @@
     <?php include_once"login/header.php";
-     $id=$this->session->userdata('user_id');
-     echo $id->id;
+    $id=$this->session->userdata('user_id');
+    echo $id->id;
     ?>
     
 <div class="container">
+<div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa-2x fa fa-columns w3-text-yellow" ></i> Items Detail</h2> </div>
     <div class="w3-right"><input type="button" class="btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
     <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Items Detail</h3>
+        <h2 class="panel-title">Items Detail</h2>
         </div>
         <!-- Pannel tag -->
             <div class="panel-body">
@@ -24,23 +25,23 @@
                 <i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name
             </th>
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>Item Name
+                <i class="fa fa-list-alt w3-text-red"></i>Item Name
             </th>
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>item Code
+                <i class="fa fa-barcode w3-text-blue"></i>item Code
             </th>
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-green"></i>Item Description
+                <i class="fa fa-newspaper-o w3-text-green"></i>Item Description
             </th>
 
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>Item Status
+                <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
             </th>
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>Edit
+                <i class="fa fa-scissors w3-text-orange"></i>Edit
             </th>
             <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>Delete
+                <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
             </th>
         
         
@@ -78,7 +79,7 @@
                 <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
             </td>
             <td>
-                <input type="button" class="btn btn-info btn-sm delete" value="Edit" id="<?=$item['item_id']?>">
+                <input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?=$item['item_id']?>">
             </td>
         </tr>
             <?php endforeach;?>
@@ -119,7 +120,7 @@
 
     <script>
     $(document).ready(function(){
-            $("#brand_data").dataTable();
+        var dataTable= $("#brand_data").dataTable();
         });
 
     $(document).ready(function(){
@@ -163,9 +164,9 @@
                     //processData:false,
                     success:function(data){
                         $('.msg').html(data);
-                         alert(data);
-                         $('#item_form')[0].reset();
-                        $('#datatable').modal('hide');
+                        alert('Successful insert');
+                        $('#item_form')[0].reset();
+                        $('#phoneModal').modal('hide');
                         dataTable.ajax.reload();
                     }
                 });
@@ -181,12 +182,69 @@
                 url: "<?php echo base_url() ?>prd/fetch_item",
                 method:"POST",
                 data:{item_id:item_id},
-                datatypr:"json",
-                success:function(data){
+                //datatype:"json",
+                success:function(data)
+                {
+                    $('#phone_result').html(data);
+                    $('#phoneModal').modal('show');
                     
                 }
             });
         });
+        
+        $(document).on('click','.delete',function(){
+            var item_id=$(this).attr('id');
+            if(confirm("Are You sure to delete this")){
+            $.ajax({
+                url: "<?php echo base_url() ?>prd/delete_item",
+                method:"POST",
+                data:{item_id:item_id},
+                datatype:"json",
+                success:function(data)
+                {
+                    alert(data);
+                    $('#mytable').dataTable().reload();
+                    
+                }
+            });
+            }else{
+            return false;
+            }
+            
+        });
 
+
+
+        $(document).on('update','.update_item_form',function(event){
+            event.preventDefault();
+            var item_id=$('#item_id').val();
+            var category_id=$('#category_id').val();
+            var item_name=$('#item_name').val();
+            var item_code=$('#item_code').val();
+            var item_description=$('#item_description').val();
+            var item_status=$('#item_status').val();
+            alert(item_code);
+            
+        // if(item_id !='' && category_id !='' && item_code !='' && item_description !=''&& item_name !=''&& item_status !=''){
+        //         $.ajax({
+        //             url: "<?php //echo base_url() ?>prd/update_item",
+        //             method:'POST',
+        //             data:{item_name:item_name,category_id:category_id,item_code:item_code,item_id:item_id,item_code:item_code,item_status:item_status,item_description:item_description},
+        //             //data:new FormData($this),
+        //             //contentType:false,
+        //             //processData:false,
+        //             success:function(data){
+        //                 $('.msg').html(data);
+        //                 alert('Successful insert');
+        //                 $('#update_item_form')[0].reset();
+        //                 $('#phoneModal').modal('hide');
+        //                 dataTable.ajax.reload();
+        //             }
+        //         });
+        // }else
+        // {
+        //     alert('All fields are required');
+        // }
+        });
     </script>
 <span class="msg"></span>

@@ -169,7 +169,7 @@
             // $this->db->where('category_id',$phoneData);
             // $res2 = $this->db->get('items_in_stock');
             // return $res2->result_array();
-           $res= $this->db
+            $res= $this->db
                             ->query('SELECT category_name,category_id FROM category WHERE category_status="active"');
                 return $res->result_array();
         }
@@ -177,6 +177,34 @@
         function add_items($insert_data){
             $this->db->insert('items',$insert_data);
 
+        }
+
+        function fetch_item($prd_id){
+
+        $query=  $this->db
+                    ->where('item_id',$prd_id)
+                    ->get('items');
+                return $query->result_array();
+
+        }
+
+        function delete_category($category_id){
+            $this->db
+                    ->where('category_id',$category_id)
+                    ->delete("category");
+        }
+
+        function delete_item($item_id){
+            $this->db
+            ->where('item_id',$item_id)
+            ->delete("items");
+        }
+
+        function update_item($insert_data){
+            return $this->db
+            
+            ->update('items',$insert_data)
+            ->where('item_id',10);
         }
         
     }   
