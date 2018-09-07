@@ -502,6 +502,117 @@
                 $this->load->model('prd/addprd');
                 $this->addprd->update_item($insert_data);
             }
+
+            function order_managment(){
+                $this->load->model('prd/addprd');
+                $order_data=$this->addprd->order_managment();
+                
+            $this->load->view('order.php',['order_data'=>$order_data]);
+            }
+
+            function edit_order(){
+                $this->load->helper('form');
+                    $order_id = $this->input->post('order_id');
+                    if(isset($order_id) and !empty($order_id)){
+                    $this->load->model('prd/addprd');
+                    $records = $this->addprd->edit_order($order_id);
+                        foreach($records as $data):?>
+
+                        <div class="container">
+                            <div class="col">
+                            <div class="col-sm-8">
+                            <form action="" class="order" id="order_form">
+                                <div class="form-group">
+                                    <label for="email">ID</label>
+                                    <input type="text" disabled class="form-control" placeholder="ID" value="<?=$data['id']?>" id="id">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Po Code:</label>
+                                    <input type="text" class="form-control" value="<?=$data['po_code']?>" id="po_code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Po Vendor</label>
+                                    <input type="text" class="form-control" value="<?=$data['po_vendor']?>" id="po_vendor">
+                                </div>
+                                <div class="form-group">
+                            <label for="pwd">Item Description:</label>
+                            <?php echo form_textarea(['name'=>'item_description','placeholder'=>'item Description',
+            'class'=>'form-control','type'=>'text','id'=>'po_description','value'=> set_value('title',$data['po_description'])])?>
+                            
+                        </div>
+                        <div class="form-group">
+                        <label for="pwd">Status</label>
+                            <select class="form-control"  name="category_status" id="status" value="<?php echo $data['po_status']?>">
+                                <option value="active" name="active">active</option>
+                                <option value="inactive" name="inactive">inactive</option>
+                            </select>
+                        </div>
+                                <div class="form-group">
+                                    <label for="pwd">Item Code</label>
+                                    <input type="text" class="form-control" value="<?=$data['item_code']?>"  id="item_code">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Item Quantity</label>
+                                    <input type="text" class="form-control" value="<?=$data['item_qty']?>" id="item_quantity">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">Item Rate:</label>
+                                    <input type="text" class="form-control" value="<?=$data['item_rate']?>" id="item_rate">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwd">PO Date:</label>
+                                    <input type="text" class="form-control" value="<?=$data['date']?>" id="date">
+                                </div>
+                                
+                                <?php //echo form_submit(['name'=>'update','id'=>'update_order','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
+                                <button type="submit" class="btn btn-default update" class="update" id="update">update</button>
+                            </form> 
+                            </div>
+                            </div>
+                        </div>
+                        
+
+                    <?php  endforeach;
+                    $output = '';
+                }else{
+                    echo"Some error";
+                }
+            }
+
+            function update_order(){
+       echo $id=$_POST['id'];
+        $po_code=$_POST['po_code'];
+        $po_vendor=$_POST['po_vendor'];
+        $po_status=$_POST['po_status'];
+        $item_code=$_POST['item_code'];
+        $item_quantity=$_POST['item_quantity'];
+        $item_rate=$_POST['item_rate'];
+        $date=$_POST['date'];
+        $po_code=$_POST['po_code'];
+         $po_description=$_POST['po_description'];
+            
+            }
+
+            function get_itemCode_in_order(){
+               
+                $this->load->model('prd/addprd');
+               $item_data= $this->addprd->get_itemCode_in_order();
+               ?>
+               <select class="form-control" id="category_id" name="category_id">
+                <?php   
+              foreach($item_data as $each){
+                  echo $each['item_code'];
+                  ?>
+                  <option id="<?php echo $each['item_code']; ?>" 
+                  value="<?php echo $each['item_code'] ?>" 
+                  id="<?php echo $each['item_id'] ?>"><?php echo $each['item_name'].'/'.$each['item_code']?>
+              </option>';
+                      <?php } ?>
+                      </select>
+                      <?php
+              
+               
+            }
         } 
         
         

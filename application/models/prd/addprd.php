@@ -206,6 +206,33 @@
             ->update('items',$insert_data)
             ->where('item_id',10);
         }
+
+        function order_managment(){
+            $data=$this->db
+            ->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
+return $data->result_array();
+        }
+
+        function edit_order($order_id){
+           $result= $this->db->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
+                    $this->db->where('id',$order_id);
+                    $this->db->get('purchase_order_detail');
+                return $result->result_array();
+
+        }
+
+        function update_order(){
+            
+        }
+
+      function get_itemCode_in_order(){
+        $asset=$this->db
+        ->select(['item_name','item_code','item_id'])
+        ->from('items')
+        ->get();
+        
+    return $asset->result_array();
+      }
         
     }   
     

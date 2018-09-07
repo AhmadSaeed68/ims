@@ -142,13 +142,13 @@ body {font-family: "Open Sans"}
       <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
       </li>
       <li class="nav-item">
-       <?= anchor('prd/category',' Category',['class'=>'nav-link  fa fa-address-card-o'])?>
+      <?= anchor('prd/category',' Category',['class'=>'nav-link  fa fa-address-card-o'])?>
       </li>
       <li class="nav-item">
           <?= anchor('prd/item',' Items',['class'=>'nav-link fa fa-columns'])?>
         </li>
-       <li class="nav-item">
-          <?= anchor('','Brand',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
+      <li class="nav-item">
+          <?= anchor('prd/order_managment','Order',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
         </li>
         <li class="nav-item">
           <?= anchor('prd/stock_items','stock_item',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
