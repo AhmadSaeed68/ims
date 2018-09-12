@@ -598,7 +598,7 @@
                 $this->load->model('prd/addprd');
                $item_data= $this->addprd->get_itemCode_in_order();
                ?>
-               <select class="form-control" id="category_id" name="category_id">
+               <select class="form-control" id="category_id" name="category_id[]">
                 <?php   
               foreach($item_data as $each){
                   echo $each['item_code'];
@@ -612,6 +612,31 @@
                       <?php
               
                
+            }
+
+
+            function make_order(){
+                $data=$this->input->post();
+                
+                // $data=implode(',',$this->input->post('po_desc'));
+                // $data = json_encode($this->input->post('po_desc'));
+
+                // $data=array(
+                //     'po_vendor'=>$this->input->post('po_vendor'),
+                //     'po_code'=>$this->input->post('po_code'),
+                //     'po_date'=>$this->input->post('date'),
+                //     'po_description'=>$this->input->post('po_desc'),
+                //     'po_status'=>$this->input->post('status'),
+                //     'item_code'=>$this->input->post('category_id'),
+                //     'item_rate'=>$this->input->post('item_rate'),
+                //     'item_quantity'=>$this->input->post('item_quantity')
+                    
+                // );
+                
+                
+                  $this->load->model('prd/addprd');
+                  $this->addprd->make_order($data);
+                
             }
         } 
         

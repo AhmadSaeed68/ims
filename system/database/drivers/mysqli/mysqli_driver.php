@@ -323,7 +323,7 @@ class CI_DB_mysqli_driver extends CI_DB {
 
 		return $str;
 	}
-
+	
 	// --------------------------------------------------------------------
 
 	/**
@@ -758,6 +758,9 @@ class CI_DB_mysqli_driver extends CI_DB {
 	{
 		@mysqli_close($conn_id);
 	}
+
+
+	
 
 
 }

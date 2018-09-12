@@ -2,7 +2,16 @@
 
     class Addprd extends CI_Model{
 
+function db(){
+    $conn = new mysqli("localhost", "root", "","ims");
 
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} else{
+   return $conn;
+}
+}
         function add_prd($post)
         {
         return $this->db->insert('purchase',$post);
@@ -233,8 +242,131 @@ return $data->result_array();
         
     return $asset->result_array();
       }
+      
+      function make_order($data){
+           $records = count($_POST['item_rate']);
+     
+
+for($i=0; $i<$records; $i++) {
+    //*******This data use for insert into PURCHASE_ORDER_DETAIL****** */
+    $data = array(
+        'item_rate' => $this->input->post('item_rate')[$i],
+        'item_qty' => $_POST['item_quantity'][$i],
+        'item_code' => $_POST['category_id'][$i],
+        'po_code' => $_POST['po_code'][$i],
         
-    }   
+        
+    );
+    //*******This data use for insert into PURCHASE_ORDER****** */
+    $data1 = array(
+       
+        'po_description' => $_POST['po_desc'][$i],
+        'po_total'=>$this->input->post('item_rate')[$i]*$_POST['item_quantity'][$i],
+        'po_code' => $_POST['po_code'][$i],
+        
+        
+    );
+
+   $q1= $this->db->insert('purchase_order_detail',$data);
+   $q2= $this->db->insert('purchase_order',$data1);
+   if($q1 && $q2){
+       echo'Insert Success fully';
+   }
+    
+    
+}
+/************************************************************************* */
+/**************************Previous Working Code with Procedural********* */
+/*********************************************************************** */
+
+        
+//         $db=$this->db();
+//         $item_rate=$this->input->post('item_rate');
+             
+//               $po_code=$this->input->post('po_code');
+//             $po_date=$this->input->post('date');
+//               $po_description=$this->input->post('po_desc');
+//           $po_status=$this->input->post('status');
+//          $item_code=$this->input->post('item_code');
+//           $item_rate=$this->input->post('item_rate');
+//              $item_quantity=$this->input->post('item_quantity');
+//              $query='';
+//  for($count=0;$count<count($item_quantity);$count++) { 
+	
+// 	$po_code_clean=mysqli_real_escape_string($db,$po_code[$count]);
+// 	$po_description_clean=mysqli_real_escape_string($db,$po_description[$count]);
+// 	$item_rate_clean=mysqli_real_escape_string($db,$item_rate[$count]);
+	
+	
+// 	$item_quantity_clean=mysqli_real_escape_string($db,$item_quantity[$count]);
+// 	$item_code_clean=mysqli_real_escape_string($db,$item_code[$count]);
+	
+//     if($po_code_clean !='' && $po_description_clean !='' && $item_rate_clean !=''
+//      && $item_quantity_clean!='' && $item_code_clean !=''){
+
+//         $this->db
+//             ->insert('purchase_order_detail',['po_code'=>$po_code_clean]);
+//         // $query.='
+
+// 		// INSERT INTO purchase_order(po_code,po_date,po_total,po_description) VALUES("'.$po_code_clean.'","'.$date_clean.'","'.$item_rate_clean*$item_quantity_clean.'","'.$po_description_clean.'");
+// 		// INSERT INTO purchase_order_detail(po_code,item_code,item_qty,ite_rate) VALUES("'.$po_code_clean.'","'.$item_code_clean.'","'.$item_quantity_clean.'","'.
+// 		// $item_rate_clean.'");
+
+//         // ';
+//         // print_r($query);
+//     }else{
+//         echo"required";
+//     }
+/************************************************************************************ */
+/****************************************End Working CODE PHP PROCEDURAL************ */
+/********************************************************************************** */
+}
+
+    function test(){
+
+        //******************************************************************* */
+
+        //*************** accurate Code******************************************
+
+        //******************************************************************** */
+//       $records = count($_POST['item_rate']);
+     
+
+// for($i=0; $i<$records; $i++) {
+//     $data = array(
+//         'item_rate' => $this->input->post('item_rate')[$i],
+//         'item_qty' => $_POST['item_quantity'][$i],
+//         'item_code' => $_POST['category_id'][$i],
+//         'po_code' => $_POST['po_code'][$i],
+        
+        
+//     );
+//     $data1 = array(
+       
+//         'po_description' => $_POST['po_desc'][$i],
+//         'po_total'=>$this->input->post('item_rate')[$i]*$_POST['item_quantity'][$i],
+//         'po_code' => $_POST['po_code'][$i],
+        
+        
+//     );
+
+//    $q1= $this->db->insert('purchase_order_detail',$data);
+//    $q2= $this->db->insert('purchase_order',$data1);
+//    if($q1 && $q2){
+//        echo'Insert Success fully';
+//    }
+    
+    
+// }
+//***************************************************************************** */
+    /************************FInal end accurate Code**************************************** */
+// **************************Just For TEST Make_ORDER into database**************************/
+/*********************************************************************************** */
+
+
+    }
+        
+} 
     
 
 ?>

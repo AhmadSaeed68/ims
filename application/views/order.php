@@ -1,4 +1,15 @@
 <?php include_once "login/header.php";  ?>
+<style type="text/css">
+    .bs-example{
+      margin: 20px;
+    }
+  
+    @media screen and (min-width: 992px) {
+        .modal-lg {
+          width: 1200px; /* New width for large modal */
+        }
+    }
+</style>
 <div class="container">
     
     <div class="w3-container">
@@ -6,72 +17,74 @@
         <div class="panel panel-default">
             <div class="panel-heading">Order Managment
             <span class="w3-right">
-            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#order_modal">Open Modal</button>
-               </span> <!-- Modal -->
-                <div id="order_modal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Make Order</h4>
-                    </div>
-                    <div class="modal-body">
-                    <form action="" class="order" id="add_order">
-                                <div class="form-group">
-                                    <label for="email">ID</label>
-                                    <input type="text" disabled class="form-control" placeholder="ID"  id="id">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pwd">Po Code:</label>
-                                    <input type="text" class="form-control"  id="po_code">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Po Vendor</label>
-                                    <input type="text" class="form-control"  id="po_vendor">
-                                </div>
-                                <div class="form-group">
-                                <label for="email">Po Description</label>
-                            <textarea rows="4" cols="50"></textarea>
-                            
-                        </div>
-                        <div class="form-group">
-                        <label for="pwd">Status</label>
-                            <select class="form-control"  name="category_status" id="status">
-                                <option value="active" name="active">active</option>
-                                <option value="inactive" name="inactive">inactive</option>
-                            </select>
-                        </div>
-                                <div class="form-group">
-                                    <label for="pwd">Item Code</label>
-                                    <span id="user_resul" class="show_data"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Item Quantity</label>
-                                    <input type="text" class="form-control"  id="item_quantity">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pwd">Item Rate:</label>
-                                    <input type="text" class="form-control"  id="item_rate">
-                                </div>
-                                <div class="form-group">
-                                    <label for="pwd">PO Date:</label>
-                                    <input type="text" class="form-control"  id="date">
-                                </div>
-                                
-                                <?php //echo form_submit(['name'=>'update','id'=>'update_order','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
-                                <button type="submit" class="btn btn-default update" class="update" id="update">Add</button>
-                            </form>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                    </div>
-
-                </div>
-                </div>
+            <a href="#largeModal" class="btn btn-primary" data-toggle="modal">Make Purchase order</a>
            
+               </span> <!-- Modal -->
+              <!-- Large Modal HTML -->
+    <div id="largeModal" class="modal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Large Modal</h4>
+                </div>
+                <div class="modal-body">
+                   <div class="container">
+                       <div class="row">
+                       <form id="dynamic_field">
+                            <legend class="w3-center w3-padding">
+                      <h1 class="w3-text-green">Make Purchase Order</h1>
+                       </legend>
+                           <div class="col-sm-6 col-md-6">
+                               <div class="form-row">
+                    <div class="form-group col-md-3">
+                    <label for="pwd">Po Code:</label>
+                     <input type="number" required="" name="po_code[]" class="form-control"  id="po_code">
+                    </div>
+                  
+                    <div class="form-group col-md-4">
+                     <label for="pwd">PO Date:</label>
+                    <input type="date" class="form-control" name="date[]" id="date">
+                    </div>
+                    <div class="form-group col-md-5">
+                    
+                 <label for="email" class="w3-center">Po Description</label>
+                <textarea rows="5" name="po_desc[]" id="po_desc" required="" cols="25"></textarea>
+                    </div>
+                </div>
+               
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                    <label for="pwd">Item Code</label>
+                    <span id="user_resul"  name="item_code[]" class="show_data"></span>
+                   <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
+                    </div>
+                    <div class="form-group col-md-4">
+                    <label for="email">Item Quantity</label>
+                    <input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity">
+                   
+                    </div>
+                    <div class="form-group col-md-4">
+                     <label for="pwd">Item Rate:</label>
+                    <input type="number" class="form-control" required="" name="item_rate[]" id="item_rate">
+                    </div>
+                </div>
+                           </div>
+                           <div class="col-sm-6 col-md-6">
+                               <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                           </div>
+                       
+                       </div>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-success" name="submit" id="submit" value="Make Order">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+                </div>
+                </form>
             </div>
+        </div>
+    </div>
             <div class="panel-body">
             <div class="w3-responsive">
             <table class="w3-table-all table-bordered" id="order_data">
@@ -291,6 +304,41 @@ $(document).on('submit','#add_order',function(event){
                 // End AJAX function
             
         });
+
+        // Purchase order modal
+
+        $(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').append('<tr id="row'+i+'"><td><h2 class="w3-wide">Add Orders Detail</h2><hr><div class="form-row"><div class="form-group col-md-4"><label for="status">Item Code</label><input type="number" class="form-control" required="" name="item_code[]" id="item_code"></div><div class="form-row"><span id="user_resul" class="show_data"></span><div class="form-group col-md-4"><label for="email">Item Quantity</label> <input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity"></div><div class="form-group col-md-4"><label for="item_rate">Item Rate:</label><input type="number" class="form-control" required="" id="item_rate" name="item_rate[]"></div></div></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+      $('#submit').click(function(){   
+        // var item_rate = [];
+        //         $('.item_rate').each(function(){
+        //                 item_name.push($(this).text());
+                       
+        //                 });    
+        //                 alert(item_rate);   
+           $.ajax({  
+                url:"<?php echo base_url() ?>prd/make_order", 
+                method:"POST",
+                // Last time set  
+                data:$('#dynamic_field').serialize(),  
+               
+
+                success:function(data)  
+                {  
+                     alert(data);  
+                     //$('#dynamic_field')[0].reset();  
+                }  
+           });  
+      });  
+ });  
 
 
 </script>
