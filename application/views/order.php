@@ -132,7 +132,6 @@
 </div>
 
             <!-- 
-
                 MOdal that load after gettinng data -
                 
                 
@@ -178,7 +177,6 @@
         // This is data that view after click on edit button//
         //                                                  //
         //                                                  //
-
         $(document).ready(function(){
         
             $('#dataTable').DataTable();
@@ -204,7 +202,6 @@
                 //End AJAX function
             });
         });  
-
 // 
 // 
 // 
@@ -240,8 +237,6 @@
                     
                 }
             });
-
-
         });
 // 
 // 
@@ -250,8 +245,6 @@
 // 
 // 
 //
-
-
 $(document).on('submit','#add_order',function(event){
             event.preventDefault();
             var order_id=$('#id').val();
@@ -280,11 +273,7 @@ $(document).on('submit','#add_order',function(event){
                     
                 }
             });
-
-
         });
-
-
         $(document).ready(function(){
             
             
@@ -304,9 +293,7 @@ $(document).on('submit','#add_order',function(event){
                 // End AJAX function
             
         });
-
         // Purchase order modal
-
         $(document).ready(function(){  
       var i=1;  
       $('#add').click(function(){  
@@ -330,7 +317,6 @@ $(document).on('submit','#add_order',function(event){
                 // Last time set  
                 data:$('#dynamic_field').serialize(),  
                
-
                 success:function(data)  
                 {  
                      alert(data);  
@@ -339,8 +325,6 @@ $(document).on('submit','#add_order',function(event){
            });  
       });  
  });  
-
-
 </script>
 
 <button class="btn"></button>

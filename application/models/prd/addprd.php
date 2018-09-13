@@ -223,9 +223,13 @@ return $data->result_array();
         }
 
         function edit_order($order_id){
-           $result= $this->db->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
-                    $this->db->where('id',$order_id);
-                    $this->db->get('purchase_order_detail');
+           //$result= $this->db->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
+          $result= $this->db->select('')
+          ->from('purchase_order')
+          ->join('purchase_order_detail','purchase_order_detail.id=purchase_order.id','inner')
+                        //->where('id',$order_id)
+                       
+                    ->get('');
                 return $result->result_array();
 
         }

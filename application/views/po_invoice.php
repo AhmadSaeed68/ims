@@ -69,3 +69,69 @@ print_r($po_invoice);
     </div>
     </div>
 </div>
+
+         <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        <div class="modal-header ">User Detail
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+        
+            <!-- Place to print the fetched phone -->
+            <div id="result">
+            
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+        </div>
+    </div>
+    </div>
+
+            <!-- 
+                
+                *************************************************
+                MODAL DATA AFTER GETTING DATA FROMM EDIT FUNCTION
+                **************************************************
+            
+            
+             -->
+
+             <!-- jQuery JS CDN -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
+    <!-- jQuery DataTables JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
+    
+
+<script>
+$(document).ready(function(){
+        var dataTable=$("#order_data").dataTable();
+    });
+/********GET ID FROM INVOICE ID */
+$(document).ready(function(){
+    $('#dataTable').DataTable();
+    $('.edit').click(function(){
+        var invoice_id = $(this).attr('id');
+        $.ajax({
+                            url: "<?php echo base_url() ?>prd/edit_invoice",
+                            method: "POST",
+                            data: {invoice_id:invoice_id},
+                            success: function(data)
+                            {
+                        // Print the fetched data of the selected order in the modal
+                        // within the Bootstrap modal
+                            $('#result').html(data);
+                            // Display the Bootstrap modal
+                            $('#Modal').modal('show');
+                            }
+                });
+    });
+});
+</script>

@@ -513,7 +513,7 @@
             function edit_order(){
                 $this->load->helper('form');
                     $order_id = $this->input->post('order_id');
-                    if(isset($order_id) and !empty($order_id)){
+                    if(isset($order_id) && !empty($order_id)){
                     $this->load->model('prd/addprd');
                     $records = $this->addprd->edit_order($order_id);
                         foreach($records as $data):?>
@@ -646,6 +646,12 @@
                $this->load->model('prd/addprd');
               $po_invoice= $this->addprd->po_invoice();
               $this->load->view('po_invoice',['po_invoice'=>$po_invoice]);
+            }
+
+
+            /***************************EDIT INVOICE DATA************ */
+            function edit_invoice(){
+                echo"dsds";
             }
         } 
         
