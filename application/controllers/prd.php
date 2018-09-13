@@ -638,6 +638,15 @@
                   $this->addprd->make_order($data);
                 
             }
+
+            /**********  PO INVOICE  Function  **********/
+
+            function po_invoice(){
+
+               $this->load->model('prd/addprd');
+              $po_invoice= $this->addprd->po_invoice();
+              $this->load->view('po_invoice',['po_invoice'=>$po_invoice]);
+            }
         } 
         
         

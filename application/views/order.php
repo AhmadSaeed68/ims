@@ -39,7 +39,7 @@
                                <div class="form-row">
                     <div class="form-group col-md-3">
                     <label for="pwd">Po Code:</label>
-                     <input type="number" required="" name="po_code[]" class="form-control"  id="po_code">
+                     <input type="text" required="" name="po_code[]" class="form-control"  id="po_code">
                     </div>
                   
                     <div class="form-group col-md-4">

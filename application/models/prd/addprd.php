@@ -365,6 +365,12 @@ for($i=0; $i<$records; $i++) {
 
 
     }
+
+    function po_invoice(){
+        $data=$this->db
+        ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
+return $data->result_array();
+    }
         
 } 
     
