@@ -227,7 +227,7 @@ return $data->result_array();
           $result= $this->db->select('')
           ->from('purchase_order')
           ->join('purchase_order_detail','purchase_order_detail.id=purchase_order.id','inner')
-                        //->where('id',$order_id)
+                        ->where('purchase_order.id',$order_id)
                        
                     ->get('');
                 return $result->result_array();
@@ -374,6 +374,16 @@ for($i=0; $i<$records; $i++) {
         $data=$this->db
         ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
 return $data->result_array();
+    }
+
+    function edit_invoice($id){
+        $result= $this->db->select('')
+          ->from('po_invoice')
+          ->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+                        ->where('po_invoice.id',$id)
+                       
+                    ->get('');
+                return $result->result_array();
     }
         
 } 

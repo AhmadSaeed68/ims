@@ -651,7 +651,18 @@
 
             /***************************EDIT INVOICE DATA************ */
             function edit_invoice(){
-                echo"dsds";
+
+               $this->load->helper('form');
+               $id=$this->input->post('invoice_id');
+                    if(isset($id) && !empty($id)){
+                    $this->load->model('prd/addprd');
+                    $records = $this->addprd->edit_invoice($id);
+                    print_r($records);
+                        foreach($records as $data):?>
+                        
+
+                        <?php endforeach;
+                    }
             }
         } 
         
