@@ -378,8 +378,8 @@ return $data->result_array();
 
     function edit_invoice($id){
         $result= $this->db->select('')
-          ->from('po_invoice')
-          ->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+          ->from('po_invoice_detail')
+          ->join('po_invoice','po_invoice_detail.invoice_code=po_invoice.invoice_code','inner')
                         ->where('po_invoice.id',$id)
                        
                     ->get('');

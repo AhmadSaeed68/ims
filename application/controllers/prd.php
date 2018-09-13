@@ -516,8 +516,8 @@
                     if(isset($order_id) && !empty($order_id)){
                     $this->load->model('prd/addprd');
                     $records = $this->addprd->edit_order($order_id);
-                        foreach($records as $data):?>
-
+                        foreach($records as $data):print_r($records);?>
+                            
                         <div class="container">
                             <div class="col">
                             <div class="col-sm-8">
@@ -662,6 +662,79 @@
                         
 
                         <?php endforeach;
+                       
+                        ?>
+                        
+                        <div class="container">
+                    <div class="row">
+                       <form id="dynamic_field">
+                       <div class="form-row">
+                       <legend class="">
+                      <h1 class="w3-text-green">PO Invoice</h1>
+                       </legend>
+                       </div>
+                            
+                           <div class="col-sm-6 col-md-6">
+                               <div class="form-row">
+                                 <div class="form-group col-md-2">
+                                 <label for="pwd">Po Code:</label>
+                                  <input type="text" required="" name="po_code[]" class="form-control"  id="po_code">
+                                 </div>
+
+                                 <div class="form-group col-md-5">
+                                  <label for="pwd">Invoice Code:</label>
+                                 <input type="text" class="form-control" name="invoice_code" id="invoice_code">
+                                 </div>
+                                 <div class="form-group col-md-5">
+                                    <label for="pwd">Item Code</label>
+                                 <input type="text" class="form-control" required name="item_code" id="item_code">
+                                 </div>
+                             </div>
+               
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                    <label for="pwd">Item Rate:</label>
+                    <input type="text" class="form-control" required name="item_rate" id="item_rate">                   
+                    </div>
+                    <div class="form-group col-md-4">
+                    <label for="email">Item Quantity</label>
+                    <input type="text" class="form-control" required name="item_qty" id="item_qty">
+                   
+                    </div>
+                    <div class="form-group col-md-4">
+                     <label for="pwd">Invoice total:</label>
+                    <input type="number" class="form-control" required name="invoice_total" id="invoice_total">
+                    </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                     <label for="pwd">Date:</label>
+                     <input type="date" class="form-control" required name="date" id="date">
+                     
+                    </div>
+                    <div class="form-group col-md-8">
+                    <label for="pwd">Invoice Description</label>
+                    
+                    <textarea rows="3" cols="30"  class="form-control" required name="invoice_description" id="invoice_description"></textarea>
+                    </div>
+                   
+                    
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                           <input type="button" name="update" value='Update' id="add" class="btn btn-success ">
+                </div>
+                           
+                </div>
+                           </div>
+                           
+                       </form>
+                       </div>
+</div
+      
+
+
+                        <?php
                     }
             }
         } 
