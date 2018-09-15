@@ -161,7 +161,7 @@ $(document).on('submit','#invoice_update',function(event){
                     alert(data);
                     
                     $('#Modal').modal('hide');
-                    dataTable.ajax.reload();
+                    $("#order_data").dataTable().ajax.reload();
                     
                 }
             });

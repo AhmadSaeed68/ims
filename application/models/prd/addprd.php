@@ -390,11 +390,37 @@ return $data->result_array();
         $id=$this->input->post('id');
         $po_code=$this->input->post('po_code');
         $invoice_code=$this->input->post('invoice_code');
-       $invoice_total= $this->input->post('invoice_total');
+       $invoice_total=$this->input->post('item_qty')*$this->input->post('item_rate');
        $invoice_description=$this->input->post('invoice_description');
       $item_code= $this->input->post('item_code');
 
-        echo $id;
+        $item_qty=$this->input->post('item_qty');
+        $item_rate=$this->input->post('item_rate');
+        $data1 = array(
+       
+            'item_rate' => $item_rate,
+            'item_qty'=>$item_qty,
+            'item_code'=>$item_code
+          
+            
+            
+        );
+        
+        $data2 = array(
+            'invoice_description' => $invoice_description,
+            'po_code'=>$po_code,
+            'invoice_total'=>$item_rate*$item_qty
+         );
+
+ $q2=$this->db->where('id', $id)
+                    ->update('po_invoice', $data2);
+                   $q1= $this->db->where('id', $id)
+                    ->update('po_invoice_detail',$data1) ;
+if($q1&$q2){
+echo 'success';
+}else{
+  echo 'some errror';  
+}
     }
         
 } 
