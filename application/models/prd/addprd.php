@@ -385,6 +385,17 @@ return $data->result_array();
                     ->get('');
                 return $result->result_array();
     }
+
+    function update_invoice($data){
+        $id=$this->input->post('id');
+        $po_code=$this->input->post('po_code');
+        $invoice_code=$this->input->post('invoice_code');
+       $invoice_total= $this->input->post('invoice_total');
+       $invoice_description=$this->input->post('invoice_description');
+      $item_code= $this->input->post('item_code');
+
+        echo $id;
+    }
         
 } 
     

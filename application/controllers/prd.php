@@ -516,7 +516,7 @@
                     if(isset($order_id) && !empty($order_id)){
                     $this->load->model('prd/addprd');
                     $records = $this->addprd->edit_order($order_id);
-                        foreach($records as $data):print_r($records);?>
+                        foreach($records as $data):?>
                             
                         <div class="container">
                             <div class="col">
@@ -526,8 +526,9 @@
                                     <label for="email">ID</label>
                                     <input type="text" disabled class="form-control" placeholder="ID" value="<?=$data['id']?>" id="id">
                                 </div>
+                                
                                 <div class="form-group">
-                                    <label for="pwd">Po Code:</label>
+                                    <label for="po_code">Po Code:</label>
                                     <input type="text" class="form-control" value="<?=$data['po_code']?>" id="po_code">
                                 </div>
                                 <div class="form-group">
@@ -557,7 +558,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="pwd">Item Rate:</label>
-                                    <input type="text" class="form-control" value="<?=$data['item_rate']?>" id="item_rate">
+                                    <input type="text" class="form-control" name='item_rate' value="<?=$data['item_rate']?>" id="item_rate">
                                 </div>
                                 <div class="form-group">
                                     <label for="pwd">PO Date:</label>
@@ -580,7 +581,7 @@
             }
 
             function update_order(){
-       echo $id=$_POST['id'];
+       
         $po_code=$_POST['po_code'];
         $po_vendor=$_POST['po_vendor'];
         $po_status=$_POST['po_status'];
@@ -590,6 +591,8 @@
         $date=$_POST['date'];
         $po_code=$_POST['po_code'];
          $po_description=$_POST['po_description'];
+         $data= $this->input->post();
+         print_r($data);
             
             }
 
@@ -648,7 +651,7 @@
               $this->load->view('po_invoice',['po_invoice'=>$po_invoice]);
             }
 
-
+           
             /***************************EDIT INVOICE DATA************ */
             function edit_invoice(){
 
@@ -657,86 +660,83 @@
                     if(isset($id) && !empty($id)){
                     $this->load->model('prd/addprd');
                     $records = $this->addprd->edit_invoice($id);
-                    print_r($records);
-                        foreach($records as $data):?>
-                        
-
-                        <?php endforeach;
+                    
+                        foreach($records as $data):endforeach;?>
                        
-                        ?>
-                        
-                        <div class="container">
-                    <div class="row">
-                       <form id="dynamic_field">
-                       <div class="form-row">
-                       <legend class="">
-                      <h1 class="w3-text-green">PO Invoice</h1>
-                       </legend>
-                       </div>
-                            
-                           <div class="col-sm-6 col-md-6">
+                        <input type="hidden" required="" name="id" value='<?php echo $data['id'];?>' id="id">
+                       
+                        <form action="" class="order" id="invoice_update">
+                        <div class="col-sm-12 col-md-12">
                                <div class="form-row">
-                                 <div class="form-group col-md-2">
+                                 <div class="form-group col-md-4">
                                  <label for="pwd">Po Code:</label>
-                                  <input type="text" required="" name="po_code[]" class="form-control"  id="po_code">
+                                  <input type="text" required="" name="po_code[]" value='<?php echo $data['po_code'];?>' required class="form-control"  id="po_code">
                                  </div>
 
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group col-md-4">
                                   <label for="pwd">Invoice Code:</label>
-                                 <input type="text" class="form-control" name="invoice_code" id="invoice_code">
+                                 <input type="text" class="form-control" value='<?php echo $data['invoice_code'];?>' required  name="invoice_code" id="invoice_code">
                                  </div>
-                                 <div class="form-group col-md-5">
+                                 <div class="form-group col-md-4">
                                     <label for="pwd">Item Code</label>
-                                 <input type="text" class="form-control" required name="item_code" id="item_code">
+                                 <input type="text" class="form-control" value='<?php echo $data["item_code"];?>' required name="item_code" id="item_code">
                                  </div>
                              </div>
                
                     <div class="form-row">
                     <div class="form-group col-md-4">
                     <label for="pwd">Item Rate:</label>
-                    <input type="text" class="form-control" required name="item_rate" id="item_rate">                   
+                    <input type="text" class="form-control" value='<?php echo $data['item_rate'];?>' required name="item_rate" id="item_rate">                   
                     </div>
                     <div class="form-group col-md-4">
                     <label for="email">Item Quantity</label>
-                    <input type="text" class="form-control" required name="item_qty" id="item_qty">
+                    <input type="text" class="form-control" value='<?php echo $data['item_qty'];?>' required name="item_qty" id="item_qty">
                    
                     </div>
                     <div class="form-group col-md-4">
                      <label for="pwd">Invoice total:</label>
-                    <input type="number" class="form-control" required name="invoice_total" id="invoice_total">
+                    <input type="number" class="form-control" value='<?php echo $data['invoice_total'];?>' required name="invoice_total" id="invoice_total">
                     </div>
                 </div>
                 <div class="form-row">
                 <div class="form-group col-md-4">
                      <label for="pwd">Date:</label>
-                     <input type="date" class="form-control" required name="date" id="date">
+                     <input type="date" class="form-control" value='<?php echo $data['date'];?>' required name="date" id="date">
                      
                     </div>
                     <div class="form-group col-md-8">
                     <label for="pwd">Invoice Description</label>
                     
-                    <textarea rows="3" cols="30"  class="form-control" required name="invoice_description" id="invoice_description"></textarea>
+                    <?php echo form_textarea(['name'=>'invoice_description','placeholder'=>'item Description',
+            'class'=>'form-control','type'=>'text','id'=>'invoice_description','value'=> set_value('title',$data['invoice_description'])])?>
+            
                     </div>
                    
                     
                 </div>
                 <div class="form-row">
                 <div class="form-group col-md-4">
-                           <input type="button" name="update" value='Update' id="add" class="btn btn-success ">
+                           <input type="submit" name="update" value='Update' id="update" class="btn btn-success ">
                 </div>
                            
                 </div>
                            </div>
-                           
-                       </form>
-                       </div>
-</div
+                        </form>
       
 
 
                         <?php
                     }
             }
+            function update_invoice(){
+              
+                $data= $this->input->post();
+                $this->load->model('prd/addprd');
+                $this->addprd->update_invoice($data);
+                
+             }
+ 
+
         } 
         
         

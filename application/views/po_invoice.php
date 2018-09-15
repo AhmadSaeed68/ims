@@ -134,4 +134,42 @@ $(document).ready(function(){
                 });
     });
 });
+$(document).on('submit','#invoice_update',function(event){
+            event.preventDefault();
+    
+           
+            var id=$('#id').val();
+        var po_code=$('#po_code').val();
+        var item_rate=$('#item_rate').val();
+        var invoice_code=$('#invoice_code').val();
+        var item_code=$('#item_code').val();
+        var item_qty=$('#item_qty').val();
+        var invoice_total=$('#invoice_total').val();
+        var date=$('#date').val();
+        var invoice_description=$('#invoice_description').val();
+
+        $.ajax({
+                url: "<?php echo base_url() ?>prd/update_invoice",
+                method:"POST",
+                data:{
+                    id:id,po_code:po_code,invoice_description:invoice_description
+                    ,item_code:item_code,item_qty:item_qty,item_rate:item_rate,date:date,invoice_code:invoice_code,invoice_total:invoice_total
+                ,},
+                datatype:"json",
+                success:function(data)
+                {
+                    alert(data);
+                    
+                    $('#Modal').modal('hide');
+                    dataTable.ajax.reload();
+                    
+                }
+            });
+
+  
+  
+             });
+
+             
 </script>
+<p id='fd' class='fd'></p>
