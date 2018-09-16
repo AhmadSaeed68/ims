@@ -735,7 +735,63 @@
                 $this->addprd->update_invoice($data);
                 
              }
- 
+
+             function ge_data_from_po(){
+               
+                
+             }
+
+             function make_invoice(){
+                $data=$this->input->post();
+                $this->load->model('prd/addprd');
+                $this->addprd->make_invoice();
+
+             }
+             function get_PoCode_in_invoice(){
+               $this->load->model('prd/addprd');
+              $po_code= $this->addprd->get_PoCode_in_invoice();
+              ?>
+               <select required class="form-control" id="po_code" name="po_code" onchange="myfun(this.value)">
+               <option></option>
+                <?php   
+              foreach($po_code as $po_code){
+                  echo $each['item_code'];
+                  ?>
+                 
+                  <option
+                 
+                  id="<?php echo $po_code['po_code'];?>"  ><?php echo $po_code['po_code']?> 
+              </option>';
+                      <?php } ?>
+                      </select>
+                      <?php
+             }
+
+             function get_PoCode_item(){
+              $po_code=$this->input->post('datapost');
+                 $this->load->model('prd/addprd');
+                $result=$this->addprd->get_PoCode_item($po_code);
+                foreach($result as $result):
+                ?>
+
+                  <div class="form-group col-md-4">
+                    <label for="pwd">Item Code</label>
+                    <input id="item_code" value='<?= $result['item_code']?>' name="item_code" class="show_data">
+                   <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
+                    </div>
+                    <div class="form-group col-md-4">
+                    <label for="email">Item Quantity</label>
+                    <input type="text" class="form-control" required="" name="item_quantity" id="item_quantity">
+                   
+                    </div>
+                    <div class="form-group col-md-4">
+                     <label for="pwd">Item Rate:</label>
+                    <input type="number" value='<?=$result['item_rate']?>' class="form-control" required="" name="item_rate" id="item_rate">
+                    </div>
+                </div>
+                <?php
+                endforeach;
+            }
 
         } 
         

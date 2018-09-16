@@ -422,6 +422,61 @@ echo 'success';
   echo 'some errror';  
 }
     }
+
+    function get_PoCode_in_invoice(){
+        $asset=$this->db
+        ->select(['po_code','id'])
+        ->from('purchase_order')
+        ->get();
+        
+    return $asset->result_array();
+    }
+
+    function get_PoCode_item($po_code){
+        $result= $this->db->select('')
+        ->from('purchase_order')
+        ->join('purchase_order_detail','purchase_order_detail.po_code=purchase_order.po_code','inner')
+                      ->where('purchase_order_detail.po_code',$po_code)
+                     
+                  ->get('');
+              return $result->result_array();
+
+            }
+
+            function make_invoice(){
+        $po_code=$this->input->post('po_code');
+        $invoice_code=$this->input->post('invoice_code');
+        $invoice_description=$this->input->post('invoice_description');
+        $item_quantity=$this->input->post('item_quantity');
+        $item_rate=$this->input->post('item_rate');
+        $item_code=$this->input->post('item_code');
+        $data1=array(
+            'po_code'=>$po_code,
+            'invoice_code'=>$invoice_code,
+            'invoice_total'=>$item_quantity*$item_rate,
+            'invoice_description'=>$invoice_description
+            
+        );
+
+        $data2=array(
+            'invoice_code'=>$invoice_code,
+            'item_code'=>$item_code,
+            'item_qty'=>$item_quantity,
+            'item_rate'=>$item_rate
+            
+        );
+
+        $q1= $this->db->insert('po_invoice',$data1);
+   $q2= $this->db->insert('po_invoice_detail',$data2);
+   if($q1 && $q2){
+       echo'Insert Success fully';
+   }else{
+       echo'Some';
+   }
+
+                
+               
+            }
         
 } 
     
