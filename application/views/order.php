@@ -10,14 +10,16 @@
         }
     }
 </style>
-<div class="container">
+<div class="container w3-border">
     
     <div class="w3-container">
-            <h2>Panel Heading</h2>
+    <a href="#largeModal" class="btn btn-primary w3-right" data-toggle="modal">Make Purchase order</a>
+            <h2 class='w3-center'>Order Managment</h2>
+           
         <div class="panel panel-default">
             <div class="panel-heading">Order Managment
             <span class="w3-right">
-            <a href="#largeModal" class="btn btn-primary" data-toggle="modal">Make Purchase order</a>
+            
            
                </span> <!-- Modal -->
               <!-- Large Modal HTML -->
@@ -87,7 +89,7 @@
     </div>
             <div class="panel-body">
             <div class="w3-responsive">
-            <table class="w3-table-all table-bordered" id="order_data">
+            <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                 <thead>
                     <tr>
                         <th>ID</th>

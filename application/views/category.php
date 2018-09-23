@@ -192,6 +192,15 @@
   <script type="text/javascript">
   $(document).ready(function(){
      var dataTable= $("#mytable").dataTable();
+    //  "processing":false,
+    //  "serverSide":false,
+    //  "order":[],
+    //  "columnDefs":[
+    //    {
+    //      "targets":[4,5,6],
+    //      "orderable":false
+    //    }
+    //  ],
   });
 
       // Start jQuery function after page is loaded
@@ -234,7 +243,7 @@
                 success:function(data)
                 {
                     alert(data);
-                    $('#mytable').dataTable().reload();
+                    dataTable.ajax.reload();
                     
                 }
             });

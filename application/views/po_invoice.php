@@ -1,7 +1,10 @@
-<?php
-print_r($po_invoice);
+
+<?php include_once "login/header.php"; 
+
+
 ?>
-<?php include_once "login/header.php";  ?>
+
+<p class='w3-code w3-smoke'><?php echo "Today is " . date("Y/m/d") . "<br>";?></p>
 <style type="text/css">
     .bs-example{
       margin: 20px;
@@ -13,20 +16,20 @@ print_r($po_invoice);
         }
     }
 </style>
-<div class="container">
-<input type="button" class="btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>">
+<div class="container w3-border">
+<a href="#largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a>
     <div class="w3-container">
-            <h1>PO Invoice</h1>
+            <h1 class='w3-center'>PO Invoice</h1>
         <div class="panel panel-default">
-            <div class="panel-heading">Order Managment
+            <div class="panel-heading"><span class=''></span>
             <span class="w3-right">
-            <a href="#largeModal" class="btn btn-primary adddata"  data-toggle="modal">Make Invoice</a>
+          
             </span> <!-- Modal -->
               <!-- Large Modal HTML -->
     
             <div class="panel-body">
             <div class="w3-responsive">
-            <table class="w3-table-all table-bordered" id="order_data">
+            <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -97,15 +100,15 @@ print_r($po_invoice);
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Large Modal</h4>
+                    <legend class="w3-center w3-padding">
+                      <h1 class="w3-text-green">Make Invoice</h1>
+                       </legend>
                 </div>
                 <div class="modal-body">
                   
                        <div class="row">
                        <form id="make_invoice">
-                            <legend class="w3-center w3-padding">
-                      <h1 class="w3-text-green">Make Invoice</h1>
-                       </legend>
+                           
                            <div class="col-sm-6 col-md-6">
                                <div class="form-row">
                     <div class="form-group col-md-4">
@@ -144,24 +147,7 @@ print_r($po_invoice);
     </div>
 
 
-      <div class="modal fade" id="ge_data_in_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Phone Details</h4>
-            </div>
-            <div class="modal-body">
-                <!-- Place to print the fetched phone -->
-                <div id="ge_data_result"></div>
-            </div>
-            <div class="modal-footer">
-            
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-        </div>
-        </div>
+     
             <!-- 
                 
                 *************************************************
@@ -184,6 +170,8 @@ print_r($po_invoice);
 <script>
 $(document).ready(function(){
         var dataTable=$("#order_data").dataTable();
+       
+        
     });
 /********GET ID FROM INVOICE ID */
 $(document).ready(function(){
@@ -232,7 +220,7 @@ $(document).on('submit','#invoice_update',function(event){
                     alert(data);
                     
                     $('#Modal').modal('hide');
-                    $("#order_data").dataTable().ajax.reload();
+                    dataTable.ajax.reload();
                     
                 }
             });
@@ -253,32 +241,7 @@ $(document).on('submit','#invoice_update',function(event){
                 });
 
            
-    $(document).ready(function(){
-          
-            $('#dataTable').DataTable();
-           
-                $('.add_data').click(function(){
-              
-                    $.ajax({
-                    
-                    url: "<?php echo base_url() ?>prd/ge_data_from_po",
-                    method: "POST",
-                        
-                        success: function(data){
-                        // Print the fetched data of the selected phone in the section called #phone_result 
-                        // within the Bootstrap modal
-                        $('#ge_data_result').html(data);
-                        
-                        $('#ge_data_in_modal').modal('show');
-                            
-                        
-                           
-                        }
-                });
-                
-                
-            });
-        });    
+   
 
              $(document).ready(function(){
             
@@ -332,15 +295,24 @@ function myfun(datavalue){
                
                 success:function(data)  
                 {  
-                     alert(data);  
-                     //$('#dynamic_field')[0].reset();  
-                }  
-           });
+                    alert(data); 
+                    var dataTable=$("#order_data").dataTable(); 
+                    
+                    $('#make_invoice')[0].reset();
+                    dataTable.ajax.reload();
+                    //$('#largeModal').modal('hide');
+                     
+                
+                },
+                
+        
+        });
 
             
             });
+
+            
 </script>
 <p id='fd' class='fd'>
 
- <!-- value="<?php //echo $po_code['po_code'] ?>"  -->
 </p>

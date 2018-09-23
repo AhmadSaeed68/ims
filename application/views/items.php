@@ -95,7 +95,7 @@
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Phone Details</h4>
+                <h4 class="modal-title" id="myModalLabel">Data</h4>
             </div>
             <div class="modal-body">
                 <!-- Place to print the fetched phone -->
@@ -215,7 +215,7 @@
 
 
 
-        $(document).on('update','.update_item_form',function(event){
+        $(document).on('submit','.update_item',function(event){
             event.preventDefault();
             var item_id=$('#item_id').val();
             var category_id=$('#category_id').val();
@@ -223,28 +223,29 @@
             var item_code=$('#item_code').val();
             var item_description=$('#item_description').val();
             var item_status=$('#item_status').val();
-            alert(item_code);
             
-        // if(item_id !='' && category_id !='' && item_code !='' && item_description !=''&& item_name !=''&& item_status !=''){
-        //         $.ajax({
-        //             url: "<?php //echo base_url() ?>prd/update_item",
-        //             method:'POST',
-        //             data:{item_name:item_name,category_id:category_id,item_code:item_code,item_id:item_id,item_code:item_code,item_status:item_status,item_description:item_description},
-        //             //data:new FormData($this),
-        //             //contentType:false,
-        //             //processData:false,
-        //             success:function(data){
-        //                 $('.msg').html(data);
-        //                 alert('Successful insert');
-        //                 $('#update_item_form')[0].reset();
-        //                 $('#phoneModal').modal('hide');
-        //                 dataTable.ajax.reload();
-        //             }
-        //         });
-        // }else
-        // {
-        //     alert('All fields are required');
-        // }
+            
+        if(item_id !='' && category_id !='' && item_code !='' && item_description !=''&& item_name !=''&& item_status !=''){
+                $.ajax({
+                    url: "<?php echo base_url() ?>prd/update_item",
+                    method:'POST',
+                    data:{item_name:item_name,category_id:category_id,item_code:item_code,item_id:item_id,item_code:item_code,item_status:item_status,item_description:item_description},
+                    //data:new FormData($this),
+                    //contentType:false,
+                    //processData:false,
+                    success:function(data){
+                        alert('Update successfull');
+                        //$('.msg').html(data);
+                        //alert(' Update Successfuly');
+                        $('#update_item_form')[0].reset();
+                        $('#phoneModal').modal('hide');
+                        dataTable.ajax.reload();
+                    }
+                });
+        }else
+        {
+            alert('All fields are required');
+        }
         });
     </script>
 <span class="msg"></span>

@@ -130,8 +130,9 @@ if ($conn->connect_error) {
         {
             $query=$this->db
                             ->select()
+                            ->order_by('category_id','DESC')
                             ->  get('category');
-                     
+                           
                 return $query->result();
         }
         function category_search($category_id)
@@ -209,11 +210,26 @@ if ($conn->connect_error) {
             ->delete("items");
         }
 
-        function update_item($insert_data){
-            return $this->db
+        function update_item($data){
+            $insert_data=array(
+                'category_id'=>$this->input->post('category_id'),
+                'item_name'=>$this->input->post('item_name'),
+                
+                'item_code'=>$this->input->post('item_code'),
+                'item_description'=>$this->input->post('item_description'),
+                'item_status'=>$this->input->post('item_status'),
+                
+            );
+           $item_id= $this->input->post('item_id');
+            // return $this->db
             
-            ->update('items',$insert_data)
-            ->where('item_id',10);
+            // ->update('items',$insert_data)
+            // ->where('item_id',$item_id);
+           
+
+            return $this->db
+                ->where('item_id',$item_id)
+                ->update('items',$insert_data);
         }
 
         function order_managment(){
@@ -248,8 +264,13 @@ return $data->result_array();
       }
       
       function make_order($data){
-           $records = count($_POST['item_rate']);
-     
+          if(!empty($_POST['item_rate'])){
+             
+          }
+         
+         $records = count($_POST['item_rate']);
+          $count=count($data);
+          print_r($count);
 
 for($i=0; $i<$records; $i++) {
     //*******This data use for insert into PURCHASE_ORDER_DETAIL****** */
@@ -270,12 +291,14 @@ for($i=0; $i<$records; $i++) {
         
         
     );
+   
+    
 
-   $q1= $this->db->insert('purchase_order_detail',$data);
-   $q2= $this->db->insert('purchase_order',$data1);
-   if($q1 && $q2){
-       echo'Insert Success fully';
-   }
+   //$q1= $this->db->insert('purchase_order_detail',$data);
+   //$q2= $this->db->insert('purchase_order',$data1);
+   //if($q1 && $q2){
+    //   echo'Ordered Successfully:';
+   //}
     
     
 }
@@ -371,9 +394,19 @@ for($i=0; $i<$records; $i++) {
     }
 
     function po_invoice(){
-        $data=$this->db
-        ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
-return $data->result_array();
+//         $data=$this->db
+//         ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
+// return $data->result_array();
+
+$result= $this->db->select('')
+->from('po_invoice')
+->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+           ->order_by('po_invoice.id','desc')   
+             
+          ->get('');
+      return $result->result_array();
+
+
     }
 
     function edit_invoice($id){
@@ -450,10 +483,19 @@ echo 'success';
         $item_quantity=$this->input->post('item_quantity');
         $item_rate=$this->input->post('item_rate');
         $item_code=$this->input->post('item_code');
+        $discount=$this->input->post('discount');
+        if($discount>0){
+          // print_r($discount);
+          $invoice_total= $item_quantity*$item_rate;
+           $invoice_total=$invoice_total-(($discount/100)*$invoice_total);
+        }else{
+          echo $invoice_total= $item_quantity*$item_rate;
+        }
+    
         $data1=array(
             'po_code'=>$po_code,
             'invoice_code'=>$invoice_code,
-            'invoice_total'=>$item_quantity*$item_rate,
+            'invoice_total'=>$invoice_total,
             'invoice_description'=>$invoice_description
             
         );
@@ -465,17 +507,32 @@ echo 'success';
             'item_rate'=>$item_rate
             
         );
+        //print_r($data2);
 
         $q1= $this->db->insert('po_invoice',$data1);
    $q2= $this->db->insert('po_invoice_detail',$data2);
    if($q1 && $q2){
        echo'Insert Success fully';
    }else{
-       echo'Some';
+       echo'Error in database MOdal->: line no:499 get_PoCode_item';
    }
 
                 
                
+            }
+
+            function stock(){
+                $query=$this->db
+                ->select()
+                ->get('items_in_stock');
+    return $query->result();
+            }
+
+            function pdf(){
+                $query=$this->db
+                ->select()
+                ->get('items_in_stock');
+    return $query->result_array();
             }
         
 } 

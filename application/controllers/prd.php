@@ -394,66 +394,72 @@
                 
                 foreach($data as $row){
                     ?>
-                   <div class="container">
+                
                        <div>
-                       <h4 class="text-center">Items Detail</h4><br>
+                       <h3 class="jumbotron w3-center">Items Detail Update</h3<br>
                         
                         </div>
-                    </div>
-                    <?php echo form_open("",['class'=>'form-vertical update_item','id'=>'update_item_form']);?>
-                    <div class="form-group">
-                    <label for="pwd">item Id:</label>
+                   
+                    
+                  <?php echo form_open("",['class'=>'form-vertical update_item','id'=>'update_item_form']);?>
+	
+	 <div class="form-row">
+                    <div class="form-group col-md-3">
+                            <label for="pwd">item Id:</label>
                             <?php echo form_input(['name'=>'id','placeholder'=>'User ID:',
             'class'=>'form-control','disabled'=>'true','id'=>'item_id','value'=> set_value('title',$row['item_id'])])?>
-                            
-                            
-                        </div>
-                        <div class="form-group">
-                    <label for="pwd">category Id:</label>
+             </div>
+                    <div class="form-group col-md-3">
+                       <label for="pwd">category Id:</label>
                             <?php echo form_input(['name'=>'id','placeholder'=>'Category ID:',
             'class'=>'form-control','disabled'=>'true','id'=>'category_id','value'=> set_value('title',$row['category_id'])])?>
-                            
-                            
-                        </div>
-                    <div class="form-group">
-                            <label for="pwd">Item Name:</label>
-                            <?php echo form_input(['name'=>'name','placeholder'=>'Item Name:',
-            'class'=>'form-control','type'=>'text','id'=>'item_name','id'=>'item_name','value'=> set_value('title',$row['item_name'])])?>
-                        </div>
-                        
-                        
-                        <div class="form-group">
+                   
+                    </div>
+                   
+                    <div class="form-group col-md-4">
                             <label for="pwd">Item Code:</label>
                             <?php echo form_input(['name'=>'password','placeholder'=>'Item Code',
-            'class'=>'form-control','type'=>'text','id'=>'item_code','value'=> set_value('title',$row['item_code'])])?>
-                            
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Item Description:</label>
-                            <?php echo form_textarea(['name'=>'item_description','placeholder'=>'item Description',
-            'class'=>'form-control','type'=>'text','id'=>'item_description','value'=> set_value('title',$row['item_description'])])?>
-                            
-                        </div>
-
-                        <div class="form-group">
-            <label for="pwd">Item status</label>
-   
-        </div>
-
-            <!-- Fetch data from data base and display select optionn -->
-        <div class="form-group">
+            'class'=>'form-control','disabled'=>'true','type'=>'text','id'=>'item_code','value'=> set_value('title',$row['item_code'])])?>
+                             
+                    </div>
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-4">
+                                <label for="pwd">Item Name:</label>
+                            <?php echo form_input(['name'=>'name','placeholder'=>'Item Name:',
+            'class'=>'form-control','type'=>'text','id'=>'item_name','id'=>'item_name','value'=> set_value('title',$row['item_name'])])?>
+                
+                    </div>
+                   
+                    <div class="form-group col-md-4">
+                    <label for="pwd">Status</label>
             <select class="form-control" id="item_status" name="category_status" value="<?php echo $row['item_status']?>">
                 <option value="active" name="active">active</option>
                 <option value="inactive" name="inactive">inactive</option>
             </select>
         </div>
-                        
-                        <?php echo form_submit(['name'=>'update','id'=>'update_item','type'=>'submit','value'=>'Update','class'=>'btn btn-primary']);?>
-                    </form>
+
+                     </div>
+                <div class="form-row">
+                    	 <div class="form-group col-md-8">
+                  <label for="item_description">Item Description:</label>
+                            <?php echo form_textarea(['name'=>'item_description','placeholder'=>'item Description',
+            'class'=>'form-control','type'=>'text','id'=>'item_description','value'=> set_value('title',$row['item_description'])])?>
+       
+                   
                     </div>
-                </div>
+
+                    </div>
+                    <div class="form-row ">
+                   	<div class="form-group col-md-8">
+                     <input type="submit" name="update" value='Update' id="update" class="btn btn-success w3-hover-blue">
+                    </div>
+
+                    </div>
+</form>
                 <?php
-                }}else{
+                }
+            }else{
                     echo"Some error";
                 }
                 echo $output."";
@@ -488,19 +494,12 @@
             }
 
             function update_item(){
-            $item_id= $this->input->post('item_id');
-                $insert_data=array(
-                    'category_id'=>$this->input->post('category_id'),
-                    'item_name'=>$this->input->post('itemName'),
-                    
-                    'item_code'=>$this->input->post('item_code'),
-                    'item_description'=>$this->input->post('item_description'),
-                    'item_status'=>$this->input->post('item_status'),
-                    
-                );
+         
+            $data=$this->input->post();
+             
                 //print_r($insert_data);
                 $this->load->model('prd/addprd');
-                $this->addprd->update_item($insert_data);
+                $this->addprd->update_item($data);
             }
 
             function order_managment(){
@@ -620,7 +619,8 @@
 
             function make_order(){
                 $data=$this->input->post();
-                
+                $this->load->model('prd/addprd');
+                $this->addprd->make_order($data);
                 // $data=implode(',',$this->input->post('po_desc'));
                 // $data = json_encode($this->input->post('po_desc'));
 
@@ -637,8 +637,7 @@
                 // );
                 
                 
-                  $this->load->model('prd/addprd');
-                  $this->addprd->make_order($data);
+              
                 
             }
 
@@ -743,6 +742,8 @@
 
              function make_invoice(){
                 $data=$this->input->post();
+
+               
                 $this->load->model('prd/addprd');
                 $this->addprd->make_invoice();
 
@@ -774,23 +775,107 @@
                 foreach($result as $result):
                 ?>
 
-                  <div class="form-group col-md-4">
+                  <div class="form-group col-md-3">
                     <label for="pwd">Item Code</label>
-                    <input id="item_code" value='<?= $result['item_code']?>' name="item_code" class="show_data">
+                    <input id="item_code" class="form-control" value='<?= $result['item_code']?>' name="item_code"  class="show_data">
                    <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                     <label for="email">Item Quantity</label>
                     <input type="text" class="form-control" required="" name="item_quantity" id="item_quantity">
                    
                     </div>
-                    <div class="form-group col-md-4">
-                     <label for="pwd">Item Rate:</label>
-                    <input type="number" value='<?=$result['item_rate']?>' class="form-control" required="" name="item_rate" id="item_rate">
+                    <div class="form-group col-md-3">
+                        <label for="pwd">Item Rate:</label>
+                            <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                                <input type="number" value='<?=$result['item_rate']?>' class="form-control" required=""  name="item_rate" id="item_rate">
+                            </div>
+                   </div>
+                    
+                    <div class='form-group col-md-3'>
+                    <label for="pwd">Discount:</label>
+                        <div class="input-group">
+                           
+                            <input type="text" class="form-control" name="discount" aria-label="Amount (to the nearest dollar)">
+                            <span class="input-group-addon">%</span>
+                        </div>
                     </div>
+                   
+                    
                 </div>
                 <?php
                 endforeach;
+            }
+
+            function stock(){
+                $this->load->model('prd/addprd');
+                $stock=$this->addprd->stock();
+                $this->load->view('stock',['stock'=>$stock]);
+                
+            }
+
+
+            function pdf(){
+                $this->load->library('pdf');
+                $this->load->model('prd/addprd');
+                $pdf=$this->addprd->pdf();
+                // foreach($pdf as $pdf){
+                   
+                // }
+               
+                //$this->load->view('pdf',['pdf'=>$pdf])
+                
+               
+               
+                $this->fpdf->SetFont('Courier','B',25,0,1);
+                $this->fpdf->Cell(180,25,'Stock List',0,1,"C");
+                $this->fpdf->Ln(10);
+                $this->fpdf->SetFont('Arial','B','12');
+                $this->fpdf->Cell('20','12','Dated:','0','0',"L");
+                $this->fpdf->Cell('20','12','21/08/2018','0','0');
+                $this->fpdf->Cell('120','12','DELIVERY#','0','1',"R");
+                //$this->fpdf->Cell('60','12','','0','1',"R");
+
+                $this->fpdf->SetFont('Courier','B','12');
+                
+                $this->fpdf->Cell('30','12','Generated By:','0','0',"L");
+                $this->fpdf->Cell('25','12','Musawer','0','0',"R");
+                $this->fpdf->Cell('65','12','Email:','0','0',"R");
+                $this->fpdf->Cell('56','12','PakJalihouse@gmail.com','0','1',"R");
+                
+                
+                //Table in PDF
+                 $this->fpdf->SetFont('Courier','B','9');
+                $this->fpdf->Cell('10','12','ID:','1','0',"");
+                $this->fpdf->Cell('20','12','Item Name','1','0',"");
+                $this->fpdf->Cell('20','12','Item Code','1','0',"");
+                $this->fpdf->Cell('40','12','Description:','1','0',"C");
+                $this->fpdf->Cell('30','12','Invoice Code','1','0',"");
+                $this->fpdf->Cell('23','12','Category Id','1','0',"");
+                $this->fpdf->Cell('20','12','Item Qty','1','0',"");
+                $this->fpdf->Cell('20','12','Item Rate','1','0',"");
+                $this->fpdf->Cell('15','12','Total','1','1',"");
+                foreach($pdf as $pdf):endforeach;
+                $this->fpdf->SetFont('Courier','B','9');
+                $this->fpdf->Cell('10','12',$pdf['id'],'1','0',"");
+                $this->fpdf->Cell('20','12',$pdf['item_name'],'1','0',"");
+                $this->fpdf->Cell('20','12',$pdf['item_code'],'1','0',"");
+                $this->fpdf->Cell('40','12',$pdf['item_description'],'1','0',"C");
+                $this->fpdf->Cell('30','12',$pdf['invoice_code'],'1','0',"");
+                $this->fpdf->Cell('23','12',$pdf['category_id'],'1','0',"");
+                $this->fpdf->Cell('20','12',$pdf['item_qty'],'1',"");
+                $this->fpdf->Cell('20','12',$pdf['item_rate'],'1',"");
+                $this->fpdf->Cell('15','12','Total','1','0',"");
+            
+
+                $this->fpdf->SetY(-15);
+                $this->fpdf->Cell(0,10,'Page '.$this->fpdf->PageNo().'/{nb}',0,0,'C');
+               $this->fpdf->AliasNbPages();
+             
+
+                echo $this->fpdf->Output('Stock_Detail.pdf','D'); 
+           
             }
 
         } 
