@@ -17,6 +17,10 @@
     }
 </style>
 <div class="container w3-border">
+<div class='jumbotron'>
+   <h1 class='w3-center'><span class=' 	fa fa-themeisle w3-text-gray'> </span> Invoice Detail</h1>
+   
+    </div>
 <a href="#largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a>
     <div class="w3-container">
             <h1 class='w3-center'>PO Invoice</h1>

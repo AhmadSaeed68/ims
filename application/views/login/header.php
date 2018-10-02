@@ -115,14 +115,16 @@
 
 body {font-family: "Open Sans"}
 </style>
+
     <?php $id=$this->session->userdata('user_id');
+   
       if($id){
     ?>
 
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+     
     </div>
     <ul class="nav navbar-nav">
       <li class="active">
@@ -167,12 +169,26 @@ body {font-family: "Open Sans"}
                       <li class="nav-item">
                       <?= anchor('','PurchaseOrder',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
-                      
+                     
+                      <li>
+     
+ </li> 
+<li>
+<div class="dropdown">
+  <p class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
+  <span class="fa fa-unlock w3-text-orange"></span> <?php echo substr($id->email,0,9).'...';?> <span class='caret'></span></p>
+  <ul class="dropdown-menu">
+    <li><a href="#"><?= $id->email?></a></li>
+    <li><?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?>   </li>
+    <li><a href="#">JavaScript</a></li>
+  </ul>
+</div> 
+</li>
+ 
 </ul>
 
     
-
-<?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?> <!--,'data-toggle'=>'modal'-->
+ <!--,'data-toggle'=>'modal'-->
       
        
   </div>

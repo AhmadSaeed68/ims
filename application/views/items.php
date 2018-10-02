@@ -4,11 +4,15 @@
     ?>
     
 <div class="container">
-<div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa-2x fa fa-columns w3-text-yellow" ></i> Items Detail</h2> </div>
-    <div class="w3-right"><input type="button" class="btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
+<div class='jumbotron'>
+   <h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
+   
+    </div>
+<div class="card-header w3-center"> </div>
+    <div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
     <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">Items Detail</h2>
+        <h1 class="panel-title w3-padding-24">Items Detail</h1>
         </div>
         <!-- Pannel tag -->
             <div class="panel-body">

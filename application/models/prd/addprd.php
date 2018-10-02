@@ -234,8 +234,9 @@ if ($conn->connect_error) {
 
         function order_managment(){
             $data=$this->db
-            ->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
+            ->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.po_code=purchase_order.po_code');
 return $data->result_array();
+
         }
 
         function edit_order($order_id){
@@ -263,35 +264,150 @@ return $data->result_array();
     return $asset->result_array();
       }
       
-      function make_order($data){
-          if(!empty($_POST['item_rate'])){
-             
-          }
-         
-         $records = count($_POST['item_rate']);
-          $count=count($data);
-          print_r($count);
+      function make_order(){
+        
+      
+    
+        $po_code=$this->input->post('po_code');
+        $po_desc=$this->input->post('po_desc');
+        $data[]= array(
+            'po_code'=>$po_code, 
+            'po_description'=>$po_desc,
+            
+            );
+          
+            // print_r($data);
+             $this->db->insert_batch('purchase_order', $data); 
+     
 
-for($i=0; $i<$records; $i++) {
-    //*******This data use for insert into PURCHASE_ORDER_DETAIL****** */
-    $data = array(
-        'item_rate' => $this->input->post('item_rate')[$i],
-        'item_qty' => $_POST['item_quantity'][$i],
-        'item_code' => $_POST['category_id'][$i],
-        'po_code' => $_POST['po_code'][$i],
+     
+     
+     
+
+     
+      
+        $id=$this->db->insert_id();
+      
+    $this->db->select('po_code');
+    $this->db->where('id',$id);
+    $res2 = $this->db->get('purchase_order');
+    $res2= $res2->result_array();
+    foreach($res2 as $data){
+    $last_in_Po_code= $data['po_code'];
+    }
+ 
         
+    
+    
+    //$last_in_Po_code = array_column($res2, 'po_code');
+
+    
+    
+    // 
+    
+    //          PO Code Get after  Insert into *Purchase order*
+    //
+    //
+    $item_code=$this->input->post('item_code');
+      $item_quantity=$this->input->post('item_quantity');
+      $temp = count($item_code);
+      for($i=0; $i<$temp; $i++){
         
-    );
-    //*******This data use for insert into PURCHASE_ORDER****** */
-    $data1 = array(
        
-        'po_description' => $_POST['po_desc'][$i],
-        'po_total'=>$this->input->post('item_rate')[$i]*$_POST['item_quantity'][$i],
-        'po_code' => $_POST['po_code'][$i],
+        $item_code=$this->input->post('item_code');
+        $item_quantity=$this->input->post('item_quantity');
+        $item_rate=$this->input->post('item_rate');
+       
+        $data1[] = array(
+            'po_code'=>$last_in_Po_code,
+            'item_code'=>$item_code[$i], 
+            'item_qty'=>$item_quantity[$i],
+            'item_rate'=>$item_rate[$i],
+            'po_item_total'=>$item_rate[$i]*$item_quantity[$i],
+            
+            );
+            
+      }
+      $insert = count($data1);
+
+      if($insert)
+      {
+      $this->db->insert_batch('purchase_order_detail', $data1);
+      }
+      $item_quantity=$this->input->post('item_quantity');
+      $item_rate=$this->input->post('item_rate');
+      
+
+
+        //   if(!empty($_POST['item_rate'])){
+             
+        //   }
+         
+        //  $records = count($_POST['item_rate']);
+        //   $count=count($data);
+        //   print_r($count);
+
+// for($i=0; $i<$records; $i++) {
+    //*******This data use for insert into PURCHASE_ORDER_DETAIL****** */
+    // $data = array(
+    //     'item_rate' => $this->input->post('item_rate')[$i],
+    //     'item_qty' => $_POST['item_quantity'][$i],
+    //     'item_code' => $_POST['category_id'][$i],
+    //     'po_code' => $_POST['po_code'][$i],
         
         
-    );
-   
+    // );
+    // //*******This data use for insert into PURCHASE_ORDER****** */
+    // $data1 = array(
+       
+    //     'po_description' => $_POST['po_desc'][$i],
+    //     'po_total'=>$this->input->post('item_rate')[$i]*$_POST['item_quantity'][$i],
+    //     'po_code' => $_POST['po_code'][$i],
+        
+        
+    // );
+    // $data = array(
+    //     'item_rate' => $this->input->post('item_rate'),
+    //     'item_qty' => $this->input->post('item_quantity'),
+    //     'item_code' => $this->input->post('item_code'),
+    //     'po_code' => $this->input->post('po_code')
+        
+        
+    // );
+    //*******This data use for insert into PURCHASE_ORDER****** */
+//     $data1 = array(
+       
+//         'po_description' => $this->input->post('po_desc'),
+//         //'po_total'=>$this->input->post('item_rate')*$this->input->post('item_quantity'),
+//         'po_code' => $this->input->post('po_code')
+        
+        
+//     );
+//    $data_count = count($data['item_rate']);
+//    $params = str_repeat("(?,?),", $data_count);
+//    $binds = str_repeat("ss", $data_count);
+//    $merged_data = [];
+// foreach ( $data['item_rate']  as $key => $name )    {
+//     $merged_data[] = $name;
+//     $merged_data[] = $data['item_code'][$key];
+//      $merged_data[] = $data['item_qty'][$key];
+//      //$merged_data[] = $data['po_code'];
+//      $sql=$this->db->query= "INSERT INTO purchase_order_detail (item_rate,item_code)
+//                  VALUES ".rtrim($params, ",");
+            
+           
+                 
+//   $insert = $this->db->conn_id->prepare( $sql );
+// // // Bind the parameters, using ... is the argument unpacking operator
+//   $bind=  $insert->bind_param($binds, ...$merged_data);
+//      print_r($binds);
+// // // Execute the SQL
+// //$insert->execute();
+//}
+
+    
+
+    
     
 
    //$q1= $this->db->insert('purchase_order_detail',$data);
@@ -301,7 +417,7 @@ for($i=0; $i<$records; $i++) {
    //}
     
     
-}
+//}
 /************************************************************************* */
 /**************************Previous Working Code with Procedural********* */
 /*********************************************************************** */
@@ -348,9 +464,48 @@ for($i=0; $i<$records; $i++) {
 /****************************************End Working CODE PHP PROCEDURAL************ */
 /********************************************************************************** */
 }
+        function order_status($status){
+            $id= $this->input->post('order_id');
+            $status;
+          $update_status= $this->db
+            ->where('id', $id)
+            ->set('status', $status)
+            ->update('purchase_order_detail');
+            if($update_status){
+                echo "Status Changed";
+            }
+        }
+
 
     function test(){
+        
+      $item_code=$this->input->post('item_code');
+      $item_quantity=$this->input->post('item_quantity');
+      $temp = count($item_code);
+      for($i=0; $i<$temp; $i++){
+        $item_code=$this->input->post('item_code');
+        $item_quantity=$this->input->post('item_quantity');
+        $data[] = array(
+            'msg'=>$item_code[$i], 
+            'name'=>$item_quantity[$i],
+            
+            );
+      }
+      $insert = count($data);
 
+      if($insert)
+      {
+      $this->db->insert_batch('chat', $data);
+      }
+      echo $insert_id = $this->db->insert_id();
+      $update = array(
+        'brand_id' => 1
+        
+     );
+      $this->db->where('item_id',16);
+      $this->db->update('items',$update ); 
+      return $insert;
+    
         //******************************************************************* */
 
         //*************** accurate Code******************************************
@@ -392,7 +547,7 @@ for($i=0; $i<$records; $i++) {
 
 
     }
-
+   
     function po_invoice(){
 //         $data=$this->db
 //         ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
@@ -534,6 +689,7 @@ echo 'success';
                 ->get('items_in_stock');
     return $query->result_array();
             }
+            
         
 } 
     
