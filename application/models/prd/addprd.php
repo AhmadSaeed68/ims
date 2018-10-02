@@ -555,13 +555,23 @@ return $data->result_array();
 
 $result= $this->db->select('')
 ->from('po_invoice')
-->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
-           ->order_by('po_invoice.id','desc')   
+//->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+           //->order_by('po_invoice.id','desc')   
              
           ->get('');
       return $result->result_array();
 
 
+    }
+    function view_invoice($id){
+        $result= $this->db->select('')
+          ->from('po_invoice_detail')
+          ->join('po_invoice','po_invoice_detail.invoice_code=po_invoice.invoice_code','inner')
+                        ->where('po_invoice.id',$id)
+                       
+                    ->get('');
+                return $result->result_array();
+                
     }
 
     function edit_invoice($id){
@@ -639,42 +649,104 @@ echo 'success';
         $item_rate=$this->input->post('item_rate');
         $item_code=$this->input->post('item_code');
         $discount=$this->input->post('discount');
-        if($discount>0){
-          // print_r($discount);
-          $invoice_total= $item_quantity*$item_rate;
-           $invoice_total=$invoice_total-(($discount/100)*$invoice_total);
-        }else{
-          echo $invoice_total= $item_quantity*$item_rate;
-        }
+        // if($discount>0){
+        //   // print_r($discount);
+        //   $invoice_total= $item_quantity*$item_rate;
+        //    $invoice_total=$invoice_total-(($discount/100)*$invoice_total);
+        // }else{
+        // $invoice_total= $item_quantity*$item_rate;
+        // }
     
-        $data1=array(
+        $data1[]=array(
             'po_code'=>$po_code,
             'invoice_code'=>$invoice_code,
-            'invoice_total'=>$invoice_total,
+            
             'invoice_description'=>$invoice_description
             
         );
 
-        $data2=array(
-            'invoice_code'=>$invoice_code,
-            'item_code'=>$item_code,
-            'item_qty'=>$item_quantity,
-            'item_rate'=>$item_rate
+      
+        
+
+        $q1= $this->db->insert_batch('po_invoice',$data1);
+
+        //************Get Last 
+        //                   Insert ID*********
+
+        $id= $this->db->insert_id();
+
+        //************GEt Data from 
+        //                         po_invoice Table  
+        //                                          by last Insert ID*********
+        $this->db->select('invoice_code');
+        $this->db->where('id',$id);
+        $res2 = $this->db->get('po_invoice');
+        $res2= $res2->result_array();
+        foreach($res2 as $data){
+        $last_insert_invoice_code= $data['invoice_code'];
+        }
+         $last_insert_invoice_code;
+
+
+        //**********Insert Data into 
+        //                            another table  by getting 
+                //                                 last insert id and  and invoice_code ***********
+                $item_code=$this->input->post('item_code');
+                
+                //******Count data from  item_code in INVOICE*****
+                $temp = count($item_code);
+                for($i=0; $i<$temp; $i++){
+                  
+                    $discount=$this->input->post('discount');
+                    $item_quantity=$this->input->post('item_quantity');
+                    $item_rate=$this->input->post('item_rate');
+                    $item_code=$this->input->post('item_code');
+
+                    //****Calculate IF Discount */
+                    if($discount[$i]>0){
+                         
+                           $item_total= $item_quantity[$i]*$item_rate[$i];
+                            $item_total=$item_total-(($discount[$i]/100)*$item_total);
+                         }else{
+                         $item_total= $item_quantity[$i]*$item_rate[$i];
+                         }
+
+                         //**End CALCULATE DISCOUNT */
+
+                            $data2[]=array(
+                        'invoice_code'=>$last_insert_invoice_code,
+                        'item_code'=>$item_code[$i],
+                        'item_qty'=>$item_quantity[$i],
+                        'item_rate'=>$item_rate[$i],
+                        'discount'=>$discount[$i],
+                        'item_total'=>$item_total,
             
         );
-        //print_r($data2);
+      
+        
+                      
+                }
 
-        $q1= $this->db->insert('po_invoice',$data1);
-   $q2= $this->db->insert('po_invoice_detail',$data2);
-   if($q1 && $q2){
-       echo'Insert Success fully';
-   }else{
-       echo'Error in database MOdal->: line no:499 get_PoCode_item';
-   }
+                //**Check IF process Successful RUN  */
+                $insert = count($data2);
+          
+                if($insert)
+                {
+                    //** INSERT BATCH DATA INTO DATABASE */
+                $this->db->insert_batch('po_invoice_detail', $data2);
+                $id=$this->db->insert_id();
+                echo"Invoice Make Successful";
+                }else{
+                           echo'Error in database MOdal->: line no:499 get_PoCode_item';
+                        }
+
+
+
 
                 
                
             }
+          
 
             function stock(){
                 $query=$this->db

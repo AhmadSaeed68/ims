@@ -39,15 +39,14 @@
                         <th>ID</th>
                         <th>Po Code</th>
                         <th>Invoice Code</th>
-                        <th>Item Code</th>
-                        <th>Item Qty</th>
-                        <th>Item Rate</th>
+                        
                         
                         <th>Invoice Total</th>
                         <th>Invoice Desc</th>
                         <th>Inv Date</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>View</th>
+                        
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -56,15 +55,22 @@
                         <td><?= $data['id'];?></td>
                         <td><?= $data['po_code']?></td>
                         <td><?= $data['invoice_code']?></td>
-                        <td><?= $data['item_code']?></td>
-                        <td><?= $data['item_qty']?></td>
-                        <td><?= $data['item_rate']?></td>
-                        <td><?= $data['invoice_total']?></td>
+                       <td><?= $data['invoice_total']?></td>
                         <td><?= $data['invoice_description']?></td>
                         <td><?= $data['invoice_date']?></td>
+                        <td><span class="fa fa-file-pdf-o w3-text-red"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
+                        <td> <div class="dropdown">
+                                    <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                    <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                    
+                                    <li><input type="button" class="btn btn-sm w3-teal edit" value="Edit" id="<?php echo $data['id']; ?>"></li>
+                                    <li><input type="button" class="btn btn-sm w3-red  delete" value="Delete" id="<?php echo $data['id']; ?>"></li>
+                                    </ul>
+                                </div>
+                        </td>
                        
-                        <td><input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?php echo $data['id']; ?>"></td>
-                        <td><input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?php echo $data['id']; ?>"></td>
+                      
                     
                     </tr>
 <?php endforeach;?>
@@ -304,7 +310,7 @@ function myfun(datavalue){
                     
                     $('#make_invoice')[0].reset();
                     dataTable.ajax.reload();
-                    //$('#largeModal').modal('hide');
+                    $('#largeModal').modal('hide');
                      
                 
                 },
@@ -314,6 +320,28 @@ function myfun(datavalue){
 
             
             });
+
+
+
+            //** LOad MOdal View after Click on View Button***/
+            $(document).ready(function(){
+            $('.view').click(function(){
+        var invoice_id = $(this).attr('id');
+        $.ajax({
+                            url: "<?php echo base_url() ?>prd/view_invoice",
+                            method: "POST",
+                            data: {invoice_id:invoice_id},
+                            success: function(data)
+                            {
+                        // Print the fetched data of the selected order in the modal
+                        // within the Bootstrap modal
+                            $('#result').html(data);
+                            // Display the Bootstrap modal
+                            $('#Modal').modal('show');
+                            }
+                });
+        });
+        });
 
             
 </script>
