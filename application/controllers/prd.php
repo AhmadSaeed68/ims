@@ -316,7 +316,7 @@
                 <div class="form-group">
                 <label class="control-label col-sm-2" for="email">Categore</label>
                 <div class="col-sm-10">
-                <select class="form-control" id="category_id" name="category_id">
+                <select class="form-control" id="category_id" name="category_id" >
         <?php
         foreach($records as $each) {
         ?>
@@ -333,6 +333,13 @@
             <label class="control-label col-sm-2" for="pwd">Item Name:</label>
             <div class="col-sm-10">
                 <input type="text" class="form-control" id="item_name" name="item_name" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-sm-2" for="pwd">Item Quantity:</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="item_qty" name="item_qty" required>
             </div>
         </div>
                 <!-- Item Code -->
@@ -378,6 +385,7 @@
                 'item_name'=>$this->input->post('itemName'),
                 'item_code'=>$this->input->post('item_code'),
                 'item_description'=>$this->input->post('item_desc'),
+                'item_qty'=>$this->input->post('item_qty'),
             );
             //print_r($insert_data);
             $this->load->model('prd/addprd');
@@ -601,7 +609,7 @@
                 $this->load->model('prd/addprd');
                $item_data= $this->addprd->get_itemCode_in_order();
                ?>
-               <select class="form-control" id="category_id" name="item_code[]">
+               <select class="form-control" id="category_id" name="item_code[]" onchange="myfun()">
                 <?php
               foreach($item_data as $each){
                   echo $each['item_code'];
@@ -615,6 +623,22 @@
                       <?php
 
 
+            }
+
+            function chk_item_qty_in_order(){
+                $item_qty= $this->input->post('item_qty');
+                $item_code= $this->input->post('item_code');
+                $result= $this->db->select('item_qty')
+                            ->from('items')
+                            ->where('item_code',$item_code)
+                            ->get('')
+                            ->result_array();
+                            foreach($result as $result){
+                                $qty= $result['item_qty'];
+                                if($item_qty>$qty){
+                                    echo"**Available Quantity:".$qty."**";
+                                }
+                            }
             }
 
 
@@ -645,6 +669,7 @@
 
 
             }
+
 
             /**********  PO INVOICE  Function  **********/
 
@@ -741,19 +766,54 @@
                   
                    
                     <div class="well"><h2> Invoice Detail</h2></div>
-                    <table class="table">
+                    
+                    <div class="col-sm-12 col-md-12">
                     <?php foreach($records as $data):?>
-                    <tr>
-                    <th>Po Code</th>
-                    <th><?= $data['po_code']?></th>
-                    <th>Invoice Code</th>
-                    <th>443</th>
-                </tr>
-               
+                    <span>Date: <?=$data['date']?></span>
+                               <div class="form-row">
+                                 <div class="form-group col-md-6">
+                                 <span>Invoice Code:<b> <?=$data['invoice_code']?></b></span>
+                                 </div>
+
+                                 <div class="form-group col-md-6">
+                                 <span>Po Code: <b><?=$data['po_code']?></b></span>
+                                 </div>
+                                
+                             </div>
+                             <div class="form-row">
+                                 <div class="form-group col-md-4">
+                                 <span>Invoice Description: </span>
+                                 </div>
+
+                                 <div class="form-group col-md-6">
+                                 <span><?=$data['invoice_description']?></span>
+                                 </div>
+                                
+                             </div>
+                             <div class="form-row">
+                                 <table class="table table-bordered">
+                                 <tr class="warning">
+                                 <td>Item Code</td>
+                                 <td>Item Qty</td>
+                                 <td>Item Rate</td>
+                                 <td>Discount</td>
+                                 <td>Total</td>
+                                 </tr>
+                            
+                                 <tr>
+                                 
+                                     <th><?=$data['item_code']?></th>
+                                     <th><?=$data['item_qty']?></th>
+                                     <th><?=$data['item_rate']?></th>
+                                     <th><?=$data['discount']?> %</th>
+                                     <th><?=$data['item_total']?></th>
             <?php endforeach;?>
-               
-                    </table>
-                
+                                 </tr>
+                                 </table>
+                                
+                             </div>
+                             </div>
+
                   
                   <?php
                
@@ -767,9 +827,9 @@
 
              }
 
-             function ge_data_from_po(){
+             function report(){
 
-
+$this->load->view('report');
              }
 
              function make_invoice(){

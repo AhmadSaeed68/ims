@@ -62,19 +62,22 @@
                     <div class="form-row">
                     <div class="form-group col-md-4">
                     <label for="pwd">Item Code</label>
-                    <span id="span_item_details"></span>
+                    <span  id="span_item_details" ></span>
                     <!-- <span id="user_resul"  name="item_code[]" class="show_data"></span> -->
                    <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
                     </div>
                     <div class="form-group col-md-4">
                     <label for="email">Item Quantity</label>
-                    <input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity">
-
+                  
+                    <input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun()">
+                    <span class="w3-text-red" id="return_msg"></span>
                     </div>
                     <div class="form-group col-md-4">
                      <label for="pwd">Item Rate:</label>
-                    <input type="number" class="form-control" required="" name="item_rate[]" id="item_rate">
+                    <input type="number" class="form-control" required="" name="item_rate[]" id="item_rate" >
+                    
                     </div>
+                   
                 </div>
                            </div>
                            <div class="col-sm-6 col-md-6">
@@ -368,7 +371,7 @@ $(document).ready(function(){
         html+='<span id="span_data"></span>';
         html+='</div>';
         html+='<div class="form-group col-md-4"><label for="item_quantity">Item Quantity</label> ';
-        html+='<input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity"></div>';
+        html+='<input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun(this.value)"></div>';
         html+='<div class="form-group col-md-4"><label for="item_rate">Item Rate:</label>';
         html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]"></div>';
         html+='</div></td><td>';
@@ -445,6 +448,26 @@ $(document).ready(function(){
    }
   });
 
+  
+  function myfun(){
+        
+          var item_code=$('#category_id').val();
+          var item_qty=$('#item_quantity').val();
+
+   $.ajax({
+    async: false,
+     url:'<?php echo base_url() ?>prd/chk_item_qty_in_order',
+     type:'POST',
+     data:{item_code:item_code,item_qty:item_qty},
+     success:function(result){
+        $('#return_msg').html(result);
+      
+     }
+
+   });
+ }
+         
+    
 
 
 

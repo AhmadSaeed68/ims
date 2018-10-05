@@ -42,6 +42,9 @@
                 <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
             </th>
             <th>
+                <i class="fa fa-heartbeat w3-text-orange"></i>Item Quantity
+            </th>
+            <th>
                 <i class="fa fa-scissors w3-text-orange"></i>Edit
             </th>
             <th>
@@ -78,6 +81,9 @@
             
             <td>
                 <?=$item['item_status']?>
+            </td>
+            <td>
+                <?=$item['item_qty']?>
             </td>
             <td>
                 <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
@@ -158,11 +164,12 @@
             var category_id=$('#category_id').val();
             var item_code=$('#item_code').val();
             var item_desc=$('#item_desc').val();
+            var item_qty=$('#item_qty').val();
         if(itemName !='' && category_id !='' && item_code !='' && item_desc !=''){
                 $.ajax({
                     url: "<?php echo base_url() ?>prd/add_item",
                     method:'POST',
-                    data:{itemName:itemName,category_id:category_id,item_code:item_code,item_desc:item_desc},
+                    data:{itemName:itemName,category_id:category_id,item_code:item_code,item_desc:item_desc,item_qty:item_qty},
                     //data:new FormData($this),
                     //contentType:false,
                     //processData:false,

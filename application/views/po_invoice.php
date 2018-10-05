@@ -301,21 +301,19 @@ function myfun(datavalue){
                 url:"<?php echo base_url() ?>prd/make_invoice", 
                 method:"POST",
                 // Last time set  
-                data:$('#make_invoice').serialize(),  
-               
+                data:$('#make_invoice').serialize(),
                 success:function(data)  
                 {  
-                    alert(data); 
-                    var dataTable=$("#order_data").dataTable(); 
-                    
+                    alert(data);
+                    var dataTable=$("#order_data").dataTable();
+
                     $('#make_invoice')[0].reset();
                     dataTable.ajax.reload();
                     $('#largeModal').modal('hide');
-                     
-                
+
+
                 },
-                
-        
+
         });
 
             
@@ -333,8 +331,7 @@ function myfun(datavalue){
                             data: {invoice_id:invoice_id},
                             success: function(data)
                             {
-                        // Print the fetched data of the selected order in the modal
-                        // within the Bootstrap modal
+
                             $('#result').html(data);
                             // Display the Bootstrap modal
                             $('#Modal').modal('show');
@@ -343,7 +340,7 @@ function myfun(datavalue){
         });
         });
 
-            
+
 </script>
 <p id='fd' class='fd'>
 

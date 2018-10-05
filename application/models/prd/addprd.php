@@ -265,9 +265,8 @@ return $data->result_array();
       }
       
       function make_order(){
+
         
-      
-    
         $po_code=$this->input->post('po_code');
         $po_desc=$this->input->post('po_desc');
         $data[]= array(
@@ -334,6 +333,7 @@ return $data->result_array();
       {
       $this->db->insert_batch('purchase_order_detail', $data1);
       }
+      
       $item_quantity=$this->input->post('item_quantity');
       $item_rate=$this->input->post('item_rate');
       
@@ -414,15 +414,14 @@ return $data->result_array();
    //$q2= $this->db->insert('purchase_order',$data1);
    //if($q1 && $q2){
     //   echo'Ordered Successfully:';
-   //}
-    
-    
+//}
+
 //}
 /************************************************************************* */
 /**************************Previous Working Code with Procedural********* */
 /*********************************************************************** */
 
-        
+
 //         $db=$this->db();
 //         $item_rate=$this->input->post('item_rate');
              

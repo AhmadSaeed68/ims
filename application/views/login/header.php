@@ -167,7 +167,7 @@ body {font-family: "Open Sans"}
                       <?= anchor('prd/po_invoice','Invoice',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
                       <li class="nav-item">
-                      <?= anchor('','PurchaseOrder',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
+                      <?= anchor('report','Report',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
                       </li>
                      
                       <li>
