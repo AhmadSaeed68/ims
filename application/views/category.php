@@ -83,8 +83,8 @@
   <thead>
   <tr>
       <th><i class="glyphicon glyphicon-bookmark"></i>Category Id</th>
-      <th><i class=" 
-      glyphicon glyphicon-user w3-text-blue"></i>User Id</th>
+      <!-- <th><i class=" 
+      glyphicon glyphicon-user w3-text-blue"></i>User Id</th> -->
   <th><i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name</th>
   <th><i class="fa fa-heartbeat w3-text-green"></i> Status</th>
   <th><i class="fa fa-scissors w3-text-orange"></i> Edit</th>
@@ -102,9 +102,7 @@
       <td>
       <?= $query->category_id?>
       </td>
-      <td>
-      <?= $query->user_id?>
-      </td>
+      
       <td>
       <?= $query->category_name?>
       </td>
@@ -176,7 +174,7 @@
         
         $.ajax({
           type: 'POST',
-          url  : "<?php echo base_url(); ?>prd/add_category",
+          url  : "<?php echo base_url(); ?>category_controller/add_category",
           data: {category_name:name,category_status:status,id:id},
           success:  function(feedback){
             $('#feedback1').html(feedback);
@@ -214,7 +212,7 @@
                   // Start AJAX function
                   $.ajax({
                   // Path for controller function which fetches selected phone data
-                      url: "<?php echo base_url() ?>prd/get_category_result",
+                      url: "<?php echo base_url() ?>category_controller/get_category_result",
                       // Method of getting data
                       method: "POST",
                       // Data is sent to the server
@@ -236,7 +234,7 @@
             var category_id=$(this).attr('id');
             if(confirm("Are You sure to delete this")){
             $.ajax({
-                url: "<?php echo base_url() ?>prd/delete_category",
+                url: "<?php echo base_url() ?>category_controller/delete_category",
                 method:"POST",
                 data:{category_id:category_id},
                 datatype:"json",

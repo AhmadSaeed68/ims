@@ -1,5 +1,4 @@
-<?php
-?>
+
 
 <html>
     <head>
@@ -111,88 +110,104 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
   
-<style>
 
-body {font-family: "Open Sans"}
-</style>
 
     <?php $id=$this->session->userdata('user_id');
    
       if($id){
     ?>
-
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-     
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active">
-      <?= anchor('admin/dashboard',' Dashboard',['class'=>'nav-link fa fa-dashboard w3-text-red'])?>
-      </li>
-      <li class="dropdown">
-        <a class="dropdown-toggle glyphicon glyphicon-list-alt" data-toggle="dropdown" href="#">Category
-        <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li>
-          <?= anchor('prd/stock_list',' view Stock',['class'=>'fa fa-1x fa-home w3-text-blue dropdown-item'])?>
-          </li>
-          <li>
-          <?= anchor('prd/assets',' view Assets',['class'=>'fa fa-chart-bar w3-text-orange dropdown-item'])?>
-          </li>
-          <li>
-          <?= anchor('prd/vendors',' view vendors',['class'=>'fab fa-1x w3-text-red fa-creative-commons-remix dropdown-item'])?>
-          </li>
-          <li>
-      <?= anchor('prd/prd_sales',' Add Sales',['class'=>'fas fa fa-briefcase-medical w3-text-green dropdown-item'])?>
-      </li>
-        </ul>
-      </li>
-      <li>
-      <?= anchor('prd/user','User',['class'=>'nav-link  glyphicon glyphicon-user'])?>
-      </li>
-      <li class="nav-item">
-      <?= anchor('prd/category',' Category',['class'=>'nav-link  fa fa-address-card-o'])?>
-      </li>
-      <li class="nav-item">
-          <?= anchor('prd/item',' Items',['class'=>'nav-link fa fa-columns'])?>
-        </li>
-      <li class="nav-item">
-          <?= anchor('prd/order_managment','Order',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
-        </li>
-        <li class="nav-item">
-          <?= anchor('prd/stock','stock_item',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
-        </li>
-                      <li class="nav-item">
-                      <?= anchor('prd/po_invoice','Invoice',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
-                      </li>
-                      <li class="nav-item">
-                      <?= anchor('report','Report',['class'=>'nav-link  glyphicon glyphicon-tree-conifer'])?>
-                      </li>
-                     
-                      <li>
-     
- </li> 
-<li>
-<div class="dropdown">
-  <p class="btn btn-primary dropdown-toggle " type="button" data-toggle="dropdown">
-  <span class="fa fa-unlock w3-text-orange"></span> <?php echo substr($id->email,0,9).'...';?> <span class='caret'></span></p>
-  <ul class="dropdown-menu">
-    <li><a href="#"><?= $id->email?></a></li>
-    <li><?= anchor('login/logout','LogOut',['class'=>'nav-link  glyphicon glyphicon-log-out'])?>   </li>
-    <li><a href="#">JavaScript</a></li>
-  </ul>
-</div> 
-</li>
- 
-</ul>
-
-    
- <!--,'data-toggle'=>'modal'-->
+         <style>
       
-       
-  </div>
+      .navbar {
+     font-family: Montserrat, sans-serif;
+     margin-bottom: 0;
+     background-color: #2d2d30;
+     border: 0;
+     font-size: 11px !important;
+     letter-spacing: 4px;
+     /* opacity: 0.9; */
+ }
+ .navbar li a, .navbar .navbar-brand { 
+     color: #d5d5d5 !important;
+ }
+ .navbar-nav li a:hover {
+     color: #fff !important;
+ }
+ .navbar-nav li.active a {
+     color: #fff !important;
+     background-color: #29292c !important;
+ }
+ .navbar-default .navbar-toggle {
+     border-color: red;
+ }
+ .open .dropdown-toggle {
+     color: #fff;
+     background-color: #555 !important;
+ }
+ .dropdown-menu li a {
+     color: #000 !important;
+ }
+ .dropdown-menu li a:hover {
+     background-color: teal !important;
+ }
+ </style>
+ <nav class="navbar navbar-inverse navbar-fixed-top">
+ <div class="container-fluid">
+   <div class="navbar-header">
+     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+       <span class="icon-bar"></span>
+     </button>
+     <a class="navbar-brand w3-red" href="<?php echo base_url("admin/dashboard")?>"><span class="
+fa fa-dashboard w3-text-snow"></span> Dashboard</a>
+   </div>
+   <div class="collapse navbar-collapse" id="myNavbar">
+     <ul class="nav navbar-nav active">
+       <li>
+           
+       </li>
+       <li class="w3-hover-blue"><a href="<?php echo base_url("category_controller/category");?> " ><span class="fa fa-compass fa-2x w3-text-red"></span>Category</a></li>
+       <li class="w3-hover-light-blue"><a href="<?php echo base_url("items_controller/item");?> "><span class="
+fa fa-sitemap w3-text-green fa-2x"></span>Items</a></li>
+       <li class="w3-hover-orange"><a href="<?php echo base_url("order_controller/order_managment");?> "><span class="
+fa fa-thumb-tack fa-2x w3-text-blue"></span>Purchase Order</a></li>
+       <li class="w3-hover-light-green"><a href="<?php echo base_url("invoice_controller/po_invoice");?> "><span class="
+fa fa-qrcode fa-2x w3-text-red"></span>PO_Invoice</a></li>
+           <li class="w3-hover-teal"><a href="<?php echo base_url("stock_controller/stock");?> "><span class="
+fa fa-line-chart fa-2x w3-text-sand"></span>Stock</a></li>
+       <li class="dropdown">
+         <a class="dropdown-toggle" data-toggle="dropdown" href="#">MORE
+         <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+           <li><a href="<?php echo base_url("report")?>"><span class="
+fa fa-file-pdf-o  w3-text-red"></span>Report</a></li>
+           <li><a href="<?php echo base_url("report");?> "><span class="
+
+fa fa-group  w3-text-blue"></span>Users</a></li>
+        
+         </ul>
+       </li>
+      
+     </ul>
+      <ul class="nav navbar-nav navbar-right">
+     <li class="dropdown">
+         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="
+fa fa-user-circle-o fa-2x w3-text-blue"></span><?php echo substr($id->email,0,6).'...';?>
+         <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+           <li><a href="<?php echo base_url('profile')?>"><span class="
+fa fa-user-secret fa-2x"></span> Profile</a></li>
+             <li><a href="<?php echo base_url("login/logout")?>"><span class="
+fa fa-sign-out fa-2x w3-text-red"></span> LogOut</a></li>
+        
+         </ul>
+       </li>
+   </ul>
+   </div>
+ </div>
 </nav>
+
  <?php }?> 
     <body>
         

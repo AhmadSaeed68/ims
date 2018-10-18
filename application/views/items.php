@@ -1,123 +1,244 @@
-    <?php include_once"login/header.php";
-    $id=$this->session->userdata('user_id');
-    echo $id->id;
-    ?>
-    
-<div class="container">
-<div class='jumbotron'>
-   <h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
-   
-    </div>
+<?php include_once"login/header.php";
+
+$id=$this->session->userdata('user_id');
+
+echo $id->id;
+
+?>
+
+
+
+<div class="container w3-padding-64">
+
+<!-- <div class='jumbotron'>
+
+<h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
+
+
+
+</div> -->
+
 <div class="card-header w3-center"> </div>
-    <div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
-    <div class="panel panel-default">
-    <div class="panel-heading">
-        <h1 class="panel-title w3-padding-24">Items Detail</h1>
-        </div>
-        <!-- Pannel tag -->
-            <div class="panel-body">
-            <table id="brand_data" class="table table-bordered table-striped">
-    <thead>
-        <tr>
-            <th>
-                <i class="glyphicon glyphicon-bookmark"></i>item Id
-            </th>
-            <th>
-                <i class="glyphicon glyphicon-user w3-text-blue"></i>category ID
-            </th>
-            <th>
-                <i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name
-            </th>
-            <th>
-                <i class="fa fa-list-alt w3-text-red"></i>Item Name
-            </th>
-            <th>
-                <i class="fa fa-barcode w3-text-blue"></i>item Code
-            </th>
-            <th>
-                <i class="fa fa-newspaper-o w3-text-green"></i>Item Description
-            </th>
 
-            <th>
-                <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
-            </th>
-            <th>
-                <i class="fa fa-heartbeat w3-text-orange"></i>Item Quantity
-            </th>
-            <th>
-                <i class="fa fa-scissors w3-text-orange"></i>Edit
-            </th>
-            <th>
-                <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
-            </th>
-        
-        
-        </tr>
+<div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
 
-    </thead>
-        <tbody>
-            <?php 
-            foreach($item as $item):
-            ?>
-        <tr>
-            <td>
-                <?= $item['item_id']?>
-            </td>
-            <td>
-                <?= $item['category_id']?>
-            </td>
-            <td>
-                <?= $item['category_name']?>
-            </td>
-            <td>
-                <?=$item['item_name']?>
-            </td>
-            <td>
-                <?=$item['item_code']?>
-            </td>
-            <td>
-                <?=$item['item_description']?>
-            </td>
-            
-            <td>
-                <?=$item['item_status']?>
-            </td>
-            <td>
-                <?=$item['item_qty']?>
-            </td>
-            <td>
-                <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
-            </td>
-            <td>
-                <input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?=$item['item_id']?>">
-            </td>
-        </tr>
-            <?php endforeach;?>
-        </tbody>
-            </table>
-        </div>
+<div class="panel panel-default">
+
+<div class="panel-heading w3-center w3-padding-24">
+
+   <span class=" fa fa-sitemap w3-text-green fa-2x">
+       Items Detail
+   </span>
+
     </div>
+
+    <!-- Pannel tag -->
+
+        <div class="panel-body">
+
+        <table id="brand_data" class="table table-bordered table-striped">
+
+<thead>
+
+    <tr>
+
+        <th>
+
+            <i class="glyphicon glyphicon-bookmark"></i>item Id
+
+        </th>
+
+        <th>
+
+            <i class="glyphicon glyphicon-user w3-text-blue"></i>category ID
+
+        </th>
+
+        <th>
+
+            <i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name
+
+        </th>
+
+        <th>
+
+            <i class="fa fa-list-alt w3-text-red"></i>Item Name
+
+        </th>
+
+        <th>
+
+            <i class="fa fa-barcode w3-text-blue"></i>item Code
+
+        </th>
+
+        <th>
+
+            <i class="fa fa-newspaper-o w3-text-green"></i>Item Description
+
+        </th>
+
+
+
+        <th>
+
+            <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
+
+        </th>
+
+        <!-- <th>
+
+            <i class="fa fa-heartbeat w3-text-orange"></i>Item Quantity
+
+        </th> -->
+
+        <th>
+
+            <i class="fa fa-scissors w3-text-orange"></i>Edit
+
+        </th>
+
+        <th>
+
+            <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
+
+        </th>
+
+    
+
+    
+
+    </tr>
+
+
+
+</thead>
+
+    <tbody>
+
+        <?php 
+
+        foreach($item as $item):
+
+        ?>
+
+    <tr>
+
+        <td>
+
+            <?= $item['item_id']?>
+
+        </td>
+
+        <td>
+
+            <?= $item['category_id']?>
+
+        </td>
+
+        <td>
+
+            <?= $item['category_name']?>
+
+        </td>
+
+        <td>
+
+            <?=$item['item_name']?>
+
+        </td>
+
+        <td>
+
+            <?=$item['item_code']?>
+
+        </td>
+
+        <td>
+
+            <?=$item['item_description']?>
+
+        </td>
+
+        
+
+        <td>
+
+            <?=$item['item_status']?>
+
+        </td>
+
+        <!-- <td>
+
+            <?php //$item['item_qty']?>
+
+        </td> -->
+
+        <td>
+
+            <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
+
+        </td>
+
+        <td>
+
+            <input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?=$item['item_id']?>">
+
+        </td>
+
+    </tr>
+
+        <?php endforeach;?>
+
+    </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
+</div>
+
+
+
 <!-- view Modal -->
-        <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">Data</h4>
-            </div>
-            <div class="modal-body">
-                <!-- Place to print the fetched phone -->
-                <div id="phone_result"></div>
-            </div>
-            <div class="modal-footer">
-            
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-            </div>
+
+    <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+        <div class="modal-header">
+
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+            <h4 class="modal-title" id="myModalLabel">Data</h4>
+
         </div>
+
+        <div class="modal-body">
+
+            <!-- Place to print the fetched phone -->
+
+            <div id="phone_result"></div>
+
         </div>
+
+        <div class="modal-footer">
+
+        
+
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+        </div>
+
+        </div>
+
+    </div>
+
+    </div>
 <!-- jQuery JS CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
     <!-- jQuery DataTables JS CDN -->
@@ -143,7 +264,7 @@
                     // Start AJAX function
                     $.ajax({
                     
-                    url: "<?php echo base_url() ?>prd/get_item",
+                    url: "<?php echo base_url() ?>items_controller/get_item",
                     method: "POST",
                         data: {phoneData:phoneData},
                         success: function(data){
@@ -164,12 +285,12 @@
             var category_id=$('#category_id').val();
             var item_code=$('#item_code').val();
             var item_desc=$('#item_desc').val();
-            var item_qty=$('#item_qty').val();
+            // var item_qty=$('#item_qty').val();
         if(itemName !='' && category_id !='' && item_code !='' && item_desc !=''){
                 $.ajax({
-                    url: "<?php echo base_url() ?>prd/add_item",
+                    url: "<?php echo base_url() ?>items_controller/add_item",
                     method:'POST',
-                    data:{itemName:itemName,category_id:category_id,item_code:item_code,item_desc:item_desc,item_qty:item_qty},
+                    data:{itemName:itemName,category_id:category_id,item_code:item_code,item_desc:item_desc},
                     //data:new FormData($this),
                     //contentType:false,
                     //processData:false,
@@ -190,7 +311,7 @@
         $(document).on('click','.edit',function(){
             var item_id=$(this).attr('id');
             $.ajax({
-                url: "<?php echo base_url() ?>prd/fetch_item",
+                url: "<?php echo base_url() ?>items_controller/fetch_item",
                 method:"POST",
                 data:{item_id:item_id},
                 //datatype:"json",
@@ -207,7 +328,7 @@
             var item_id=$(this).attr('id');
             if(confirm("Are You sure to delete this")){
             $.ajax({
-                url: "<?php echo base_url() ?>prd/delete_item",
+                url: "<?php echo base_url() ?>items_controller/delete_item",
                 method:"POST",
                 data:{item_id:item_id},
                 datatype:"json",
@@ -226,7 +347,8 @@
 
 
 
-        $(document).on('submit','.update_item',function(event){
+        $(document).on('submit','#editupdate',function(event){
+         
             event.preventDefault();
             var item_id=$('#item_id').val();
             var category_id=$('#category_id').val();
@@ -238,7 +360,7 @@
             
         if(item_id !='' && category_id !='' && item_code !='' && item_description !=''&& item_name !=''&& item_status !=''){
                 $.ajax({
-                    url: "<?php echo base_url() ?>prd/update_item",
+                    url: "<?php echo base_url() ?>items_controller/update_item",
                     method:'POST',
                     data:{item_name:item_name,category_id:category_id,item_code:item_code,item_id:item_id,item_code:item_code,item_status:item_status,item_description:item_description},
                     //data:new FormData($this),

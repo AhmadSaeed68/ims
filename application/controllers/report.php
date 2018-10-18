@@ -32,7 +32,19 @@
                     $rowcount = $query->num_rows();
                     print_r($rowcount);
             }
-                
+
+                function total_po_invoices(){
+                $query=$this->db
+                    ->select('po_code')
+                    
+                    ->where('order_report','recived')
+                   ->get('purchase_order');
+                   
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);
+            }
+
+
             function count_order(){
                 $query=$this->db
                 ->select('po_code')
@@ -43,6 +55,20 @@
                 $rowcount = $query->num_rows();
                 print_r($rowcount);
             }
+
+            function count_pending_po_invoices(){
+                $query=$this->db
+                ->select('po_code')
+                
+                ->where('order_report','pending')
+               ->get('purchase_order');
+               
+                $rowcount = $query->num_rows();
+                print_r($rowcount);
+            
+            
+        }
+
             function order_value(){
                $result= $this->db->select_sum('po_item_total')
                 ->get('purchase_order_detail')
@@ -59,6 +85,7 @@
                 echo '$ '. $result['item_total'];
                }
             }
-        }
+ 
+    }
         
         ?>

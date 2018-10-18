@@ -2,17 +2,21 @@
 <!-- Header -->
 
   
-<div class="container">
-<div class='jumbotron'>
+<div class="container w3-padding-64">
+<!-- <div class='jumbotron'>
    <h1 class='w3-center'><span class='fa fa-wpforms w3-text-lime'> </span> Stock`s Detail</h1>
    
-    </div>
+    </div> -->
 
 <div class="panel-group">
    <a href="<?php echo base_url() ?>prd/pdf" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a>
     <div class="panel panel-default">
-    <div class="panel-heading ">
-    <h2>Available Stocks</h2>
+    <div class="panel-heading w3-center w3-padding-24">
+
+   <span class="fa fa-line-chart fa-2x w3-text-teal">
+       Stock
+   </span>
+
     </div>
     <div class="panel-body">
     <table class="w3-table-all table-bordered w3-hoverable" id="order_data">

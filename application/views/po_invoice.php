@@ -5,30 +5,26 @@
 ?>
 
 <p class='w3-code w3-smoke'><?php echo "Today is " . date("Y/m/d") . "<br>";?></p>
-<style type="text/css">
-    .bs-example{
-      margin: 20px;
-    }
-  
-    @media screen and (min-width: 992px) {
-        .modal-lg {
-          width: 1200px; /* New width for large modal */
-        }
-    }
-</style>
-<div class="container w3-border">
-<div class='jumbotron'>
+<!-- s -->
+<div class="container w3-padding-64">
+<!-- <div class='jumbotron'>
    <h1 class='w3-center'><span class=' 	fa fa-themeisle w3-text-gray'> </span> Invoice Detail</h1>
    
-    </div>
-<a href="#largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a>
+    </div> -->
+
     <div class="w3-container">
-            <h1 class='w3-center'>PO Invoice</h1>
-        <div class="panel panel-default">
-            <div class="panel-heading"><span class=''></span>
-            <span class="w3-right">
+    <span class="w3-left"> <a href="<?php echo base_url() ?>pdf/invoice_pdf" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+            
           
-            </span> <!-- Modal -->
+        <div class="panel panel-default">
+        <a href="#largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a>
+        <div class="panel-heading w3-center w3-padding-24">
+
+                <span class=" fa fa-qrcode fa-2x w3-text-red">
+                    PO Invoice
+                </span>
+
+                </div> <!-- Modal -->
               <!-- Large Modal HTML -->
     
             <div class="panel-body">
@@ -37,14 +33,16 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Po Code</th>
-                        <th>Invoice Code</th>
+                        <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
+                        <th><span class="
+fa fa-shield w3-text-green"></span> Invoice Code</th>
                         
                         
-                        <th>Invoice Total</th>
-                        <th>Invoice Desc</th>
-                        <th>Inv Date</th>
-                        <th>View</th>
+                        <th> <span class="
+fa fa-object-ungroup w3-text-blue"></span>Invoice Total</th>
+                        <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Invoice Desc</th>
+                        <th><span class="fa fa-calendar w3-text-red"></span>Inv Date</th>
+                        <th><span class="fa fa-eye w3-text-blue"></span>View</th>
                         
                         <th>Action</th>
                     </tr>
@@ -58,7 +56,7 @@
                        <td><?= $data['invoice_total']?></td>
                         <td><?= $data['invoice_description']?></td>
                         <td><?= $data['invoice_date']?></td>
-                        <td><span class="fa fa-file-pdf-o w3-text-red"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
+                        <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
                         <td> <div class="dropdown">
                                     <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
                                     <span class="caret"></span></button>
@@ -78,13 +76,13 @@
             </table>
             </div>
         </div>
-</div>
+
     </div>
     </div>
 </div>
 
          <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-    <div class="modal-dialog ">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header ">User Detail
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -128,7 +126,8 @@
                   
                     <div class="form-group col-md-4">
                      <label for="pwd">Invoice Code:</label>
-                    <input type="text" class="form-control" name="invoice_code" id="invoice_code">
+                    <!-- <input type="text" class="form-control" name="invoice_code" id="invoice_code"> -->
+                    <span id="auto_po_invoice"></span>
                     </div>
                     <div class="form-group col-md-4">
                     
@@ -141,7 +140,7 @@
                     
                            </div>
                            <div class="col-sm-6 col-md-6">
-                               <button type="button" name="add" id="add" class="btn btn-success">Add More</button>
+                              <!-- /ADD MORE/ -->
                            </div>
                        
                        </div>
@@ -155,6 +154,11 @@
             </div>
         </div>
     </div>
+
+
+
+                    
+                    
 
 
      
@@ -183,13 +187,28 @@ $(document).ready(function(){
        
         
     });
+
+
+       $.ajax({
+            url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
+                            method: "POST",
+                           success: function(data)
+                            {
+                      
+                            $('#auto_po_invoice').html(data);
+                           
+                            
+                            
+                            
+                            }
+        });
 /********GET ID FROM INVOICE ID */
 $(document).ready(function(){
     $('#dataTable').DataTable();
     $('.edit').click(function(){
         var invoice_id = $(this).attr('id');
         $.ajax({
-                            url: "<?php echo base_url() ?>prd/edit_invoice",
+                            url: "<?php echo base_url() ?>invoice_controller/edit_invoice",
                             method: "POST",
                             data: {invoice_id:invoice_id},
                             success: function(data)
@@ -218,7 +237,7 @@ $(document).on('submit','#invoice_update',function(event){
         var invoice_description=$('#invoice_description').val();
 
         $.ajax({
-                url: "<?php echo base_url() ?>prd/update_invoice",
+                url: "<?php echo base_url() ?>invoice_controller/update_invoice",
                 method:"POST",
                 data:{
                     id:id,po_code:po_code,invoice_description:invoice_description
@@ -258,7 +277,7 @@ $(document).on('submit','#invoice_update',function(event){
             
                     $.ajax({
                     
-                    url: "<?php echo base_url() ?>prd/get_PoCode_in_invoice",
+                    url: "<?php echo base_url() ?>invoice_controller/get_PoCode_in_invoice",
                     method: "POST",
                         
                         success: function(data){
@@ -275,7 +294,7 @@ $(document).on('submit','#invoice_update',function(event){
 
 function myfun(datavalue){
     $.ajax({
-        url: "<?php echo base_url() ?>prd/get_PoCode_item",
+        url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
       type:'POST',
       data:{datapost:datavalue},
       success:function(result){
@@ -298,7 +317,7 @@ function myfun(datavalue){
 
 
    $.ajax({  
-                url:"<?php echo base_url() ?>prd/make_invoice", 
+                url:"<?php echo base_url() ?>invoice_controller/make_invoice", 
                 method:"POST",
                 // Last time set  
                 data:$('#make_invoice').serialize(),
@@ -326,7 +345,7 @@ function myfun(datavalue){
             $('.view').click(function(){
         var invoice_id = $(this).attr('id');
         $.ajax({
-                            url: "<?php echo base_url() ?>prd/view_invoice",
+                            url: "<?php echo base_url() ?>invoice_controller/view_invoice",
                             method: "POST",
                             data: {invoice_id:invoice_id},
                             success: function(data)
@@ -345,3 +364,5 @@ function myfun(datavalue){
 <p id='fd' class='fd'>
 
 </p>
+
+

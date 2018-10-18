@@ -1,3 +1,21 @@
 {
+    "workbench.colorCustomizations" : {
+        "editorBracketMatch.background": "#f008",
+        "editorBracketMatch.border": "#ffee00"
+},
+"editor.matchBrackets": false,
+"subtleBrackets.pairs": [
+    "{}",
+    "[]",
+    "()",
+    "<>"
+
+],
+"highlight-matching-tag.style": {
+    "borderWidth": "1px",
+    "borderStyle": "solid",
+    "borderColor": "#f4a460",
+    "borderRadius": "1px",
     
+  },
 }

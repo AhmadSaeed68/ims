@@ -109,6 +109,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
     
     <script type="text/javascript">
+    
         // Start jQuery function after page is loaded
             $(document).ready(function(){
             // Initiate DataTable function comes with plugin
@@ -119,7 +120,7 @@
                     var user_id = $(this).attr('id');
                     // Start AJAX function
                     $.ajax({
-                            url: "<?php echo base_url() ?>prd/get_user_result",
+                            url: "<?php echo base_url() ?>user_controller/get_user_result",
                             method: "POST",
                             data: {user_id:user_id},
                             success: function(data)
@@ -139,10 +140,10 @@
             var user_id=$(this).attr('id');
             if(confirm("Are You sure to delete this")){
             $.ajax({
-                url: "<?php echo base_url() ?>prd/delete_user",
+                url: "<?php echo base_url() ?>user_controller/delete_user",
                 method:"POST",
                 data:{user_id:user_id},
-                datatype:"json",
+               // datatype:"json",
                 success:function(data)
                 {
                     alert(data);
