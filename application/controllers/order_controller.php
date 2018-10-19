@@ -108,7 +108,7 @@
                 $po_code=$result['po_code'];
                 }
                 ?>
-                <input type="text" readonly required="" name="po_code" value="<?=$po_code+=1?>" class="form-control"  id="po_code">
+                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=1?>" class="form-control"  id="po_code">
                <?php 
                     ?>
                     
