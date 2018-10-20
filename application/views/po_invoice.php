@@ -106,7 +106,7 @@
                 <div class="row">
                     <form id="make_invoice">
 
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-6 col-md-7">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="pwd">Po Code:</label>

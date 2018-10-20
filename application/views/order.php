@@ -148,7 +148,7 @@ width: 1200px; /* New width for large modal */
                                                 <span class="caret"></span></button>
                                                 <ul class="dropdown-menu">
                                                     <li>  
-                                                    <input type="button" class="w3-button w3-block w3-deep-orange edit" value="Edit" id="<?php echo $data['po_code']; ?>">
+                                                    <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['po_code']; ?>">
                                                     </li>
                                                     <li>
                                                     <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['status']?>">Delete</button>
@@ -218,10 +218,10 @@ width: 1200px; /* New width for large modal */
         }
     });                                             //
     $(document).ready(function(){
-    $('#dataTable').DataTable();
+   
         $('.edit').click(function(){
         var order_id = $(this).attr('id');
-        //alert(user_id);
+       ;
         //Start AJAX function
         $.ajax({
         url: "<?php echo base_url() ?>order_controller/edit_order",

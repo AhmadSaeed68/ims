@@ -13,7 +13,8 @@
                 if(isset($order_id) && !empty($order_id)){
                 $this->load->model('order_model');
                 $records = $this->order_model->edit_order($order_id);
-                 $this->load->view('edit_order_ajax',['records'=>$records]);
+              
+                  $this->load->view('order_ajax/edit_order_ajax',['records'=>$records]);
         }}
 
         function update_order(){
@@ -103,9 +104,10 @@
                 }
                 function auto_po_code(){
                     $this->db->select_max('po_code');
-                $result = $this->db->get('po_invoice')->result_array();
+                $result = $this->db->get('purchase_order')->result_array();
                 foreach($result as $result){
                 $po_code=$result['po_code'];
+                $po_code=substr($po_code,9,3);
                 }
                 ?>
                 <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=1?>" class="form-control"  id="po_code">

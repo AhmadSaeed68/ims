@@ -70,9 +70,9 @@ $this->load->view('report');
         $result = $this->db->get('po_invoice')->result_array();
         foreach($result as $result){
             $invoice_code=$result['invoice_code'];
-            }
+            } $invoice_code=substr($invoice_code,11,3);
         ?>
-        <input type="text" readonly required="" name="invoice_code" value="<?='IPO'.date("dny").'-'.$invoice_code+=1?>" class="form-control"  id="invoice_code">
+        <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").'-'.$invoice_code+=1?>" class="form-control"  id="invoice_code">
       
        <?php 
             ?>
