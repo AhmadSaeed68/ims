@@ -278,7 +278,7 @@ echo $id->id;
                 // End AJAX function
             });
         });  
-        
+  
         $(document).on('submit','#item_form',function(event){
             event.preventDefault();
             var itemName=$('#item_name').val();
@@ -346,9 +346,9 @@ echo $id->id;
         });
 
 
-
+   
         $(document).on('submit','#editupdate',function(event){
-         
+        
             event.preventDefault();
             var item_id=$('#item_id').val();
             var category_id=$('#category_id').val();

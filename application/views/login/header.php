@@ -150,7 +150,7 @@ fa fa-file-zip-o fa-2x w3-text-deep-orange"></span>Orders
                                   <ul class="dropdown-menu">
                                      <li class=""><a href="<?php echo base_url("order_controller/order_managment");?> "><span class="
                               fa fa-thumb-tack fa-2x w3-text-blue" w3-hover-teal></span>Purchase Order</a></li>
-                              <li class="w3-hover-light-green"><a href="<?php echo base_url("invoice_controller/po_invoice");?> "><span class="
+                              <li class="w3-hover-light-green"><a href="<?php echo base_url("sales_order_controller/sales_order");?> "><span class="
                              
 fa fa-file-text fa-2x w3-text-pink"></span>Sales Order</a></li>
                                     
@@ -208,4 +208,4 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                           </div>
                         </nav>
                         <?php }?>
-                        <body>
+                        <body style="font-family:TIMES NEW ROMAN">

@@ -173,7 +173,7 @@
     url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
     method: "POST",
     success: function(data)
-    {
+    {z
 
     $('#auto_po_invoice').html(data);
 

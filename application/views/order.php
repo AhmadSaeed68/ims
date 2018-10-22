@@ -76,7 +76,7 @@ width: 1200px; /* New width for large modal */
                                                     </div>
                                                     <div class="form-group col-md-4">
                                                         <label for="email">Item Quantity</label>
-                                                        <input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun()">
+                                                        <input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun()">
                                                         <span class="w3-text-red" id="return_msg"></span>
                                                     </div>
                                                     <div class="form-group col-md-3">
@@ -93,7 +93,7 @@ width: 1200px; /* New width for large modal */
                                 <div class="modal-footer">
                                     
                                     <input type="submit" class="btn btn-success" name="submit" id="submit" value="submit">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">X</button>
+                                    <button type="button" class="btn btn-danger" id="close"  data-dismiss="modal">X</button>
                                 </div></form>
                                 
                             </div>
@@ -360,39 +360,60 @@ width: 1200px; /* New width for large modal */
     $('#submit').val('submit');
     $('#span_product_details').html('');
     $('#add').click(function(){
-    i=1;
-    i++;
-    var html='';
-    html+='<div class="col-sm-6"></div><div class="col-sm-6"><tr id="row'+i+'"><td><div class="row">';
-    html += '<hr><div class="form-row"><div class="form-group col-md-4">';
+        i=1;
+        i++;
+        
+        var html='';
+        html+='<tr id="row'+i+'"><td><div class="col-sm-5"></div>';
+        html+='<div class="col-sm-7"><div class="row">';
+        html+='<div class="col-sm-10">';
+        html+='<div class="form-row">';
+        html+='<div class="form-group col-md-4">';
         html+='<label for="status">Item Code</label>';
-        html+='<span id="span_data"></span>';
-    html+='</div>';
-    html+='<div class="form-group col-md-4"><label for="item_quantity">Item Quantity</label> ';
-    html+='<input type="text" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun(this.value)"></div>';
-    html+='<div class="form-group col-md-4"><label for="item_rate">Item Rate:</label>';
-    html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]"></div>';
-html+='</div></td><div class="form-row"><div class="col-sm-4"><td>';
-html+='<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>';
-html+='<button type="button" name="add" id="'+i+' add" class="btn btn-success w3-right">+</button>';
-html+='</td></div></div></tr>';
+        html+='<span id="span_data"></span></div>';
+        html+='<div class="form-group col-md-4">';
+        html+='<label for="item_quantity">Item Quantity</label>';
+        html+='<input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun(this.value)">';
+        html+='</div>';
+        html+='<div class="form-group col-md-4">';
+        html+='<label for="item_rate">Item Rate:</label>';
+        html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]">';
+        html+='</div>';
+        html+='</div>';
+        html+='</div>';
+        html+='<div class="form-group col-sm-2">';
+        html+='<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>';
+        html+='<button type="button" name="add" id="'+i+'add" class="btn btn-success add w3-right">+</button>';
+        html+='</div></div>';
+        html+='</div>';
+        html+='</td></tr>';
+    
 $('#dynamic_field').append(html);
-$.ajax({
-url: "<?php echo base_url() ?>order_controller/get_itemCode_in_order",
-method: "POST",
-success: function(data){
-// Print the fetched data of the selected phone in the section called #phone_result
-// within the Bootstrap modal
-$('#span_data').html(data);
-//$('#phoneModal').modal('show');
-}
+        $.ajax({
+            url: "<?php echo base_url() ?>order_controller/get_itemCode_in_order",
+            method: "POST",
+            success: function(data){
+            // Print the fetched data of the selected phone in the section called #phone_result
+            // within the Bootstrap modal
+            $('#span_data').html(data);
+            //$('#phoneModal').modal('show');
+            }
+        });
 });
 });
-});
+
+    
+    $(document).on('click', '.add', function(){
+        var button_id = $(this).attr("id");
+        alert(button_id);
+      
+    });
+
 $(document).on('click', '.btn_remove', function(){
 var button_id = $(this).attr("id");
 $('#row'+button_id+'').remove();
 });
+
 $(document).on('submit','#dynamic_field', function(event){
 event.preventDefault();
 $('#submit').attr('disabled', 'disabled');

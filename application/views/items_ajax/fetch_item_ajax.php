@@ -67,7 +67,7 @@
     <div class="form-row ">
         <div class="form-group col-md-8">
             
-            <input type="submit" class="btn btn-success updateitem" name="update" value='Update' id="editupdate" >
+            <input type="submit" name="update" value='Update' id="editupdate" class="btn btn-success updateitem"  >
         </div>
         
     </div>

@@ -27,7 +27,7 @@
             $this->load->model('order_model');
            $item_data= $this->order_model->get_itemCode_in_order();
            ?>
-           <select class="form-control" id="category_id" name="item_code[]" onchange="myfun()">
+           <select class="form-control" id="category_id selectpicker" name="item_code[]"  onchange="myfun() "  data-live-search="true">
             <?php
           foreach($item_data as $each){
               echo $each['item_code'];

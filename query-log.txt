@@ -1,0 +1,9 @@
+
+
+
+
+SELECT item_code,item_name,sum(item_qty) as qty 
+FROM `items_in_stock` 
+
+group by item_code
+ORDER BY `item_code`  DESC
