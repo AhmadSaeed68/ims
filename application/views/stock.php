@@ -26,8 +26,8 @@
                     <th>Item Name</th>
                     <th>Item Code</th>
                     <th>Item Description</th>
-                    <th>Invoice Code</th>
-                    <th>PO Code</th>
+                    <!-- <th>Invoice Code</th>
+                    <th>PO Code</th> -->
                     <th>Category Id</th>
                     <th>Item Qty</th>
                     <th>Item Rate</th>
@@ -43,8 +43,8 @@
                     <td><?=$data->item_name;?></td>
                     <td><?=$data->item_code;?></td>
                     <td><?=$data->item_description;?></td>
-                    <td><?=$data->invoice_code;?></td>
-                    <td><?=$data->po_code;?></td>
+                    <!-- <td><?php //$data->invoice_code;?></td>
+                    <td><?php //$data->po_code;?></td> -->
                     <td><?=$data->category_id;?></td>
                     <td><?=$data->item_qty;?></td>
                     <td><?=$data->item_rate;?></td>
