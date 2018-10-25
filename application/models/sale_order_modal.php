@@ -4,6 +4,17 @@
  */
 class Sale_order_modal extends CI_Model
 {
+
+   function sales_order(){
+           $result= $this->db->select('')
+            ->from('sale_order')
+             
+                         
+                      ->get('');
+                  return $result->result_array();
+
+        }
+
 	
 	function get_item_code_in_so()
 	{
@@ -33,6 +44,79 @@ class Sale_order_modal extends CI_Model
         ->get();
 
     return $asset->result_array();
+      }
+
+      function make_so(){
+       $so_code=$this->input->post('so_code');
+        $cstr_name=$this->input->post('cstr_name');
+        $ntn_no=$this->input->post('ntn_no');
+        $email=$this->input->post('email');
+        $contact=$this->input->post('contact');
+        $address=$this->input->post('address');
+
+
+         $item_code=$this->input->post('item_code');
+       $invoice_code=$this->input->post('invoice_code');
+       $item_rate=$this->input->post('item_rate');
+        $item_qty=$this->input->post('item_qty');
+        $profit=$this->input->post('profit');
+       $total=$this->input->post('total');
+         $date=$this->input->post('date');
+         print_r($item_code);
+
+                                                  // **INsert Data into batch in Sale_order 
+                                                // and Than get last inset ID
+
+        $data[]=array(
+          'so_code'=>$so_code,
+          'customer_name'=>$cstr_name,
+          
+        );
+          $this->db->insert_batch('sale_order', $data);
+
+                                                            // Get last insert id/*
+
+
+      $last_id=$this->db->insert_id();   
+
+                                                            // get_data_from_sale Order_by_last_insert Id
+
+
+     $result= $this->db->select('so_code')
+                ->where('id',$last_id)
+                ->get('sale_order')
+                ->result_array();
+
+                foreach($result as $data){
+                  $inst_so_code=$data['so_code'];
+                }
+                
+
+                                                              // count item_code for insert data into multiple coloumn with same so_code
+ 
+         // $temp=count($item_code);
+     
+                                              
+            // for($i=0;$i<temp;$i++){
+
+            //   $data1[]=array(
+
+            //     'so_code'=> $inst_so_code,
+            //     'item_code'=>$item_code[$i],
+            //     'item_qty'=>$item_qty[$i],
+            //     'item_rate'=>$item_rate[$i],
+            //     'so_item_total'=>$total[$i],
+            //     'profit'=>$profit[$i],
+            //   );
+
+            //                                       // INSERT DATA THROUGH BATCH 
+
+            //   $insert = count($data1);
+            //   if($insert){
+            //     $this->db->insert_batch('sale_order_detail',$data1);
+            //   }
+
+            // }     
       }
 	}
 

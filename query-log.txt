@@ -1,3 +1,20 @@
+24/10/18
+-----
+sale_order
+---------
+
+insert data into sale_order
+---------------------------------
+ // **INsert Data into batch in Sale_order 
+        // and Than get last inset ID
+
+        $data[]=array(
+          'so_code'=>$so_code,
+          'customer_name'=>$cstr_name,
+        );
+          $this->db->insert_batch('sale_order', $data);
+
+
 
 
 

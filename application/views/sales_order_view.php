@@ -1,7 +1,9 @@
 <?php
     include_once"login/header.php";
+
 ?>
  <div class="w3-container w3-padding-64">
+
         <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
 
 
@@ -34,6 +36,27 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
+                             <tbody>
+                                <?php foreach($data as $data):?>
+                                <tr>
+                                    <td><?= $data['id'];?></td>
+                                    <td><?= $data['so_code']?></td>
+                                     <td><?= $data['id'];?></td>
+                                    <td><?= $data['so_code']?></td>
+                                     <td><?= $data['id'];?></td>
+                                    <td><?= $data['so_code']?></td>
+                                     <td><?= $data['id'];?></td>
+                                    <td><?= $data['so_code']?></td>
+                                    
+                         
+                                    
+                                
+
+
+
+                            </tr>
+                            <?php endforeach;?>
+                        </tbody
 
                     </table>
                 </div>
@@ -47,37 +70,115 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
+          <h4 class="modal-title"></h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
         <div class="modal-body">
             <div class="row">
-                 <form id="make_invoice">
-                    <div class="col-sm-6 w3-teal">
-                     
+                 <form class="" id="make_so">
+                    <div class="col-sm-4">
+                     <div class="row">
+                      <div class="form-group">
+                         <div class="col-sm-6">
+                           <label for="customer Name">SO_code</label>
+                           <input type="text" class="form-control" required name="so_code"  placeholder="">
+                         </div>
+                         <div class="col-sm-6">
+                           <label for="customer Name">Date</label>
+                           <input type="date" class="form-control" name="date" required  placeholder="date">
+                         </div>
+                       </div>
+                       <div class="form-group">
+                         <div class="col-sm-6">
+                           <label for="customer Name">Business Name</label>
+                           <input type="text" class="form-control" name="cstr_name" required placeholder="Business/name">
+                         </div>
+                         <div class="col-sm-6">
+                           <label for="customer Name">NTN no:</label>
+                           <input type="text" class="form-control" name="ntn_no"  placeholder="NTN Optional">
+                         </div>
+                       </div>
+
+                       <div class="form-group">
+                         <div class="col-sm-6">
+                           <label for="customer Name">Email</label>
+                           <input type="email" class="form-control" name="email" required  placeholder="Email">
+                         </div>
+                         <div class="col-sm-6">
+                           <label for="customer Name">Contact No</label>
+                           <input type="number" class="form-control" name="contact" required  placeholder="Contact#">
+                         </div>
+                       </div>
+
+
+                       <div class="form-group">
+                         <div class="col-sm-12">
+                           <label for="customer Name">Address</label>
+                           <textarea name="address" placeholder="Business Address" required class="form-control"></textarea>
+                         </div>
+                        
+                       </div>
+
+                     </div>
                     </div>
-                    <div class="col-sm-6 w3-light-blue">
+                    <div class="col-sm-8">
+                      <div class="row">
+                        <button type="button" id="add_more_so" class="btn btn-success w3-right">+</button>
+                      </div>
                            <div class="form-row">
                             <!-- ItmeCode -->
-                             <div class="form-group col-md-4">
+                             <div class="form-group col-md-3">
                                     <label for="so_item_code">Item Code</label>
                                     <span id="so_item_code"  name="so_item_code"></span>
+                                     
                                 </div>
 
                                 <!-- po_code -->
-                                 <div class="form-group col-md-4" id="po_code">
+                                 <div class="form-group col-md-3" id="po_code">
                                     
                                    
                                 </div>
-                                 <div class="form-group col-md-4" >
+
                                     
                                    <span id="invoice_data"></span>
-                                </div>
+                                
 
 
 
+                        </div>
+
+
+                     <!--    next Row in right site col-sm-6 -->
+
+                        <div class="form-row">
+                          
+                          <div class=" form-group col-sm-3">
+                            <label for="profit">Profit</label>
+                           
+                            <div class="input-group">
+                            
+                                <input type="number" class="form-control" required id="profit" name="profit[]" >
+                                    <span class="input-group-addon">%</span>
+                                
+                            </div>
+                          </div>
+
+                          <!-- total -->
+                          <div class=" form-group col-sm-3">
+                            <label for="profit">Total</label>
+                           
+                            <div class="input-group">
+                            
+                                <input type="text" required readonly class="form-control" id="total" name="total[]" >
+                                   
+                                
+                            </div>
+                          </div>
+
+
+                          
                         </div>
                     </div>
                 
@@ -86,6 +187,8 @@
         
         <!-- Modal footer -->
         <div class="modal-footer">
+          <input type="submit" name="" class="btn btn-success submit_so" value="sss">
+            <button type="submit" class="btn btn-success submit_so">Submit</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
         </form>
@@ -106,7 +209,14 @@
     
     <script>
         $(document).ready(function(){
-
+          var orderdataTable = $('#order_data').DataTable({
+            "columnDefs":[
+    {
+     "targets":[4],
+     "orderable":false,
+    },
+   ],
+          });
             // ******
             // Load MOdal After Click on MAKE_SALES_ORDER LINE NO 44
             // ******
@@ -132,6 +242,8 @@
 
         });
                function item_on_change(datavalue){
+
+
     $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/item_on_change',
       type:'POST',
@@ -144,6 +256,7 @@
   }
 
             function invoice_on_change(invoice_code){
+
     $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/invoice_on_change',
       type:'POST',
@@ -154,6 +267,66 @@
       }
     });
   }
+
+
+  // SUM total Price
+  $(function() {
+    $("#item_qty, #item_rate, #profit").on("keydown keydown keyup", total);
+  function total() {
+    var item_qty=$('#item_qty').val();
+    var item_rate=$('#item_rate').val();
+    var profit=$('#profit').val();
+    var total=(item_rate*item_qty)/100*profit;
+  $("#total").val(total);
+ 
+  }
+});
+
+
+
+  // add Dynamic values on click +
+
+  $('#add_more_so').click(function(){
+      var i=1;
+      i++;
+      var html='';
+         
+            $('#make_so').append(html);
+  });
+
+
+
+      // data so_data on submit button 
+
+
+
+
+
+$(document).on('submit','#make_so', function(event){
+event.preventDefault();
+$('.submit_so').attr('disabled', 'disabled');
+var form_data = $(this).serialize();
+$.ajax({
+url:"<?php echo base_url() ?>sale_order_controller/make_so",
+method:"POST",
+data:form_data,
+
+success:function(data){
+$('#make_so')[0].reset();
+$('#modal_action').modal('hide');
+alert(data);
+$('.submit_so').attr('disabled', false);
+ orderdataTable.ajax.reload();
+ 
+}
+});
+});
+
+
+
+
+
+
 
   
     </script>
