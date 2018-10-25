@@ -6,12 +6,9 @@ class Sale_order_modal extends CI_Model
 {
 
    function sales_order(){
-           $result= $this->db->select('')
-            ->from('sale_order')
-             
-                         
-                      ->get('');
-                  return $result->result_array();
+           $data=$this->db
+            ->query('SELECT * FROM sale_order inner JOIN sale_order_detail ON sale_order_detail.so_code=sale_order.so_code ');
+return $data->result_array();
 
         }
 
@@ -48,7 +45,7 @@ class Sale_order_modal extends CI_Model
 
       function make_so(){
        $so_code=$this->input->post('so_code');
-        $cstr_name=$this->input->post('cstr_name');
+        $business_name=$this->input->post('cstr_name');
         $ntn_no=$this->input->post('ntn_no');
         $email=$this->input->post('email');
         $contact=$this->input->post('contact');
@@ -62,14 +59,15 @@ class Sale_order_modal extends CI_Model
         $profit=$this->input->post('profit');
        $total=$this->input->post('total');
          $date=$this->input->post('date');
-         print_r($item_code);
+     //     print_r($item_code);
 
-                                                  // **INsert Data into batch in Sale_order 
-                                                // and Than get last inset ID
+     //                                              // **INsert Data into batch in Sale_order 
+     //                                            // and Than get last inset ID
 
         $data[]=array(
           'so_code'=>$so_code,
-          'customer_name'=>$cstr_name,
+          'customer_name'=>$business_name,
+          
           
         );
           $this->db->insert_batch('sale_order', $data);
@@ -92,32 +90,51 @@ class Sale_order_modal extends CI_Model
                 }
                 
 
+                                                        
+
                                                               // count item_code for insert data into multiple coloumn with same so_code
- 
-         // $temp=count($item_code);
+  
+          $temp=count($item_code);
      
-                                              
-            // for($i=0;$i<temp;$i++){
+                                            
+             for($i=0;$i<$temp;$i++){
 
-            //   $data1[]=array(
+              $data1[]=array(
+               
+                'so_code'=> $inst_so_code,
+                'invoice_code'=>$invoice_code,
+                'item_code'=>$item_code[$i],
+                'item_qty'=>$item_qty[$i],
+                'item_rate'=>$item_rate[$i],
+                'so_item_total'=>$total[$i],
+                'profit'=>$profit[$i],
+              );
 
-            //     'so_code'=> $inst_so_code,
-            //     'item_code'=>$item_code[$i],
-            //     'item_qty'=>$item_qty[$i],
-            //     'item_rate'=>$item_rate[$i],
-            //     'so_item_total'=>$total[$i],
-            //     'profit'=>$profit[$i],
-            //   );
+                                                                       // INSERT DATA THROUGH BATCH 
 
-            //                                       // INSERT DATA THROUGH BATCH 
+              $insert = count($data1);
+              if($insert){
+                $this->db->insert_batch('sale_order_detail',$data1);
 
-            //   $insert = count($data1);
-            //   if($insert){
-            //     $this->db->insert_batch('sale_order_detail',$data1);
-            //   }
+                                                                   // INSERT CUSTOMER DETAIL IN SO_CUSTOMER_DETAIL WITH SO_CODE
 
-            // }     
-      }
+                  $data=array(
+                'so_code' =>$so_code,
+                  'business_name' =>$business_name,
+                  'ntn_no' =>$ntn_no,
+                   'email'=>$email,
+                  'contact' =>$contact,
+                   'address'=> $address,
+                );
+
+                 $this->db->insert('so_customer_detail',$data);
+              
+
+               
+              }
+
+             }     
+       }
 	}
 
  ?>

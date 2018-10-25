@@ -2,7 +2,7 @@
     include_once"login/header.php";
 
 ?>
- <div class="w3-container w3-padding-64">
+ <div class="container w3-padding-64">
 
         <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
 
@@ -56,7 +56,7 @@
 
                             </tr>
                             <?php endforeach;?>
-                        </tbody
+                        </tbody>
 
                     </table>
                 </div>
@@ -77,7 +77,9 @@
         <!-- Modal body -->
         <div class="modal-body">
             <div class="row">
-                 <form class="" id="make_so">
+                 <form  accept-charset="utf-8" id="make_so">
+                  
+                 
                     <div class="col-sm-4">
                      <div class="row">
                       <div class="form-group">
@@ -180,6 +182,7 @@
 
                           
                         </div>
+
                     </div>
                 
             </div>
@@ -212,7 +215,7 @@
           var orderdataTable = $('#order_data').DataTable({
             "columnDefs":[
     {
-     "targets":[4],
+     "targets":[1,2,5,7],
      "orderable":false,
     },
    ],
@@ -255,7 +258,7 @@
     });
   }
 
-            function invoice_on_change(invoice_code){
+          function invoice_on_change(invoice_code){
 
     $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/invoice_on_change',
@@ -269,7 +272,7 @@
   }
 
 
-  // SUM total Price
+//   // SUM total Price
   $(function() {
     $("#item_qty, #item_rate, #profit").on("keydown keydown keyup", total);
   function total() {
@@ -284,19 +287,19 @@
 
 
 
-  // add Dynamic values on click +
+//   // add Dynamic values on click +
 
-  $('#add_more_so').click(function(){
-      var i=1;
-      i++;
-      var html='';
+//   $('#add_more_so').click(function(){
+//       var i=1;
+//       i++;
+//       var html='';
          
-            $('#make_so').append(html);
-  });
+//             $('#make_so').append(html);
+//   });
 
 
 
-      // data so_data on submit button 
+//       // data so_data on submit button 
 
 
 

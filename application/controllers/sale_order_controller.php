@@ -48,7 +48,7 @@
 			?>
 		
 			<label for="so_item_id">Select PO_code</label>
-			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_cod[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
+			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
 			 	<option></option>
             <?php
           foreach($invoice as $each){
@@ -91,24 +91,24 @@
 
 		function make_so(){
 
-			$so_code=$this->input->post('so_code');
-        $cstr_name=$this->input->post('cstr_name');
-        $ntn_no=$this->input->post('ntn_no');
-        $email=$this->input->post('email');
-        $contact=$this->input->post('contact');
-        $address=$this->input->post('address');
+			// $so_code=$this->input->post('so_code');
+   //      $cstr_name=$this->input->post('cstr_name');
+   //      $ntn_no=$this->input->post('ntn_no');
+   //      $email=$this->input->post('email');
+   //      $contact=$this->input->post('contact');
+   //      $address=$this->input->post('address');
 
 
-         $item_code=$this->input->post('item_code');
+   //       $item_code=$this->input->post('item_code');
       
-       $item_rate=$this->input->post('item_rate');
+   //     $item_rate=$this->input->post('item_rate');
        
-        $profit=$this->input->post('profit');
-       $total=$this->input->post('total');
-         $date=$this->input->post('date');
-         print_r(  $invoice_code=$this->input->post('invoice_code'));
-			// $this->load->model('sale_order_modal');
-			// $this->sale_order_modal->make_so();
+   //      $profit=$this->input->post('profit');
+   //     $total=$this->input->post('total');
+   //       $date=$this->input->post('date');
+   //       print_r($invoice_code=$this->input->post());
+			 $this->load->model('sale_order_modal');
+			 $this->sale_order_modal->make_so();
 		}
 	}
  ?>
