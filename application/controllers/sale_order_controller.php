@@ -88,6 +88,46 @@
 			
 		}
 
+													// view_sale_order
+			function view_so(){
+				 $so_code=$this->input->post('so_code');
+				$this->load->model('sale_order_modal');
+			$data=$this->sale_order_modal->view_so($so_code);
+			$records= $this->load->view('ajax_so/view_so',['data'=>$data]);
+	
+			}
+
+																	//EDIT_SO
+			function edit_so(){
+				$so_id= $this->input->post('so_id');
+				$this->load->model('sale_order_modal');
+				$records=$this->sale_order_modal->edit_so($so_id);
+				 $this->load->view('ajax_so/edit_so',['records'=>$records]);
+						 
+
+							}
+
+							function update_so(){
+								$this->load->model('sale_order_modal');
+								$this->sale_order_modal->update_so();
+							}
+
+
+							function so_status(){
+								 if($_POST['btn_action'] == 'delete')
+                    {
+                        $status= $this->input->post('status');
+                        if($status == 'active')
+                            {
+                            $status = 'inactive';
+                            }else{
+                                $status='active';
+                            }
+
+                            $this->load->model('sale_order_modal');
+                            $this->sale_order_modal->so_status($status);
+                    }
+							}
 
 		function make_so(){
 
