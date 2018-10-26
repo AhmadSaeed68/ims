@@ -7,7 +7,7 @@ class Sale_order_modal extends CI_Model
 
    function sales_order(){
            $data=$this->db
-            ->query('SELECT * FROM sale_order inner JOIN sale_order_detail ON sale_order_detail.so_code=sale_order.so_code ');
+            ->query('SELECT sale_order_detail.id,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code');
 return $data->result_array();
 
         }
@@ -102,7 +102,7 @@ return $data->result_array();
               $data1[]=array(
                
                 'so_code'=> $inst_so_code,
-                'invoice_code'=>$invoice_code,
+                
                 'item_code'=>$item_code[$i],
                 'item_qty'=>$item_qty[$i],
                 'item_rate'=>$item_rate[$i],
@@ -135,6 +135,85 @@ return $data->result_array();
 
              }     
        }
+
+
+       function view_so($so_code){
+
+           $data=$this->db
+            ->query('SELECT sale_order.so_code,sale_order.customer_name,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.date,sale_order_detail.so_item_total,sale_order_detail.profit FROM sale_order_detail LEFT JOIN sale_order ON sale_order_detail.so_code=sale_order.so_code WHERE sale_order.so_code="'.$so_code.'"');
+      return $data->result_array();
+       }
+
+       function edit_so($so_id){
+           $data=$this->db
+            ->query('SELECT sale_order_detail.id,sale_order_detail.date,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code');
+        return $data->result_array();
+       }
+
+
+
+
+
+       function update_so(){ 
+        $item_code=$this->input->post('item_code');
+          $item_rate=$this->input->post('item_rate');
+           $item_qty=$this->input->post('item_qty');
+            $profit=$this->input->post('profit');
+             $customer_name=$this->input->post('customer_name');
+              $so_code=$this->input->post('so_code');
+                            // Calculate Profit and Item Total
+
+              $total=($item_qty*$item_rate);
+             $so_item_total=$total+(($profit/100)*$total);
+
+                          // Calculate Total
+             $data=array(
+              'customer_name'=>$customer_name,
+             );
+
+             $data1=array(
+              'item_code'=>$item_code,
+              'item_qty'=>$item_qty,
+              'profit'=>$profit,
+              'so_item_total'=>$so_item_total,
+             );
+
+             $q1=$this->db
+                          ->where('so_code',$so_code)
+                          ->update('sale_order',$data);
+
+              $q2=$this->db
+                          ->where('so_code',$so_code)
+                          ->where('item_code',$item_code)
+                          ->update('sale_order_detail',$data1);
+
+                          if($q1 and $q2){
+                            echo"Update Successfuly";
+                          }else{
+                            echo"Some Error in Database line no 170";
+                          }
+
+
+              
+           
+       }
+
+       function so_status($status){
+               $so_code= $this->input->post('so_code');
+              $status;
+            $update_status= $this->db
+                ->where('so_code', $so_code)
+                ->set('so_status', $status)
+                ->update('sale_order');
+                $update_status_2= $this->db
+                ->where('so_code', $so_code)
+                ->set('status', $status)
+                ->update('sale_order_detail');
+                if($update_status){
+                    echo "Status Changed";
+                    
+                }  
+            }
 	}
 
  ?>
