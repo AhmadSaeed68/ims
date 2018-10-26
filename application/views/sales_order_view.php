@@ -28,10 +28,12 @@
 
 
                                     <th> <span class="
-                                    fa fa-object-ungroup w3-text-blue"></span>Invoice Total</th>
-                                    <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Invoice Desc</th>
-                                    <th><span class="fa fa-calendar w3-text-red"></span>Inv Date</th>
-                                    <th><span class="fa fa-eye w3-text-blue"></span>View</th>
+                                    fa fa-object-ungroup w3-text-blue"></span>item Code</th>
+                                    <th> <span class="fa fa-pencil-square-o w3-text-red"></span>item Qty</th>
+                                    <th><span class="fa fa-calendar w3-text-red"></span>Total</th>
+                                    <th><span class="fa fa-eye w3-text-blue"></span>Profit</th>
+                                        <th><span class="fa fa-eye w3-text-blue"></span>status</th>
+                                     <th><span class="fa fa-eye w3-text-blue"></span>View</th>
 
                                     <th>Action</th>
                                 </tr>
@@ -41,12 +43,31 @@
                                 <tr>
                                     <td><?= $data['id'];?></td>
                                     <td><?= $data['so_code']?></td>
-                                     <td><?= $data['id'];?></td>
-                                    <td><?= $data['so_code']?></td>
-                                     <td><?= $data['id'];?></td>
-                                    <td><?= $data['so_code']?></td>
-                                     <td><?= $data['id'];?></td>
-                                    <td><?= $data['so_code']?></td>
+                                     <td><?= $data['invoice_code'];?></td>
+                                    <td><?= $data['item_code']?></td>
+                                     <td><?= $data['item_qty'];?></td>
+                                    <td><?= $data['so_item_total']?></td>
+                                     <td><?= $data['profit'];?>%</td>
+                                          <td>
+                                            <?php $status=$data['so_status']; if($status=="active"){
+                                            echo "<span class='w3-green'>Active</span>";
+                                            }else{
+                                            echo "<span class='w3-red'>Dective</span>";
+                                        }?></td>
+                                        
+                                     <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['so_code']?>"> View</a></span></td>
+                                     <td> <div class="dropdown">
+                                        <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
+
+                                            <li><input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['so_code']; ?>"></li>
+                                            <li>
+                                            <button type="button" class="w3-button w3-block w3-red  delete"  id="<?php echo $data['so_code']; ?> " data-status="<?=$data['so_status']?>">Delete</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
                                     
                          
                                     
@@ -76,6 +97,7 @@
         
         <!-- Modal body -->
         <div class="modal-body">
+          <span id="so_data"></span>
             <div class="row">
                  <form  accept-charset="utf-8" id="make_so">
                   
@@ -199,6 +221,26 @@
     </div>
   </div>
     
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ">User Detail
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- Place to print the fetched phone -->
+                <div id="result">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
    
     <!-- jQuery JS CDN -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -215,6 +257,7 @@
           var orderdataTable = $('#order_data').DataTable({
             "columnDefs":[
     {
+      
      "targets":[1,2,5,7],
      "orderable":false,
     },
@@ -272,7 +315,9 @@
   }
 
 
-//   // SUM total Price
+                                                              //   // SUM total Price
+
+
   $(function() {
     $("#item_qty, #item_rate, #profit").on("keydown keydown keyup", total);
   function total() {
@@ -284,6 +329,26 @@
  
   }
 });
+                                                      // Click On Edit and perform Action
+
+  $('.edit').click(function(){
+        var so_id = $(this).attr('id');
+      
+      
+        $.ajax({
+        url: "<?php echo base_url() ?>sale_order_controller/edit_so",
+        method: "POST",
+        data: {so_id:so_id},
+        success: function(data)
+        {
+      
+        $('#result').html(data);
+     
+      $('#Modal').modal('show');
+        }
+        });
+  
+    });
 
 
 
@@ -302,7 +367,20 @@
 //       // data so_data on submit button 
 
 
-
+$(document).on('submit','#so_update',function(event){
+ event.preventDefault();
+ var form_data=$(this).serialize();
+ $.ajax({
+    url: "<?php echo base_url() ?>sale_order_controller/update_so",
+    method:"POST",
+    data:form_data,
+    success:function(data)
+    {
+    alert(data);
+    $('#Modal').modal('hide');
+    }
+    });
+});
 
 
 $(document).on('submit','#make_so', function(event){
@@ -326,6 +404,49 @@ $('.submit_so').attr('disabled', false);
 });
 
 
+
+
+       $('.view').click(function(){
+    var so_code = $(this).attr('id');
+
+  
+    $.ajax({
+    url: "<?php echo base_url() ?>sale_order_controller/view_so",
+    method: "POST",
+    data: {so_code:so_code},
+    success: function(data)
+    {
+     $('#result').html(data);
+   
+    $('#Modal').modal('show');
+    }
+    });
+    });
+
+
+       $(document).on('click','.delete',function(){
+          var so_code=$(this).attr("id");
+          var status = $(this).data("status");
+          var btn_action = "delete";
+        if(confirm("Are you sure you want to change status?"))
+        {
+            $.ajax({
+              url:"<?php echo base_url() ?>sale_order_controller/so_status",
+              method:"POST",
+              data:{so_code:so_code, status:status, btn_action:btn_action},
+              success:function(data)
+              {
+              alert(data);
+              orderdataTable.ajax.reload();
+              }
+            })
+
+        }else{
+            alert('Ok Thank you');
+          return false;
+        
+        }
+       });
 
 
 
