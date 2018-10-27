@@ -47,8 +47,8 @@
 			
 			?>
 		
-			<label for="so_item_id">Select PO_code</label>
-			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
+			<label for="so_item_id">Select Invoice</label>
+			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code"  onchange="invoice_on_change(this.value)"  data-live-search="true">
 			 	<option></option>
             <?php
           foreach($invoice as $each){
@@ -150,5 +150,22 @@
 			 $this->load->model('sale_order_modal');
 			 $this->sale_order_modal->make_so();
 		}
+
+														//Auto SO_code
+		function auto_so_code(){
+                    $this->db->select_max('so_code');
+                $result = $this->db->get('sale_order')->result_array();
+                foreach($result as $result){
+                $so_code=$result['so_code'];
+                $so_code=substr($so_code,9,3);
+                }
+                ?>
+                <input type="text" readonly required="" name="so_code" value="<?='SO'.date("dny").'-'.$so_code+=1?>" class="form-control"  id="so_code">
+               <?php 
+                    ?>
+                    
+                    <?php
+                }
+
 	}
  ?>
