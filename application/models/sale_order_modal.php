@@ -7,7 +7,7 @@ class Sale_order_modal extends CI_Model
 
    function sales_order(){
            $data=$this->db
-            ->query('SELECT sale_order_detail.id,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code');
+            ->query('SELECT sale_order_detail.id,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code ORDER BY sale_order.customer_name ASC');
 return $data->result_array();
 
         }
@@ -67,6 +67,7 @@ return $data->result_array();
         $data[]=array(
           'so_code'=>$so_code,
           'customer_name'=>$business_name,
+          'invoice_code'=>$invoice_code,
           
           
         );
@@ -81,13 +82,16 @@ return $data->result_array();
 
 
      $result= $this->db->select('so_code')
+                      ->select('invoice_code')
                 ->where('id',$last_id)
                 ->get('sale_order')
                 ->result_array();
 
                 foreach($result as $data){
                   $inst_so_code=$data['so_code'];
+                  $last_invoice_code=$data['invoice_code'];
                 }
+               
                 
 
                                                         
@@ -102,7 +106,7 @@ return $data->result_array();
               $data1[]=array(
                
                 'so_code'=> $inst_so_code,
-                
+                'invoice_code'=>$last_invoice_code,
                 'item_code'=>$item_code[$i],
                 'item_qty'=>$item_qty[$i],
                 'item_rate'=>$item_rate[$i],
@@ -127,7 +131,10 @@ return $data->result_array();
                    'address'=> $address,
                 );
 
-                 $this->db->insert('so_customer_detail',$data);
+                $insert2= $this->db->insert('so_customer_detail',$data);
+                if($insert2){
+                  echo "Sale Order Successfully .SO CODE: ".$so_code;
+                }
               
 
                
@@ -140,7 +147,7 @@ return $data->result_array();
        function view_so($so_code){
 
            $data=$this->db
-            ->query('SELECT sale_order.so_code,sale_order.customer_name,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.date,sale_order_detail.so_item_total,sale_order_detail.profit FROM sale_order_detail LEFT JOIN sale_order ON sale_order_detail.so_code=sale_order.so_code WHERE sale_order.so_code="'.$so_code.'"');
+            ->query('SELECT sale_order.so_code,sale_order.invoice_code,sale_order.customer_name,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.date,sale_order_detail.so_item_total,sale_order_detail.profit FROM sale_order_detail LEFT JOIN sale_order ON sale_order_detail.so_code=sale_order.so_code WHERE sale_order.so_code="'.$so_code.'"');
       return $data->result_array();
        }
 
