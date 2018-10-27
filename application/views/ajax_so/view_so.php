@@ -8,7 +8,7 @@
       <span>SO Code:<b> <?=$data['so_code']?></b></span>
     </div>
     <div class="form-group col-md-6">
-      <span>invoice Code: <b>Invoice Code</b></span>
+      <span>invoice Code: <b> <?=$data['invoice_code']?></b></span>
     </div>
   </div>
   <div class="form-row">
@@ -39,3 +39,4 @@
     </table>
   </div>
 </div>
+
