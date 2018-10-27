@@ -107,7 +107,8 @@
                       <div class="form-group">
                          <div class="col-sm-6">
                            <label for="customer Name">SO_code</label>
-                           <input type="text" class="form-control" required name="so_code"  placeholder="">
+                             <span id="auto_so_code"></span>
+                           <!-- <input type="text" class="form-control" required name="so_code"  placeholder=""> -->
                          </div>
                          <div class="col-sm-6">
                            <label for="customer Name">Date</label>
@@ -121,7 +122,7 @@
                          </div>
                          <div class="col-sm-6">
                            <label for="customer Name">NTN no:</label>
-                           <input type="text" class="form-control" name="ntn_no"  placeholder="NTN Optional">
+                           <input type="text" class="form-control" name="ntn_no" value="OPTIONAl"  placeholder="NTN Optional">
                          </div>
                        </div>
 
@@ -258,7 +259,7 @@
             "columnDefs":[
     {
       
-     "targets":[1,2,5,7],
+     "targets":[0,7,8,9],
      "orderable":false,
     },
    ],
@@ -287,6 +288,15 @@
 
 
         });
+
+    $.ajax({
+        url: "<?php echo base_url() ?>sale_order_controller/auto_so_code",
+        method: "POST",
+        success: function(data)
+        {
+        $('#auto_so_code').html(data);
+        }
+    }); 
                function item_on_change(datavalue){
 
 
@@ -319,12 +329,14 @@
 
 
   $(function() {
-    $("#item_qty, #item_rate, #profit").on("keydown keydown keyup", total);
+    $("#item_qty, #item_rate, #profit").on("keyup keydown keyup", total);
   function total() {
     var item_qty=$('#item_qty').val();
     var item_rate=$('#item_rate').val();
     var profit=$('#profit').val();
-    var total=(item_rate*item_qty)/100*profit;
+    var item_total=item_qty*item_rate;
+    var total=item_total+((profit/100)*item_total);
+   
   $("#total").val(total);
  
   }
