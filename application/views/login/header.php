@@ -167,7 +167,7 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                   <ul class="dropdown-menu">
                                    <li class="w3-hover-light-green"><a href="<?php echo base_url("invoice_controller/po_invoice");?> "><span class="
                               fa fa-qrcode fa-2x w3-text-red"></span>PO_Invoice</a></li>
-                              <li class="w3-hover-light-green"><a href="<?php echo base_url("invoice_controller/po_invoice");?> "><span class="
+                              <li class="w3-hover-light-green"><a href="<?php echo base_url("sales_invoice_controller/sales_invoice");?> "><span class="
                               fa fa-file-o fa-2x w3-text-red"></span>Sales Invoice</a></li>
                                     
                                   </ul>
@@ -182,8 +182,8 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                   <ul class="dropdown-menu">
                                     <li><a href="<?php echo base_url("report")?>"><span class="
                                     fa fa-file-pdf-o  w3-text-red"></span>Report</a></li>
-                                    <li><a href="<?php echo base_url("report");?> "><span class="
-                                    fa fa-group  w3-text-blue"></span>Users</a></li>
+                                    <li><a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> "><span class="
+                                    fa fa-group  w3-text-blue"></span>Purchasers</a></li>
                                     
                                   </ul>
                                 </li>
