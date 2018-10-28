@@ -164,11 +164,16 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
     <script>
-    $(document).ready(function(){
-    var dataTable=$("#order_data").dataTable();
-
-
-    });
+       $(document).ready(function(){
+          var orderdataTable = $('#order_data').DataTable({
+            "columnDefs":[
+    {
+      
+     "targets":[5,6,7],
+     "orderable":false,
+    },
+   ],
+          });
     $.ajax({
     url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
     method: "POST",
@@ -183,8 +188,8 @@
     }
     });
     /********GET ID FROM INVOICE ID */
-    $(document).ready(function(){
-    $('#dataTable').DataTable();
+    
+   
     $('.edit').click(function(){
     var invoice_id = $(this).attr('id');
     $.ajax({
@@ -201,7 +206,7 @@
     }
     });
     });
-    });
+   
     $(document).on('submit','#invoice_update',function(event){
     event.preventDefault();
 
@@ -235,17 +240,15 @@
 
 
     });
-    $(document).ready(function(){
-    // Initiate DataTable function comes with plugin
-    $('#dataTable').DataTable();
+
     // Start jQuery click function to view Bootstrap modal when view info button is clicked
     $('.get_data').click(function(){
     });
 
-    });
+  
 
 
-    $(document).ready(function(){
+    
 
 
     $.ajax({
@@ -263,7 +266,7 @@
     });
     // End AJAX function
 
-    });
+ 
     function myfun(datavalue){
         $.ajax({
             url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
@@ -310,7 +313,7 @@
     
     });
     //** LOad MOdal View after Click on View Button***/
-    $(document).ready(function(){
+
     $('.view').click(function(){
     var invoice_id = $(this).attr('id');
     $.ajax({
@@ -325,7 +328,8 @@
     }
     });
     });
-    });
+  
+     });
     </script>
     <p id='fd' class='fd'>
     </p>
