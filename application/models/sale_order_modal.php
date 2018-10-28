@@ -64,47 +64,47 @@ return $data->result_array();
      //                                              // **INsert Data into batch in Sale_order 
      //                                            // and Than get last inset ID
 
-        $data[]=array(
-          'so_code'=>$so_code,
-          'customer_name'=>$business_name,
-          'invoice_code'=>$invoice_code,
-          
-          
-        );
-          $this->db->insert_batch('sale_order', $data);
+                                          $data[]=array
+                                          (
+                                            'so_code'=>$so_code,
+                                            'customer_name'=>$business_name,
+                                            'invoice_code'=>$invoice_code,
+                                          );
 
-                                                            // Get last insert id/*
+                                            $this->db->insert_batch('sale_order', $data);
+
+           
+         
+ 
+                    // Get last insert id/*
+                    $last_id=$this->db->insert_id();  
 
 
-      $last_id=$this->db->insert_id();   
 
-                                                            // get_data_from_sale Order_by_last_insert Id
+                    // get_data_from_sale Order_by_last_insert Id
+                        $result= $this->db
+                                    ->select('so_code')
+                                    ->select('invoice_code')
+                                    ->where('id',$last_id)
+                                    ->get('sale_order')
+                                    ->result_array();
 
-
-     $result= $this->db->select('so_code')
-                      ->select('invoice_code')
-                ->where('id',$last_id)
-                ->get('sale_order')
-                ->result_array();
-
-                foreach($result as $data){
-                  $inst_so_code=$data['so_code'];
-                  $last_invoice_code=$data['invoice_code'];
-                }
+                              foreach($result as $data)
+                              {
+                                $inst_so_code=$data['so_code'];
+                                $last_invoice_code=$data['invoice_code'];
+                              }
                
                 
 
                                                         
 
-                                                              // count item_code for insert data into multiple coloumn with same so_code
-  
+        // count item_code for insert data into multiple coloumn with same so_code
           $temp=count($item_code);
-     
-                                            
-             for($i=0;$i<$temp;$i++){
-
-              $data1[]=array(
-               
+          for($i=0;$i<$temp;$i++)
+          {
+            $data1[]=array
+            (
                 'so_code'=> $inst_so_code,
                 'invoice_code'=>$last_invoice_code,
                 'item_code'=>$item_code[$i],
@@ -114,26 +114,56 @@ return $data->result_array();
                 'profit'=>$profit[$i],
               );
 
-                                                                       // INSERT DATA THROUGH BATCH 
-
-              $insert = count($data1);
+                $insert = count($data1);
               if($insert){
                 $this->db->insert_batch('sale_order_detail',$data1);
+             
 
-                                                                   // INSERT CUSTOMER DETAIL IN SO_CUSTOMER_DETAIL WITH SO_CODE
+                                            // INSERT CUSTOMER DETAIL IN SO_CUSTOMER_DETAIL WITH SO_CODE
+                                                $data=array
+                                                (
+                                                    'so_code' =>$so_code,
+                                                    'business_name' =>$business_name,
+                                                    'ntn_no' =>$ntn_no,
+                                                     'email'=>$email,
+                                                      'contact' =>$contact,
+                                                     'address'=> $address,
+                                                  );
 
-                  $data=array(
-                'so_code' =>$so_code,
-                  'business_name' =>$business_name,
-                  'ntn_no' =>$ntn_no,
-                   'email'=>$email,
-                  'contact' =>$contact,
-                   'address'=> $address,
-                );
+             $insert2= $this->db->insert('so_customer_detail',$data);
+              if($insert2)
+              {
+                echo "Sale Order Successfully .SO CODE: ".$so_code;
 
-                $insert2= $this->db->insert('so_customer_detail',$data);
-                if($insert2){
-                  echo "Sale Order Successfully .SO CODE: ".$so_code;
+                $temp2=count($item_code);
+              for($i=0;$i<$temp2;$i++)
+              {
+
+                      //data2[] so_invoic insert
+                      $data2[]=array
+                      (
+                      'so_code'=>$so_code,
+                      'invoice_code'=>$invoice_code[$i],
+                      );
+
+
+                          //data3[] so_invoic_detail
+                          $data3[]=array
+                          (
+                            'invoice_code'=>$invoice_code[$i],
+                            'item_code'=>$item_code[$i],
+                            'item_qty'=>$item_qty[$i],
+                            'item_rate'=>$item_rate[$i],
+                            'item_total'=>$total[$i],
+                            'profit'=>$profit[$i],
+                          );
+
+
+                    $this->db->insert_batch('so_invoice',$data2);
+                    $this->db->insert_batch('so_invoice_detail',$data3);
+    
+
+              }
                 }
               
 
