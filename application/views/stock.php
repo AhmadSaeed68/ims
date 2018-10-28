@@ -19,19 +19,20 @@
 
     </div>
     <div class="panel-body">
+        <div class="w3-responsive">
     <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                 <thead>
                     <tr class='w3-sand'>
                     <th>Id</th>
-                    <th>Item Name</th>
+                    <th >Item Name</th>
                     <th>Item Code</th>
                     <th>Item Description</th>
                     <!-- <th>Invoice Code</th>
                     <th>PO Code</th> -->
                     <th>Category Id</th>
                     <th>Item Qty</th>
-                    <th>Item Rate</th>
-                    <th>Total</th>
+                    <!-- <th>Item Rate</th>
+                    <th>Total</th -->>
                     <th>Date:</th>
 
                     </tr>
@@ -40,20 +41,21 @@
                 <?php foreach($stock as $data):?>
                     <tr>
                     <td><?= $data->id;?></td>
-                    <td><?=$data->item_name;?></td>
-                    <td><?=$data->item_code;?></td>
+                    <td class="w3-teal"><?=$data->item_name;?></td>
+                    <td class="w3-light-blue"><?=$data->item_code;?></td>
                     <td><?=$data->item_description;?></td>
                     <!-- <td><?php //$data->invoice_code;?></td>
                     <td><?php //$data->po_code;?></td> -->
                     <td><?=$data->category_id;?></td>
-                    <td><?=$data->item_qty;?></td>
-                    <td><?=$data->item_rate;?></td>
-                    <td><?=$data->item_rate*$data->item_qty;?></td>
+                    <td class="w3-teal"><?=$data->item_qty;?></td>
+           <!--          <td><?=$data->item_rate;?></td>
+                    <td><?=$data->item_rate*$data->item_qty;?></td> -->
                     <td><?= $data->entry_date?></td>
                     </tr>
 <?php endforeach;?>
                 </tbody>
             </table>
+        </div>
     </div>
     </div>
 
