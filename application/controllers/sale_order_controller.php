@@ -73,7 +73,7 @@
 				
 			}
 			?>
-			<div class="form-group col-md-3" >
+			<div class="form-group col-sm-4" >
 			<label for="">Quantity</label>
 		
 			<input type="number" class="form-control" required name="item_qty[]" id="item_qty" min="1" max="<?= $data['item_qty']?>" placeholder="In Stock: <?= $data['item_qty']?>">
@@ -131,22 +131,6 @@
 
 		function make_so(){
 
-			// $so_code=$this->input->post('so_code');
-   //      $cstr_name=$this->input->post('cstr_name');
-   //      $ntn_no=$this->input->post('ntn_no');
-   //      $email=$this->input->post('email');
-   //      $contact=$this->input->post('contact');
-   //      $address=$this->input->post('address');
-
-
-   //       $item_code=$this->input->post('item_code');
-      
-   //     $item_rate=$this->input->post('item_rate');
-       
-   //      $profit=$this->input->post('profit');
-   //     $total=$this->input->post('total');
-   //       $date=$this->input->post('date');
-   //       print_r($invoice_code=$this->input->post());
 			 $this->load->model('sale_order_modal');
 			 $this->sale_order_modal->make_so();
 		}
@@ -165,6 +149,10 @@
                     ?>
                     
                     <?php
+                }
+
+                function test(){
+                	echo"dddd";
                 }
 
 	}
