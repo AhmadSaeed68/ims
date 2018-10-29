@@ -201,6 +201,10 @@
                                 
                             </div>
                           </div>
+                          <div class="form-group col-sm-2">
+                            <button type="button" class="btn btn-default w3-green col-sm-3 add" id="add">+</button>
+                            <button type="button" class="btn btn-default w3-red col-sm-3 remove" >-</button>
+                          </div>
 
 
                           
@@ -364,19 +368,50 @@
 
 
 
-//   // add Dynamic values on click +
+  // add Dynamic values on click +
+ function add_data(count=''){
+          var html='';
+          html='<span id="row'+count+'"><input type="text"  name="quantity[]" class="form-control" required /> <span></span>';
+            html+='<span id="return_msg"></span></div>';
+          if(count == '')
+   {
+    html += '<button type="button w3-button-round" name="add_more" id="add_more" class="btn btn-success btn-xs">+</button>';
+   }
+   else
+   {
+    html += '<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn-xs remove">-</button></span>';
+   }
+          $('#make_so').append(html);
+         }
+         var count = 0;
 
-//   $('#add_more_so').click(function(){
-//       var i=1;
-//       i++;
-//       var html='';
+         //Add more rows on click
+  $('#add').click(function(){
+     $.ajax({
+                    url:'<?php echo base_url() ?>sale_order_controller/test',
+                    method:'POST',
+                    success:function(data){
+                          $('#return_msg').html(data);
+
+                    }
+
+               });
+      count=count+1;
+      add_data(count)
+
          
-//             $('#make_so').append(html);
-//   });
+  });
+
+  //remove item on click remove button
+  $(document).on('click', '.remove', function(){
+   var row_no = $(this).attr("id");
+   
+   $('#row'+row_no).remove();
+  });
 
 
 
-//       // data so_data on submit button 
+      // data so_data on submit button 
 
 
 $(document).on('submit','#so_update',function(event){
