@@ -250,8 +250,19 @@ echo $id->id;
     
 
     <script>
+
     $(document).ready(function(){
-        var dataTable= $("#brand_data").dataTable();
+      
+         var dataTable = $('#brand_data').DataTable({
+            "order":[0,'desc'],
+            "columnDefs":[
+    {
+      
+     "targets":[0,2,3,4,5,6,7,8],
+     "orderable":false,
+    },
+   ],
+          });
         });
 
     $(document).ready(function(){
