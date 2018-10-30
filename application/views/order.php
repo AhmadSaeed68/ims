@@ -202,7 +202,16 @@ width: 1200px; /* New width for large modal */
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
     $(document).ready(function(){
-    var dataTable=$("#order_data").dataTable();
+   var orderdataTable = $('#order_data').DataTable({
+            "order":[0,'desc'],
+            "columnDefs":[
+    {
+      
+     "targets":[0,1,2,6,7,8],
+     "orderable":false,
+    },
+   ],
+          });
     });
     //                                                 //
     //
