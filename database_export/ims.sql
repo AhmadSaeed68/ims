@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 22, 2018 at 04:10 PM
+-- Generation Time: Oct 30, 2018 at 02:54 PM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -51,7 +51,8 @@ INSERT INTO `category` (`category_id`, `user_id`, `category_name`, `category_sta
 (48, 1, 'Radiator', 'active'),
 (49, 1, 'Brass Bottom', 'active'),
 (50, 1, 'Pipe', 'active'),
-(51, 1, 'Plastic Bottom', 'active');
+(51, 1, 'Plastic Bottom', 'active'),
+(52, 1, 'bulb', 'active');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,11 @@ INSERT INTO `chat` (`id`, `name`, `msg`, `date`, `rate`, `po_code`) VALUES
 (66, '4666', 'lgch1', '2018-10-01 05:26:51', '76', ''),
 (67, '12', 'hp1002', '2018-10-01 05:38:41', '13', 'po_code'),
 (68, '12fd', 'lgch1', '2018-10-01 05:39:46', '43', 'pocode1'),
-(69, '43', '6406f', '2018-10-01 05:39:46', '23', '');
+(69, '43', '6406f', '2018-10-01 05:39:46', '23', ''),
+(70, '', '', '2018-10-30 04:03:22', '', 'I'),
+(71, '', '', '2018-10-30 04:10:33', '', 'INPO201018-2'),
+(72, '', '', '2018-10-30 05:32:51', '', 'INPO201018-2'),
+(73, '43', '', '2018-10-30 05:37:19', '', 'INPO281018-12');
 
 -- --------------------------------------------------------
 
@@ -102,22 +107,24 @@ CREATE TABLE `items` (
 --
 
 INSERT INTO `items` (`item_id`, `category_id`, `brand_id`, `item_name`, `item_code`, `item_description`, `item_status`, `item_qty`) VALUES
-(14, 37, 0, 'Hp', 'hp1002', '8gb ram', 'inactive', -1826),
+(14, 37, 0, 'Hp', 'hp1002', '8gb ram', 'inactive', -2826),
 (15, 39, 0, 'China Coolpad', 'col4312', 'china cooling pad. good quality', 'active', -1483),
-(16, 46, 1, '640', '6406f', 'Radiator Allwin 6FPI', 'active', -878),
-(17, 33, 0, 'LG', 'lgch1', 'charger', 'active', -1712),
+(16, 46, 1, '640', '6406f', 'Radiator Allwin 6FPI', 'active', -901),
+(17, 33, 0, 'LG', 'lgch1', 'charger', 'active', -1762),
 (18, 41, 0, 'Mechanical', 'mech_kbd', 'mechaanical keyboard', 'active', -3067),
-(19, 42, 0, 'Digital', 'wat_digi', 'digital watch ', 'active', -274),
+(19, 42, 0, 'Digital', 'wat_digi', 'digital watch ', 'active', -1673),
 (21, 42, 0, 'Digital Watch', 'dg_w12', 'import from china', 'active', -242),
-(22, 41, 0, 'bloddy', 'bld_kybrd', 'this is bloddy keyboard', 'active', -5485),
-(23, 33, 0, 'moto turbo charger', 'trbch-moto', 'Moto Turbo Fast Charger', 'active', -2644),
-(24, 37, 0, 'asus i5', 'i5as', 'asus core i5', 'active', -471),
-(25, 47, 0, 'j7', 'smj7', 'Samsung ', 'active', -321),
+(22, 41, 0, 'bloddy', 'bld_kybrd', 'this is bloddy keyboard', 'active', -5685),
+(23, 33, 0, 'moto turbo charger', 'trbch-moto', 'Moto Turbo Fast Charger', 'active', -3144),
+(24, 37, 0, 'asus i5', 'i5as', 'asus core i5', 'active', -481),
+(25, 47, 0, 'j7', 'smj7', 'Samsung ', 'active', -371),
 (26, 47, 0, 'Iphone apple', 'Iphone6s', 'Iphoe', 'active', -926),
-(27, 48, 0, '6408 fpi', 'al6408f', 'Allwin', 'active', -500),
-(28, 49, 0, '640 Upper', '640upsp', '640 upper special \n700gm', 'active', -200),
-(29, 50, 0, '640 Upper pipe', 'pip640up', 'filler 640 upper', 'active', -1000),
-(30, 51, 0, 'xli upper bottom', 'plxliupp', 'xli upper bottom', 'active', -100);
+(27, 48, 0, '6408 fpi', 'al6408f', 'Allwin', 'active', -800),
+(28, 49, 0, '640 Upper', '640upsp', '640 upper special \n700gm', 'active', -400),
+(29, 50, 0, '640 Upper pipe', 'pip640up', 'filler 640 upper', 'active', -4000),
+(30, 51, 0, 'xli upper bottom', 'plxliupp', 'xli upper bottom', 'active', -100),
+(31, 42, 0, 'mechanical watch', 'mch123', 'Import from China', 'active', -2200),
+(32, 52, 0, 'downbulb', 'engbulb', 'energy Saver', 'active', -3000);
 
 -- --------------------------------------------------------
 
@@ -135,7 +142,7 @@ CREATE TABLE `items_in_stock` (
   `item_description` text,
   `po_code` varchar(50) DEFAULT NULL,
   `invoice_code` varchar(50) DEFAULT NULL,
-  `item_qty` decimal(10,2) DEFAULT NULL,
+  `item_qty` decimal(10,0) DEFAULT NULL,
   `item_rate` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
@@ -144,15 +151,18 @@ CREATE TABLE `items_in_stock` (
 --
 
 INSERT INTO `items_in_stock` (`id`, `entry_date`, `category_id`, `brand_id`, `item_name`, `item_code`, `item_description`, `po_code`, `invoice_code`, `item_qty`, `item_rate`) VALUES
-(35, '2018-10-20 12:48:09', 0, 0, '', 'hp1002', NULL, 'PO201018-1', 'INPO201018-1', '432.00', '12.00'),
-(36, '2018-10-20 12:48:28', 0, 0, '', 'bld_kybrd', NULL, 'PO201018-2', 'INPO201018-2', '543.00', '12.00'),
-(37, '2018-10-20 12:54:14', 0, 0, '', 'al6408f', NULL, 'PO201018-3', 'INPO201018-3', '100.00', '10000.00'),
-(38, '2018-10-20 18:32:45', 0, 0, '', 'al6408f', NULL, 'PO201018-4', 'INPO201018-4', '200.00', '10000.00'),
-(39, '2018-10-21 22:19:44', 0, 0, '', 'Iphone6s', NULL, 'PO211018-9', 'INPO211018-5', '400.00', '450.00'),
-(40, '2018-10-21 22:20:34', 0, 0, '', 'plxliupp', NULL, 'PO201018-5', 'INPO211018-6', '50.00', '700.00'),
-(41, '2018-10-21 22:20:51', 0, 0, '', 'pip640up', NULL, 'PO201018-6', 'INPO211018-7', '1000.00', '50.00'),
-(42, '2018-10-21 22:21:10', 0, 0, '', 'dg_w12', NULL, 'PO211018-7', 'INPO211018-8', '300.00', '31.00'),
-(43, '2018-10-21 22:21:31', 0, 0, '', 'lgch1', NULL, 'PO211018-8', 'INPO211018-9', '432.00', '432.00');
+(48, '2018-10-30 13:10:01', 0, 0, '', 'hp1002', NULL, 'PO301018-1', 'INPO301018-1', '944', '300.00'),
+(49, '2018-10-30 13:18:20', 0, 0, '', 'mch123', NULL, 'PO301018-2', 'INPO301018-2', '1200', '900.00'),
+(50, '2018-10-30 13:18:20', 0, 0, '', 'wat_digi', NULL, 'PO301018-2', 'INPO301018-2', '1200', '600.00'),
+(51, '2018-10-30 13:20:05', 0, 0, '', 'trbch-moto', NULL, 'PO301018-3', 'INPO301018-3', '500', '200.00'),
+(52, '2018-10-30 13:20:43', 0, 0, '', 'bld_kybrd', NULL, 'PO301018-9', 'INPO301018-4', '120', '1000.00'),
+(53, '2018-10-30 14:27:43', 0, 0, '', 'lgch1', NULL, 'PO301018-8', 'INPO301018-5', '47', '4000.00'),
+(54, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '45', '777.00'),
+(55, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '45', '777.00'),
+(56, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '78', '980.00'),
+(57, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '78', '980.00'),
+(58, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '76', '67.00'),
+(59, '2018-10-30 18:27:52', 0, 0, '', 'wat_digi', NULL, 'PO301018-10', 'INPO301018-6', '76', '67.00');
 
 -- --------------------------------------------------------
 
@@ -241,15 +251,12 @@ CREATE TABLE `po_invoice` (
 --
 
 INSERT INTO `po_invoice` (`id`, `po_code`, `invoice_code`, `invoice_total`, `invoice_date`, `invoice_description`, `invoice_status`) VALUES
-(88, 'PO201018-1', 'INPO201018-1', NULL, '2018-10-20 12:48:08', 'Recived by:Manager', 'Active'),
-(89, 'PO201018-2', 'INPO201018-2', NULL, '2018-10-20 12:48:27', 'Recived By Frim', 'Active'),
-(90, 'PO201018-3', 'INPO201018-3', NULL, '2018-10-20 12:54:14', 'Rana Khalid Goods\r\nBilty no: 321/432\r\nRecived BY: Ali', 'Active'),
-(91, 'PO201018-4', 'INPO201018-4', NULL, '2018-10-20 18:32:45', 'Recived By:Manager', 'Active'),
-(92, 'PO211018-9', 'INPO211018-5', NULL, '2018-10-21 22:19:44', 'Recived By Maneger', 'Active'),
-(93, 'PO201018-5', 'INPO211018-6', NULL, '2018-10-21 22:20:34', 'Bilty No:430/54rf', 'Active'),
-(94, 'PO201018-6', 'INPO211018-7', NULL, '2018-10-21 22:20:51', 'Bilty No:430/54fd', 'Active'),
-(95, 'PO211018-7', 'INPO211018-8', NULL, '2018-10-21 22:21:10', 'Bilty No:430/54sd', 'Active'),
-(96, 'PO211018-8', 'INPO211018-9', NULL, '2018-10-21 22:21:30', 'Bilty No:430/5sde', 'Active');
+(100, 'PO301018-1', 'INPO301018-1', NULL, '2018-10-30 13:10:00', 'Recived by:Manager:\r\nbiltyno:32/431', 'Active'),
+(101, 'PO301018-2', 'INPO301018-2', NULL, '2018-10-30 13:18:19', 'Recived by Owner:\r\nPORT QSIM\r\nSHIP no:HKNG4309', 'Active'),
+(102, 'PO301018-3', 'INPO301018-3', NULL, '2018-10-30 13:20:05', 'Recived by owner\r\nShipno:CH54lkO', 'Active'),
+(103, 'PO301018-9', 'INPO301018-4', NULL, '2018-10-30 13:20:43', 'Recived by:manager\r\nShipNo:gs08433s', 'Active'),
+(104, 'PO301018-8', 'INPO301018-5', NULL, '2018-10-30 14:27:42', 'Recived by:manager', 'Active'),
+(105, 'PO301018-10', 'INPO301018-6', NULL, '2018-10-30 18:27:52', 're', 'Active');
 
 -- --------------------------------------------------------
 
@@ -273,15 +280,18 @@ CREATE TABLE `po_invoice_detail` (
 --
 
 INSERT INTO `po_invoice_detail` (`id`, `invoice_code`, `item_code`, `item_qty`, `item_rate`, `date`, `item_total`, `discount`) VALUES
-(83, 'INPO201018-1', 'hp1002', 432, '12.00', '2018-10-20 12:48:09', '5184.00', 0),
-(84, 'INPO201018-2', 'bld_kybrd', 543, '12.00', '2018-10-20 12:48:28', '6516.00', 0),
-(85, 'INPO201018-3', 'al6408f', 100, '10000.00', '2018-10-20 12:54:14', '800000.00', 20),
-(86, 'INPO201018-4', 'al6408f', 200, '10000.00', '2018-10-20 18:32:45', '2000000.00', 0),
-(87, 'INPO211018-5', 'Iphone6s', 400, '450.00', '2018-10-21 22:19:44', '180000.00', 0),
-(88, 'INPO211018-6', 'plxliupp', 50, '700.00', '2018-10-21 22:20:34', '35000.00', 0),
-(89, 'INPO211018-7', 'pip640up', 1000, '50.00', '2018-10-21 22:20:51', '50000.00', 0),
-(90, 'INPO211018-8', 'dg_w12', 300, '31.00', '2018-10-21 22:21:10', '9300.00', 0),
-(91, 'INPO211018-9', 'lgch1', 432, '432.00', '2018-10-21 22:21:31', '186624.00', 0);
+(96, 'INPO301018-1', 'hp1002', 1000, '300.00', '2018-10-30 13:10:01', '294000.00', 2),
+(97, 'INPO301018-2', 'mch123', 1200, '900.00', '2018-10-30 13:18:19', '1058400.00', 2),
+(98, 'INPO301018-2', 'wat_digi', 1200, '600.00', '2018-10-30 13:18:19', '720000.00', 0),
+(99, 'INPO301018-3', 'trbch-moto', 500, '200.00', '2018-10-30 13:20:05', '100000.00', 0),
+(100, 'INPO301018-4', 'bld_kybrd', 200, '1000.00', '2018-10-30 13:20:43', '200000.00', 0),
+(101, 'INPO301018-5', 'lgch1', 50, '4000.00', '2018-10-30 14:27:43', '198000.00', 1),
+(102, 'INPO301018-6', 'wat_digi', 45, '777.00', '2018-10-30 18:27:52', '34965.00', 0),
+(103, 'INPO301018-6', 'wat_digi', 45, '777.00', '2018-10-30 18:27:52', '34965.00', 0),
+(104, 'INPO301018-6', 'wat_digi', 78, '980.00', '2018-10-30 18:27:52', '76440.00', 0),
+(105, 'INPO301018-6', 'wat_digi', 78, '980.00', '2018-10-30 18:27:52', '76440.00', 0),
+(106, 'INPO301018-6', 'wat_digi', 76, '67.00', '2018-10-30 18:27:52', '5092.00', 0),
+(107, 'INPO301018-6', 'wat_digi', 76, '67.00', '2018-10-30 18:27:52', '5092.00', 0);
 
 -- --------------------------------------------------------
 
@@ -352,6 +362,13 @@ CREATE TABLE `purchase` (
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `purchase`
+--
+
+INSERT INTO `purchase` (`item_id`, `item_name`, `item_qty`, `item_qlty`, `item_price`, `item_bilty_no`, `item_type`, `item_location`, `item_company`, `item_code`, `date`) VALUES
+(1, 'LG TV', 100, 'good', 3200, '43l/re', '1', 'st1', 'LG', 'lg3211', '0000-00-00');
+
 -- --------------------------------------------------------
 
 --
@@ -374,17 +391,17 @@ CREATE TABLE `purchase_order` (
 --
 
 INSERT INTO `purchase_order` (`id`, `po_code`, `po_vendor`, `po_total`, `po_date`, `po_description`, `po_status`, `order_report`) VALUES
-(266, 'PO201018-1', NULL, NULL, NULL, 'Rk Corp', 'active', 'recived'),
-(267, 'PO201018-2', NULL, NULL, NULL, 'SM Electronics', 'active', 'recived'),
-(268, 'PO201018-3', NULL, NULL, NULL, 'RSO Main Branch', 'active', 'recived'),
-(271, 'PO201018-4', NULL, NULL, NULL, 'Allwin Main Branch', 'active', 'recived'),
-(272, 'PO201018-5', NULL, NULL, NULL, 'Khan Peshwar', 'active', 'recived'),
-(273, 'PO201018-6', NULL, NULL, NULL, 'MSH Brothers', 'active', 'recived'),
-(274, 'PO211018-7', NULL, NULL, NULL, 'Import From China', 'active', 'recived'),
-(275, 'PO211018-8', NULL, NULL, NULL, 'Su Trades Corp.', 'active', 'recived'),
-(276, 'PO211018-9', NULL, NULL, NULL, 'United Trades pvt', 'active', 'recived'),
-(299, 'PO221018-10', NULL, NULL, NULL, 'AK Trades', 'active', 'pending'),
-(300, 'PO221018-11', NULL, NULL, NULL, 'AR TRading Corp.', 'active', 'pending');
+(305, 'PO301018-1', NULL, NULL, NULL, 'Import from china\r\nAK Trading Corp.\r\nBeijing', 'active', 'recived'),
+(306, 'PO301018-2', NULL, NULL, NULL, 'Import from china \r\nShenzen Electric Corp\r\nItly,', 'active', 'recived'),
+(307, 'PO301018-3', NULL, NULL, NULL, 'Import from China', 'active', 'recived'),
+(308, 'PO301018-4', NULL, NULL, NULL, 'Import From china\r\nSMJ electronic...', 'active', 'pending'),
+(309, 'PO301018-5', NULL, NULL, NULL, 'From Pakistan\r\nAtlas Engineering', 'active', 'pending'),
+(310, 'PO301018-6', NULL, NULL, NULL, 'From Pakistan\r\nAtlas 2\r\n', 'active', 'pending'),
+(311, 'PO301018-7', NULL, NULL, NULL, 'Apple Computer\r\nDescription:\r\ntouch, 8gb ram,500gb,backlit', 'active', 'pending'),
+(312, 'PO301018-8', NULL, NULL, NULL, 'from Dealer\r\nLG g2\r\n3gb 32gb', 'active', 'recived'),
+(313, 'PO301018-9', NULL, NULL, NULL, 'import from China\r\nGaming Mouse', 'active', 'recived'),
+(314, 'PO301018-10', NULL, NULL, NULL, 'gg', 'active', 'recived'),
+(315, 'PO301018-10', NULL, NULL, NULL, 'h', 'active', 'recived');
 
 -- --------------------------------------------------------
 
@@ -409,18 +426,19 @@ CREATE TABLE `purchase_order_detail` (
 --
 
 INSERT INTO `purchase_order_detail` (`id`, `po_code`, `item_code`, `item_qty`, `item_rate`, `date`, `po_item_total`, `status`, `order_report`) VALUES
-(222, 'PO201018-1', 'hp1002', 432, '12.00', '2018-10-20 12:46:25', '5184.00', 'active', 'recived'),
-(223, 'PO201018-2', 'bld_kybrd', 543, '12.00', '2018-10-20 12:47:34', '6516.00', 'active', 'recived'),
-(224, 'PO201018-3', 'al6408f', 100, '10000.00', '2018-10-20 12:52:20', '1000000.00', 'active', 'recived'),
-(227, 'PO201018-4', 'al6408f', 200, '10000.00', '2018-10-20 13:05:28', '2000000.00', 'active', 'recived'),
-(228, 'PO201018-5', 'plxliupp', 50, '700.00', '2018-10-20 13:06:00', '35000.00', 'active', 'recived'),
-(229, 'PO201018-6', 'pip640up', 1000, '50.00', '2018-10-20 13:07:23', '50000.00', 'active', 'recived'),
-(230, 'PO211018-7', 'dg_w12', 300, '31.00', '2018-10-21 22:02:13', '9300.00', 'active', 'recived'),
-(231, 'PO211018-8', 'lgch1', 432, '432.00', '2018-10-21 22:09:49', '186624.00', 'active', 'recived'),
-(232, 'PO211018-9', 'Iphone6s', 400, '450.00', '2018-10-21 22:10:38', '180000.00', 'active', 'recived'),
-(255, 'PO221018-10', 'i5as', 54, '20000.00', '2018-10-22 12:30:12', '1080000.00', 'active', 'pending'),
-(256, 'PO221018-11', 'bld_kybrd', 100, '700.00', '2018-10-22 12:31:13', '70000.00', 'active', 'pending'),
-(257, 'PO221018-11', 'smj7', 200, '15000.00', '2018-10-22 12:31:13', '3000000.00', 'active', 'pending');
+(263, 'PO301018-1', 'hp1002', 1000, '300.00', '2018-10-30 12:32:50', '300000.00', 'active', 'recived'),
+(264, 'PO301018-2', 'mch123', 1200, '900.00', '2018-10-30 12:34:36', '1080000.00', 'active', 'recived'),
+(265, 'PO301018-2', 'wat_digi', 1200, '600.00', '2018-10-30 12:34:36', '720000.00', 'active', 'recived'),
+(266, 'PO301018-3', 'trbch-moto', 500, '200.00', '2018-10-30 12:36:14', '100000.00', 'active', 'recived'),
+(267, 'PO301018-4', 'engbulb', 2000, '60.00', '2018-10-30 12:36:59', '120000.00', 'active', 'pending'),
+(268, 'PO301018-5', 'al6408f', 100, '9200.00', '2018-10-30 12:37:49', '920000.00', 'active', 'pending'),
+(269, 'PO301018-6', 'al6408f', 200, '9000.00', '2018-10-30 12:38:48', '1800000.00', 'active', 'pending'),
+(270, 'PO301018-7', 'i5as', 10, '20000.00', '2018-10-30 12:40:02', '200000.00', 'active', 'pending'),
+(271, 'PO301018-8', 'lgch1', 50, '4000.00', '2018-10-30 12:40:59', '200000.00', 'active', 'recived'),
+(272, 'PO301018-9', 'bld_kybrd', 200, '1000.00', '2018-10-30 12:41:37', '200000.00', 'active', 'recived'),
+(273, 'PO301018-10', 'wat_digi', 45, '777.00', '2018-10-30 18:21:42', '34965.00', 'active', 'recived'),
+(274, 'PO301018-10', 'wat_digi', 78, '980.00', '2018-10-30 18:21:42', '76440.00', 'active', 'recived'),
+(275, 'PO301018-10', 'wat_digi', 76, '67.00', '2018-10-30 18:24:13', '5092.00', 'active', 'recived');
 
 -- --------------------------------------------------------
 
@@ -431,13 +449,24 @@ INSERT INTO `purchase_order_detail` (`id`, `po_code`, `item_code`, `item_qty`, `
 CREATE TABLE `sale_order` (
   `id` int(11) NOT NULL,
   `so_code` varchar(50) DEFAULT NULL,
-  `po_vendor` varchar(255) DEFAULT NULL,
-  `po_total` decimal(11,2) DEFAULT NULL,
-  `po_date` datetime DEFAULT NULL,
-  `po_description` varchar(500) DEFAULT NULL,
-  `po_status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `order_report` enum('recived','pending') NOT NULL DEFAULT 'pending'
+  `customer_name` varchar(255) DEFAULT NULL,
+  `so_total` decimal(11,2) DEFAULT NULL,
+  `so_date` date DEFAULT NULL,
+  `so_description` varchar(500) DEFAULT NULL,
+  `so_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `so_report` enum('recived','pending') NOT NULL DEFAULT 'pending',
+  `invoice_code` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sale_order`
+--
+
+INSERT INTO `sale_order` (`id`, `so_code`, `customer_name`, `so_total`, `so_date`, `so_description`, `so_status`, `so_report`, `invoice_code`) VALUES
+(121, 'SO301018-1', 'Pak Jali House', NULL, NULL, NULL, 'active', 'pending', 'INPO301018-4'),
+(122, 'SO301018-2', 'Madni Entr.', NULL, NULL, NULL, 'active', 'pending', 'INPO301018-4'),
+(123, 'SO301018-3', 'Madni Entr.', NULL, NULL, NULL, 'active', 'pending', 'INPO301018-5'),
+(124, 'SO301018-4', 'Madni Entr.', NULL, NULL, NULL, 'active', 'pending', 'INPO301018-1');
 
 -- --------------------------------------------------------
 
@@ -447,15 +476,54 @@ CREATE TABLE `sale_order` (
 
 CREATE TABLE `sale_order_detail` (
   `id` int(11) NOT NULL,
-  `po_code` varchar(50) DEFAULT NULL,
+  `so_code` varchar(50) DEFAULT NULL,
   `item_code` varchar(500) DEFAULT NULL,
   `item_qty` int(100) DEFAULT NULL,
   `item_rate` decimal(10,2) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `po_item_total` decimal(10,2) NOT NULL,
+  `so_item_total` decimal(10,2) NOT NULL,
   `status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `order_report` enum('recived','pending') NOT NULL DEFAULT 'pending'
+  `so_report` enum('recived','pending') NOT NULL DEFAULT 'pending',
+  `profit` int(100) NOT NULL,
+  `invoice_code` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sale_order_detail`
+--
+
+INSERT INTO `sale_order_detail` (`id`, `so_code`, `item_code`, `item_qty`, `item_rate`, `date`, `so_item_total`, `status`, `so_report`, `profit`, `invoice_code`) VALUES
+(83, 'SO301018-1', 'bld_kybrd', 50, '1000.00', '2018-10-30 13:21:51', '54000.00', 'active', 'pending', 8, 'INPO301018-4'),
+(84, 'SO301018-2', 'bld_kybrd', 30, '1000.00', '2018-10-30 13:22:58', '32700.00', 'active', 'pending', 9, 'INPO301018-4'),
+(85, 'SO301018-3', 'lgch1', 3, '4000.00', '2018-10-30 14:29:44', '12840.00', 'active', 'pending', 7, 'INPO301018-5'),
+(86, 'SO301018-4', 'hp1002', 56, '300.00', '2018-10-30 18:13:10', '18144.00', 'active', 'pending', 8, 'INPO301018-1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `so_customer_detail`
+--
+
+CREATE TABLE `so_customer_detail` (
+  `id` int(11) NOT NULL,
+  `business_name` varchar(100) NOT NULL,
+  `ntn_no` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `contact` int(11) NOT NULL,
+  `address` varchar(200) NOT NULL,
+  `so_code` varchar(100) NOT NULL,
+  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `so_customer_detail`
+--
+
+INSERT INTO `so_customer_detail` (`id`, `business_name`, `ntn_no`, `email`, `contact`, `address`, `so_code`, `date`) VALUES
+(86, 'Pak Jali House', 'OPTIONAl', 'pakjalihouse@gmail.com', 2147483647, 'Bahawalpur', 'SO301018-1', '2018-10-30 13:21:51'),
+(87, 'Madni Entr.', 'OPTIONAl', 'liaquatali31202@gmail.com', 4234421, 'Multan', 'SO301018-2', '2018-10-30 13:22:58'),
+(88, 'Madni Entr.', 'OPTIONAl', 'musawer79@ovi.com', 64211532, 'Bahawalpur', 'SO301018-3', '2018-10-30 14:29:44'),
+(89, 'Madni Entr.', 'OPTIONAl', 'liaquatali31202@gmail.com', 17, 'hhj', 'SO301018-4', '2018-10-30 18:13:10');
 
 -- --------------------------------------------------------
 
@@ -465,13 +533,23 @@ CREATE TABLE `sale_order_detail` (
 
 CREATE TABLE `so_invoice` (
   `id` int(11) NOT NULL,
-  `po_code` varchar(50) DEFAULT NULL,
+  `so_code` varchar(50) DEFAULT NULL,
   `invoice_code` varchar(50) DEFAULT NULL,
-  `invoice_total` decimal(11,2) DEFAULT NULL,
-  `invoice_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `invoice_description` varchar(500) DEFAULT NULL,
-  `invoice_status` enum('Active','Blocked') NOT NULL DEFAULT 'Active'
+  `so_total` decimal(11,2) DEFAULT NULL,
+  `so_date` datetime DEFAULT CURRENT_TIMESTAMP,
+  `so_description` varchar(500) DEFAULT NULL,
+  `so_status` enum('Active','Blocked') NOT NULL DEFAULT 'Active'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `so_invoice`
+--
+
+INSERT INTO `so_invoice` (`id`, `so_code`, `invoice_code`, `so_total`, `so_date`, `so_description`, `so_status`) VALUES
+(46, 'SO301018-1', 'INPO301018-4', NULL, '2018-10-30 13:21:51', NULL, 'Active'),
+(47, 'SO301018-2', 'INPO301018-4', NULL, '2018-10-30 13:22:58', NULL, 'Active'),
+(48, 'SO301018-3', 'INPO301018-5', NULL, '2018-10-30 14:29:44', NULL, 'Active'),
+(49, 'SO301018-4', 'INPO301018-1', NULL, '2018-10-30 18:13:10', NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -487,8 +565,18 @@ CREATE TABLE `so_invoice_detail` (
   `item_rate` decimal(10,2) DEFAULT NULL,
   `date` datetime DEFAULT CURRENT_TIMESTAMP,
   `item_total` decimal(10,2) NOT NULL,
-  `discount` int(100) NOT NULL
+  `profit` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `so_invoice_detail`
+--
+
+INSERT INTO `so_invoice_detail` (`id`, `invoice_code`, `item_code`, `item_qty`, `item_rate`, `date`, `item_total`, `profit`) VALUES
+(34, 'INPO301018-4', 'bld_kybrd', 50, '1000.00', '2018-10-30 13:21:51', '54000.00', 8),
+(35, 'INPO301018-4', 'bld_kybrd', 30, '1000.00', '2018-10-30 13:22:58', '32700.00', 9),
+(36, 'INPO301018-5', 'lgch1', 3, '4000.00', '2018-10-30 14:29:44', '12840.00', 7),
+(37, 'INPO301018-1', 'hp1002', 56, '300.00', '2018-10-30 18:13:10', '18144.00', 8);
 
 -- --------------------------------------------------------
 
@@ -596,6 +684,12 @@ ALTER TABLE `sale_order_detail`
   ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
+-- Indexes for table `so_customer_detail`
+--
+ALTER TABLE `so_customer_detail`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `so_invoice`
 --
 ALTER TABLE `so_invoice`
@@ -621,25 +715,25 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `items_in_stock`
 --
 ALTER TABLE `items_in_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
 
 --
 -- AUTO_INCREMENT for table `login`
@@ -657,55 +751,61 @@ ALTER TABLE `phones`
 -- AUTO_INCREMENT for table `po_invoice`
 --
 ALTER TABLE `po_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `po_invoice_detail`
 --
 ALTER TABLE `po_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=301;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=316;
 
 --
 -- AUTO_INCREMENT for table `purchase_order_detail`
 --
 ALTER TABLE `purchase_order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=258;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=276;
 
 --
 -- AUTO_INCREMENT for table `sale_order`
 --
 ALTER TABLE `sale_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `sale_order_detail`
 --
 ALTER TABLE `sale_order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+
+--
+-- AUTO_INCREMENT for table `so_customer_detail`
+--
+ALTER TABLE `so_customer_detail`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT for table `so_invoice`
 --
 ALTER TABLE `so_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `so_invoice_detail`
 --
 ALTER TABLE `so_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `user`
