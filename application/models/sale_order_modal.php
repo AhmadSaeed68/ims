@@ -7,7 +7,7 @@ class Sale_order_modal extends CI_Model
 
    function sales_order(){
            $data=$this->db
-            ->query('SELECT sale_order_detail.id,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code ORDER BY sale_order.customer_name ASC');
+            ->query('SELECT sale_order_detail.id,sale_order.customer_name,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code ORDER BY sale_order.id desc');
 return $data->result_array();
 
         }
@@ -18,7 +18,8 @@ return $data->result_array();
 		 $asset=$this->db
         ->select(['item_code'])
         ->from('items_in_stock')
-        ->get();
+        ->where('item_qty >','0')
+        ->get('');
 
     return $asset->result_array();
       }
@@ -63,33 +64,43 @@ return $data->result_array();
 
      //                                              // **INsert Data into batch in Sale_order 
      //                                            // and Than get last inset ID
+                          $tem=count($item_code);
+                          for($i=0;$i<$tem;$i++)
+                          {
+                            $data[]=array
+                                       (
+                                          'so_code'=>$so_code,
+                                          'customer_name'=>$business_name,
+                                          'invoice_code'=>$invoice_code[$i],
+                                        );
 
-                                          $data[]=array
-                                          (
-                                            'so_code'=>$so_code,
-                                            'customer_name'=>$business_name,
-                                            'invoice_code'=>$invoice_code,
-                                          );
-
-                                            $this->db->insert_batch('sale_order', $data);
+                            $this->db->insert_batch('sale_order', $data);
 
            
-         
+                            }
+
+
+
+
  
-                    // Get last insert id/*
-                    $last_id=$this->db->insert_id();  
+                                                  // Get last insert id/*
+                                                  $last_id=$this->db->insert_id();  
 
 
 
-                    // get_data_from_sale Order_by_last_insert Id
-                        $result= $this->db
-                                    ->select('so_code')
-                                    ->select('invoice_code')
-                                    ->where('id',$last_id)
-                                    ->get('sale_order')
-                                    ->result_array();
+                                                // get_data_from_sale Order_by_last_insert Id
+                                                  $result= $this->db
+                                                          ->select('so_code')
+                                                          ->select('invoice_code')
+                                                          ->where('id',$last_id)
+                                                          ->get('sale_order')
+                                                           ->result_array();
 
-                              foreach($result as $data)
+
+
+                              //Get so_code and invoice_code from last inst id                            
+
+                                foreach($result as $data)
                               {
                                 $inst_so_code=$data['so_code'];
                                 $last_invoice_code=$data['invoice_code'];
@@ -158,9 +169,15 @@ return $data->result_array();
                             'profit'=>$profit[$i],
                           );
 
+                         
 
                     $this->db->insert_batch('so_invoice',$data2);
                     $this->db->insert_batch('so_invoice_detail',$data3);
+                 $this->db
+                    ->where('item_code',$item_code[$i])
+                     ->where('invoice_code',$invoice_code[$i])
+                    ->set('item_qty', 'item_qty-'.$item_qty[$i], FALSE)
+                    ->update('items_in_stock');
     
 
               }
