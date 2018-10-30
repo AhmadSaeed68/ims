@@ -56,7 +56,7 @@ if ($conn->connect_error) {
 
             $item_name=$upd_sales['item_name'];
             $item_qty=$upd_sales['item_qty'];
-
+            $item_qty=0;
             $this->db
                     ->where('item_code', $item_name)
                     ->set('item_qty', 'item_qty-'.$item_qty, FALSE)

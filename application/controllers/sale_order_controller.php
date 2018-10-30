@@ -22,7 +22,8 @@
 		
 
 			 <select class="form-control" required id="so_item_id selectpicker" name="item_code[]"  onchange="item_on_change(this.value)"  data-live-search="true">
-			 	
+			 	<option readonly>Select item_code</option>}
+			 
 			 	
             <?php
           foreach($item_data as $each){
@@ -48,7 +49,7 @@
 			?>
 		
 			<label for="so_item_id">Select Invoice</label>
-			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code"  onchange="invoice_on_change(this.value)"  data-live-search="true">
+			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
 			 	<option></option>
             <?php
           foreach($invoice as $each){

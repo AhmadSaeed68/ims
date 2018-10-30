@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
+                                    <th>Customer</th>
                                     <th> <span class="fa fa-code-fork w3-text-teal"></span>SO Code</th>
                                     <th><span class="
                                     fa fa-shield w3-text-green"></span> Invoice Code</th>
@@ -42,6 +43,7 @@
                                 <?php foreach($data as $data):?>
                                 <tr>
                                     <td><?= $data['id'];?></td>
+                                    <td class="w3-teal w3-opacity"><?= $data['customer_name'];?></td>
                                     <td><?= $data['so_code']?></td>
                                      <td><?= $data['invoice_code'];?></td>
                                     <td><?= $data['item_code']?></td>
@@ -260,10 +262,11 @@
     <script>
         $(document).ready(function(){
           var orderdataTable = $('#order_data').DataTable({
+            "order":[0,'desc'],
             "columnDefs":[
     {
       
-     "targets":[0,7,8,9],
+     "targets":[0,4,,5,8,9,10],
      "orderable":false,
     },
    ],
@@ -424,6 +427,7 @@ $(document).on('submit','#so_update',function(event){
     success:function(data)
     {
     alert(data);
+     $('#order_data').DataTable().ajax.reload(null, false);
     $('#Modal').modal('hide');
     }
     });
@@ -444,7 +448,7 @@ $('#make_so')[0].reset();
 $('#modal_action').modal('hide');
 alert(data);
 $('.submit_so').attr('disabled', false);
- orderdataTable.ajax.reload();
+ orderdataTable.table.reload();
  
 }
 });

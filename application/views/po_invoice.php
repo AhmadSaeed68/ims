@@ -152,29 +152,7 @@
     MODAL DATA AFTER GETTING DATA FROMM EDIT FUNCTION
     **************************************************
 
-
-    -->
-    <!-- jQuery JS CDN -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <!-- jQuery DataTables JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <script>
-       $(document).ready(function(){
-          var orderdataTable = $('#order_data').DataTable({
-            "columnDefs":[
-    {
-      
-     "targets":[5,6,7],
-     "orderable":false,
-    },
-   ],
-          });
-    $.ajax({
+$.ajax({
     url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
     method: "POST",
     success: function(data)
@@ -187,9 +165,31 @@
 
     }
     });
+    -->
+    <!-- jQuery JS CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- jQuery DataTables JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+ <script>
+    $(document).ready(function(){
+    var dataTable=$("#order_data").dataTable();
+    });
+    $.ajax({
+    url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
+    method: "POST",
+    success: function(data)
+    {
+    $('#auto_po_invoice').html(data);
+    }
+    });
     /********GET ID FROM INVOICE ID */
-    
-   
+    $(document).ready(function(){
+    $('#dataTable').DataTable();
     $('.edit').click(function(){
     var invoice_id = $(this).attr('id');
     $.ajax({
@@ -206,11 +206,9 @@
     }
     });
     });
-   
+    });
     $(document).on('submit','#invoice_update',function(event){
     event.preventDefault();
-
-
     var id=$('#id').val();
     var po_code=$('#po_code').val();
     var item_rate=$('#item_rate').val();
@@ -231,42 +229,31 @@
                 success:function(data)
                 {
                 alert(data);
-
                 $('#Modal').modal('hide');
                 dataTable.ajax.reload();
-
                 }
             });
-
-
     });
-
+    $(document).ready(function(){
+    // Initiate DataTable function comes with plugin
+    $('#dataTable').DataTable();
     // Start jQuery click function to view Bootstrap modal when view info button is clicked
     $('.get_data').click(function(){
     });
-
-  
-
-
-    
-
-
+    });
+    $(document).ready(function(){
     $.ajax({
-
         url: "<?php echo base_url() ?>invoice_controller/get_PoCode_in_invoice",
         method: "POST",
-
         success: function(data){
         // Print the fetched data of the selected phone in the section called #phone_result
         // within the Bootstrap modal
         $('#po_code').html(data);
-
         //$('#phoneModal').modal('show');
         }
     });
     // End AJAX function
-
- 
+    });
     function myfun(datavalue){
         $.ajax({
             url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
@@ -284,7 +271,6 @@
     $(document).on('submit','#make_invoice',function(event){
         $('#submit').attr('disabled', 'disabled');
     event.preventDefault();
-
     var id=$('#id').val();
     var po_code=$('#po_code').val();
     var item_rate=$('#item_rate').val();
@@ -308,12 +294,11 @@
     
     },
     });
-
     });
     
     });
     //** LOad MOdal View after Click on View Button***/
-
+    $(document).ready(function(){
     $('.view').click(function(){
     var invoice_id = $(this).attr('id');
     $.ajax({
@@ -328,8 +313,7 @@
     }
     });
     });
-  
-     });
+    });
     </script>
     <p id='fd' class='fd'>
     </p>
