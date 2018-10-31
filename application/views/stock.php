@@ -32,7 +32,7 @@
                     <th>Category Id</th>
                     <th>Item Qty</th>
                     <!-- <th>Item Rate</th>
-                    <th>Total</th -->>
+                    <th>Total</th -->
                     <th>Date:</th>
 
                     </tr>
@@ -47,7 +47,7 @@
                     <!-- <td><?php //$data->invoice_code;?></td>
                     <td><?php //$data->po_code;?></td> -->
                     <td><?=$data->category_id;?></td>
-                    <td class="w3-teal"><?=$data->item_qty;?></td>
+                    <td class="w3-teal"><a id="<?=$data->item_code;?>" class="w3-text-red qty_detail"><?=$data->item_qty;?></a></td>
            <!--          <td><?=$data->item_rate;?></td>
                     <td><?=$data->item_rate*$data->item_qty;?></td> -->
                     <td><?= $data->entry_date?></td>
@@ -58,6 +58,27 @@
         </div>
     </div>
     </div>
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ">User Detail
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- Place to print the fetched phone -->
+                <div id="result">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div></div>
 
     <!-- jQuery JS CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
@@ -72,6 +93,24 @@
     <script>
      $(document).ready(function(){
         var dataTable=$("#order_data").dataTable();
+
+        $('.qty_detail').click(function(){
+    var item_code = $(this).attr('id');
+
+        $.ajax({
+                url: "<?php echo base_url() ?>stock_controller/item_detail",
+                method: "POST",
+                data: {item_code:item_code},
+                success: function(data)
+                {
+                
+                $('#result').html(data);
+                // Display the Bootstrap modal
+                $('#Modal').modal('show');
+                }
+        });
+    
+    });
 
     });
     </script>
