@@ -182,6 +182,8 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                   <ul class="dropdown-menu">
                                     <li><a href="<?php echo base_url("report")?>"><span class="
                                     fa fa-file-pdf-o  w3-text-red"></span>Report</a></li>
+                                    <li><a href="<?php echo base_url("users_inform_controller/user_detail")?>"><span class="
+                                    fa fa-user-secret  w3-text-blue"></span>Users</a></li>
                                     <li><a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> "><span class="
                                     fa fa-group  w3-text-blue"></span>Purchasers</a></li>
                                     
