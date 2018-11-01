@@ -85,7 +85,114 @@
                 echo '$ '. $result['item_total'];
                }
             }
- 
+
+
+
+            function item_sale()
+            {
+                    $query=$this->db
+                            ->select('item_code')
+                            ->get('sale_order_detail');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);   
+
+            }
+            function item_qty(){
+                $query=$this->db
+                    ->select_sum('item_qty')
+                    
+                    ->from('sale_order_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+                   
+                  
+            }
+            function total_sales(){
+                $query=$this->db
+                    ->select_sum('so_item_total')
+                    
+                    ->from('sale_order_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+            }
+
+                function no_customers(){
+                 $query=$this->db
+                            ->select('customer_name')
+                            ->get('sale_order');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);   
+            }
+
+
+            function customer_total_purchasing(){
+                $query=$this->db
+                ->select('po_code')
+                
+                ->where('po_status','active')
+               ->get('purchase_order');
+               
+                $rowcount = $query->num_rows();
+                print_r($rowcount);
+            }
+
+            function estimate_profit(){
+                $this->load->model('Report_detail');
+               $data= $this->Report_detail->estimate_profit();
+               foreach($data as $data){
+
+               echo $data['profit_price']-$data['actual_price'];
+              
+               }
     }
-        
+
+    // *********************************************************//
+                // STOCK_REPORT//
+    //*********************************************************//
+
+
+            function item_types_stock()
+            {
+                    $query=$this->db
+                            ->select('item_code')
+                            ->get('items_in_stock');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);   
+
+            }
+
+               function total_item_qty_in_stock(){
+                $query=$this->db
+                    ->select_sum('item_qty')
+                    
+                    ->from('items_in_stock')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+                   
+                  
+            }
+
+
+              function total_stock_value(){
+               $this->load->model('report_detail');
+               $data=$this->report_detail->total_stock_value();
+
+                foreach($data as $data)
+                                    {
+
+                                    echo $data['actual_price'];
+                      
+                                    }
+            }
+
+        }
         ?>
