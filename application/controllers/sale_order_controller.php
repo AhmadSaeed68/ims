@@ -22,7 +22,8 @@
 		
 
 			 <select class="form-control" required id="so_item_id selectpicker" name="item_code[]"  onchange="item_on_change(this.value)"  data-live-search="true">
-			 	<option readonly>Select item_code</option>}
+			 	<option readonly>Select item_code</option>
+			 }
 			 
 			 	
             <?php
@@ -50,7 +51,7 @@
 		
 			<label for="so_item_id">Select Invoice</label>
 			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
-			 	<option></option>
+			 	 <option selected="">Select Invoice</option>
             <?php
           foreach($invoice as $each){
               echo $each['item_code'];
@@ -64,6 +65,13 @@
                   </select>
 
                   <?php
+		}
+
+		function city_on_change(){
+	 $business_name_id= $this->input->post('datapost');
+	 $this->load->model('sale_order_modal');
+	$data= $this->sale_order_modal->city_on_change($business_name_id);
+	$this->load->view('ajax_so/city_on_change',['data'=>$data]);
 		}
 
 		function invoice_on_change(){
@@ -111,6 +119,13 @@
 							function update_so(){
 								$this->load->model('sale_order_modal');
 								$this->sale_order_modal->update_so();
+							}
+
+							function get_users_in_so(){
+								$this->load->model('sale_order_modal');
+								$data=$this->sale_order_modal->get_users_in_so();
+								$this->load->view('ajax_so/get_users_in_so',['data'=>$data]);
+
 							}
 
 

@@ -15,43 +15,66 @@ return $data->result_array();
 	
 	function get_item_code_in_so()
 	{
-		 $asset=$this->db
-        ->select(['item_code'])
-        ->from('items_in_stock')
-        ->where('item_qty >','0')
-        ->get('');
+  		 $asset=$this->db
+          ->select(['item_code'])
+          ->from('items_in_stock')
+          ->where('item_qty >','0')
+          ->get('');
 
-    return $asset->result_array();
+      return $asset->result_array();
       }
 
-      function get_invo_in_so($item_code){
-      	 $asset=$this->db
-        ->select(['invoice_code'])
-        ->from('items_in_stock')
-        ->where('item_code',$item_code)
-        ->get();
+      function get_invo_in_so($item_code)
+      {
+        	 $asset=$this->db
+          ->select(['invoice_code'])
+          ->from('items_in_stock')
+          ->where('item_code',$item_code)
+          ->get();
 
-    return $asset->result_array();
+      return $asset->result_array();
       }
 
-      function invoice_data($invoice_code){
-      	$asset=$this->db
-        ->select(['item_qty','item_rate'])
-        ->from('items_in_stock')
-        ->where('invoice_code',$invoice_code)
-        ->get();
+      function invoice_data($invoice_code)
+      {
+        	$asset=$this->db
+          ->select(['item_qty','item_rate'])
+          ->from('items_in_stock')
+          ->where('invoice_code',$invoice_code)
+          ->get();
 
-    return $asset->result_array();
+      return $asset->result_array();
+      }
+
+      function get_users_in_so()
+      {
+        $data=$this->db
+                        ->select('business_name')
+                        ->select('id')
+                        ->from('user_inform')
+                        ->get('');
+                        return $data->result_array();
+      }
+
+      function city_on_change($business_name_id){
+        $data=$this->db
+                        ->select('*')
+                        ->from('user_inform')
+                        ->where('id',$business_name_id)
+                        ->get('');
+                      return $data->result_array();
       }
 
       function make_so(){
+       
        $so_code=$this->input->post('so_code');
-        $business_name=$this->input->post('cstr_name');
-        $ntn_no=$this->input->post('ntn_no');
+        $business_name=$this->input->post('business_name');
+          $city=$this->input->post('city');
+        $ntn_no=$this->input->post('ntn');
         $email=$this->input->post('email');
         $contact=$this->input->post('contact');
         $address=$this->input->post('address');
-
+        $user_inform_id=$this->input->post('id');
 
          $item_code=$this->input->post('item_code');
        $invoice_code=$this->input->post('invoice_code');
@@ -60,10 +83,10 @@ return $data->result_array();
         $profit=$this->input->post('profit');
        $total=$this->input->post('total');
          $date=$this->input->post('date');
-     //     print_r($item_code);
 
-     //                                              // **INsert Data into batch in Sale_order 
-     //                                            // and Than get last inset ID
+
+                                                //   **INsert Data into batch in Sale_order 
+                                                // and Than get last inset ID
                           $tem=count($item_code);
                           for($i=0;$i<$tem;$i++)
                           {
@@ -135,10 +158,12 @@ return $data->result_array();
                                                 (
                                                     'so_code' =>$so_code,
                                                     'business_name' =>$business_name,
-                                                    'ntn_no' =>$ntn_no,
+                                                    'ntn' =>$ntn_no,
                                                      'email'=>$email,
                                                       'contact' =>$contact,
                                                      'address'=> $address,
+                                                     'city'=>$city,
+                                                     'user_inform_id'=>$user_inform_id,
                                                   );
 
              $insert2= $this->db->insert('so_customer_detail',$data);
@@ -188,6 +213,7 @@ return $data->result_array();
               }
 
              }     
+
        }
 
 

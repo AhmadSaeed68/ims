@@ -18,7 +18,7 @@
 						<thead>
 							<tr>
 								<th>ID</th>
-								<th> <span class="fa fa-code-fork w3-text-teal"></span>SO Code</th>
+								
 								<th> <span class=" 	fa fa-bank w3-text-teal"></span>Busniness/Owner Name</th>
 								<th><span class="
 								fa fa-shield w3-text-green"></span> NTN no</th>
@@ -38,9 +38,9 @@
 							<tr>
 								
 								<td><?=$data['id'];?></td>
-								<td><?=$data['so_code'];?></td>
+								
 								<td><?=$data['business_name'];?></td>
-								<td><?=$data['ntn_no'];?></td>
+								<td><?=$data['ntn'];?></td>
 								<td><?=$data['email'];?></td>
 								<td><?=$data['contact'];?></td>
 								<td><?=$data['address'];?></td>

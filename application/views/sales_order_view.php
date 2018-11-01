@@ -118,35 +118,23 @@
                          </div>
                        </div>
                        <div class="form-group">
-                         <div class="col-sm-6">
-                           <label for="customer Name">Business Name</label>
-                           <input type="text" class="form-control" name="cstr_name" required placeholder="Business/name">
-                         </div>
-                         <div class="col-sm-6">
-                           <label for="customer Name">NTN no:</label>
-                           <input type="text" class="form-control" name="ntn_no" value="OPTIONAl"  placeholder="NTN Optional">
-                         </div>
-                       </div>
-
-                       <div class="form-group">
-                         <div class="col-sm-6">
-                           <label for="customer Name">Email</label>
-                           <input type="email" class="form-control" name="email" required  placeholder="Email">
-                         </div>
-                         <div class="col-sm-6">
-                           <label for="customer Name">Contact No</label>
-                           <input type="number" class="form-control" name="contact" required  placeholder="Contact#">
-                         </div>
-                       </div>
-
-
-                       <div class="form-group">
-                         <div class="col-sm-12">
-                           <label for="customer Name">Address</label>
-                           <textarea name="address" placeholder="Business Address" required class="form-control"></textarea>
-                         </div>
+                        <div class="col-sm-6">
+                          <label for="">Business Name</label>
+                         
+                           <span id="so_user_detail"></span>
+                        </div>
+                        <div class="col-sm-6">
+                          
+                            <span id="user_city"></span>
+                          
+                        </div>
                         
                        </div>
+
+                      
+
+
+                       
 
                      </div>
                     </div>
@@ -279,6 +267,9 @@
                $('#modal_action').modal('show');
 
 
+               //User Detail in sale_order
+
+
  $.ajax({
                     url:'<?php echo base_url() ?>sale_order_controller/get_item_code_in_so',
                     method:'POST',
@@ -289,12 +280,40 @@
 
                });
 
+
+ //User Detail in sale_order
+ $.ajax({
+                    url:'<?php echo base_url() ?>sale_order_controller/get_users_in_so',
+                    method:'POST',
+                    success:function(data){
+                          $('#so_user_detail').html(data);
+
+                    }
+
+               });
+
+
+
+
      
 
         });  
 
 
         });
+
+        function user_on_change(datavalue){
+           $.ajax({
+     url:'<?php echo base_url() ?>sale_order_controller/city_on_change',
+      type:'POST',
+      data:{datapost:datavalue},
+      success:function(result){
+    
+        $('#user_city').html(result);
+      }
+    });
+         
+        }
 
     $.ajax({
         url: "<?php echo base_url() ?>sale_order_controller/auto_so_code",
