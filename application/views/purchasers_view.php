@@ -109,3 +109,4 @@
 
 	});
 	</script>
+	<?php include_once "login/footer.php"; ?>

@@ -479,3 +479,4 @@ $('#return_msg').html(result);
 </script>
 <span id="span_data"></span>
 <button class="btn"></button>
+<?php include_once "login/footer.php"; ?>

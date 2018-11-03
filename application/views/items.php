@@ -393,3 +393,4 @@ echo $id->id;
         });
     </script>
 <span class="msg"></span>
+<?php include_once "login/footer.php"; ?>

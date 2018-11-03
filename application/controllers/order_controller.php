@@ -110,7 +110,8 @@
                 $po_code=substr($po_code,9,3);
                 }
                 ?>
-                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=1?>" class="form-control"  id="po_code">
+
+                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=2?>" class="form-control"  id="po_code">
                <?php 
                     ?>
                     

@@ -27,3 +27,4 @@
       </form>
    </div>
 </div>
+<?php include_once "login/footer.php"; ?>

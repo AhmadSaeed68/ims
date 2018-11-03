@@ -164,6 +164,7 @@
     echo $id->id;
     
     ?>
+    <?php include_once "login/footer.php"; ?>
 
 
     

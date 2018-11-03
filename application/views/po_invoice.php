@@ -317,3 +317,4 @@ $.ajax({
     </script>
     <p id='fd' class='fd'>
     </p>
+    <?php include_once "login/footer.php"; ?>

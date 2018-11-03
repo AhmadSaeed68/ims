@@ -525,3 +525,4 @@ $('.submit_so').attr('disabled', false);
   
     </script>
     <span id="return_msg"></span>
+    <?php include_once "login/footer.php"; ?>
