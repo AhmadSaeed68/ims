@@ -194,5 +194,143 @@
                                     }
             }
 
+
+    // *********************************************************//
+                // PURCHASE_ORDER_REPORT//
+    //*********************************************************//
+
+
+            function po_item_types()
+            {
+                $query=$this->db
+                            ->select('item_code')
+                            ->get('items_in_stock');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+            function total_po_qty()
+            {
+                $query=$this->db
+                    ->select_sum('item_qty')
+                    
+                    ->from('purchase_order_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+            }
+
+            function total_po_value()
+            {
+                $query=$this->db
+                    ->select_sum('po_item_total')
+                    
+                    ->from('purchase_order_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+            }
+
+            function recived_po()
+            {
+              $query=$this->db
+                            ->select('po_code')
+                            ->where('order_report','recived')
+                            ->get('purchase_order');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+            function pending_po()
+            {
+                $query=$this->db
+                            ->select('po_code')
+                            ->where('order_report','pending')
+                            ->get('purchase_order');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+
+
+            // *********************************************************//
+                             // PO_INVOICES_REPORT//
+            //*********************************************************//
+
+            function total_invoice_qty()
+            {
+                $query=$this->db
+                    ->select_sum('item_qty')
+                    
+                    ->from('po_invoice_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+            }
+
+            function total_invoice_value()
+            {
+
+                $query=$this->db
+                    ->select_sum('item_total')
+                    
+                    ->from('po_invoice_detail')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+
+            }
+
+            function recived_invoices()
+            {
+                    $query=$this->db
+                            ->select('po_code')
+                            ->where('order_report','recived')
+                            ->get('purchase_order');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+            function pending_invoices()
+            {
+                $query=$this->db
+                            ->select('po_code')
+                            ->where('order_report','pending')
+                            ->get('purchase_order');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+            function total_category_you_deal()
+            {
+                $query=$this->db
+                            ->select('category_name')
+                            ->where('category_status','active')
+                            ->get('category');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
+            function total_items_you_deal()
+            {
+                 $query=$this->db
+                            ->select('item_name')
+                            ->where('item_status','active')
+                            ->get('items');
+
+                    $rowcount = $query->num_rows();
+                    print_r($rowcount);  
+            }
+
         }
         ?>
