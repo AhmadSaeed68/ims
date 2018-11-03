@@ -202,6 +202,9 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                     fa fa-user-secret fa-2x"></span> Profile</a></li>
                                     <li><a href="<?php echo base_url("login/logout")?>"><span class="
                                     fa fa-sign-out fa-2x w3-text-red"></span> LogOut</a></li>
+                                    <li><button type="button" class="w3-btn" style="background-color: #7D4119" onclick="changeBodyBg('#7D4119');">Theme1</button>
+      </li>
+      <li>  <button type="button" class="w3-btn" style="background-color: #5F6F20" onclick="changeBodyBg('#5F6F20');">Theme 2</button></li>
                                     
                                   </ul>
                                 </li>
@@ -210,4 +213,4 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                           </div>
                         </nav>
                         <?php }?>
-                        <body style="font-family:TIMES NEW ROMAN">
+                        <body style="font-family:TIMES NEW ROMAN;background-color: #F2F2F2" >
