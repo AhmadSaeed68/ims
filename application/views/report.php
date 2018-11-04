@@ -60,7 +60,7 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Purchase Value</b>
-                  <span class="badge badge-primary badge-pill"><span id="total_purchase_value"></span></span>
+                  <span class="badge badge-primary badge-pill w3-sand">PKR <span id="total_purchase_value"></span> =/</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sales Value</b>
