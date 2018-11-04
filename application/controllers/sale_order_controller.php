@@ -153,12 +153,13 @@
 
 														//Auto SO_code
 		function auto_so_code(){
-                    $this->db->select_max('so_code');
+                $this->db->select_max('so_code');
                 $result = $this->db->get('sale_order')->result_array();
-                foreach($result as $result){
-                $so_code=$result['so_code'];
+                $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('sale_order')->row();
+                
+                $so_code=$row->so_code;
                 $so_code=substr($so_code,9,3);
-                }
+                
                 ?>
                 <input type="text" readonly required="" name="so_code" value="<?='SO'.date("dny").'-'.$so_code+=1?>" class="form-control"  id="so_code">
                <?php 
