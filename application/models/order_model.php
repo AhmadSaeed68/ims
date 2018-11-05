@@ -2,7 +2,10 @@
     class Order_model extends CI_Model{
         function order_managment(){
             $data=$this->db
-            ->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.po_code=purchase_order.po_code');
+            ->query('SELECT * FROM purchase_order '
+                    // . ' LEFT JOIN purchase_order_detail '
+                    // . ' ON purchase_order_detail.po_code = purchase_order.po_code'
+                    . ' ');
 return $data->result_array();
 
         }

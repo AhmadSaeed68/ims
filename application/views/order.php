@@ -23,7 +23,7 @@ width: 1200px; /* New width for large modal */
                 </span>
             </div>
             <div class="panel-body">
-                > <!-- Modal -->
+                 <!-- Modal -->
                 <!-- Large Modal HTML -->
                 <div id="largeModal" class="modal fade">
                     <div class="modal-dialog modal-lg">
@@ -34,30 +34,30 @@ width: 1200px; /* New width for large modal */
                             </div>
                             <div class="modal-body">
                                 <form id="dynamic_field">
-                                    <legend class="w3-center w3-padding">
-                                        <h1 class="w3-text-green">Make Purchase Order</h1>
-                                    </legend>
+                                    
                                     <div class="row">
-                                        <div class="col-sm-6">
-                                            <div class="form-row">
-                                                <div class="form-group col-sm-5">
-                                                    <label for="pwd">Po Code:</label>
-                                                    <span id="auto_po_code"></span>
-                                                    <!-- <input type="text" required="" name="po_code" class="form-control"  id="po_code auto_po_code"> -->
-                                                </div>
-                                                <div class="form-group col-sm-5">
-                                                    <label for="pwd">PO Date:</label>
-                                                    <input type="date" class="form-control" name="date[]" id="date">
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <label for="pwd" class="col-md-2">Code:</label>
+                                                    <span id="auto_po_code" class="col-md-4"></span>
+                                                    <label for="pwd" class="col-md-1">Date:</label>
+                                                    <div class="col-md-5">
+                                                        <input type="date" value="<?php echo date("Y-m-d");?>" class="form-control" name="date[]" id="date">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-row">
+                                            
+                                            <div class="row">
                                                 <div class="form-group">
-                                                    <label for="po_desc">Po Description:</label>
-                                                    <textarea rows="4" cols="30" name="po_desc" id="po_desc" required=""></textarea>
+                                                    <label for="po_desc" class="col-md-2">Description:</label>
+                                                    <div class="col-md-10">
+                                                        <textarea class="form-control" rows="4" cols="30" name="po_desc" id="po_desc" required=""></textarea>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-md-6">
                                             <div class="row">
                                                 <div class="form-row">
                                                     <div class="form-group">
@@ -85,6 +85,9 @@ width: 1200px; /* New width for large modal */
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div id="dynamic_field_row">
+                                                &nbsp;
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -105,13 +108,9 @@ width: 1200px; /* New width for large modal */
                                 <thead>
                                     <tr class="w3-black">
                                         <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
-                                        <!-- <th>Po Total</th> -->
+                                        
                                         <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
-                                        <th><span class="fa fa-barcode w3-text-blue"></span>Item Code</th>
-                                        <th><span class="
-                                        fa fa-puzzle-piece w3-text-brown"></span>Item Qty</th>
-                                        <th><span class="
-                                        fa fa-registered w3-text-green"></span> Item Rate</th>
+                                        <th>Po Total</th> 
                                         <th><span class="fa fa-calendar w3-text-red"></span> Date</th>
                                         <th><span class="fa fa-cogs w3-text-orange"></span> Status</th>
                                         <th><span class="
@@ -123,14 +122,13 @@ width: 1200px; /* New width for large modal */
                                     <?php foreach($order_data as $data):?>
                                     <tr>
                                         <td><?= $data['po_code']?></td>
-                                        <!-- <td><?php// $data['po_total']?></td> -->
+                                        
                                         <td><?= $data['po_description']?></td>
-                                        <td><?= $data['item_code']?></td>
-                                        <td><?= $data['item_qty']?></td>
-                                        <td><?= $data['item_rate']?></td>
-                                        <td><?= $data['date']?></td>
+                                        <td><?php echo $data['po_total'];?></td> 
+                                        
+                                        <td><?= $data['po_date']?></td>
                                         <td>
-                                            <?php $status=$data['status']; if($status=="active"){
+                                            <?php $status=$data['po_status']; if($status=="active"){
                                             echo "<span class='w3-green'>Active</span>";
                                             }else{
                                             echo "<span class='w3-red'>Dective</span>";
@@ -151,7 +149,7 @@ width: 1200px; /* New width for large modal */
                                                     <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['po_code']; ?>">
                                                     </li>
                                                     <li>
-                                                    <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['status']?>">Delete</button>
+                                                    <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['po_status']?>">Delete</button>
                                                     </li>
                                                     
                                                 </ul>
@@ -363,52 +361,55 @@ width: 1200px; /* New width for large modal */
     $('.edit').attr('disabled',false);
     }
     $('#add_more').click(function(){
-    $('#largeModal').modal('show');
-    $('#dynamic_field')[0].reset();
-    $('.modal-title').html("<i class='fa fa-plus'></i> Purchase Order");
-    $('#submit').val('submit');
-    $('#span_product_details').html('');
+        $('#largeModal').modal('show');
+        $('#dynamic_field')[0].reset();
+        $('.modal-title').html("<i class='fa fa-plus'></i> Purchase Order");
+        $('#submit').val('submit');
+        $('#span_product_details').html('');
     $('#add').click(function(){
         i=1;
         i++;
-        
+       // alert("eula");
         var html='';
-        html+='<tr id="row'+i+'"><td><div class="col-sm-5"></div>';
-        html+='<div class="col-sm-7"><div class="row">';
-        html+='<div class="col-sm-10">';
+        html+='';
+        html+='<div class="row">';
+       
         html+='<div class="form-row">';
-        html+='<div class="form-group col-md-4">';
-        html+='<label for="status">Item Code</label>';
-        html+='<span id="span_data"></span></div>';
+        html+='<div class="form-group col-md-5">';
+        html+='<label for="pwd">Item Code</label>';
+        html+='<span id="span_data" class="item_codes_dc"></span>\n\
+                </div>';
         html+='<div class="form-group col-md-4">';
         html+='<label for="item_quantity">Item Quantity</label>';
         html+='<input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun(this.value)">';
         html+='</div>';
-        html+='<div class="form-group col-md-4">';
+        html+='<div class="form-group col-md-3">';
         html+='<label for="item_rate">Item Rate:</label>';
         html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]">';
         html+='</div>';
         html+='</div>';
         html+='</div>';
-        html+='<div class="form-group col-sm-2">';
-        html+='<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>';
-        html+='<button type="button" name="add" id="'+i+'add" class="btn btn-success add w3-right">+</button>';
-        html+='</div></div>';
-        html+='</div>';
-        html+='</td></tr>';
+        //html+='<div class="form-group col-sm-2">';
+       // html+='<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>';
+       // html+='<button type="button" name="add" id="'+i+'add" class="btn btn-success add w3-right">+</button>';
+       // html+='</div>';
+        //html+='</div>';
+      // html+='</div>';
+        html+='';
     
-$('#dynamic_field').append(html);
+        $('#dynamic_field_row').append(html);
+        
         $.ajax({
             url: "<?php echo base_url() ?>order_controller/get_itemCode_in_order",
             method: "POST",
             success: function(data){
             // Print the fetched data of the selected phone in the section called #phone_result
             // within the Bootstrap modal
-            $('#span_data').html(data);
+            $('.item_codes_dc').html(data);
             //$('#phoneModal').modal('show');
             }
         });
-});
+    });
 });
 
     
