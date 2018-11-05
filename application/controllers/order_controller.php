@@ -3,8 +3,7 @@
         function order_managment(){
             $this->load->model('order_model');
             $order_data=$this->order_model->order_managment();
-
-       $this->load->view('order.php',['order_data'=>$order_data]);
+            $this->load->view('order.php',['order_data'=>$order_data]);
         }
 
         function edit_order(){
@@ -106,12 +105,13 @@
                     $this->db->select_max('po_code');
                 $result = $this->db->get('purchase_order')->result_array();
                 foreach($result as $result){
-                $po_code=$result['po_code'];
-                $po_code=substr($po_code,9,3);
+                    $po_code=$result['po_code'];
+                    $data_code_array = explode("-", $po_code); 
+                    $po_code=$data_code_array[1]+1;
                 }
                 ?>
 
-                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=2?>" class="form-control"  id="po_code">
+                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code;?>" class="form-control"  id="po_code">
                <?php 
                     ?>
                     
