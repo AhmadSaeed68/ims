@@ -186,6 +186,8 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                     fa fa-user-secret  w3-text-blue"></span>Users</a></li>
                                     <li><a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> "><span class="
                                     fa fa-group  w3-text-blue"></span>Purchasers</a></li>
+                                     <li><a href="<?php echo base_url("vendors_controller/vendors")?>"><span class="
+                                    fa fa-file-pdf-o  w3-text-red"></span>Vendors</a></li>
                                     
                                   </ul>
                                 </li>
