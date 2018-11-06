@@ -94,15 +94,10 @@ echo $id->id;
 
         <th>
 
-            <i class="fa fa-scissors w3-text-orange"></i>Edit
+            <i class="fa fa-scissors w3-text-orange"></i>Action
 
         </th>
 
-        <th>
-
-            <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
-
-        </th>
 
     
 
@@ -163,9 +158,12 @@ echo $id->id;
         
 
         <td>
-
-            <?=$item['item_status']?>
-
+<?php $status=$item['item_status']; if($status=="active"){
+                                            echo "<span class='w3-green'>Active</span>";
+                                            }else{
+                                            echo "<span class='w3-red'>Dective</span>";
+                                        }?>
+            
         </td>
 
         <!-- <td>
@@ -173,18 +171,19 @@ echo $id->id;
             <?php //$item['item_qty']?>
 
         </td> -->
+ <td> <div class="dropdown">
+                                        <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
 
-        <td>
-
-            <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
-
-        </td>
-
-        <td>
-
-            <input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?=$item['item_id']?>">
-
-        </td>
+                                            <li>  <input type="button" class="w3-btn w3-block w3-orange edit" value="Edit" id="<?=$item['item_id']?>"></li>
+                                            <li> 
+                                                <button class="w3-button w3-block w3-red delete" id="<?=$item['item_id']?>" data-status="<?=$item['item_status']?>">Change Status</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+        
 
     </tr>
 
@@ -214,7 +213,7 @@ echo $id->id;
 
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-            <h4 class="modal-title" id="myModalLabel">Data</h4>
+            <h4 class="modal-title" id="myModalLabel"></h4>
 
         </div>
 
@@ -284,6 +283,7 @@ echo $id->id;
                             $('#phone_result').html(data);
                         
                             $('#phoneModal').modal('show');
+                             $('.modal-title').html("<i class='fa fa-plus w3-text-green'></i> <span class='w3-text-blue'>Add Items</span> ");
                         }
                 });
                 // End AJAX function
@@ -330,31 +330,37 @@ echo $id->id;
                 {
                     $('#phone_result').html(data);
                     $('#phoneModal').modal('show');
+                     $('.modal-title').html("<i class='fa fa-plus w3-text-orange'></i> <span class='w3-text-orange'>Update Items</span> ");
                     
                 }
             });
         });
         
-        $(document).on('click','.delete',function(){
-            var item_id=$(this).attr('id');
-            if(confirm("Are You sure to delete this")){
+       
+
+
+             $(document).on('click', '.delete', function(){
+            var item_id = $(this).attr("id");
+            var status = $(this).data("status");
+            var btn_action = "delete";
+            if(confirm("Are you sure you want to change status?"))
+            {
             $.ajax({
-                url: "<?php echo base_url() ?>items_controller/delete_item",
-                method:"POST",
-                data:{item_id:item_id},
-                datatype:"json",
-                success:function(data)
-                {
-                    alert(data);
-                    $('#mytable').dataTable().reload();
-                    
-                }
-            });
-            }else{
+            url: "<?php echo base_url() ?>items_controller/item_status",
+            method:"POST",
+            data:{item_id:item_id, status:status, btn_action:btn_action},
+            success:function(data)
+            {
+            alert(data);
+            orderdataTable.ajax.reload();
+            }
+            })
+            }
+            else
+            {
             return false;
             }
-            
-        });
+                    });
 
 
    
