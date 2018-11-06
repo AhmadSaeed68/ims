@@ -2,13 +2,13 @@
 include_once"login/header.php";
 ?>
 <div class="container w3-padding-64">
-	<?php print_r($data); ?>
+	
 	<span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
 	<div class="panel panel-default">
-		<a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Sale Order</a>
+		<a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Add Vendors</a>
 		<div class="panel-heading w3-center w3-padding-24">
 			<span class=" fa fa-qrcode fa-2x w3-text-red">
-				Sales Order
+				Vendors Detail
 			</span>
 			</div> <!-- Modal -->
 			<!-- Large Modal HTML -->
@@ -43,7 +43,11 @@ include_once"login/header.php";
                              		<td><?=$data['address']?></td>
                              		<td><?=$data['email']?></td>
                              		<td><?=$data['contact']?></td>
-                             		<td><?=$data['status']?></td>
+                             		<td> <?php $status=$data['status']; if($status=="active"){
+                                            echo "<span class='w3-green'>Active</span>";
+                                            }else{
+                                            echo "<span class='w3-red'>Dective</span>";
+                                        }?></td>
                              		<td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
                              		
                              		
@@ -55,7 +59,7 @@ include_once"login/header.php";
                                         <ul class="dropdown-menu">
 
                                             <li><input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['id']; ?>"></li>
-                                            <li><input type="button" class="w3-button w3-block w3-red  delete" value="Delete" id="<?php echo $data['id']; ?>"></li>
+                                            <li><button class="w3-button w3-block w3-red delete" id="<?php echo $data['id']; ?>" data-status="<?=$data['status']?>">Delete</button></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -68,6 +72,26 @@ include_once"login/header.php";
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- Place to print the fetched phone -->
+                <div id="result">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 	 <!-- The Modal -->
   <div class="modal fade" id="modal_action">
     <div class="modal-dialog modal-lg">
@@ -176,6 +200,7 @@ include_once"login/header.php";
 	 $('.adddata').click(function(){
 
 		$('#modal_action').modal('show');
+		 $('.modal-title').html("<i class='fa fa-plus'></i> Add Vendors");
    
 		                $(document).on('submit','#vendor_detail',function(event){
               
@@ -195,4 +220,74 @@ include_once"login/header.php";
             
              
            		});
+
+	 	//*******************************
+	 		// GET DATA AFTER GETTING on 
+	 		// EDIT BUTTON
+	 		//********************************
+	 		$('.edit').click(function(){
+    var vendor_id = $(this).attr('id');
+
+    $.ajax({
+    url: "<?php echo base_url() ?>vendors_controller/edit_vendor",
+    method: "POST",
+    data: {vendor_id:vendor_id},
+    success: function(data)
+    {
+  
+    $('#result').html(data);
+   
+    $('#Modal').modal('show');
+     $('.modal-title').html("<i class='fa fa-plus'></i> Update Vendor");
+    }
+    });
+    });
+
+	 		 $(document).on('submit','#update_vendor',function(event){
+			    event.preventDefault();
+			  	var id=$('#id').val();
+			    var vendor_name=$('#vendor_name').val();
+			    var manager_name=$('#manager_name').val();
+			    var contact=$('#contact').val();
+			    var email=$('#email').val();
+			    var city=$('#city').val();
+			     var address=$('#address').val();
+            $.ajax({
+            url: "<?php echo base_url() ?>vendors_controller/update_vendor",
+            method:"POST",
+                data:{ id:id,vendor_name:vendor_name,manager_name:manager_name
+                    ,contact:contact,email:email,city:city,address:address,},
+            
+                success:function(data)
+                {
+                alert(data);
+                $('#Modal').modal('hide');
+                dataTable.ajax.reload();
+                }
+            });
+    });
+
+	 		 $(document).on('click', '.delete', function(){
+			var id = $(this).attr("id");
+			var status = $(this).data("status");
+			var btn_action = "delete";
+			if(confirm("Are you sure you want to change status?"))
+			{
+			$.ajax({
+			url:"<?php echo base_url() ?>vendors_controller/vendor_status",
+			method:"POST",
+			data:{id:id, status:status, btn_action:btn_action},
+			success:function(data)
+			{
+			alert(data);
+			orderdataTable.ajax.reload();
+			}
+			})
+			}
+			else
+			{
+			return false;
+			}
+					});
+
 </script>
