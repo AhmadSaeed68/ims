@@ -1,6 +1,5 @@
 <?php
     include_once"login/header.php";
-
 ?>
  <div class="container w3-padding-64">
 
@@ -219,7 +218,7 @@
     <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header ">User Detail
+            <div class="modal-header ">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
@@ -262,46 +261,28 @@
             // ******
             // Load MOdal After Click on MAKE_SALES_ORDER LINE NO 44
             // ******
-
            $('.adddata').click(function(){
                $('#modal_action').modal('show');
-
-
+                $('.modal-title').html("<i class='fa fa-plus'></i> Create Sale Order");
                //User Detail in sale_order
-
-
  $.ajax({
                     url:'<?php echo base_url() ?>sale_order_controller/get_item_code_in_so',
                     method:'POST',
                     success:function(data){
                           $('#so_item_code').html(data);
-
                     }
-
                });
-
-
  //User Detail in sale_order
  $.ajax({
                     url:'<?php echo base_url() ?>sale_order_controller/get_users_in_so',
                     method:'POST',
                     success:function(data){
                           $('#so_user_detail').html(data);
-
                     }
-
                });
-
-
-
-
      
-
         });  
-
-
         });
-
         function user_on_change(datavalue){
            $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/city_on_change',
@@ -314,7 +295,6 @@
     });
          
         }
-
     $.ajax({
         url: "<?php echo base_url() ?>sale_order_controller/auto_so_code",
         method: "POST",
@@ -324,8 +304,6 @@
         }
     }); 
                function item_on_change(datavalue){
-
-
     $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/item_on_change',
       type:'POST',
@@ -336,9 +314,7 @@
       }
     });
   }
-
           function invoice_on_change(invoice_code){
-
     $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/invoice_on_change',
       type:'POST',
@@ -349,11 +325,7 @@
       }
     });
   }
-
-
                                                               //   // SUM total Price
-
-
   $(function() {
     $("#item_qty, #item_rate, #profit").on("keyup keydown keyup", total);
   function total() {
@@ -368,7 +340,6 @@
   }
 });
                                                       // Click On Edit and perform Action
-
   $('.edit').click(function(){
         var so_id = $(this).attr('id');
       
@@ -383,30 +354,54 @@
         $('#result').html(data);
      
       $('#Modal').modal('show');
+       $('.modal-title').html("<i class='fa fa-plus'></i> <span class='w3-text-orange'> Update Sale Order</span>");
         }
         });
   
     });
-
-
-
   // add Dynamic values on click +
  function add_data(count=''){
-          var html='';
-          html='<span id="row'+count+'"><input type="text"  name="quantity[]" class="form-control" required /> <span></span>';
-            html+='<span id="return_msg"></span></div>';
-          if(count == '')
-   {
-    html += '<button type="button w3-button-round" name="add_more" id="add_more" class="btn btn-success btn-xs">+</button>';
-   }
-   else
-   {
-    html += '<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn-xs remove">-</button></span>';
-   }
+  var html='';
+        html+='';
+        html+='<div id="row'+count+'" class="row">';
+       
+        html+='<div class="form-row">';
+        html+='<div class="form-group col-md-4">';
+        html+='<label for="pwd">Item Code</label>';
+        html+='<span id="span_data" class="item_codes_dc"></span>\n\
+                </div>';
+        html+='<div class="form-group col-md-4">';
+        html+='<label for="item_quantity">Item Quantity</label>';
+        html+='<input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun(this.value)">';
+        html+='</div>';
+        html+='<div class="form-group col-md-3">';
+        html+='<label for="item_rate">Item Rate:</label>';
+        html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]">';
+        html+='</div>';
+         html+='<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn_remove">X</button>';
+        html+='</div>';
+        html+='</div>';
+        //html+='<div class="form-group col-sm-2">';
+       // html+='<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button>';
+       // html+='<button type="button" name="add" id="'+i+'add" class="btn btn-success add w3-right">+</button>';
+       // html+='</div>';
+        //html+='</div>';
+      // html+='</div>';
+        html+='';
+   //        var html='';
+   //        html='<span id="row'+count+'"><input type="text"  name="quantity[]" class="form-control" required /> <span></span>';
+   //          html+='<span id="return_msg"></span></div>';
+   //        if(count == '')
+   // {
+   //  html += '<button type="button w3-button-round" name="add_more" id="add_more" class="btn btn-success btn-xs">+</button>';
+   // }
+   // else
+   // {
+   //  html += '<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn-xs remove">-</button></span>';
+   // }
           $('#make_so').append(html);
          }
          var count = 0;
-
          //Add more rows on click
   $('#add').click(function(){
      $.ajax({
@@ -414,28 +409,19 @@
                     method:'POST',
                     success:function(data){
                           $('#return_msg').html(data);
-
                     }
-
                });
       count=count+1;
       add_data(count)
-
          
   });
-
   //remove item on click remove button
-  $(document).on('click', '.remove', function(){
+  $(document).on('click', '.btn_remove', function(){
    var row_no = $(this).attr("id");
    
    $('#row'+row_no).remove();
   });
-
-
-
       // data so_data on submit button 
-
-
 $(document).on('submit','#so_update',function(event){
  event.preventDefault();
  var form_data=$(this).serialize();
@@ -451,8 +437,6 @@ $(document).on('submit','#so_update',function(event){
     }
     });
 });
-
-
 $(document).on('submit','#make_so', function(event){
 event.preventDefault();
 $('.submit_so').attr('disabled', 'disabled');
@@ -461,7 +445,6 @@ $.ajax({
 url:"<?php echo base_url() ?>sale_order_controller/make_so",
 method:"POST",
 data:form_data,
-
 success:function(data){
 $('#make_so')[0].reset();
 $('#modal_action').modal('hide');
@@ -472,13 +455,8 @@ $('.submit_so').attr('disabled', false);
 }
 });
 });
-
-
-
-
        $('.view').click(function(){
     var so_code = $(this).attr('id');
-
   
     $.ajax({
     url: "<?php echo base_url() ?>sale_order_controller/view_so",
@@ -489,11 +467,10 @@ $('.submit_so').attr('disabled', false);
      $('#result').html(data);
    
     $('#Modal').modal('show');
+     $('.modal-title').html("<i class='fa fa-eye w3-text-blue'></i> View Sale Order");
     }
     });
     });
-
-
        $(document).on('click','.delete',function(){
           var so_code=$(this).attr("id");
           var status = $(this).data("status");
@@ -510,19 +487,13 @@ $('.submit_so').attr('disabled', false);
               orderdataTable.ajax.reload();
               }
             })
-
         }else{
             alert('Ok Thank you');
           return false;
         
         }
        });
-
-
-
-
-
   
     </script>
     <span id="return_msg"></span>
-    <?php include_once "login/footer.php"; ?>
+<?php include_once "login/footer.php"; ?>
