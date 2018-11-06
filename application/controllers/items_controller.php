@@ -47,10 +47,20 @@
     
                 }
 
-                function delete_item(){
-                    $item_id=$_POST['item_id'];
-                    $this->load->model('items_model');
-                    $this->items_model->delete_item($item_id);
+                function item_status(){
+                    if($_POST['btn_action'] == 'delete')
+                    {
+                        $status= $this->input->post('status');
+                        if($status == 'active')
+                            {
+                            $status = 'inactive';
+                            }else{
+                                $status='active';
+                            }
+
+                            $this->load->model('items_model');
+                            $this->items_model->item_status($status);
+                    }
     
                 }
 
