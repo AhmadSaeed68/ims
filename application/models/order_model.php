@@ -21,6 +21,16 @@ return $data->result_array();
                 return $result->result_array();
 
         }
+        function get_vendor(){
+            $asset=$this->db
+                    ->select(['vendor_name','id'])
+                    ->where('status','active')
+                    
+                    ->from('vendors')
+                    ->get();
+                    
+                return $asset->result_array();
+        }
 
         function update_order(){
 
@@ -70,9 +80,11 @@ return $data->result_array();
 
         $po_code=$this->input->post('po_code');
         $po_desc=$this->input->post('po_desc');
+         $vendor=$this->input->post('vendor');
         $data[]= array(
             'po_code'=>$po_code,
             'po_description'=>$po_desc,
+            'po_vendor'=>$vendor,
 
             );
 
