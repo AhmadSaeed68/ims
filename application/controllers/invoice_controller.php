@@ -68,11 +68,14 @@ $this->load->view('report');
           function auto_po_invoice(){
             $this->db->select_max('invoice_code');
         $result = $this->db->get('po_invoice')->result_array();
-        foreach($result as $result){
-            $invoice_code=$result['invoice_code'];
-            } $invoice_code=substr($invoice_code,11,3);
+         $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('po_invoice')->row();
+        // foreach($result as $result){
+        //     $invoice_code=$result['invoice_code'];
+        //     } 
+         $invoice_code=$row->invoice_code;
+            $invoice_code=substr($invoice_code,11,3);
         ?>
-        <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").'-'.$invoice_code+=2?>" class="form-control"  id="invoice_code">
+        <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").'-'.$invoice_code+=1?>" class="form-control"  id="invoice_code">
       
        <?php 
             ?>
