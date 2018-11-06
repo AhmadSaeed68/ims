@@ -166,7 +166,7 @@
                     ?>
                     
                     <?php
-					$this->output->enable_profiler(TRUE);
+					//$this->output->enable_profiler(TRUE);
                 }
 
                 function test(){

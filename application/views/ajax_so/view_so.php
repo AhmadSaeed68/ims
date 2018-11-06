@@ -1,4 +1,4 @@
-<div class="well"><h2> Sale Order Detail</h2></div>
+
 <div class="col-sm-12 col-md-12">
   <?php foreach ($data as $uperdata):?><?php endforeach; ?>
     

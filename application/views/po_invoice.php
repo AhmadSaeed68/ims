@@ -75,7 +75,7 @@
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header ">User Detail
+            <div class="modal-header ">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
@@ -203,6 +203,7 @@ $.ajax({
     $('#result').html(data);
     // Display the Bootstrap modal
     $('#Modal').modal('show');
+     $('.modal-title').html("<i class='fa fa-plus'></i> <span class='w3-text-orange'>Update Invocie</span> ");
     }
     });
     });
@@ -266,6 +267,7 @@ $.ajax({
     }
     $('.adddata').click(function(){
         $('#largeModal').modal('show');
+          $('.modal-title').html("<i class='fa fa-eye w3-text-blue'></i> <span class='w3-text-blue'>View Invoice Detail</span> ");
         $('#make_invoice')[0].reset();
     
     $(document).on('submit','#make_invoice',function(event){

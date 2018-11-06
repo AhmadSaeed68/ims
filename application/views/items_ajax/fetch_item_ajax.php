@@ -1,7 +1,7 @@
 <?php foreach($data as $row){
 ?>
 <div>
-    <h3 class="jumbotron w3-center"><span class='fa fa-soundcloud w3-text-blue fa-2x'></span> Items Detail Update</h3<br>
+   
     
 </div>
 <div class="row">
