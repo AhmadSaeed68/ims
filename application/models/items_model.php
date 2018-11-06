@@ -35,10 +35,17 @@
 
             }
 
-            function delete_item($item_id){
-                $this->db
-                ->where('item_id',$item_id)
-                ->delete("items");
+            function item_status($status){
+              $item_id= $this->input->post('item_id');
+                $status;
+            $update_status= $this->db
+                ->where('item_id', $item_id)
+                ->set('item_status', $status)
+                ->update('items');
+                
+                if($update_status){
+                    echo "Status Changed";
+                }
             }
 
             function update_item($data){
