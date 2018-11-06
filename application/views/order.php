@@ -38,13 +38,17 @@ width: 1200px; /* New width for large modal */
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="row">
-                                                <div class="form-group">
-                                                    <label for="pwd" class="col-md-2">Code:</label>
-                                                    <span id="auto_po_code" class="col-md-4"></span>
-                                                    <label for="pwd" class="col-md-1">Date:</label>
-                                                    <div class="col-md-5">
-                                                        <input type="date" value="<?php echo date("Y-m-d");?>" class="form-control" name="date[]" id="date">
-                                                    </div>
+                                                <div class="form-group col-sm-4">
+                                                    <label for="pwd" class="">Code:</label>
+                                                    <span id="auto_po_code"></span>
+                                                    
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <label for="pwd">Vendor:</label>
+                                                   
+                                                        <input type="hidden" value="<?php echo date("Y-m-d");?>" class="form-control" name="date[]" id="date">
+                                                        <span id="vendor"></span>
+                                                    
                                                 </div>
                                             </div>
                                             
@@ -108,6 +112,7 @@ width: 1200px; /* New width for large modal */
                                 <thead>
                                     <tr class="w3-black">
                                         <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
+                                        <th> <span class="fa fa-code-fork w3-text-teal"></span>PO Vendor</th>
                                         
                                         <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
                                         <th>Po Total</th> 
@@ -122,6 +127,7 @@ width: 1200px; /* New width for large modal */
                                     <?php foreach($order_data as $data):?>
                                     <tr>
                                         <td><?= $data['po_code']?></td>
+                                        <td><?= $data['po_vendor']?></td>
                                         
                                         <td><?= $data['po_description']?></td>
                                         <td><?php echo $data['po_total'];?></td> 
@@ -149,7 +155,7 @@ width: 1200px; /* New width for large modal */
                                                     <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['po_code']; ?>">
                                                     </li>
                                                     <li>
-                                                    <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['po_status']?>">Delete</button>
+                                                    <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['po_status']?>">Status</button>
                                                     </li>
                                                     
                                                 </ul>
@@ -223,7 +229,17 @@ width: 1200px; /* New width for large modal */
         {
         $('#auto_po_code').html(data);
         }
-    });                                             //
+    });      
+            //GET VENDOR
+$.ajax({
+        url: "<?php echo base_url() ?>order_controller/get_vendor",
+        method: "POST",
+        success: function(data)
+        {
+        $('#vendor').html(data);
+        }
+    }); 
+                                           //
     $(document).ready(function(){
    
         $('.edit').click(function(){
@@ -366,16 +382,14 @@ width: 1200px; /* New width for large modal */
         $('.modal-title').html("<i class='fa fa-plus'></i> Purchase Order");
         $('#submit').val('submit');
         $('#span_product_details').html('');
-    $('#add').click(function(){
-        i=1;
-        i++;
-       // alert("eula");
-        var html='';
+
+       function add_data(count=''){
+  var html='';
         html+='';
-        html+='<div class="row">';
+        html+='<div id="row'+count+'" class="row">';
        
         html+='<div class="form-row">';
-        html+='<div class="form-group col-md-5">';
+        html+='<div class="form-group col-md-4">';
         html+='<label for="pwd">Item Code</label>';
         html+='<span id="span_data" class="item_codes_dc"></span>\n\
                 </div>';
@@ -387,6 +401,7 @@ width: 1200px; /* New width for large modal */
         html+='<label for="item_rate">Item Rate:</label>';
         html+='<input type="number" class="form-control" required="" id="item_rate" name="item_rate[]">';
         html+='</div>';
+         html+='<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn_remove">X</button>';
         html+='</div>';
         html+='</div>';
         //html+='<div class="form-group col-sm-2">';
@@ -396,8 +411,24 @@ width: 1200px; /* New width for large modal */
         //html+='</div>';
       // html+='</div>';
         html+='';
-    
-        $('#dynamic_field_row').append(html);
+   //        var html='';
+   //        html='<span id="row'+count+'"><input type="text"  name="quantity[]" class="form-control" required /> <span></span>';
+   //          html+='<span id="return_msg"></span></div>';
+   //        if(count == '')
+   // {
+   //  html += '<button type="button w3-button-round" name="add_more" id="add_more" class="btn btn-success btn-xs">+</button>';
+   // }
+   // else
+   // {
+   //  html += '<button type="button" name="remove" id="'+count+'" class="btn btn-danger btn-xs remove">-</button></span>';
+   // }
+          $('#dynamic_field_row').append(html);
+         }
+         var count = 0;
+    $('#add').click(function(){
+       
+       // alert("eula");
+        
         
         $.ajax({
             url: "<?php echo base_url() ?>order_controller/get_itemCode_in_order",
@@ -409,74 +440,81 @@ width: 1200px; /* New width for large modal */
             //$('#phoneModal').modal('show');
             }
         });
+       count=count+1;
+      add_data(count)
     });
 });
-
     
     $(document).on('click', '.add', function(){
         var button_id = $(this).attr("id");
         alert(button_id);
       
     });
-
 $(document).on('click', '.btn_remove', function(){
-var button_id = $(this).attr("id");
-$('#row'+button_id+'').remove();
+   var row_no = $(this).attr("id");
+   
+   $('#row'+row_no).remove();
+  });
+
+        // ***** Make PO ORDER**************
+        //***********************************
+
+        $(document).on('submit','#dynamic_field', function(event){
+        event.preventDefault();
+        $('#submit').attr('disabled', 'disabled');
+        var form_data = $(this).serialize();
+                $.ajax({
+                url:"<?php echo base_url() ?>order_controller/make_order",
+                method:"POST",
+                data:form_data,
+                success:function(data){
+                $('#dynamic_field')[0].reset();
+                $('#largeModal').modal('hide');
+                alert(data);
+                $('#submit').attr('disabled', false);
+                //  orderdataTable.ajax.reload();
+                }
+                });
+        });
 });
 
-$(document).on('submit','#dynamic_field', function(event){
-event.preventDefault();
-$('#submit').attr('disabled', 'disabled');
-var form_data = $(this).serialize();
-$.ajax({
-url:"<?php echo base_url() ?>order_controller/make_order",
-method:"POST",
-data:form_data,
-success:function(data){
-$('#dynamic_field')[0].reset();
-$('#largeModal').modal('hide');
-alert(data);
-$('#submit').attr('disabled', false);
-//  orderdataTable.ajax.reload();
-}
-});
-});
-});
-$(document).on('click', '.delete', function(){
-var order_code = $(this).attr("id");
-var status = $(this).data("status");
-var btn_action = "delete";
-if(confirm("Are you sure you want to change status?"))
-{
-$.ajax({
-url:"<?php echo base_url() ?>order_controller/order_status",
-method:"POST",
-data:{order_code:order_code, status:status, btn_action:btn_action},
-success:function(data)
-{
-alert(data);
-orderdataTable.ajax.reload();
-}
-})
-}
-else
-{
-return false;
-}
-});
-function myfun(){
-var item_code=$('#category_id').val();
-var item_qty=$('#item_quantity').val();
-$.ajax({
-async: false,
-url:'<?php echo base_url() ?>prd/chk_item_qty_in_order',
-type:'POST',
-data:{item_code:item_code,item_qty:item_qty},
-success:function(result){
-$('#return_msg').html(result);
-}
-});
-}
+    //Status change After Click on Change Sataus**************
+    //**************************************
+        $(document).on('click', '.delete', function(){
+        var order_code = $(this).attr("id");
+        var status = $(this).data("status");
+        var btn_action = "delete";
+            if(confirm("Are you sure you want to change status?"))
+                {
+                    $.ajax({
+                    url:"<?php echo base_url() ?>order_controller/order_status",
+                    method:"POST",
+                    data:{order_code:order_code, status:status, btn_action:btn_action},
+                    success:function(data)
+                    {
+                    alert(data);
+                    orderdataTable.ajax.reload();
+                }
+                })
+            }
+            else
+                {
+                    return false;
+                }
+        });
+    function myfun(){
+        var item_code=$('#category_id').val();
+        var item_qty=$('#item_quantity').val();
+        $.ajax({
+            async: false,
+            url:'<?php echo base_url() ?>prd/chk_item_qty_in_order',
+            type:'POST',
+            data:{item_code:item_code,item_qty:item_qty},
+            success:function(result){
+            $('#return_msg').html(result);
+            }
+        });
+    }
 </script>
 <span id="span_data"></span>
 <button class="btn"></button>
