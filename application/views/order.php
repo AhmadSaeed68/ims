@@ -1,4 +1,6 @@
-<?php include_once "login/header.php";  ?>
+<?php include_once "login/header.php"; 
+ $id=$this->session->userdata('user_id');
+ ?>
 <!-- <style type="text/css">
 // .bs-example{
 margin: 20px;
@@ -147,6 +149,13 @@ width: 1200px; /* New width for large modal */
                                             }?>
                                         </td>
                                         <td>
+                                            <?php 
+                                            if ($id->type=='super_user' OR $id->type=='user') {
+                                                echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                            }
+                                            else{
+                                             ?>
+                                            
                                             <div class="dropdown">
                                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                                 <span class="caret"></span></button>
@@ -162,7 +171,7 @@ width: 1200px; /* New width for large modal */
                                             </div>
                                           
                                             
-                                            
+                                            <?php } ?>
                                         </td>
                                         
                                     </tr>

@@ -1,5 +1,6 @@
 <?php
     include_once"login/header.php";
+    $id=$this->session->userdata('user_id');
 ?>
  <div class="container w3-padding-64">
 
@@ -57,7 +58,15 @@
                                         }?></td>
                                         
                                      <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['so_code']?>"> View</a></span></td>
-                                     <td> <div class="dropdown">
+                                     <td> 
+
+                                     <?php 
+                                            if ($id->type=='super_user') {
+                                                 echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                            }
+                                            else{
+                                             ?>
+                                      <div class="dropdown">
                                         <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
                                         <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
@@ -68,6 +77,7 @@
                                             </li>
                                         </ul>
                                     </div>
+                                  <?php } ?>
                                 </td>
                                     
                          

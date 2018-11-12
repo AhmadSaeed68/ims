@@ -171,7 +171,14 @@ echo $id->id;
             <?php //$item['item_qty']?>
 
         </td> -->
- <td> <div class="dropdown">
+ <td> 
+<?php 
+                                            if ($id->type=='super_user' OR $id->type=='user') {
+                                                echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                            }
+                                            else{
+                                             ?>
+    <div class="dropdown">
                                         <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
                                         <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
@@ -182,6 +189,7 @@ echo $id->id;
                                             </li>
                                         </ul>
                                     </div>
+                                <?php } ?>
                                 </td>
         
 

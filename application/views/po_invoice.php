@@ -50,7 +50,14 @@
                                     <td><?= $data['invoice_description']?></td>
                                     <td><?= $data['invoice_date']?></td>
                                     <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
-                                    <td> <div class="dropdown">
+                                    <td> 
+                                      <?php 
+                                            if ($id->type=='super_user' OR $id->type=='user') {
+                                                echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                            }
+                                            else{
+                                             ?>
+                                        <div class="dropdown">
                                         <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
                                         <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
@@ -59,6 +66,7 @@
                                             <li><input type="button" class="w3-button w3-block w3-red  delete" value="Delete" id="<?php echo $data['id']; ?>"></li>
                                         </ul>
                                     </div>
+                                <?php } ?>
                                 </td>
 
 
