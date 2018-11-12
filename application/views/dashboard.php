@@ -2,13 +2,16 @@
 
 <?php include"login/header.php"; 
      $id=$this->session->userdata('user_id');
-     //print_r($id->id); ?>
-     <div class="container">
-     
-       <div class="w3-padding-64 w3-center">
+    echo $id->type; ?>
+     <div class="container w3-padding-64 ">
+     <div class="row">
+       <div class="col-sm-9">
+          <div class="w3-center">
          <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Inventory Managment System</h1>
        </div>
-       <div class="container w3-padding-48">
+       </div>
+       <div class="col-sm-3">
+         <div class="container w3-padding-48">
          <div class="row">
          <div class="w3-card-4" style="width:40%">
     <header class="w3-container w3-teal">
@@ -39,6 +42,10 @@ else
      </div>
          </div>
        </div>
+       </div>
+     </div>
+      
+       
       
   
         <?php if($feedback=$this->session->flashdata('feedback')) :
