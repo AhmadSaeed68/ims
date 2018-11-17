@@ -70,16 +70,27 @@
         }
 
             function order_value(){
-               $result= $this->db->select_sum('po_item_total')
-                ->get('purchase_order_detail')
-                ->result_array();  
+               // $result= $this->db->select_sum('po_item_total')
+               //  ->get('purchase_order_detail')
+                $result=$this->db
+                ->query('SELECT SUM(po_item_total) as po_item_total FROM purchase_order_detail WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
+AND NOW()')
+                 ->result_array();  
+
                foreach($result as $result){
                 echo '$ '. $result['po_item_total'];
                }
+
+
+
          }       
             function invoice_value(){
-                $result= $this->db->select_sum('item_total')
-                ->get('po_invoice_detail')
+               // $result= $this->db->select_sum('item_total')
+                //->get('po_invoice_detail')
+                 $result=$this->db
+                ->query('SELECT SUM(item_total) as item_total FROM po_invoice_detail WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
+AND NOW()')
+                
                 ->result_array();  
                foreach($result as $result){
                 echo '$ '. $result['item_total'];
@@ -221,7 +232,18 @@
                     echo $data;
                    }
             }
-
+  function total_purchase_items_30_days()
+            {
+                $query=$this->db
+                    ->select_sum('item_qty')
+                    
+                    ->from('purchase_order_detail')
+                    ->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
+                   ->get();
+                   foreach($query->row_array() as $data){
+                    echo $data;
+                   }
+            }
             function total_po_value()
             {
                 $query=$this->db
