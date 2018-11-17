@@ -6,28 +6,28 @@
     <!-- Report -->
     <div class="row">
       <div class="panel panel-warning">
-        <div class="panel-heading w3-center"><h4><b class="w3-wide"><span class="fa fa-paste fa-2x w3-text-red"></span> Final Report</b></h4></div>
+        <div class="panel-heading w3-center"><h4><b class="w3-wide"><span class="fa fa-paste fa-2x w3-text-red"></span> Final Report 30 Days</b></h4></div>
         <div class="panel-body">
           <div class="row">
             <ul class="list-group">
             <div class="col-sm-6">
               <li class="list-group-item d-flex w3-light-green justify-content-between align-items-center">
                   <b>Recived PO Invoices</b>
-                  <span class="badge badge-primary badge-pill"><span id="total_recived_invoices"></span></span>
+                  <span class="badge badge-primary badge-pill"><a id="total_recived_invoices" class="w3-text-white"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-lime justify-content-between align-items-center">
                   <b>Pending PO_invoices</b>
-                  <span class="badge badge-primary  badge-pill"><span id="total_pending_invoices"></span></span>
+                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white" id="total_pending_invoices"></a></span>
                 </li>
             </div>
             <div class="col-sm-6">
               <li class="list-group-item d-flex w3-amber justify-content-between align-items-center">
                   <b>Total Category You Deals</b>
-                  <span class="badge badge-primary badge-pill"><span id="total_category_you_deal"></span></span>
+                  <span class="badge badge-primary badge-pill"><a class="w3-text-white" id="total_category_you_deal"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-khaki justify-content-between align-items-center">
                   <b>Total Items You Deals</b>
-                  <span class="badge badge-primary  badge-pill"><span id="total_items_you_deal"></span></span>
+                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white" id="total_items_you_deal"></a></span>
                 </li>
             </div>
             
@@ -42,15 +42,15 @@
              
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Purchase Items</b>
-                  <span class="badge badge-primary badge-pill"><span id="total_purchase_items"></span> </span>
+                  <span class="badge badge-primary badge-pill"><a id="total_purchase_items_30_days" class="w3-text-white"></a> </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sale items</b>
-                  <span class="badge badge-primary badge-pill"><span id="total_sale_items"></span></span>
+                  <span class="badge badge-primary badge-pill"><a id="total_sale_items" class="w3-text-white"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-light-blue justify-content-between align-items-center">
                   <b>Total Items Remaning</b>
-                  <span class="badge badge-primary w3-green badge-pill"><span id="total_item_remain"></span></span>
+                  <span class="badge badge-primary w3-green badge-pill"><a id="total_item_remain" class="w3-text-white"></a></span>
                 </li>
                 
               </ul>
@@ -251,6 +251,28 @@
       </div>
     </div>
   </div>
+
+   <!--
+    MOdal that load after gettinng data -
+    -->
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header ">User Detail
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Place to print the fetched phone -->
+                    <div id="result">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
   <script>
   function myFunction(id) {
   var x = document.getElementById(id);
@@ -285,6 +307,19 @@ $(document).ready(function(){
     success: function(data){
 
       $('#total_purchase_items').html(data);
+
+    }
+  });
+
+  //total_purchase_items_30_days
+  $.ajax({
+
+    url: "<?php echo base_url() ?>report/total_purchase_items_30_days",
+    method: "POST",
+
+    success: function(data){
+
+      $('#total_purchase_items_30_days').html(data);
 
     }
   });
@@ -676,11 +711,206 @@ $('#total_sale_items').html(data);
     }
   });
 
-  
 
 
 
 
+  // total_sale_items
+
+  //Show Detail After Click on Specific Button
+
+       $('#total_purchase_items_30_days').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_purchase_items_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+        //***********TOTAL SALES ITEMS****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_sale_items').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_sale_items_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+
+//Show Detail After Click on Specific Button
+
+       $('#total_sale_items').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_sale_items_30_days",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+
+          //***********total_item_remainS****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_item_remain').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_item_remain_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+
+
+         //***********total_recived_invoices****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_recived_invoices').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_recived_invoices_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+  //***********total_category_you_deal****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_category_you_deal').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_category_you_deal_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+//***********total_items_you_deal****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_items_you_deal').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_items_you_deal_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
+
+//***********total_pending_invoices****************************************************//
+
+        ///************************************************//
+
+
+
+         $('#total_pending_invoices').click(function(){
+       
+        //Start AJAX function
+        $.ajax({
+        url: "<?php echo base_url() ?>report_detail/total_pending_invoices_detail",
+        method: "POST",
+        
+        success: function(data)
+        {
+        // Print the fetched data of the selected order in the modal
+        // within the Bootstrap modal
+        $('#result').html(data);
+        // Display the Bootstrap modal
+        $('#Modal').modal('show');
+        }
+        });
+    //End AJAX function
+    });
 });
 </script>
 <?php include_once "login/footer.php"; ?>

@@ -21,5 +21,11 @@
 
             }
 
+            function test(){
+              $query=$this->db
+                ->query('SELECT SUM(item_qty*item_rate) as actual_price FROM items_in_stock');
+             return  $query->result_array();
+            }
+
 	}
 ?>

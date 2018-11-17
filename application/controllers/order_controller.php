@@ -139,5 +139,10 @@
                     
                     <?php
                 }
+
+
+                function data_search(){
+                  echo $item_qty= $this->input->post('date_from');
+                }
     }
 ?>
