@@ -215,7 +215,46 @@
                             {
                                 //** INSERT BATCH DATA INTO DATABASE */
                             $this->db->insert_batch('po_invoice_detail', $data2);
-                          
+
+                                //***********************************************************************//
+                                    //GET LAST VALUE FROM LAST INSERT BATCH DATE AND GET SUM VALUES OF ALL LAST INVOICE DATA//
+                                            //PROCESSING START//
+                            //GET INVOICE_CODE FROM LAST INSERT ID
+                            $id2=$this->db->insert_id();
+
+                            //
+                            $this->db->select('invoice_code');
+                            $this->db->where('id',$id2);
+                            $res3 = $this->db->get('po_invoice_detail');
+                            $res3= $res3->result_array();
+                            foreach($res3 as $data)
+                            {
+                                $last_in_invoice_code2= $data['invoice_code'];
+                            }
+
+
+                                                //SUM ITEM_TOTAL FROM LAST INSERT PO_CODE
+
+
+                            $test=$this->db->query('SELECT SUM(item_total) as sum_value
+            FROM po_invoice_detail WHERE invoice_code="'.$last_in_invoice_code2.'"')->result_array();
+
+           foreach($test as $data)
+           {
+            $sum_data=$data['sum_value'];
+           }
+
+                                         //UPDATE VALUE OF INVOICE_TOTAL SUM VALUE
+        $this->db
+                ->where('invoice_code', $last_in_invoice_code2)
+                ->set('invoice_total', $sum_data)
+                ->update('po_invoice');
+
+
+                          //*******************************************************//
+
+                                 // PROCESS FINISH SUM VALUE and UPDATE into po_invoie//
+                //******************************************//
                       
                             echo"Invoice Make Successful";
                             }else{
