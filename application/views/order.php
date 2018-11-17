@@ -11,7 +11,37 @@ width: 1200px; /* New width for large modal */
 //  }
 //}
 </style> -->
-<div class="container w3-padding-64">
+<div class="row">
+    <div class="col-sm-1">
+     <div class="container w3-padding-64">
+       
+  <div class="w3-container w3-display-container w3-padding-16">
+    <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-transparent w3-display-topright"></i>
+    <h3>Search</h3>
+    <h3>Records</h3>
+    <h6>per night</h6>
+    <hr>
+    <form id="data_search">
+      <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
+      <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="from_date" required>          
+      <p><label><i class="fa fa-calendar-o"></i> TO</label></p>
+      <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="to_date" required>         
+      <p><label><i class="fa fa-male"></i> Days</label></p>
+      <input class="w3-input w3-border" type="number" value="1" name="Adults">              
+      
+      <p><button class="w3-button w3-block w3-green w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Generate</button></p>
+    </form>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#apartment" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-building"></i> Apartment</a>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-16" onclick="document.getElementById('subscribe').style.display='block'"><i class="fa fa-rss"></i> Subscribe</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-padding-16"><i class="fa fa-envelope"></i> Contact</a>
+  </div>
+     </div>
+    </div>
+
+    <div class="col-sm-11">
+        <div class="container w3-padding-64">
     <!-- <div class='jumbotron'>
             <h1 class='w3-center'><span class='     fa fa-telegram w3-text-orange'> </span> Order Detail</h1>
     </div> -->
@@ -184,6 +214,8 @@ width: 1200px; /* New width for large modal */
             </div>
         </div>
     </div>
+    </div>
+</div>
     <!--
     MOdal that load after gettinng data -
     -->
@@ -214,13 +246,14 @@ width: 1200px; /* New width for large modal */
     <!-- Bootstrap JS CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script>
+        
     $(document).ready(function(){
-   var orderdataTable = $('#order_data').DataTable({
+   var orderdataTable = $('#order_data').dataTable({
             "order":[0,'desc'],
             "columnDefs":[
     {
       
-     "targets":[0,1,2,6,7,8],
+     "targets":[0,1,2,6,7],
      "orderable":false,
     },
    ],
@@ -524,6 +557,26 @@ $(document).on('click', '.btn_remove', function(){
             }
         });
     }
+
+
+
+    //Search Data in datatable
+
+           $(document).on('submit','#data_search', function(event){
+        event.preventDefault();
+       // $('#submit').attr('disabled', 'disabled');
+        var form_data = $(this).serialize();
+                $.ajax({
+                url:"<?php echo base_url() ?>order_controller/data_search",
+                method:"POST",
+                data:form_data,
+                success:function(data){
+              
+                alert(data);
+                }
+                });
+        });
+
 </script>
 <span id="span_data"></span>
 <button class="btn"></button>
