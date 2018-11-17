@@ -126,6 +126,7 @@ return $data->result_array();
       for($i=0; $i<$temp; $i++){
 
 
+
         $item_code=$this->input->post('item_code');
         $item_quantity=$this->input->post('item_quantity');
         $item_rate=$this->input->post('item_rate');
@@ -138,6 +139,7 @@ return $data->result_array();
             'po_item_total'=>$item_rate[$i]*$item_quantity[$i],
 
             );
+
                   /**
          *
          * UPDATE ITEMS when after Make
@@ -157,6 +159,46 @@ return $data->result_array();
     if($insert)
     {
     $this->db->insert_batch('purchase_order_detail', $data1);
+
+       //***********************************************************************//
+                                    //GET LAST VALUE FROM LAST INSERT BATCH DATE AND GET SUM VALUES OF ALL LAST PO DATA//
+                                            //PROCESSING START//
+                            //GET PO_CODE FROM LAST INSERT ID
+                                        //
+                                        //
+                                        //*******GET LAST insert 
+                                        //                      FROM PURCHASE_ORDER_DETAIL****************************
+    $id2=$this->db->insert_id();
+
+    $this->db->select('po_code');
+    $this->db->where('id',$id2);
+    $res3 = $this->db->get('purchase_order_detail');
+    $res3= $res3->result_array();
+    foreach($res2 as $data)
+    {
+        $last_in_Po_code2= $data['po_code'];
+    }
+
+                                            // SUM ALL PURCHASE ORDER FROM LAST ID and get From foreach
+
+       $test=$this->db->query('SELECT SUM(po_item_total) as sum_value
+            FROM purchase_order_detail WHERE po_code="'.$last_in_Po_code2.'"')->result_array();
+
+           foreach($test as $data)
+           {
+            $sum_data=$data['sum_value'];
+           }
+
+        $this->db
+                ->where('po_code', $last_in_Po_code2)
+                ->set('po_total', $sum_data)
+                ->update('purchase_order');
+
+                            //*******************************************************//
+
+                                             // PROCESS FINISH SUM VALUE and UPDATE into po_ORDER//
+                            //******************************************//
+                echo"****Purchase Order Successfuly***";
 
     }
     $item_quantity=$this->input->post('item_quantity');
