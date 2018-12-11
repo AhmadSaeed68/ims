@@ -3,21 +3,21 @@
 <?php include"login/header.php"; 
      $id=$this->session->userdata('user_id');
     echo $id->type; ?>
-     <div class="container w3-padding-64 ">
-     <div class="row">
-       <div class="col-sm-9">
-          <div class="w3-center">
+     
+<div style="background-image: url(https://bestwallpapers.co/wp-content/uploads/2018/05/http-www-designlovefest-com-wp-content-uploads-downloads-2016-07.jpg);">
+     <div class="container w3-padding-64">
+       <div class="row">
+         <div class="col-sm-8">
+                     <div class="w3-center">
          <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Inventory Managment System</h1>
        </div>
-       </div>
-       <div class="col-sm-3">
-         <div class="container w3-padding-48">
-         <div class="row">
-         <div class="w3-card-4" style="width:40%">
+         </div>
+         <div class="col-sm-4">
+           <div class="w3-card-4" style="width:100%">
     <header class="w3-container w3-teal">
-      <h4>Welcome back: <?php echo $id->email;?></h4>
+      <h4><strong>Welcome back: </strong><?php echo $id->email;?></h4>
     </header>
-    <div class="w3-container w3-padding-24">
+    <div class="container-fluid w3-padding-24">
     <?php
 //date_default_timezone_set('Asia/Calcutta'); - You can choose any timezone
  
@@ -31,7 +31,7 @@ if(isset($_COOKIE['lastVisit']))
 {
 $visit = $_COOKIE['lastVisit'];
 ?>
-<span class="w3-text-black  w3-light-blue w3-codespan"><?php  echo "Your last Visit was  : ". $visit?> </span>
+<span class="w3-text-black  w3-codespan"><?php  echo "Last Visit: </span><span class=''>". $visit?> </span>
 <?php
 
 }
@@ -41,7 +41,6 @@ else
     </div>
      </div>
          </div>
-       </div>
        </div>
      </div>
       
@@ -71,16 +70,16 @@ else
 <div class="row">
 
 
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
  <div class="panel panel-success ">
   <div class="panel-heading w3-light-green"><strong> <span class="fa fa-compass fa-2x w3-text-red"></span> Total Category</strong></div>
-  <div class="panel-body" align="center">
+  <div class="panel-body w3-card-4" align="center">
    <h1 id="count_category"></h1>
   </div>
  </div>
 </div>
 
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
  <div class="panel panel-danger">
   <div class="panel-heading"><strong> <span class="fa fa-line-chart fa-2x w3-text-orange"></span> Total Item in Stock</strong></div>
   <div class="panel-body" align="center">
@@ -88,7 +87,7 @@ else
   </div>
  </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
  <div class="panel panel-warning">
   <div class="panel-heading"><strong> <span class="fa fa-thumb-tack fa-2x w3-text-blue"></span> Total Purchase Orders</strong></div>
   <div class="panel-body" align="center">
@@ -96,7 +95,7 @@ else
   </div>
  </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
  <div class="panel panel-info">
   <div class="panel-heading"><strong> <span class="fa fa-qrcode fa-2x w3-text-red"></span> Pending PO_invoices</strong></div>
   <div class="panel-body" align="center">
@@ -104,7 +103,7 @@ else
   </div>
  </div>
 </div>
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
   <div class="panel panel-danger">
    <div class="panel-heading"><strong>  <span class="fa fa-qrcode fa-2x w3-text-red"></span>Total PO_Invoices</strong></div>
    <div class="panel-body" align="center">
@@ -112,7 +111,7 @@ else
    </div>
   </div>
  </div>
-<div class="col-md-4">
+<div class="col-md-4 w3-opacity-min">
   <div class="panel panel-danger">
    <div class="panel-heading"><strong>  <span class="fa fa-user fa-2x w3-text-red"></span>Total PO_Invoices</strong></div>
    <div class="panel-body" align="center">
@@ -153,7 +152,7 @@ else
   </div>
  </div>
 </div>
-
+</div>
 
 
 
