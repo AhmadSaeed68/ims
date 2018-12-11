@@ -51,5 +51,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             $this->vendors_model->vendor_status($status);
                     }
                 }
+
+                 function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
 }
  ?>

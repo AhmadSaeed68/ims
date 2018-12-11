@@ -97,6 +97,13 @@ function total_sale_items_30_days()
 
 		}
 
+		 function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
+
 
 	}
  ?>

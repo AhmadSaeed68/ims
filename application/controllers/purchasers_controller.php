@@ -19,5 +19,12 @@
 						 $data=$this->purchasers_model->business_data($business_name);
 						 $this->load->view('purchasers/business_data',['data'=>$data]);
 					}
+
+					 function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
 	}
  ?>

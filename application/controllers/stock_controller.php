@@ -15,5 +15,12 @@
         	$this->load->view('ajax_stock/item_detail_view',['result'=>$result]);
         	
         }
+
+         function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
     }
 ?>

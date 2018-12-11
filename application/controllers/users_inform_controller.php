@@ -21,5 +21,12 @@
 				$this->users_inform_model->add_user_inform();
 
 			}
+
+			 function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
 	}
  ?>

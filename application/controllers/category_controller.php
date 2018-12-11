@@ -63,6 +63,13 @@ echo '<center><ul class="list-group"><li class="list-group-item">'.'Select a Pho
         $this->category_model->delete_category($category_id);
 
     }
+
+     function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
  
     }
 ?>

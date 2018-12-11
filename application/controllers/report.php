@@ -353,6 +353,12 @@ AND NOW()')
                     $rowcount = $query->num_rows();
                     print_r($rowcount);  
             }
+             function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
 
         }
         ?>

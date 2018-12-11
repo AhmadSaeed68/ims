@@ -72,7 +72,12 @@
                         $this->load->model('items_model');
                         $this->items_model->update_item($data);
                     }
-
+ function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
                   
     }
 ?>
