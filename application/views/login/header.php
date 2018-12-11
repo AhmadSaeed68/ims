@@ -188,6 +188,8 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                     fa fa-group  w3-text-blue"></span>Purchasers</a></li>
                                      <li><a href="<?php echo base_url("vendors_controller/vendors")?>"><span class="
                                       fa fa-globe w3-text-light-blue"></span>Vendors</a></li>
+                                       <li><a href="<?php echo base_url("vendors_controller/vendors")?>"><span class="
+                                      fa fa-gear w3-text-light-blue"></span>Setting</a></li>
                                    
                                     
                                   </ul>
@@ -202,7 +204,7 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                   <span class="caret"></span></a>
                                   <ul class="dropdown-menu">
                                     <li><a href="<?php echo base_url('profile')?>"><span class="
-                                    fa fa-user-secret fa-2x"></span> Profile</a></li>
+                                    fa fa-gear fa-2x"></span> Profile</a></li>
                                     <li><a href="<?php echo base_url("login/logout")?>"><span class="
                                     fa fa-sign-out fa-2x w3-text-red"></span> LogOut</a></li>
                                     <li><button type="button" class="w3-btn" style="background-color: #7D4119" onclick="changeBodyBg('#7D4119');">Theme1</button>
