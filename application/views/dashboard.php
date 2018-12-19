@@ -251,7 +251,16 @@ else
 
 <script>
     $(document).ready(function(){
-
+var data="<?php date_default_timezone_set("Asia/Karachi");
+$inTwoMonth = 60 * 60 * 24 * 60 + time();
+setcookie('lastVisit-voice', date("g:i:a - d/m/y"), $inTwoMonth);
+if(isset($_COOKIE['lastVisit-voice'])){
+    $visit1 = $_COOKIE['lastVisit-voice'];
+    echo "Your last Visit was  : ". $visit1."Have a Good Day";
+}else{
+    echo "Welcome to System: Hope Fully you Enjoy YOur Work:)";
+}?>";
+      responsiveVoice.speak(data);
         //Count All users
 
        $.ajax({
