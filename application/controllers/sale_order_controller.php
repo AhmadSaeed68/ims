@@ -129,6 +129,18 @@
 							}
 
 
+							function get_default_profit(){
+								 $data=$this->db->select('profit')
+											->from('sales_profile')
+											->get()->result_array();
+
+								foreach($data as $data){
+									echo $data['profit'];
+								}			
+
+							}
+
+
 							function so_status(){
 								 if($_POST['btn_action'] == 'delete')
                     {
