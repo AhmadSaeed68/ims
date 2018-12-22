@@ -6,54 +6,60 @@
 	class Sale_order_controller extends CI_Controller
 	{
 
-		function sales_order(){
+			//Sale Order:: Load View 
+		function sales_order()
+		{
 			$this->load->model('sale_order_modal');
 			$data=$this->sale_order_modal->sales_order();
             $this->load->view('sales_order_view',['data'=>$data]);
         }
 
-		function get_item_code_in_so(){
-			$this->load->model('sale_order_modal');
-			$item_data=$this->sale_order_modal->get_item_code_in_so();
 
+        	//Get SO Code in Sale_order
+		function get_item_code_in_so()
+			{
+				$this->load->model('sale_order_modal');
+				$item_data=$this->sale_order_modal->get_item_code_in_so();
+				//::HTML Load
+				?>
 			
 
-			?>
-		
-
-			 <select class="form-control" required id="so_item_id selectpicker" name="item_code[]"  onchange="item_on_change(this.value)"  data-live-search="true">
-			 	<option readonly>Select item_code</option>
-			 }
+				 <select class="form-control" required id="so_item_id selectpicker" name="item_code[]"  onchange="item_on_change(this.value)"  data-live-search="true">
+				 	<option readonly>Select item_code</option>
+			}
 			 
 			 	
             <?php
-          foreach($item_data as $each){
+          foreach($item_data as $each)
+          {
               echo $each['item_code'];
+              //::HTML LOAD
               ?>
 
               <option id="<?php echo $each['item_code']; ?>"
               value="<?php echo $each['item_code'] ?>">
              <?php echo $each['item_code']?>
           </option>';
-                  <?php } ?>
+                  <?php 
+              } ?>
                   </select>
 
                   <?php
 		}
 
-		function item_on_change(){
+		function item_on_change()
+		{
 			$item_code= $this->input->post('datapost');
 			$this->load->model('sale_order_modal');
-			 $invoice=$this->sale_order_modal->get_invo_in_so($item_code);
-
-			
+			$invoice=$this->sale_order_modal->get_invo_in_so($item_code);
 			?>
 		
 			<label for="so_item_id">Select Invoice</label>
 			 <select class="form-control" id="so_item_id selectpicker" required name="invoice_code[]"  onchange="invoice_on_change(this.value)"  data-live-search="true">
 			 	 <option selected="">Select Invoice</option>
             <?php
-          foreach($invoice as $each){
+          foreach($invoice as $each)
+          	{
               echo $each['item_code'];
               ?>
               
@@ -61,20 +67,24 @@
               value="<?php echo $each['invoice_code'] ?>"
              ><?php echo $each['invoice_code']?>
           </option>';
-                  <?php } ?>
+                  <?php 
+              } ?>
                   </select>
 
                   <?php
 		}
 
-		function city_on_change(){
-	 $business_name_id= $this->input->post('datapost');
-	 $this->load->model('sale_order_modal');
-	$data= $this->sale_order_modal->city_on_change($business_name_id);
-	$this->load->view('ajax_so/city_on_change',['data'=>$data]);
+		function city_on_change()
+		{
+		 $business_name_id= $this->input->post('datapost');
+		 $this->load->model('sale_order_modal');
+		$data= $this->sale_order_modal->city_on_change($business_name_id);
+		$this->load->view('ajax_so/city_on_change',['data'=>$data]);
 		}
 
-		function invoice_on_change(){
+
+		function invoice_on_change()
+		{
 			$invoice_code= $this->input->post('invoice_code');
 			$this->load->model('sale_order_modal');
 			$invoice_data=$this->sale_order_modal->invoice_data($invoice_code);
@@ -97,51 +107,64 @@
 			
 		}
 
+
 													// view_sale_order
-			function view_so(){
+			function view_so()
+			{
 				 $so_code=$this->input->post('so_code');
 				$this->load->model('sale_order_modal');
-			$data=$this->sale_order_modal->view_so($so_code);
-			$records= $this->load->view('ajax_so/view_so',['data'=>$data]);
+				$data=$this->sale_order_modal->view_so($so_code);
+				$records= $this->load->view('ajax_so/view_so',['data'=>$data]);
 	
 			}
 
 																	//EDIT_SO
-			function edit_so(){
-				$so_id= $this->input->post('so_id');
-				$this->load->model('sale_order_modal');
-				$records=$this->sale_order_modal->edit_so($so_id);
-				 $this->load->view('ajax_so/edit_so',['records'=>$records]);
-						 
+			function edit_so()
+				{
+					$so_id= $this->input->post('so_id');
+					$this->load->model('sale_order_modal');
+					$records=$this->sale_order_modal->edit_so($so_id);
+					 $this->load->view('ajax_so/edit_so',['records'=>$records]);
+							 
 
-							}
+				}
 
-							function update_so(){
+
+							function update_so()
+							{
 								$this->load->model('sale_order_modal');
 								$this->sale_order_modal->update_so();
 							}
 
-							function get_users_in_so(){
-								$this->load->model('sale_order_modal');
-								$data=$this->sale_order_modal->get_users_in_so();
-								$this->load->view('ajax_so/get_users_in_so',['data'=>$data]);
-
-							}
 
 
-							function get_default_profit(){
+							function get_users_in_so()
+								{
+									$this->load->model('sale_order_modal');
+									$data=$this->sale_order_modal->get_users_in_so();
+									$this->load->view('ajax_so/get_users_in_so',['data'=>$data]);
+
+								}
+
+
+
+							function get_default_profit()
+							{
 								 $data=$this->db->select('profit')
 											->from('sales_profile')
 											->get()->result_array();
 
-								foreach($data as $data){
+								foreach($data as $data)
+								{
 									echo $data['profit'];
 								}			
 
 							}
 
 
-							function so_status(){
+
+							function so_status()
+							{
 								 if($_POST['btn_action'] == 'delete')
                     {
                         $status= $this->input->post('status');

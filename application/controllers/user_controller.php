@@ -2,7 +2,8 @@
     class User_controller extends CI_Controller{
 
         //Load All user in user_view
-        function user(){
+        function user()
+        {
             $this->load->helper('form');
             $this->load->model('user_model');
             $user= $this->user_model->user();
@@ -63,7 +64,8 @@
         }
 
         
-        function update_user($id){
+        function update_user($id)
+        {
             $this->load->helper('form');
             $post=$this->input->post();
             unset($post['submit']);
@@ -83,7 +85,9 @@
 
         }
 
-         function __construct() {
+
+         function __construct() 
+         {
         parent::__construct();
         if(!$this->session->userdata('user_id')){
             redirect('login');

@@ -183,7 +183,7 @@
                            
                             <div class="input-group">
                             
-                                <input type="number" class="form-control" required id="profit" name="profit[]" >
+                                <input type="number" class="form-control profit" required id="profit" name="profit[]" >
                                     <span class="input-group-addon">%</span>
                                 
                             </div>
@@ -293,6 +293,15 @@
      
         });  
         });
+
+        //Get Profit From Profit_profile
+          $.ajax({
+                    url:'<?php echo base_url() ?>sale_order_controller/get_default_profit',
+                    method:'POST',
+                    success:function(data){
+                          $('.profit').val(data);
+                    }
+               });
         function user_on_change(datavalue){
            $.ajax({
      url:'<?php echo base_url() ?>sale_order_controller/city_on_change',

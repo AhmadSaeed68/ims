@@ -1,5 +1,8 @@
 <?php
+
     class Stock_controller extends CI_Controller{
+
+        //Load Stock 
         function stock(){
             $this->load->model('stock_model');
             $stock=$this->stock_model->stock();
@@ -7,6 +10,7 @@
 
         }
 
+        //Items ::
         function item_detail(){
         	$item_code=$this->input->post('item_code');
         	
@@ -16,9 +20,12 @@
         	
         }
 
-         function __construct() {
+
+         function __construct() 
+         {
         parent::__construct();
-        if(!$this->session->userdata('user_id')){
+        if(!$this->session->userdata('user_id'))
+        {
             redirect('login');
         }
     }

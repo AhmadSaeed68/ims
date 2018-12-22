@@ -1,6 +1,6 @@
    
 <!-- Footer -->
-  <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer" style="background-image: url(http://papers.co/wallpaper/papers.co-mt42-starry-night-sky-star-galaxy-space-white-grey-35-3840x2160-4k-wallpaper.jpg);">
+  <footer class="w3-padding-64  w3-light-grey w3-small w3-center" id="footer" style="background-image: url(http://papers.co/wallpaper/papers.co-mt42-starry-night-sky-star-galaxy-space-white-grey-35-3840x2160-4k-wallpaper.jpg);">
     <div class="w3-row-padding">
       <div class="w3-col s4">
         <h4>Contact</h4>

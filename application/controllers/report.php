@@ -1,10 +1,14 @@
 <?php
         class Report extends CI_Controller{
-            function index(){
+
+
+            function index()
+            {
                 $this->load->view('report.php');
             }
 
-            function user_count(){
+            function user_count()
+            {
                   $query=$this->db
                     ->select('email')
                     ->get('login');
@@ -12,7 +16,10 @@
                     print_r($rowcount);
                     
             }
-            function count_category(){
+
+
+            function count_category()
+            {
                 $query=$this->db
                     ->select('category_name')
                     
@@ -22,7 +29,10 @@
                     $rowcount = $query->num_rows();
                     print_r($rowcount);
             }
-            function count_items(){
+
+
+            function count_items()
+            {
                 $query=$this->db
                     ->select('item_name')
                     
@@ -33,43 +43,50 @@
                     print_r($rowcount);
             }
 
-                function total_po_invoices(){
-                $query=$this->db
-                    ->select('po_code')
-                    
-                    ->where('order_report','recived')
-                   ->get('purchase_order');
-                   
-                    $rowcount = $query->num_rows();
-                    print_r($rowcount);
-            }
+
+                function total_po_invoices()
+                {
+                  $query=$this->db
+                      ->select('po_code')
+                      
+                      ->where('order_report','recived')
+                     ->get('purchase_order');
+                     
+                      $rowcount = $query->num_rows();
+                      print_r($rowcount);
+                }
 
 
-            function count_order(){
-                $query=$this->db
-                ->select('po_code')
-                
-                ->where('po_status','active')
-               ->get('purchase_order');
-               
-                $rowcount = $query->num_rows();
-                print_r($rowcount);
-            }
 
-            function count_pending_po_invoices(){
-                $query=$this->db
-                ->select('po_code')
-                
-                ->where('order_report','pending')
-               ->get('purchase_order');
-               
-                $rowcount = $query->num_rows();
-                print_r($rowcount);
-            
-            
-        }
 
-            function order_value(){
+            function count_order()
+              {
+                  $query=$this->db
+                  ->select('po_code')
+                  
+                  ->where('po_status','active')
+                 ->get('purchase_order');
+                 
+                  $rowcount = $query->num_rows();
+                  print_r($rowcount);
+              }
+
+            function count_pending_po_invoices()
+              {
+                  $query=$this->db
+                  ->select('po_code')
+                  
+                  ->where('order_report','pending')
+                 ->get('purchase_order');
+                 
+                  $rowcount = $query->num_rows();
+                  print_r($rowcount);
+              
+              
+              }
+
+            function order_value()
+            {
                // $result= $this->db->select_sum('po_item_total')
                //  ->get('purchase_order_detail')
                 $result=$this->db
@@ -101,7 +118,7 @@ AND NOW()')
 
             function item_sale()
             {
-                    $query=$this->db
+                $query=$this->db
                             ->select('item_code')
                             ->get('sale_order_detail');
 
@@ -109,7 +126,10 @@ AND NOW()')
                     print_r($rowcount);   
 
             }
-            function item_qty(){
+
+
+            function item_qty()
+            {
                 $query=$this->db
                     ->select_sum('item_qty')
                     
@@ -121,18 +141,22 @@ AND NOW()')
                    
                   
             }
-            function total_sales(){
+
+            function total_sales()
+            {
                 $query=$this->db
                     ->select_sum('so_item_total')
                     
                     ->from('sale_order_detail')
                    ->get();
-                   foreach($query->row_array() as $data){
+                   foreach($query->row_array() as $data)
+                   {
                     echo $data;
                    }
             }
 
-                function no_customers(){
+                function no_customers()
+                {
                  $query=$this->db
                             ->select('customer_name')
                             ->get('sale_order');
@@ -142,7 +166,8 @@ AND NOW()')
             }
 
 
-            function customer_total_purchasing(){
+            function customer_total_purchasing()
+            {
                 $query=$this->db
                 ->select('po_code')
                 
@@ -153,7 +178,8 @@ AND NOW()')
                 print_r($rowcount);
             }
 
-            function estimate_profit(){
+            function estimate_profit()
+            {
                 $this->load->model('Report_detail');
                $data= $this->Report_detail->estimate_profit();
                foreach($data as $data){
@@ -179,13 +205,15 @@ AND NOW()')
 
             }
 
-               function total_item_qty_in_stock(){
+               function total_item_qty_in_stock()
+               {
                 $query=$this->db
                     ->select_sum('item_qty')
                     
                     ->from('items_in_stock')
                    ->get();
-                   foreach($query->row_array() as $data){
+                   foreach($query->row_array() as $data)
+                   {
                     echo $data;
                    }
                    
@@ -193,17 +221,18 @@ AND NOW()')
             }
 
 
-              function total_stock_value(){
+              function total_stock_value()
+              {
                $this->load->model('report_detail');
                $data=$this->report_detail->total_stock_value();
 
                 foreach($data as $data)
-                                    {
+                          {
 
-                                    echo $data['actual_price'];
+                            echo $data['actual_price'];
                       
-                                    }
-            }
+                          }
+              }
 
 
     // *********************************************************//
@@ -228,10 +257,12 @@ AND NOW()')
                     
                     ->from('purchase_order_detail')
                    ->get();
-                   foreach($query->row_array() as $data){
+                   foreach($query->row_array() as $data)
+                   {
                     echo $data;
                    }
             }
+            
   function total_purchase_items_30_days()
             {
                 $query=$this->db

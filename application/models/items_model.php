@@ -70,5 +70,13 @@
                     ->update('items',$insert_data);
             }
 
+
+            function get_category($searchTerm, $column){
+    $this->db->select($column);
+    $this->db->from('category');
+    $this->db->like('category_name', $searchTerm);
+    return $this->db->get()->result_array();
+}
+
     }
 ?>
