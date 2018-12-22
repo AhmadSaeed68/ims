@@ -1,5 +1,94 @@
 <?php
     class Order_model extends CI_Model{
+
+    //********************//
+    //Ajax JSON START//
+
+ var $table = 'purchase_order';
+    var $column_order = array(null, 'po_code','po_total','po_date'); //set column field database for datatable orderable
+    var $column_search = array('to_date','invoice_code','from_date'); //set column field database for datatable searchable 
+    var $order = array('id' => 'desc'); // default order 
+
+    private function _get_datatables_query()
+    {
+        
+        //add custom filter here
+        
+        if($this->input->post('to_date'))
+        {
+            $this->db->like('po_date', $this->input->post('to_date'));
+        }
+       
+        if($this->input->post('from_date'))
+        {
+            $this->db->like('po_date', $this->input->post('from_date'));
+        }
+
+        $this->db->from($this->table);
+        $i = 0;
+    
+        foreach ($this->column_search as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order'])) // here order processing
+        {
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } 
+        else if(isset($this->order))
+        {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+
+    public function get_datatables()
+    {
+        $this->_get_datatables_query();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered()
+    {
+        $this->_get_datatables_query();
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all()
+    {
+        $this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
+
+
+                //Ajax JSON END//
+        //****************************************//
+
+
+
+
         function order_managment(){
             $data=$this->db
             ->query('SELECT * FROM purchase_order '
@@ -220,6 +309,18 @@ return $data->result_array();
                 if($update_status){
                     echo "Status Changed";
                 }
+            }
+
+
+            function data_search(){
+
+                  $from_date= $this->input->post('from_date');
+                    $to_date= $this->input->post('to_date');
+                    $result= $this->db->query("SELECT * FROM `po_invoice` 
+where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
+           
+               
+                  return $result->result_array();
             }
 
     }
