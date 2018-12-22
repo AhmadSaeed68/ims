@@ -14,21 +14,26 @@
                 <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
                 class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
                  
-                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a>
+               <!--  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a> -->
                 <a id="myBtn" onclick="myFunc('Demo1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>Search Records (3)<i class="fa fa-caret-down w3-margin-left"></i></a>
                 <div id="Demo1" class="w3-hide w3-animate-left">
                     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
                         <div class="w3-container">
-                            <form action="/action_page.php" target="_blank">
-                                <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
-                                <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="from_date" required>
+                             <form id="form-filter" class="form-filter">
+                                <div class="input-daterange"> <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
+                                <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
                                 <p><label><i class="fa fa-calendar-o"></i> TO</label></p>
-                                <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY" name="to_date" required>
-                                <p><label><i class="fa fa-male"></i> Days</label></p>
-                                <input class="w3-input w3-border" type="number" value="1" name="Adults">
+                            <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required></div>
+                            
+                            <br>
+                            <hr>
+                            <div class="form-group">
                                 
-                                <p><button class="w3-button w3-block w3-green w3-left-align" type="submit"><i class="fa fa-search w3-margin-right"></i> Generate</button></p>
-                            </form>
+                                <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                                <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                                
+                            </div>
+                        </form>
                         </div>
                     </a>
                     
@@ -37,9 +42,9 @@
                     
                     
                 </div>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>Sent</a>
+               <!--  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>Sent</a>
                 <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>Drafts</a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>Trash</a>
+                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>Trash</a> -->
             </nav>
             <!-- Modal that pops up when you click on "New Message" -->
             <div id="id01" class="w3-modal" style="z-index:4">
@@ -78,7 +83,7 @@
                         <!-- Large Modal HTML -->
                         <div class="panel-body">
                             <div class="w3-responsive">
-                                <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
+                               <!--  <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -123,7 +128,29 @@
                                         </tr>
                                         <?php endforeach;?>
                                     </tbody>
-                                </table>
+                                </table> -->
+
+
+                                <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Po Code</th>
+                                        <th>Invoice Code</th>
+                                        <th>Total</th>
+                                        <th>Invoic Description</th>
+                                        <th>Date</th>
+                                        <th>View</th>
+                                       
+                                         <th>Action</th>
+                                        <!-- <th>action</th> -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                                
+                            </table>
+
                             </div>
                         </div>
                     </div>
@@ -131,6 +158,8 @@
             </div>
         </div>
     </div>
+
+
     <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
@@ -149,7 +178,8 @@
             </div>
         </div>
     </div>
-    <div id="largeModal" class="modal fade">
+      <?php include_once "login/footer.php"; ?>
+    <div id="largeModal" class="modal w3-animate-zoom">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
@@ -236,66 +266,269 @@
         <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
         <!-- Bootstrap JS CDN -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+        <script type="text/javascript">
+
+            var table; 
+
+            $(document).ready(function(){
+                 table = $('#table').DataTable({
+
+                     "processing":true,
+                    "serverSide":true,
+                    "order":[],
+
+                     // Load Database for the table1s content from ajax source
+
+                    "ajax":{
+                        "url":"<?php echo site_url('invoice_controller/po_invoice_ajax')?>",
+                        "type":"POST",
+                        "data":function(data){
+                          
+                            data.from_date=$('#from_date').val();
+                            data.to_date=$('#to_date').val();
+                        }
+                    },
+
+                    "columnDefs":[
+
+                        {
+                            "targets":[0],
+                            "orderable":false,
+                        },
+                    ],
+                 });
+
+
+
+                 //::From_date ::to_date Clickable and action//
+
+
+                  $('#btn-filter').click(function(){
+                                       table.ajax.reload();
+                 });
+                 $('#btn-reset').click(function(){
+                    $('#form-filter')[0].reset();
+                    table.ajax.reload();  //just reload table
+                 });
+
+                 //****View Invoice Detail After Click View button*****//
+
+                $(document).on('click','.view',function(event){
+                    var invoice_id = $(this).attr('id');
+                $.ajax({
+                        url: "<?php echo base_url() ?>invoice_controller/view_invoice",
+                         method: "POST",
+                        data: {invoice_id:invoice_id},
+                        success: function(data)
+                            {
+                                $('#result').html(data);
+                                        // Display the Bootstrap modal
+                                $('#Modal').modal('show');
+                            }
+                        });
+                });
+
+
+                //**** Make Invoice :: Add Data into Database*****//
+
+
+            $(document).on('submit','#make_invoice',function(event){
+            $('#submit').attr('disabled', 'disabled');
+                event.preventDefault();
+                var id=$('#id').val();
+                var po_code=$('#po_code').val();
+                var item_rate=$('#item_rate').val();
+                var invoice_code=$('#invoice_code').val();
+                var item_code=$('#item_code').val();
+                var item_quantity=$('#item_quantity').val();
+                var invoice_total=$('#invoice_total').val();
+                var date=$('#date').val();
+                var invoice_description=$('#invoice_description').val();
+
+                    $.ajax({
+                        url:"<?php echo base_url() ?>invoice_controller/make_invoice",
+                        method:"POST",
+                        // Last time set
+                        data:$('#make_invoice').serialize(),
+                        success:function(data)
+                        {
+                        alert(data);
+                        $('#submit').attr('disabled',false);
+                        $('#make_invoice')[0].reset();
+                        $('#largeModal').modal('hide');
+                         table.ajax.reload();
+                        
+                        },
+                    });
+                });
+
+
+
+            // Open Modal :: Edit INnvoice after Click edit button
+
+             $(document).on('click','.edit',function(event){
+                var invoice_id = $(this).attr('id');
+                    $.ajax({
+                    url: "<?php echo base_url() ?>invoice_controller/edit_invoice",
+                    method: "POST",
+                    data: {invoice_id:invoice_id},
+                        success: function(data)
+                        {
+                        // Print the fetched data of the selected order in the modal
+                        // within the Bootstrap modal
+                            $('#result').html(data);
+                            // Display the Bootstrap modal
+                            $('#Modal').modal('show');
+                             $('.modal-title').html("<i class='fa fa-plus'></i> <span class='w3-text-orange'>Update Invocie</span> ");
+                        }
+                    });
+            });
+
+
+                        //Get Po_Invoice Code
+             $.ajax({
+                        url: "<?php echo base_url() ?>invoice_controller/get_PoCode_in_invoice",
+                        method: "POST",
+                        success: function(data){
+                        
+                        $('#po_code').html(data);
+                        
+                        }
+                    });
+
+
+             //Auto Po_invoice
+
+             $.ajax({
+                    url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
+                    method: "POST",
+                    success: function(data)
+                    {
+                    $('#auto_po_invoice').html(data);
+                    }
+                });
+
+
+                //Invoice Update afte Click Update Button
+
+                 $(document).on('submit','#invoice_update',function(event){
+                    event.preventDefault();
+                    var id=$('#id').val();
+                    var po_code=$('#po_code').val();
+                    var item_rate=$('#item_rate').val();
+                    var invoice_code=$('#invoice_code').val();
+                    var item_code=$('#item_code').val();
+                    var item_qty=$('#item_qty').val();
+                    var invoice_total=$('#invoice_total').val();
+                    var date=$('#date').val();
+                    var invoice_description=$('#invoice_description').val();
+                        $.ajax({
+                        url: "<?php echo base_url() ?>invoice_controller/update_invoice",
+                        method:"POST",
+                        data:{
+                                id:id,po_code:po_code,invoice_description:invoice_description
+                                ,item_code:item_code,item_qty:item_qty,item_rate:item_rate,date:date,invoice_code:invoice_code,invoice_total:invoice_total
+                                },
+                        datatype:"json",
+                            success:function(data)
+                            {
+                                alert(data);
+                                $('#Modal').modal('hide');
+                                table.ajax.reload();
+                            }
+                        });
+    });
+
+                 //My Fun load
+
+
+                
+
+
+           
+            });
+
+  function myfun(datavalue){
+                    $.ajax({
+                        url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
+                        type:'POST',
+                        data:{datapost:datavalue},
+                        success:function(result){
+                        $('#po_return').html(result);
+                        }
+                    });
+                }
+
+         $('.input-daterange').datepicker({
+    todayBtn:'linked',
+    format: "yyyy-mm-dd",
+    autoclose: true
+    });
+
+        </script>
+
         <script>
     $(document).ready(function(){
     var dataTable=$("#order_data").dataTable();
     });
-    $.ajax({
-    url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
-    method: "POST",
-    success: function(data)
-    {
-    $('#auto_po_invoice').html(data);
-    }
-    });
+    // $.ajax({
+    // url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
+    // method: "POST",
+    // success: function(data)
+    // {
+    // $('#auto_po_invoice').html(data);
+    // }
+    // });
     /********GET ID FROM INVOICE ID */
     $(document).ready(function(){
     $('#dataTable').DataTable();
-    $('.edit').click(function(){
-    var invoice_id = $(this).attr('id');
-    $.ajax({
-    url: "<?php echo base_url() ?>invoice_controller/edit_invoice",
-    method: "POST",
-    data: {invoice_id:invoice_id},
-    success: function(data)
-    {
-    // Print the fetched data of the selected order in the modal
-    // within the Bootstrap modal
-    $('#result').html(data);
-    // Display the Bootstrap modal
-    $('#Modal').modal('show');
-     $('.modal-title').html("<i class='fa fa-plus'></i> <span class='w3-text-orange'>Update Invocie</span> ");
-    }
+    // $('.edit').click(function(){
+    // var invoice_id = $(this).attr('id');
+    // $.ajax({
+    // url: "<?php echo base_url() ?>invoice_controller/edit_invoice",
+    // method: "POST",
+    // data: {invoice_id:invoice_id},
+    // success: function(data)
+    // {
+    // // Print the fetched data of the selected order in the modal
+    // // within the Bootstrap modal
+    // $('#result').html(data);
+    // // Display the Bootstrap modal
+    // $('#Modal').modal('show');
+    //  $('.modal-title').html("<i class='fa fa-plus'></i> <span class='w3-text-orange'>Update Invocie</span> ");
+    // }
+    // });
+    // });
     });
-    });
-    });
-    $(document).on('submit','#invoice_update',function(event){
-    event.preventDefault();
-    var id=$('#id').val();
-    var po_code=$('#po_code').val();
-    var item_rate=$('#item_rate').val();
-    var invoice_code=$('#invoice_code').val();
-    var item_code=$('#item_code').val();
-    var item_qty=$('#item_qty').val();
-    var invoice_total=$('#invoice_total').val();
-    var date=$('#date').val();
-    var invoice_description=$('#invoice_description').val();
-            $.ajax({
-            url: "<?php echo base_url() ?>invoice_controller/update_invoice",
-            method:"POST",
-                data:{
-                    id:id,po_code:po_code,invoice_description:invoice_description
-                    ,item_code:item_code,item_qty:item_qty,item_rate:item_rate,date:date,invoice_code:invoice_code,invoice_total:invoice_total
-                    ,},
-            datatype:"json",
-                success:function(data)
-                {
-                alert(data);
-                $('#Modal').modal('hide');
-                dataTable.ajax.reload();
-                }
-            });
-    });
+    // $(document).on('submit','#invoice_update',function(event){
+    // event.preventDefault();
+    // var id=$('#id').val();
+    // var po_code=$('#po_code').val();
+    // var item_rate=$('#item_rate').val();
+    // var invoice_code=$('#invoice_code').val();
+    // var item_code=$('#item_code').val();
+    // var item_qty=$('#item_qty').val();
+    // var invoice_total=$('#invoice_total').val();
+    // var date=$('#date').val();
+    // var invoice_description=$('#invoice_description').val();
+    //         $.ajax({
+    //         url: "<?php echo base_url() ?>invoice_controller/update_invoice",
+    //         method:"POST",
+    //             data:{
+    //                 id:id,po_code:po_code,invoice_description:invoice_description
+    //                 ,item_code:item_code,item_qty:item_qty,item_rate:item_rate,date:date,invoice_code:invoice_code,invoice_total:invoice_total
+    //                 ,},
+    //         datatype:"json",
+    //             success:function(data)
+    //             {
+    //             alert(data);
+    //             $('#Modal').modal('hide');
+    //             dataTable.ajax.reload();
+    //             }
+    //         });
+    // });
     $(document).ready(function(){
     // Initiate DataTable function comes with plugin
     $('#dataTable').DataTable();
@@ -304,80 +537,99 @@
     });
     });
     $(document).ready(function(){
-    $.ajax({
-        url: "<?php echo base_url() ?>invoice_controller/get_PoCode_in_invoice",
-        method: "POST",
-        success: function(data){
-        // Print the fetched data of the selected phone in the section called #phone_result
-        // within the Bootstrap modal
-        $('#po_code').html(data);
-        //$('#phoneModal').modal('show');
-        }
-    });
+    // $.ajax({
+    //     url: "<?php echo base_url() ?>invoice_controller/get_PoCode_in_invoice",
+    //     method: "POST",
+    //     success: function(data){
+    //     // Print the fetched data of the selected phone in the section called #phone_result
+    //     // within the Bootstrap modal
+    //     $('#po_code').html(data);
+    //     //$('#phoneModal').modal('show');
+    //     }
+    // });
     // End AJAX function
     });
-    function myfun(datavalue){
-        $.ajax({
-            url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
-            type:'POST',
-            data:{datapost:datavalue},
-            success:function(result){
-            $('#po_return').html(result);
-            }
-        });
-    }
+    // function myfun(datavalue){
+    //     $.ajax({
+    //         url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
+    //         type:'POST',
+    //         data:{datapost:datavalue},
+    //         success:function(result){
+    //         $('#po_return').html(result);
+    //         }
+    //     });
+    // }
     $('.adddata').click(function(){
         $('#largeModal').modal('show');
           $('.modal-title').html("<i class='fa fa-eye w3-text-blue'></i> <span class='w3-text-blue'>View Invoice Detail</span> ");
         $('#make_invoice')[0].reset();
     
-    $(document).on('submit','#make_invoice',function(event){
-        $('#submit').attr('disabled', 'disabled');
-    event.preventDefault();
-    var id=$('#id').val();
-    var po_code=$('#po_code').val();
-    var item_rate=$('#item_rate').val();
-    var invoice_code=$('#invoice_code').val();
-    var item_code=$('#item_code').val();
-    var item_quantity=$('#item_quantity').val();
-    var invoice_total=$('#invoice_total').val();
-    var date=$('#date').val();
-    var invoice_description=$('#invoice_description').val();
-    $.ajax({
-    url:"<?php echo base_url() ?>invoice_controller/make_invoice",
-    method:"POST",
-    // Last time set
-    data:$('#make_invoice').serialize(),
-    success:function(data)
-    {
-    alert(data);
-    $('#submit').attr('disabled',false);
-    $('#make_invoice')[0].reset();
-    $('#largeModal').modal('hide');
+    // $(document).on('submit','#make_invoice',function(event){
+    //     $('#submit').attr('disabled', 'disabled');
+    // event.preventDefault();
+    // var id=$('#id').val();
+    // var po_code=$('#po_code').val();
+    // var item_rate=$('#item_rate').val();
+    // var invoice_code=$('#invoice_code').val();
+    // var item_code=$('#item_code').val();
+    // var item_quantity=$('#item_quantity').val();
+    // var invoice_total=$('#invoice_total').val();
+    // var date=$('#date').val();
+    // var invoice_description=$('#invoice_description').val();
+    // $.ajax({
+    // url:"<?php echo base_url() ?>invoice_controller/make_invoice",
+    // method:"POST",
+    // // Last time set
+    // data:$('#make_invoice').serialize(),
+    // success:function(data)
+    // {
+    // alert(data);
+    // $('#submit').attr('disabled',false);
+    // $('#make_invoice')[0].reset();
+    // $('#largeModal').modal('hide');
     
-    },
-    });
-    });
+    // },
+    // });
+    // });
     
     });
     //** LOad MOdal View after Click on View Button***/
-    $(document).ready(function(){
-    $('.view').click(function(){
-    var invoice_id = $(this).attr('id');
-    $.ajax({
-    url: "<?php echo base_url() ?>invoice_controller/view_invoice",
-    method: "POST",
-    data: {invoice_id:invoice_id},
-    success: function(data)
-    {
-    $('#result').html(data);
-    // Display the Bootstrap modal
-    $('#Modal').modal('show');
-    }
-    });
-    });
-    });
+    // $(document).ready(function(){
+    // $('.view').click(function(){
+    // var invoice_id = $(this).attr('id');
+    // $.ajax({
+    // url: "<?php echo base_url() ?>invoice_controller/view_invoice",
+    // method: "POST",
+    // data: {invoice_id:invoice_id},
+    // success: function(data)
+    // {
+    // $('#result').html(data);
+    // // Display the Bootstrap modal
+    // $('#Modal').modal('show');
+    // }
+    // });
+    // });
+    // });
+
+ // $(document).on('submit','#date_range',function(event){
+ //    event.preventDefault();
+ //    var from_date=$('#from_date').val();
+ //    var from_date=$('#to_date').val();
+ //    $.ajax({
+ //            url: "<?php echo base_url() ?>invoice_controller/date_wise_search",
+ //            method:"POST",
+ //                data:$('#date_range').serialize(),
+            
+ //                success:function(data)
+ //                {
+ //                alert(data);
+                
+ //                }
+ //            });
+    
+ // });
+
     </script>
         <p id='fd' class='fd'>
         </p>
-        <?php include_once "login/footer.php"; ?>
+      
