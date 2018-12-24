@@ -13,17 +13,24 @@
     {
         
         //add custom filter here
+        $to_date="";
+        $from_date="";
         
         if($this->input->post('to_date'))
         {
-            $this->db->like('po_date', $this->input->post('to_date'));
+            $to_date = $this->input->post('to_date');
         }
        
         if($this->input->post('from_date'))
         {
-            $this->db->like('po_date', $this->input->post('from_date'));
+            $from_date = $this->input->post('from_date');
         }
 
+        if($to_date != "" && $from_date != ""){
+            $cond = "po_date` BETWEEN '$from_date' And '$to_date' ";
+            $this->db->where($cond);
+
+        }
         $this->db->from($this->table);
         $i = 0;
     
