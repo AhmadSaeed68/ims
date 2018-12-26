@@ -190,7 +190,27 @@
             <?php
         }
 
+          function export_csv()
+          {
+            $filename = 'PO-Invoice_'.date('Ymd').'.csv'; 
+            header("Content-Description: File Transfer");
+            header("Content-Disposition: attachment;filename=$filename");
+            header("Content-Type: application/csv; ");
 
+                         
+                              $this->load->model('invoice_model'); //Load MOdel
+                              $userData=$this->invoice_model->export_csv();
+
+                              // File Creation
+                            $file=fopen('php://output','w');
+                            $array_data=array("id","Invoice Code","Item Code","Item Qty","Item Rate","Discount","Total","Date");
+                            fputcsv($file,$array_data);
+        foreach($userData as $value){
+          fputcsv($file,$value);
+        }
+        fclose($file);
+        exit;
+                        }
 
 
 
