@@ -85,6 +85,7 @@
                       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
                       <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
                       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+                      
                       <?php $id=$this->session->userdata('user_id');
                       
                       if($id){
@@ -167,8 +168,8 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                   <ul class="dropdown-menu">
                                    <li class="w3-hover-light-green"><a href="<?php echo base_url("invoice_controller/po_invoice");?> "><span class="
                               fa fa-qrcode fa-2x w3-text-red"></span>PO_Invoice</a></li>
-                              <li class="w3-hover-light-green"><a href="<?php echo base_url("sales_invoice_controller/sales_invoice");?> "><span class="
-                              fa fa-file-o fa-2x w3-text-red"></span>Sales Invoice</a></li>
+                              <!-- <li class="w3-hover-light-green"><a href="<?php echo base_url("sales_invoice_controller/sales_invoice");?> "><span class="
+                              fa fa-file-o fa-2x w3-text-red"></span>Sales Invoice</a></li> -->
                                     
                                   </ul>
                                 </li>
@@ -188,7 +189,7 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                                     fa fa-group  w3-text-blue"></span>Purchasers</a></li>
                                      <li><a href="<?php echo base_url("vendors_controller/vendors")?>"><span class="
                                       fa fa-globe w3-text-light-blue"></span>Vendors</a></li>
-                                       <li><a href="<?php echo base_url("vendors_controller/vendors")?>"><span class="
+                                       <li><a href="<?php echo base_url('profile')?>"><span class="
                                       fa fa-gear w3-text-light-blue"></span>Setting</a></li>
                                    
                                     

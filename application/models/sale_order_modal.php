@@ -294,6 +294,18 @@ return $data->result_array();
                     
                 }  
             }
+
+            function export_csv()
+            {
+                $response = array();
+ 
+                // Select record
+                $this->db->select('id,so_code,invoice_code,item_code,item_qty,item_rate,profit,so_item_total,so_report,date');
+                $q = $this->db->get('sale_order_detail');
+                $data = $q->result_array();
+             
+                return $data;
+            }
 	}
 
  ?>

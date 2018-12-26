@@ -330,5 +330,18 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
                   return $result->result_array();
             }
 
+            function export_csv()
+            {
+                 
+    $response = array();
+ 
+    // Select record
+    $this->db->select('id,po_code,item_code,item_qty,item_rate,po_item_total,order_report,date');
+    $q = $this->db->get('purchase_order_detail');
+    $data = $q->result_array();
+ 
+    return $data;
+            }
+
     }
 ?>

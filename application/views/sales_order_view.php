@@ -1,105 +1,182 @@
 <?php
-    include_once"login/header.php";
-    $id=$this->session->userdata('user_id');
+include_once"login/header.php";
+$id=$this->session->userdata('user_id');
 ?>
- <div class="container w3-padding-64">
 
-        <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
-
-
-        <div class="panel panel-default">
-            <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Sale Order</a>
-            <div class="panel-heading w3-center w3-padding-24">
-                <span class=" fa fa-qrcode fa-2x w3-text-red">
-                    Sales Order
-                </span>
-                </div> <!-- Modal -->
-                <!-- Large Modal HTML -->
-
-                <div class="panel-body">
-                    <div class="w3-responsive">
-                        <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Customer</th>
-                                    <th> <span class="fa fa-code-fork w3-text-teal"></span>SO Code</th>
-                                    <th><span class="
-                                    fa fa-shield w3-text-green"></span> Invoice Code</th>
-
-
-                                    <th> <span class="
-                                    fa fa-object-ungroup w3-text-blue"></span>item Code</th>
-                                    <th> <span class="fa fa-pencil-square-o w3-text-red"></span>item Qty</th>
-                                    <th><span class="fa fa-calendar w3-text-red"></span>Total</th>
-                                    <th><span class="fa fa-eye w3-text-blue"></span>Profit</th>
-                                        <th><span class="fa fa-eye w3-text-blue"></span>status</th>
-                                     <th><span class="fa fa-eye w3-text-blue"></span>View</th>
-
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                             <tbody>
-                                <?php foreach($data as $data):?>
-                                <tr>
-                                    <td><?= $data['id'];?></td>
-                                    <td class="w3-teal w3-opacity"><?= $data['customer_name'];?></td>
-                                    <td><?= $data['so_code']?></td>
-                                     <td><?= $data['invoice_code'];?></td>
-                                    <td><?= $data['item_code']?></td>
-                                     <td><?= $data['item_qty'];?></td>
-                                    <td><?= $data['so_item_total']?></td>
-                                     <td><?= $data['profit'];?>%</td>
-                                          <td>
-                                            <?php $status=$data['so_status']; if($status=="active"){
-                                            echo "<span class='w3-green'>Active</span>";
-                                            }else{
-                                            echo "<span class='w3-red'>Dective</span>";
-                                        }?></td>
-                                        
-                                     <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['so_code']?>"> View</a></span></td>
-                                     <td> 
-
-                                     <?php 
-                                            if ($id->type=='super_user') {
-                                                 echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
-                                            }
-                                            else{
-                                             ?>
-                                      <div class="dropdown">
-                                        <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
-                                        <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-
-                                            <li><input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['so_code']; ?>"></li>
-                                            <li>
-                                            <button type="button" class="w3-button w3-block w3-red  delete"  id="<?php echo $data['so_code']; ?> " data-status="<?=$data['so_status']?>">Delete</button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                  <?php } ?>
-                                </td>
-                                    
-                         
-                                    
-                                
-
-
-
-                            </tr>
-                            <?php endforeach;?>
-                        </tbody>
-
-                    </table>
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+    <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make Sale Order <i class="w3-padding fa fa-pencil"></i></a>
+    <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
+    class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+    
+    
+    <a id="myBtn" onclick="myFunc('Demo1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>Search Records (3)<i class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Demo1" class="w3-hide w3-animate-left">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
+            <div class="w3-container">
+                <form id="form-filter">
+                    <div class="input-daterange"> <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
+                    <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
+                    <p><label><i class="fa fa-calendar-o"></i> TO</label></p>
+                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required></div>
+                
+                <br>
+                <hr>
+                <div class="form-group">
+                    
+                    <button type="button" id="btn-filter" class="btn btn-primary w3-hover-teal">Filter</button>
+                    <button type="button" id="btn-reset" class="btn btn-default w3-hover-green">Reset</button>
+                    
                 </div>
-            </div>
+            </form>
+            
         </div>
+    </a>
+    
+    
+    
+    
+    
+</div>
+<span  class="w3-bar-item w3-light-grey w3-button"><i class="fa fa-inbox w3-margin-right"></i>Downloads<i class="fa w3-margin-left"></i></span>
+<div class="row">
+    <div class="col-sm-6">
+        <li><a href="#"><span class="
+        fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></li>
     </div>
-     <!-- The Modal -->
-  <div class="modal fade" id="modal_action">
+    <div class="col-sm-6">
+        <li><a href="<?php echo base_url("sale_order_controller/export_csv")?>"><span class="
+        fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></li>
+    </div>
+</div>
+<span   class="w3-bar-item w3-light-grey " style="margin-top: 30px;"><i class="fa fa-cloud-upload w3-margin-right"></i>Upload CSV<i class="fa w3-margin-left"></i></span>
+<div class="row">
+    <div class="col-sm-12">
+        
+        
+        <form method="post" id="import_csv" enctype="multipart/form-data">
+            <div class="form-group" style="margin-top: 20px;">
+                <label class="w3-text-deep-orange">Select CSV File</label>
+                <input type="file" name="csv_file" id="csv_file" required accept=".csv" />
+            </div>
+            <br />
+            <button type="submit" name="import_csv" class="w3-btn w3-blue fa fa-cloud-upload w3-hover-teal" id="import_csv_btn"> Upload CSV</button>
+        </form>
+        <br />
+        <div id="import_csv_data"></div>
+        
+    </div>
+</div>
+<!-- UPload File to csv -->
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+  <span class="w3-left w3-padding">SOME NAME</span>
+  <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+<div class="container-fluid w3-padding-64">
+  <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+  <div class="panel panel-default">
+    <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Sale Order</a>
+    <div class="panel-heading w3-center w3-padding-24">
+      <span class=" fa fa-qrcode fa-2x w3-text-red">
+        Sales Order
+      </span>
+      </div> <!-- Modal -->
+      <!-- Large Modal HTML -->
+      <div class="panel-body">
+        <div class="w3-responsive">
+          <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th> <span class="fa fa-code-fork w3-text-teal"></span>SO Code</th>
+                <th><span class="
+                fa fa-shield w3-text-green"></span> Invoice Code</th>
+                <th> <span class="
+                fa fa-object-ungroup w3-text-blue"></span>item Code</th>
+                <th> <span class="fa fa-pencil-square-o w3-text-red"></span>item Qty</th>
+                <th><span class="fa fa-calendar w3-text-red"></span>Total</th>
+                <th><span class="fa fa-eye w3-text-blue"></span>Profit</th>
+                <th><span class="fa fa-eye w3-text-blue"></span>status</th>
+                <th><span class="fa fa-eye w3-text-blue"></span>View</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach($data as $data):?>
+              <tr>
+                <td><?= $data['id'];?></td>
+                <td class="w3-teal w3-opacity"><?= $data['customer_name'];?></td>
+                <td><?= $data['so_code']?></td>
+                <td><?= $data['invoice_code'];?></td>
+                <td><?= $data['item_code']?></td>
+                <td><?= $data['item_qty'];?></td>
+                <td><?= $data['so_item_total']?></td>
+                <td><?= $data['profit'];?>%</td>
+                <td>
+                  <?php $status=$data['so_status']; if($status=="active"){
+                  echo "<span class='w3-green'>Active</span>";
+                  }else{
+                  echo "<span class='w3-red'>Dective</span>";
+                }?></td>
+                
+                <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['so_code']?>"> View</a></span></td>
+                <td>
+                  <?php
+                  if ($id->type=='super_user') {
+                  echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                  }
+                  else{
+                  ?>
+                  <div class="dropdown">
+                    <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li><input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['so_code']; ?>"></li>
+                      <li>
+                        <button type="button" class="w3-button w3-block w3-red  delete"  id="<?php echo $data['so_code']; ?> " data-status="<?=$data['so_status']?>">Delete</button>
+                      </li>
+                    </ul>
+                  </div>
+                  <?php } ?>
+                </td>
+                
+                
+                
+                
+              </tr>
+              <?php endforeach;?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Push down content on small screens --> 
+  <div class="w3-hide-large" style="margin-top:83px"></div>
+  
+ 
+ 
+
+<?php include_once "login/footer.php"; ?>
+<!-- End page content -->
+</div>
+
+  <!-- The Modal -->
+  <div class="modal w3-animate-zoom" id="modal_action">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-      
+        
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title"></h4>
@@ -109,154 +186,134 @@
         <!-- Modal body -->
         <div class="modal-body">
           <span id="so_data"></span>
-            <div class="row">
-                 <form  accept-charset="utf-8" id="make_so">
-                  
-                 
-                    <div class="col-sm-4">
-                     <div class="row">
-                      <div class="form-group">
-                         <div class="col-sm-6">
-                           <label for="customer Name">SO_code</label>
-                             <span id="auto_so_code"></span>
-                           <!-- <input type="text" class="form-control" required name="so_code"  placeholder=""> -->
-                         </div>
-                         <div class="col-sm-6">
-                           <label for="customer Name">Date</label>
-                           <input type="date" class="form-control" name="date" required  placeholder="date">
-                         </div>
-                       </div>
-                       <div class="form-group">
-                        <div class="col-sm-6">
-                          <label for="">Business Name</label>
-                         
-                           <span id="so_user_detail"></span>
-                        </div>
-                        <div class="col-sm-6">
-                          
-                            <span id="user_city"></span>
-                          
-                        </div>
-                        
-                       </div>
-
+          <div class="row">
+            <form  accept-charset="utf-8" id="make_so">
+              
+              
+              <div class="col-sm-4">
+                <div class="row">
+                  <div class="form-group">
+                    <div class="col-sm-6">
+                      <label for="customer Name">SO_code</label>
+                      <span id="auto_so_code"></span>
+                      <!-- <input type="text" class="form-control" required name="so_code"  placeholder=""> -->
+                    </div>
+                    <div class="col-sm-6">
+                      <label for="customer Name">Date</label>
+                      <input type="date" class="form-control" name="date" required  placeholder="date">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-6">
+                      <label for="">Business Name</label>
                       
-
-
-                       
-
-                     </div>
+                      <span id="so_user_detail"></span>
                     </div>
-                    <div class="col-sm-8">
-                      <div class="row">
-                        <button type="button" id="add_more_so" class="btn btn-success w3-right">+</button>
-                      </div>
-                           <div class="form-row">
-                            <!-- ItmeCode -->
-                             <div class="form-group col-md-3">
-                                    <label for="so_item_code">Item Code</label>
-                                    <span id="so_item_code"  name="so_item_code"></span>
-                                     
-                                </div>
-
-                                <!-- po_code -->
-                                 <div class="form-group col-md-3" id="po_code">
-                                    
-                                   
-                                </div>
-
-                                    
-                                   <span id="invoice_data"></span>
-                                
-
-
-
-                        </div>
-
-
-                     <!--    next Row in right site col-sm-6 -->
-
-                        <div class="form-row">
-                          
-                          <div class=" form-group col-sm-3">
-                            <label for="profit">Profit</label>
-                           
-                            <div class="input-group">
-                            
-                                <input type="number" class="form-control profit" required id="profit" name="profit[]" >
-                                    <span class="input-group-addon">%</span>
-                                
-                            </div>
-                          </div>
-
-                          <!-- total -->
-                          <div class=" form-group col-sm-3">
-                            <label for="profit">Total</label>
-                           
-                            <div class="input-group">
-                            
-                                <input type="text" required readonly class="form-control" id="total" name="total[]" >
-                                   
-                                
-                            </div>
-                          </div>
-                          <div class="form-group col-sm-2">
-                            <button type="button" class="btn btn-default w3-green col-sm-3 add" id="add">+</button>
-                            <button type="button" class="btn btn-default w3-red col-sm-3 remove" >-</button>
-                          </div>
-
-
-                          
-                        </div>
-
+                    <div class="col-sm-6">
+                      
+                      <span id="user_city"></span>
+                      
                     </div>
-                
+                    
+                  </div>
+                  
+                  
+                </div>
+              </div>
+              <div class="col-sm-8">
+                <div class="row">
+                  <button type="button" id="add_more_so" class="btn btn-success w3-right">+</button>
+                </div>
+                <div class="form-row">
+                  <!-- ItmeCode -->
+                  <div class="form-group col-md-3">
+                    <label for="so_item_code">Item Code</label>
+                    <span id="so_item_code"  name="so_item_code"></span>
+                    
+                  </div>
+                  <!-- po_code -->
+                  <div class="form-group col-md-3" id="po_code">
+                    
+                    
+                  </div>
+                  
+                  <span id="invoice_data"></span>
+                  
+                </div>
+                <!--    next Row in right site col-sm-6 -->
+                <div class="form-row">
+                  
+                  <div class=" form-group col-sm-3">
+                    <label for="profit">Profit</label>
+                    
+                    <div class="input-group">
+                      
+                      <input type="number" class="form-control profit" required id="profit" name="profit[]" >
+                      <span class="input-group-addon">%</span>
+                      
+                    </div>
+                  </div>
+                  <!-- total -->
+                  <div class=" form-group col-sm-3">
+                    <label for="profit">Total</label>
+                    
+                    <div class="input-group">
+                      
+                      <input type="text" required readonly class="form-control" id="total" name="total[]" >
+                      
+                      
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-2">
+                    <button type="button" class="btn btn-default w3-green col-sm-3 add" id="add">+</button>
+                    <button type="button" class="btn btn-default w3-red col-sm-3 remove" >-</button>
+                  </div>
+                  
+                </div>
+              </div>
+              
             </div>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <input type="submit" name="" class="btn btn-success submit_so" value="sss">
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <input type="submit" name="" class="btn btn-success submit_so" value="sss">
             <button type="submit" class="btn btn-success submit_so">Submit</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
-    
-    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header ">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
-            </div>
-            <div class="modal-body">
-
-                <!-- Place to print the fetched phone -->
-                <div id="result">
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-   
-    <!-- jQuery JS CDN -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <!-- jQuery DataTables JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   
-    
-    <script>
+  <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header ">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+          <!-- Place to print the fetched phone -->
+          <div id="result">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- jQuery JS CDN -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <!-- jQuery DataTables JS CDN -->
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+  <!-- Bootstrap JS CDN -->
+  <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  <!-- Bootstrap JS CDN -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script>
         $(document).ready(function(){
           var orderdataTable = $('#order_data').DataTable({
             "order":[0,'desc'],
@@ -513,6 +570,36 @@ $('.submit_so').attr('disabled', false);
         }
        });
   
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+ var openInbox = document.getElementById("myBtn");
+    openInbox.click();
+    function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+    }
+    function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+    }
+    function myFunc(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-red";
+    } else {
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className =
+    x.previousElementSibling.className.replace(" w3-red", "");
+    }
+    }
     </script>
     <span id="return_msg"></span>
-<?php include_once "login/footer.php"; ?>

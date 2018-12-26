@@ -264,6 +264,27 @@
                 // }
 
 
+                function export_csv(){
+                   $filename = 'users_'.date('Ymd').'.csv'; 
+                  header("Content-Description: File Transfer");
+                  header("Content-Disposition: attachment;filename=$filename");
+                  header("Content-Type: application/csv; ");
+
+                 
+                      $this->load->model('order_model'); //Load MOdel
+                      $userData=$this->order_model->export_csv();
+
+                      // File Creation
+                    $file=fopen('php://output','w');
+                    $array_data=array("id","Po Code","Item Code","Item Qty","Item Rate","Total","Report","Date");
+                    fputcsv($file,$array_data);
+foreach($userData as $value){
+  fputcsv($file,$value);
+}
+fclose($file);
+exit;
+                }
+
                   //Check If Session :: Else Redirect 
                  function __construct() {
         parent::__construct();

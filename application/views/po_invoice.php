@@ -5,74 +5,87 @@
 <!-- <div class='jumbotron'>
     <h1 class='w3-center'><span class='     fa fa-themeisle w3-text-gray'> </span> Invoice Detail</h1>
 </div> -->
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+    <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make PO Invoice <i class="w3-padding fa fa-pencil"></i></a>
+    <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
+    class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+    
+    
+    <a id="myBtn" onclick="myFunc('Demo1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>Search Records (3)<i class="fa fa-caret-down w3-margin-left"></i></a>
+    <div id="Demo1" class="w3-hide w3-animate-left">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
+            <div class="w3-container">
+                <form id="form-filter">
+                    <div class="input-daterange"> <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
+                    <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
+                    <p><label><i class="fa fa-calendar-o"></i> TO</label></p>
+                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required></div>
+                
+                <br>
+                <hr>
+                <div class="form-group">
+                    
+                    <button type="button" id="btn-filter" class="btn btn-primary w3-hover-teal">Filter</button>
+                    <button type="button" id="btn-reset" class="btn btn-default w3-hover-green">Reset</button>
+                    
+                </div>
+            </form>
+            
+        </div>
+    </a>
+    
+    
+    
+    
+    
+</div>
+<span  class="w3-bar-item w3-light-grey w3-button"><i class="fa fa-inbox w3-margin-right"></i>Downloads<i class="fa w3-margin-left"></i></span>
+<div class="row">
+    <div class="col-sm-6">
+        <li><a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank"><span class="
+        fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></li>
+    </div>
+    <div class="col-sm-6">
+        <li><a href="<?php echo base_url("invoice_controller/export_csv")?>"><span class="
+        fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></li>
+    </div>
+</div>
+<span   class="w3-bar-item w3-light-grey " style="margin-top: 30px;"><i class="fa fa-cloud-upload w3-margin-right"></i>Upload CSV<i class="fa w3-margin-left"></i></span>
+<div class="row">
+    <div class="col-sm-12">
+        
+        
+        <form method="post" id="import_csv" enctype="multipart/form-data">
+            <div class="form-group" style="margin-top: 20px;">
+                <label class="w3-text-deep-orange">Select CSV File</label>
+                <input type="file" name="csv_file" id="csv_file" required accept=".csv" />
+            </div>
+            <br />
+            <button type="submit" name="import_csv" class="w3-btn w3-blue fa fa-cloud-upload w3-hover-teal" id="import_csv_btn"> Upload CSV</button>
+        </form>
+        <br />
+        <div id="import_csv_data"></div>
+        
+    </div>
+</div>
+<!-- UPload File to csv -->
+</nav>
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+<span class="w3-left w3-padding">SOME NAME</span>
+<a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
+</header>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
 <div class="row">
     <div class="container-fluid">
-        <div class="col-sm-2">
-            <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:230px;" id="mySidebar">
-                
-                  <a href="largeModal" class="btn btn-primary w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right"  data-toggle="modal">Make Invoice <i class="w3-padding fa fa-pencil"></i></a>
-                <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
-                class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-                 
-               <!--  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-dark-grey w3-button w3-hover-black w3-left-align" onclick="document.getElementById('id01').style.display='block'">New Message <i class="w3-padding fa fa-pencil"></i></a> -->
-                <a id="myBtn" onclick="myFunc('Demo1')" href="javascript:void(0)" class="w3-bar-item w3-button"><i class="fa fa-inbox w3-margin-right"></i>Search Records (3)<i class="fa fa-caret-down w3-margin-left"></i></a>
-                <div id="Demo1" class="w3-hide w3-animate-left">
-                    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom test w3-hover-light-grey" onclick="openMail('Borge');w3_close();" id="firstTab">
-                        <div class="w3-container">
-                             <form id="form-filter" class="form-filter">
-                                <div class="input-daterange"> <p><label><i class="fa fa-calendar-check-o"></i> From</label></p>
-                                <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
-                                <p><label><i class="fa fa-calendar-o"></i> TO</label></p>
-                            <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required></div>
-                            
-                            <br>
-                            <hr>
-                            <div class="form-group">
-                                
-                                <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
-                                <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                                
-                            </div>
-                        </form>
-                        </div>
-                    </a>
-                    
-                    
-                    
-                    
-                    
-                </div>
-               <!--  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>Sent</a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>Drafts</a>
-                <a href="#" class="w3-bar-item w3-button"><i class="fa fa-trash w3-margin-right"></i>Trash</a> -->
-            </nav>
-            <!-- Modal that pops up when you click on "New Message" -->
-            <div id="id01" class="w3-modal" style="z-index:4">
-                <div class="w3-modal-content w3-animate-zoom">
-                    <div class="w3-container w3-padding w3-red">
-                        <span onclick="document.getElementById('id01').style.display='none'"
-                        class="w3-button w3-red w3-right w3-xxlarge"><i class="fa fa-remove"></i></span>
-                        <h2>Send Mail</h2>
-                    </div>
-                    <div class="w3-panel">
-                        <label>To</label>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text">
-                        <label>From</label>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text">
-                        <label>Subject</label>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text">
-                        <input class="w3-input w3-border w3-margin-bottom" style="height:150px" placeholder="What's on your mind?">
-                        <div class="w3-section">
-                            <a class="w3-button w3-red" onclick="document.getElementById('id01').style.display='none'">Cancel  <i class="fa fa-remove"></i></a>
-                            <a class="w3-button w3-light-grey w3-right" onclick="document.getElementById('id01').style.display='none'">Send  <i class="fa fa-paper-plane"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-10">
+        
+        <div class="col-sm-12">
             <div class="w3-container">
-                <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+                <span class="w3-left w3-hide-large"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
                 <div class="panel panel-default">
                     <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a>
                     <div class="panel-heading w3-center w3-padding-24">
@@ -83,7 +96,7 @@
                         <!-- Large Modal HTML -->
                         <div class="panel-body">
                             <div class="w3-responsive">
-                               <!--  <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
+                                <!--  <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -129,28 +142,25 @@
                                         <?php endforeach;?>
                                     </tbody>
                                 </table> -->
-
-
                                 <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Po Code</th>
-                                        <th>Invoice Code</th>
-                                        <th>Total</th>
-                                        <th>Invoic Description</th>
-                                        <th>Date</th>
-                                        <th>View</th>
-                                       
-                                         <th>Action</th>
-                                        <!-- <th>action</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                                
-                            </table>
-
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Po Code</th>
+                                            <th>Invoice Code</th>
+                                            <th>Total</th>
+                                            <th>Invoic Description</th>
+                                            <th>Date</th>
+                                            <th>View</th>
+                                            
+                                            <th>Action</th>
+                                            <!-- <th>action</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                    
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -158,117 +168,124 @@
             </div>
         </div>
     </div>
-
-
-    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header ">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel"></h4>
+    <?php include_once "login/footer.php"; ?>
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+    
+    
+    
+    
+    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+    <!-- End page content -->
+</div>
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <!-- Place to print the fetched phone -->
+                <div id="result">
                 </div>
-                <div class="modal-body">
-                    <!-- Place to print the fetched phone -->
-                    <div id="result">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-      <?php include_once "login/footer.php"; ?>
-    <div id="largeModal" class="modal w3-animate-zoom">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <legend class="w3-center w3-padding">
-                        <h1 class="w3-text-green">Make Invoice</h1>
-                    </legend>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <form id="make_invoice">
-                            <div class="col-sm-6 col-md-7">
-                                <div class="form-row">
-                                    <div class="form-group col-md-4">
-                                        <label for="pwd">Po Code:</label>
-                                        <span id="po_code"  name="po_code" class="show_data po_code"></span>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="pwd">Invoice Code:</label>
-                                        <!-- <input type="text" class="form-control" name="invoice_code" id="invoice_code"> -->
-                                        <span id="auto_po_invoice"></span>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="email" class="w3-center">Invoice Description</label>
-                                        <textarea rows="5" name="invoice_description" id="invoice_description" required="" cols="25"></textarea>
-                                    </div>
+</div>
+<div id="largeModal" class="modal w3-animate-zoom">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <legend class="w3-center w3-padding">
+                    <h1 class="w3-text-green">Make Invoice</h1>
+                </legend>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <form id="make_invoice">
+                        <div class="col-sm-6 col-md-7">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="pwd">Po Code:</label>
+                                    <span id="po_code"  name="po_code" class="show_data po_code"></span>
                                 </div>
-                                <div class="form-row" id='po_return'>
+                                <div class="form-group col-md-4">
+                                    <label for="pwd">Invoice Code:</label>
+                                    <!-- <input type="text" class="form-control" name="invoice_code" id="invoice_code"> -->
+                                    <span id="auto_po_invoice"></span>
                                 </div>
-                                <div class="col-sm-6 col-md-6">
-                                    <!-- /ADD MORE/ -->
+                                <div class="form-group col-md-4">
+                                    <label for="email" class="w3-center">Invoice Description</label>
+                                    <textarea rows="5" name="invoice_description" id="invoice_description" required="" cols="25"></textarea>
                                 </div>
                             </div>
+                            <div class="form-row" id='po_return'>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <!-- /ADD MORE/ -->
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <input type="submit" class="btn btn-success" name="submit" id="submit" value="Make Invoice">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" name="submit" id="submit" value="Make Invoice">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">close</button>
+                    </div>
+                </form>
             </div>
         </div>
-        <script>
-        var openInbox = document.getElementById("myBtn");
-        openInbox.click();
-        function w3_open() {
-        document.getElementById("mySidebar").style.display = "block";
-        document.getElementById("myOverlay").style.display = "block";
-        }
-        function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
-        }
-        function myFunc(id) {
-        var x = document.getElementById(id);
-        if (x.className.indexOf("w3-show") == -1) {
-        x.className += " w3-show";
-        x.previousElementSibling.className += " w3-red";
-        } else {
-        x.className = x.className.replace(" w3-show", "");
-        x.previousElementSibling.className =
-        x.previousElementSibling.className.replace(" w3-red", "");
-        }
-        }
-        </script>
-        <!--
-        *************************************************
-        MODAL DATA AFTER GETTING DATA FROMM EDIT FUNCTION
-        **************************************************
-        $.ajax({
-        url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
-        method: "POST",
-        success: function(data)
-        {
-        $('#auto_po_invoice').html(data);
-        }
-        });
-        -->
-        <!-- jQuery JS CDN -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <!-- jQuery DataTables JS CDN -->
-        <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-        <!-- Bootstrap JS CDN -->
-        <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-        <!-- Bootstrap JS CDN -->
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
-        <script type="text/javascript">
+    </div>
+    <script>
+    var openInbox = document.getElementById("myBtn");
+    openInbox.click();
+    function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+    }
+    function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+    }
+    function myFunc(id) {
+    var x = document.getElementById(id);
+    if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    x.previousElementSibling.className += " w3-red";
+    } else {
+    x.className = x.className.replace(" w3-show", "");
+    x.previousElementSibling.className =
+    x.previousElementSibling.className.replace(" w3-red", "");
+    }
+    }
+    </script>
+    <!--
+    *************************************************
+    MODAL DATA AFTER GETTING DATA FROMM EDIT FUNCTION
+    **************************************************
+    $.ajax({
+    url: "<?php echo base_url() ?>invoice_controller/auto_po_invoice",
+    method: "POST",
+    success: function(data)
+    {
+    $('#auto_po_invoice').html(data);
+    }
+    });
+    -->
+    <!-- jQuery JS CDN -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- jQuery DataTables JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+     <script type="text/javascript">
 
             var table; 
 
@@ -450,16 +467,17 @@
            
             });
 
-  function myfun(datavalue){
-                    $.ajax({
-                        url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
-                        type:'POST',
-                        data:{datapost:datavalue},
-                        success:function(result){
-                        $('#po_return').html(result);
-                        }
-                    });
-                }
+                            function myfun(datavalue)
+                            {
+                                $.ajax({
+                                    url: "<?php echo base_url() ?>invoice_controller/get_PoCode_item",
+                                    type:'POST',
+                                    data:{datapost:datavalue},
+                                    success:function(result){
+                                    $('#po_return').html(result);
+                                    }
+                                });
+                             }
 
          $('.input-daterange').datepicker({
     todayBtn:'linked',
@@ -630,6 +648,5 @@
  // });
 
     </script>
-        <p id='fd' class='fd'>
-        </p>
-      
+    <p id='fd' class='fd'>
+    </p>

@@ -4,27 +4,29 @@
 
         var $table = 'po_invoice';
     var $column_order = array(null, 'po_code','invoice_code','invoice_total','invoice_date'); //set column field database for datatable orderable
-    var $column_search = array('to_date','invoice_code','from_date'); //set column field database for datatable searchable 
+    var $column_search = array('to_date','from_date'); //set column field database for datatable searchable 
     var $order = array('id' => 'asc'); // default order 
 
     private function _get_datatables_query()
     {
         
         //add custom filter here
-        
-        if($this->input->post('po_code'))
+        $to_date="";
+        $from_date="";
+        if($this->input->post('to_date'))
         {
-            $this->db->like('po_code', $this->input->post('po_code'));
-        }
-        if($this->input->post('invoice_code'))
-        {
-            $this->db->like('invoice_code', $this->input->post('invoice_code'));
+            $to_date= $this->input->post('to_date');
         }
         if($this->input->post('from_date'))
         {
-            $this->db->like('invoice_date', $this->input->post('from_date'));
+            $from_date=$this->input->post('from_date');
         }
+        if($to_date != "" AND $from_date != ""){
+            $cond = "invoice_date` BETWEEN '$from_date' And '$to_date' ";
+            $this->db->where($cond);
 
+        }
+      
         $this->db->from($this->table);
         $i = 0;
     
@@ -371,5 +373,18 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                             
                            
                         }
+
+            function export_csv()
+            {
+                 
+                $response = array();
+     
+                // Select record
+                $this->db->select('id,invoice_code,item_code,item_qty,item_rate,discount,item_total,date');
+                $q = $this->db->get('po_invoice_detail');
+                $data = $q->result_array();
+             
+                return $data;
+            }
     }
 ?>

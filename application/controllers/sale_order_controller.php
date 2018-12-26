@@ -204,10 +204,26 @@
 					//$this->output->enable_profiler(TRUE);
                 }
 
-                function test(){
-                	echo"dddd";
-                }
+              function export_csv(){
+                   $filename = 'Sale-Order'.date('Ymd').'.csv'; 
+                  header("Content-Description: File Transfer");
+                  header("Content-Disposition: attachment;filename=$filename");
+                  header("Content-Type: application/csv; ");
 
+                 
+                      $this->load->model('sale_order_modal'); //Load MOdel
+                      $userData=$this->sale_order_modal->export_csv();
+
+                      // File Creation
+                    $file=fopen('php://output','w');
+                    $array_data=array("id","So Code","Invoice Code","Item Code","Item Qty","Item Rate","Profit","Total","Report","Date");
+                    fputcsv($file,$array_data);
+foreach($userData as $value){
+  fputcsv($file,$value);
+}
+fclose($file);
+exit;
+                }
                  function __construct() {
         parent::__construct();
         if(!$this->session->userdata('user_id')){
