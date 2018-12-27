@@ -212,7 +212,27 @@
         exit;
                         }
 
+              //Import CSV
+          function import_csv()
+              {
+                $this->load->library('csvimport');  //Load Library
 
+                $file_data=$this->csvimport->get_array($_FILES["csv_file"]["tmp_name"]);
+                foreach ($file_data as $row) {
+                  
+                  $data[]=array(
+                    'user_id'=>$row['id'],
+                    'ip_address'=>$row['Invoice Code'],
+                    'last_login'=>$row['Item Code'],
+                   
+                  );
+
+                }
+               
+                $this->load->model('invoice_model');
+                $this->invoice_model->insert_data($data);
+
+              }
 
         //Check Session if Session else Redirect Login
 

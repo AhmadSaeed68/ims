@@ -63,13 +63,13 @@
 
     }
 
-    function delete_category()
-    {
-        $category_id=$_POST['category_id'];
-        $this->load->model('category_model'); //Load Model
-        $this->category_model->delete_category($category_id); 
+        function delete_category()
+        {
+            $category_id=$_POST['category_id'];
+            $this->load->model('category_model'); //Load Model
+            $this->category_model->delete_category($category_id); 
 
-    }
+        }
 
 
 

@@ -65,7 +65,7 @@
             <button type="submit" name="import_csv" class="w3-btn w3-blue fa fa-cloud-upload w3-hover-teal" id="import_csv_btn"> Upload CSV</button>
         </form>
         <br />
-        <div id="import_csv_data"></div>
+        
         
     </div>
 </div>
@@ -458,13 +458,28 @@
                         });
     });
 
-                 //My Fun load
 
-
-                
-
-
-           
+                $('#import_csv').on('submit', function(event){
+			event.preventDefault();
+                $.ajax({
+                    url:"<?php echo base_url();?>invoice_controller/import_csv",
+                    method:"POST",
+                    data:new FormData(this),
+                    contentType:false,
+                    cache:false,
+                    processData:false,
+                    beforeSend:function(){
+                        $('#import_csv_btn').html('Importing...');
+                    },
+                    success:function(data)
+                    {
+                        $('#import_csv')[0].reset();
+                        $('#import_csv_btn').attr('disabled',false);
+                        $('#import_csv_btn').html('Import Done');
+                        table.ajax.reload();
+                    }
+                })
+		    });
             });
 
                             function myfun(datavalue)

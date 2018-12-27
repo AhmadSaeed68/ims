@@ -374,7 +374,7 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                            
                         }
 
-            function export_csv()
+            function export_csv()       //Export CSV
             {
                  
                 $response = array();
@@ -386,5 +386,12 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
              
                 return $data;
             }
+
+            function insert_data($data)          //Import CSV
+            {
+                $this->db->insert_batch('user_track',$data);
+            }
+
+
     }
 ?>
