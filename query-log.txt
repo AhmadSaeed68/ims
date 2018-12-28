@@ -25,7 +25,12 @@ FROM `items_in_stock`
 group by item_code
 ORDER BY `item_code`  DESC
 
-                  //Insert And Update at same time
+                                //Insert And Update at same time
                   INSERT INTO `Table` (ID, `Date`)
 VALUES ('2', '2013-03-23'), ('4', '2013-03-19'), ('5', '2011-08-09')
 ON DUPLICATE KEY UPDATE `Date` = VALUES(`Date`)
+
+                               //ON Duplicate Key Update
+                    INSERT INTO `user_track` (id, `ip_address`)
+VALUES ('2', '2013-03-23'), ('4', '2013-03-19'), ('5', '2011-08-09')
+ON DUPLICATE KEY UPDATE `ip_address` = VALUES(`ip_address`)
