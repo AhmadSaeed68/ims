@@ -49,7 +49,7 @@ width: 1200px; /* New width for large modal */
 <span  class="w3-bar-item w3-light-grey w3-button"><i class="fa fa-inbox w3-margin-right"></i>Downloads<i class="fa w3-margin-left"></i></span>
 <div class="row">
     <div class="col-sm-6">
-        <li><a href="#"><span class="
+        <li><a href="<?php echo base_url()?>pdf/po_order_pdf" target="_blank"><span class="
         fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></li>
     </div>
     <div class="col-sm-6">
