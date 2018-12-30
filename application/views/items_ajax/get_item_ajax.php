@@ -17,7 +17,7 @@ form_open('',['class'=>'form','id'=>'item_form','method'=>'POST'])?>
                         value="<?php //echo $each['category_id'] ?>"
                         id="<?php //echo $each['category_id'] ?>"><?php //echo $each['category_name']?>
                     </option>';
-                    <?php// } ?>
+                    <!-- <?php //} ?> -->
                 </select> -->
 
                 <select class="category_search" class="form-control" name="category" style="width: 100%">

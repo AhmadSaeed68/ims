@@ -108,7 +108,7 @@
               $data= $this->order_model->get_vendor();
               //::HTML Load 
             ?>
-           <select class="form-control" id="vendor selectpicker" name="vendor"  data-live-search="true">
+           <select class="form-control" required id="vendor selectpicker" name="vendor"  data-live-search="true">
             <?php
           foreach($data as $each)
               {

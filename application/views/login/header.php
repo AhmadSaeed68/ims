@@ -219,4 +219,4 @@ fa fa-file-code-o fa-2x w3-text-pink"></span>Invoices
                           </div>
                         </nav>
                         <?php }?>
-                        <body style="font-family:TIMES NEW ROMAN;background-color: #F2F2F2" >
+                        <body style="font-family:TIMES NEW ROMAN;background-color: #F2F2F2" class="bgimg">

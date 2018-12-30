@@ -389,8 +389,16 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
 
             function insert_data($data)          //Import CSV
             {
-                $this->db->insert_batch('user_track',$data);
-            }
+                //$this->db->insert_batch('user_track',$data);
+            //    $sql = $this->db->insert_string('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
+            //    implode(', ', $data);
+            //    $this->db->query($sql); 
+
+            // $sql = $this->db->insert_batch('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
+            //         implode(', ', $data);    
+            //         $this->db->query($sql);
+            $this->db->on_duplicate('user_track', $data);
+        }
 
 
     }
