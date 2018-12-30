@@ -3,8 +3,8 @@
 
 
         var $table = 'po_invoice';
-    var $column_order = array(null, 'po_code','invoice_code','invoice_total','invoice_date'); //set column field database for datatable orderable
-    var $column_search = array('to_date','from_date'); //set column field database for datatable searchable 
+    var $column_order = array(null,'id','po_code','invoice_code','invoice_total','invoice_description','invoice_date'); //set column field database for datatable orderable
+    var $column_search = array('po_code','invoice_code','invoice_description','invoice_total'); //set column field database for datatable searchable 
     var $order = array('id' => 'asc'); // default order 
 
     private function _get_datatables_query()
@@ -32,12 +32,13 @@
     
         foreach ($this->column_search as $item) // loop column 
         {
+            
             if($_POST['search']['value']) // if datatable send POST for search
             {
-                
+
                 if($i===0) // first loop
                 {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    // $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
                     $this->db->like($item, $_POST['search']['value']);
                 }
                 else
@@ -45,13 +46,15 @@
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if(count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if(count($this->column_search) - 1 == $i); //last loop
+                    // $this->db->group_end(); //close bracket
+
+
             }
             $i++;
         }
         
-        if(isset($_POST['order'])) // here order processing
+            if(isset($_POST['order'])) // here order processing
         {
             $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } 
@@ -389,7 +392,7 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
 
             function insert_data($data)          //Import CSV
             {
-                //$this->db->insert_batch('user_track',$data);
+                $this->db->insert_batch('user_track',$data);
             //    $sql = $this->db->insert_string('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
             //    implode(', ', $data);
             //    $this->db->query($sql); 
@@ -397,7 +400,7 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
             // $sql = $this->db->insert_batch('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
             //         implode(', ', $data);    
             //         $this->db->query($sql);
-            $this->db->on_duplicate('user_track', $data);
+            // $this->db->on_duplicate('user_track', $data);
         }
 
 

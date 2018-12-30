@@ -285,6 +285,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+
      <script type="text/javascript">
 
             var table; 
@@ -305,6 +306,7 @@
                           
                             data.from_date=$('#from_date').val();
                             data.to_date=$('#to_date').val();
+
                         }
                     },
 
@@ -323,7 +325,7 @@
 
 
                   $('#btn-filter').click(function(){
-                                       table.ajax.reload();
+                    table.ajax.reload();
                  });
                  $('#btn-reset').click(function(){
                     $('#form-filter')[0].reset();

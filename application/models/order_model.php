@@ -6,7 +6,7 @@
 
  var $table = 'purchase_order';
     var $column_order = array(null, 'po_code','po_total','po_date'); //set column field database for datatable orderable
-    var $column_search = array('to_date','invoice_code','from_date'); //set column field database for datatable searchable 
+    var $column_search = array('po_code','po_vendor','po_total','po_description','order_report'); //set column field database for datatable searchable 
     var $order = array('id' => 'desc'); // default order 
 
     private function _get_datatables_query()
@@ -41,7 +41,7 @@
                 
                 if($i===0) // first loop
                 {
-                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    //$this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
                     $this->db->like($item, $_POST['search']['value']);
                 }
                 else
@@ -49,8 +49,8 @@
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if(count($this->column_search) - 1 == $i) //last loop
-                    $this->db->group_end(); //close bracket
+                if(count($this->column_search) - 1 == $i); //last loop
+                    //$this->db->group_end(); //close bracket
             }
             $i++;
         }
