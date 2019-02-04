@@ -19,19 +19,20 @@
 
     </div>
     <div class="panel-body">
+        <div class="w3-responsive">
     <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                 <thead>
                     <tr class='w3-sand'>
                     <th>Id</th>
-                    <th>Item Name</th>
+                    <th >Item Name</th>
                     <th>Item Code</th>
                     <th>Item Description</th>
-                    <th>Invoice Code</th>
-                    <th>PO Code</th>
+                    <!-- <th>Invoice Code</th>
+                    <th>PO Code</th> -->
                     <th>Category Id</th>
                     <th>Item Qty</th>
-                    <th>Item Rate</th>
-                    <th>Total</th>
+                    <!-- <th>Item Rate</th>
+                    <th>Total</th -->
                     <th>Date:</th>
 
                     </tr>
@@ -40,22 +41,44 @@
                 <?php foreach($stock as $data):?>
                     <tr>
                     <td><?= $data->id;?></td>
-                    <td><?=$data->item_name;?></td>
-                    <td><?=$data->item_code;?></td>
+                    <td class="w3-teal"><?=$data->item_name;?></td>
+                    <td class="w3-light-blue"><?=$data->item_code;?></td>
                     <td><?=$data->item_description;?></td>
-                    <td><?=$data->invoice_code;?></td>
-                    <td><?=$data->po_code;?></td>
+                    <!-- <td><?php //$data->invoice_code;?></td>
+                    <td><?php //$data->po_code;?></td> -->
                     <td><?=$data->category_id;?></td>
-                    <td><?=$data->item_qty;?></td>
-                    <td><?=$data->item_rate;?></td>
-                    <td><?=$data->item_rate*$data->item_qty;?></td>
+                    <td class="w3-teal"><a id="<?=$data->item_code;?>" class="w3-text-red qty_detail"><?=$data->item_qty;?></a></td>
+           <!--          <td><?=$data->item_rate;?></td>
+                    <td><?=$data->item_rate*$data->item_qty;?></td> -->
                     <td><?= $data->entry_date?></td>
                     </tr>
 <?php endforeach;?>
                 </tbody>
             </table>
+        </div>
     </div>
     </div>
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header ">User Detail
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+
+                <!-- Place to print the fetched phone -->
+                <div id="result">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div></div>
 
     <!-- jQuery JS CDN -->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
@@ -71,5 +94,24 @@
      $(document).ready(function(){
         var dataTable=$("#order_data").dataTable();
 
+        $('.qty_detail').click(function(){
+    var item_code = $(this).attr('id');
+
+        $.ajax({
+                url: "<?php echo base_url() ?>stock_controller/item_detail",
+                method: "POST",
+                data: {item_code:item_code},
+                success: function(data)
+                {
+                
+                $('#result').html(data);
+                // Display the Bootstrap modal
+                $('#Modal').modal('show');
+                }
+        });
+    
+    });
+
     });
     </script>
+    <?php include_once "login/footer.php"; ?>

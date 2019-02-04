@@ -1,0 +1,14 @@
+{
+    "workbench.colorCustomizations" : {
+        "editorBracketMatch.background": "#f008",
+        "editorBracketMatch.border": "#ffee00"
+},
+"editor.matchBrackets": false,
+"subtleBrackets.pairs": [
+    "{}",
+    "[]",
+    "()",
+    "<>"
+
+],
+}

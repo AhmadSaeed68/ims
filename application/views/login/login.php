@@ -1,10 +1,20 @@
 <?php  include"header.php"; ?>
-<div class="container w3-padding-64">
-    <div class="row">
+<style>
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background-image: url('http://www.fullhdwpp.com/wp-content/uploads/winter-mountains-with-snow-30_www.FullHDWpp.com_.jpg');
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+</style>
+    <div class="container w3-padding-64" >
+         <div class="row">
         <div class="col-sm-8 w3-card-4">
             <?php echo form_open('login/admin_login');?>
             <fieldset>
-                <legend class="w3-center"><h3>Login</h3></legend>
+                <legend class="w3-center" style="font-variant: small-caps;"><h1>Ims Login</h1></legend>
                 
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label w3-text-red">Note:</label>
@@ -36,7 +46,7 @@
                             <small id="emailHelp" class="form-text text-muted w3-text-deep-orange">We'll never share your Personal Data with anyone else.</small>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 w3-animate-zoom">
                     <span style="font-family:TIMES NEW ROMAN">  <?php echo form_error('email'); ?></span>
                     </div>
                 </div>
@@ -47,7 +57,7 @@
                             <input type="password" class="w3-input w3-animate-input w3-light-gray" style="width:70%" id="exampleInputPassword1" name="password" placeholder="Password">
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6 w3-animate-zoom">
                         <span style="font-family:TIMES NEW ROMAN"><?php echo form_error('password'); ?></span>
                     </div>
                 </div>
@@ -60,4 +70,5 @@
             <?php echo form_close()?>
         </div>
     </div>
-    <div>
+    </div>
+   

@@ -14,5 +14,13 @@ class Order_fetch extends CI_Controller{
     SELECT * FROM inventory_order WHERE 
     ";
     }
+
+
+     function __construct() {
+        parent::__construct();
+        if(!$this->session->userdata('user_id')){
+            redirect('login');
+        }
+    }
 }
 ?>

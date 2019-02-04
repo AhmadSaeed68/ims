@@ -94,15 +94,10 @@ echo $id->id;
 
         <th>
 
-            <i class="fa fa-scissors w3-text-orange"></i>Edit
+            <i class="fa fa-scissors w3-text-orange"></i>Action
 
         </th>
 
-        <th>
-
-            <i class="glyphicon glyphicon-trash w3-text-red"></i>Delete
-
-        </th>
 
     
 
@@ -163,9 +158,12 @@ echo $id->id;
         
 
         <td>
-
-            <?=$item['item_status']?>
-
+<?php $status=$item['item_status']; if($status=="active"){
+                                            echo "<span class='w3-green'>Active</span>";
+                                            }else{
+                                            echo "<span class='w3-red'>Dective</span>";
+                                        }?>
+            
         </td>
 
         <!-- <td>
@@ -173,18 +171,27 @@ echo $id->id;
             <?php //$item['item_qty']?>
 
         </td> -->
+ <td> 
+<?php 
+                                            if ($id->type=='super_user' OR $id->type=='user') {
+                                                echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                            }
+                                            else{
+                                             ?>
+    <div class="dropdown">
+                                        <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                        <span class="caret"></span></button>
+                                        <ul class="dropdown-menu">
 
-        <td>
-
-            <input type="button" class="btn btn-info btn-sm edit" value="Edit" id="<?=$item['item_id']?>">
-
-        </td>
-
-        <td>
-
-            <input type="button" class="btn btn-danger btn-sm delete" value="Delete" id="<?=$item['item_id']?>">
-
-        </td>
+                                            <li>  <input type="button" class="w3-btn w3-block w3-orange edit" value="Edit" id="<?=$item['item_id']?>"></li>
+                                            <li> 
+                                                <button class="w3-button w3-block w3-red delete" id="<?=$item['item_id']?>" data-status="<?=$item['item_status']?>">Change Status</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                <?php } ?>
+                                </td>
+        
 
     </tr>
 
@@ -204,7 +211,7 @@ echo $id->id;
 
 <!-- view Modal -->
 
-    <div class="modal fade" id="phoneModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
+    <div class="modal fade" id="phoneModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
 
     <div class="modal-dialog modal-lg">
 
@@ -214,7 +221,7 @@ echo $id->id;
 
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-            <h4 class="modal-title" id="myModalLabel">Data</h4>
+            <h4 class="modal-title" id="myModalLabel"></h4>
 
         </div>
 
@@ -240,6 +247,7 @@ echo $id->id;
 
     </div>
 <!-- jQuery JS CDN -->
+
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
     <!-- jQuery DataTables JS CDN -->
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -247,11 +255,24 @@ echo $id->id;
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
     <!-- Bootstrap JS CDN -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
-    
+ <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-    <script>
-    $(document).ready(function(){
-        var dataTable= $("#brand_data").dataTable();
+    <script type="text/javascript">
+
+ $(document).ready(function(){
+      
+         var dataTable = $('#brand_data').DataTable({
+            "order":[0,'desc'],
+            "columnDefs":[
+    {
+      
+     "targets":[0,2,3,4,5,6,7],
+     "orderable":false,
+    },
+   ],
+          });
         });
 
     $(document).ready(function(){
@@ -273,6 +294,7 @@ echo $id->id;
                             $('#phone_result').html(data);
                         
                             $('#phoneModal').modal('show');
+                             $('.modal-title').html("<i class='fa fa-plus w3-text-green'></i> <span class='w3-text-blue'>Add Items</span> ");
                         }
                 });
                 // End AJAX function
@@ -319,31 +341,37 @@ echo $id->id;
                 {
                     $('#phone_result').html(data);
                     $('#phoneModal').modal('show');
+                     $('.modal-title').html("<i class='fa fa-plus w3-text-orange'></i> <span class='w3-text-orange'>Update Items</span> ");
                     
                 }
             });
         });
         
-        $(document).on('click','.delete',function(){
-            var item_id=$(this).attr('id');
-            if(confirm("Are You sure to delete this")){
+       
+
+
+             $(document).on('click', '.delete', function(){
+            var item_id = $(this).attr("id");
+            var status = $(this).data("status");
+            var btn_action = "delete";
+            if(confirm("Are you sure you want to change status?"))
+            {
             $.ajax({
-                url: "<?php echo base_url() ?>items_controller/delete_item",
-                method:"POST",
-                data:{item_id:item_id},
-                datatype:"json",
-                success:function(data)
-                {
-                    alert(data);
-                    $('#mytable').dataTable().reload();
-                    
-                }
-            });
-            }else{
+            url: "<?php echo base_url() ?>items_controller/item_status",
+            method:"POST",
+            data:{item_id:item_id, status:status, btn_action:btn_action},
+            success:function(data)
+            {
+            alert(data);
+            orderdataTable.ajax.reload();
+            }
+            })
+            }
+            else
+            {
             return false;
             }
-            
-        });
+                    });
 
 
    
@@ -380,5 +408,47 @@ echo $id->id;
             alert('All fields are required');
         }
         });
+
+        $('#phoneModal').on('show.bs.modal', function() {
+            
+    $('.category_search').select2({
+        placeholder: 'Category',
+        
+        allowClear: true,
+                ajax:{
+                    url: "<?php echo base_url()?>items_controller/search_category",
+                    type: "post",
+                    dataType: "json",
+                    delay: 250,
+                    data: function(params){
+                        return{
+                            searchTerm: params.term
+                        };
+                    },
+                    processResults: function(data){
+                        var results = [];
+
+                        $.each(data, function(index, item){
+                            results.push({
+                                id: item.category_id,
+                                text: item.category_name
+                            });
+                        });
+                        return{
+                            results: results
+                        };
+                    },
+                     cache: true
+
+                }
+    });
+  })
+  
+  $('#phoneModal').on('hidden.bs.modal', function() {
+    $('.category_search').select2('destroy');
+  })
+
+
     </script>
 <span class="msg"></span>
+<?php include_once "login/footer.php"; ?>

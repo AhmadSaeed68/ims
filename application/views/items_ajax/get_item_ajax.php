@@ -9,15 +9,19 @@ form_open('',['class'=>'form','id'=>'item_form','method'=>'POST'])?>
             <div class="form-group col-sm-4">
                 <label for="email">Categore</label>
                 
-                <select class="form-control" id="category_id" name="category_id" >
+               <!--  <select class="form-control" id="category_id" name="category_id" >
                     <?php
-                    foreach($records as $each) {
+                    //foreach($records as $each) {
                     ?>
-                    <option id="<?php echo $each['category_id']; ?>"
-                        value="<?php echo $each['category_id'] ?>"
-                        id="<?php echo $each['category_id'] ?>"><?php echo $each['category_name']?>
+                    <option id="<?php //echo $each['category_id']; ?>"
+                        value="<?php //echo $each['category_id'] ?>"
+                        id="<?php //echo $each['category_id'] ?>"><?php //echo $each['category_name']?>
                     </option>';
-                    <?php } ?>
+                    <!-- <?php //} ?> -->
+                </select> -->
+
+                <select class="category_search" class="form-control" name="category" style="width: 100%">
+                    
                 </select>
             </div>
             
