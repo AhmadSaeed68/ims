@@ -8,7 +8,7 @@ echo $id->id;
 
 
 
-<div class="container w3-padding-64">
+<div class="">
 
 <!-- <div class='jumbotron'>
 
