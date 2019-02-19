@@ -572,7 +572,7 @@ MOdal that load after gettinng data -
           $('#dynamic_field_row').append(html);
          }
          var count = 0;
-    $('#add').click(function(){
+         $('#add').click(function(){
        
        // alert("eula");
         
@@ -1005,3 +1005,5 @@ function w3_close() {
        //  });
 
 </script>
+
+<?php include_once "login/footer.php";?>
