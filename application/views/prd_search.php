@@ -5,7 +5,7 @@
 
 
 ?>
-<?php include"login/header.php"; 
+<?php include "login/header.php"; 
 
 $id=$this->session->userdata('user_id'); ?>
 
@@ -17,7 +17,7 @@ $id=$this->session->userdata('user_id'); ?>
 
 </script>
 
-       <div class="container-fluid w3-padding-32">
+       <div class=" w3-padding-32">
            <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
        <div class="card-header w3-center"> <span class="w3-center"> <i class="fa  fa-2x fa-bar-chart w3-text-yellow" ></i> Stock List</span> </div>
        

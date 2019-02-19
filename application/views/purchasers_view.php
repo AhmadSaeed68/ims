@@ -1,8 +1,8 @@
 <?php
 	
-	include_once"login/header.php";
+	include_once "login/header.php";
 ?>
-<div class="container w3-padding-64">
+<div class="w3-padding-64">
 	<span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Downloada</a></span>
 	<div class="panel panel-default">
 		<a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal"></a>
@@ -74,15 +74,22 @@
 			</div>
 		</div>
 	</div>
-	<!-- jQuery JS CDN -->
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<!-- jQuery DataTables JS CDN -->
 	<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-	<!-- Bootstrap JS CDN -->
-	<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-	<!-- Bootstrap JS CDN -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script >
+<!-- Bootstrap JS CDN -->
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<!-- Bootstrap JS CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+	<link href="<?php echo base_url(); ?>assets/vendor/select2.min.css" rel="stylesheet">
+<script src="<?php echo base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.js"></script>
+      <!-- jQuery -->
+      <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/vendorselect2.min.js"></script>
+	  <script >
 		
 		$(document).ready(function(){
 				var orderdataTable = $('#order_data').DataTable({

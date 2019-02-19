@@ -1,6 +1,6 @@
-<?php include_once"login/header.php";?>
+<?php include_once "login/header.php";?>
 
-<div class="container w3-padding-64">
+<div class=" w3-padding-64">
    <div class="col-sm-6">
    <form action="/action_page.php" target="_blank">
         <div class="w3-row-padding" style="margin:0 -16px;">

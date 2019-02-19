@@ -1,6 +1,6 @@
-<?php include"login/header.php"; ?>
+<?php include "login/header.php"; ?>
 
-    <div class="container w3-padding-32">
+    <div class=" w3-padding-32">
         <div>
             <div>
             <?php if($feedback=$this->session->flashdata('feedback')) :

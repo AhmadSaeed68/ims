@@ -1,9 +1,9 @@
 <?php 
-	include_once"login/header.php";
+	include_once "login/header.php";
  ?>
 
 
- <div class="container w3-padding-64">
+ <div class=" w3-padding-64">
 
         <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
 

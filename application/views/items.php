@@ -1,4 +1,4 @@
-<?php include_once"login/header.php";
+<?php include_once "login/header.php";
 
 $id=$this->session->userdata('user_id');
 

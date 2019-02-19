@@ -1,5 +1,5 @@
 <?php include_once "login/header.php"; ?>
-<div class="container w3-padding-64">
+<div class="">
   
   <div class="row ">
 

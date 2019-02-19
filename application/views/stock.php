@@ -1,8 +1,8 @@
-<?php include"login/header.php"; ?>
+<?php include "login/header.php"; ?>
 <!-- Header -->
 
 
-<div class="container w3-padding-64">
+<div class=" w3-padding-64">
 <!-- <div class='jumbotron'>
    <h1 class='w3-center'><span class='fa fa-wpforms w3-text-lime'> </span> Stock`s Detail</h1>
    

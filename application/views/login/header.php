@@ -30,7 +30,8 @@
 
     <!-- Morris Charts CSS -->
     <link href="<?php echo base_url(); ?>assets/vendor/morrisjs/morris.css" rel="stylesheet">
-
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- Custom Fonts -->
     <link href="<?php echo base_url(); ?>assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
@@ -207,8 +208,8 @@
                         <li>
                             <a href="#">
                                 <div>
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
+                                    <i class="fa fa-comment fa-fw"></i> Purchase Requests
+                                    <span class="pull-right badge badge-dark text-muted small"><span id="notify_purchse_req"></span></span>
                                 </div>
                             </a>
                         </li>
@@ -296,6 +297,9 @@
                             <a href="<?php echo base_url("admin/dashboard")?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
+                            <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-dashboard fa-fw"></i> Category</a>
+                        </li>
+                        <li>
                             <a href="<?php echo base_url("items_controller/item");?> "><i class="fa fa-dashboard fa-fw"></i>Items</a>
                         </li>
                         <li>
@@ -326,10 +330,13 @@
                             <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-table fa-fw"></i> Stock</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Department</a>
+                            <a href="<?php echo base_url("department_controller/index");?> "><i class="fa fa-clone fa-fw"></i> Department</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Requests</a>
+                            <a href="<?php echo base_url("purchase_request_controller/index");?> "><i class="fa fa-edit fa-fw"></i> Requests</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url("purchase_request_controller/request_action");?> "><i class="fa fa-flask  fa-fw"></i>Requests Action</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> More<span class="fa arrow"></span></a>
@@ -402,4 +409,4 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-        <div id="page-wrapper">
+        <div id="page-wrapper" class="w3-padding-32">

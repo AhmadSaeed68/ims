@@ -17,7 +17,7 @@
 
     </script>
 
-<div class="container ">
+<div class="">
   <div class="panel">
       <div class="panel-heading">
       <div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa  fa-2x fa-user w3-text-yellow" ></i> Users Detail</h2> </div>

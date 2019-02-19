@@ -1,5 +1,5 @@
-<?php include_once"login/header.php";?>
-<div class="container box">
+<?php include_once "login/header.php";?>
+<div class=" box">
     <h3 align="center"><?php echo $category_id?></h3><br />
     <div class="table-responsive">
     <br />

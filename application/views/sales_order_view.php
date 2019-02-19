@@ -1,5 +1,5 @@
 <?php
-include_once"login/header.php";
+include_once "login/header.php";
 $id=$this->session->userdata('user_id');
 ?>
 
