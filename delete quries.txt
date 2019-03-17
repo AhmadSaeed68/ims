@@ -1,0 +1,106 @@
+//*
+|
+|
+|***CONTROLLER NAME***
+|    line no
+|  FUNCTION NAME _______
+|
+|
+*//
+
+//*
+|
+|***ORDER CONTROLLER***
+|   line no 237
+|Fun auto_po_code()|| 
+|
+|
+//     $this->db->select_max('po_code');
+                // $result = $this->db->get('purchase_order')->result_array();
+               
+                $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('purchase_order')->row('po_code');
+                $po_code=$row;
+               if($po_code->num_rows()>0)
+                  {
+                      // $po_code=substr($po_code,8,3);
+                      $pieces = explode(' ', $po_code);
+                      $last_word = array_pop($pieces);
+                      $last_word=(int)$last_word;
+                  }
+               else
+                  {
+                    $last_word=0;
+                  }
+              // foreach($result as $result){
+              //     $po_code=$result['po_code'];
+              //     $data_code_array = explode("-", $po_code); 
+              //     $po_code=$data_code_array[1]+1;
+              // }
+             // echo $last_word;
+              
+              ?>
+            
+                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").' '.$last_word+=1;?>" class="form-control"  id="po_code">
+              
+             <?php 
+                  ?>
+|                  
+|                  <?php
+|                
+*//
+
+
+//*
+|
+|
+|***sale_order_controller***
+|    line no 191
+|  FUNCTION NAME auto_so_code
+|
+|
+
+               $this->db->select_max('so_code');
+                $result = $this->db->get('sale_order')->result_array();
+                $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('sale_order')->row();
+                
+                $so_code=$row->so_code;
+                $so_code=substr($so_code,9,3);
+                
+                ?>
+                <input type="text" readonly required="" name="so_code" value="<?='SO'.date("dny").'-'.$so_code+=1?>" class="form-control"  id="so_code">
+               <?php 
+                    ?>
+                    
+                    <?php
+					//$this->output->enable_profiler(TRUE);
+
+*//
+
+
+//*
+|
+|
+|***INVOICE_CONTROLLER***
+|    line no 175
+|  auto_po_invoice
+
+
+            $this->db->select_max('invoice_code');  //Select Max value From invoice 
+            $result = $this->db->get('po_invoice')->result_array(); 
+
+            $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('po_invoice')->row();
+        // foreach($result as $result){
+        //     $invoice_code=$result['invoice_code'];
+        //     } 
+            $invoice_code=$row->invoice_code;
+            $invoice_code=substr($invoice_code,11,3);
+        ?>
+        <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").'-'.$invoice_code+=1?>" class="form-control"  id="invoice_code">
+      
+       <?php 
+            ?>
+            
+            <?php
+|
+|
+*//

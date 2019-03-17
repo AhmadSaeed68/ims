@@ -1,3 +1,8 @@
+//*
+
+ Logical   Query That apply in this system
+*//
+
 24/10/18
 -----
 sale_order
@@ -34,3 +39,13 @@ ON DUPLICATE KEY UPDATE `Date` = VALUES(`Date`)
                     INSERT INTO `user_track` (id, `ip_address`)
 VALUES ('2', '2013-03-23'), ('4', '2013-03-19'), ('5', '2011-08-09')
 ON DUPLICATE KEY UPDATE `ip_address` = VALUES(`ip_address`)
+
+//*
+
+    Select Last string character 
+    **  it use in auto code Generatot **
+*//
+    $string = "INPO051218 11";
+    $pieces = explode(' ', $string);
+    $last_word = array_pop($pieces);
+    echo $last_word;
