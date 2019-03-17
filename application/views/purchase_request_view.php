@@ -19,6 +19,7 @@
                             <th>ID</th>
                             <th>Item Name</th>
                             <th>Dept</th>
+                            <th>Qty</th>
                             <th>status</th>
                             <th>review</th>
                             <th>date</th>
@@ -139,9 +140,10 @@
 <script src="<?php echo base_url(); ?>assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.js"></script>
       <!-- jQuery -->
-      <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
+      <script src="<?php echo base_url(); ?>assets/css/chosen.jquery.js"></script>
       <script src="<?php echo base_url(); ?>assets/vendorselect2.min.js"></script>
-
+        <script src="<?php echo base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <link href="<?php echo base_url(); ?>assets/css/chosen.css" rel="stylesheet">
 <script type="text/javascript">
 var table;
 $(document).ready(function(){
@@ -331,5 +333,8 @@ $(document).ready(function(){
          });
 
 });
+ jQuery(document).ready(function () {
+        jQuery(".chosen").chosen();
+    });
 </script>
 <?php include_once "login/footer.php";?>

@@ -21,7 +21,7 @@
                             <th>reviews</th>
                             
                             <th>Actions</th>
-                            <
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -63,7 +63,20 @@
                             </td>
                             </form>
                         </tr>
+                       <script>
+                       var item_code = <?=json_encode($data->item_code);?>;
+                       $.ajax({
+                    url:"<?php echo base_url() ?>purchase_request_controller/item_from_stock",
+                    method:"POST",
+                    data:{item_code:item_code},
+                    success:function(data)
+                    {
+                    
+                     console.log(data);
+                }
+                })
                        
+                       </script>
         <?php endforeach;?>
                     </tbody>
                 </table>
@@ -98,8 +111,7 @@ var table;
 $(document).ready(function(){
     //datatable
     table = $('#table').DataTable({
-        "processing":true,
-            "serverSide":true,
+       
         });
 
             $(document).on('submit','#dynamic_field', function(event){
@@ -146,6 +158,11 @@ $(document).ready(function(){
           
            
          });
-                });
+
+
+
+              
+
+    });
 </script>
 <?php include_once "login/footer.php";?>
