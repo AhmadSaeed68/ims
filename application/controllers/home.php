@@ -21,6 +21,11 @@ class Home extends CI_Controller {
 		$result=$this->home_model->view_invoice();
 print_r($result);
 	}
+
+	function test()
+	{
+		$this->load->view('test_view');
+	}
 }
 
 /* End of file home.php */

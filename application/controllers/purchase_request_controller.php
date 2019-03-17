@@ -22,6 +22,7 @@
               $row[] = $query->id;
               $row[] = $query->item_code;
               $row[] = $query->department_name;
+              $row[] = $query->item_qty;
            
               
               // query::DATE
@@ -90,7 +91,7 @@
 
            //Load ::HTML
            ?>
-           <select class="form-control" id="department" name="department[]">
+           <select class="form-control chosen" id="department" name="department[]">
             <?php
           foreach($department as $each)
               {
@@ -153,6 +154,24 @@
            $this->purchase_request_model->delete_request(); 
         }
 
+
+            //GEt Item_qty from Stock
+
+            function item_from_stock()
+            {
+                
+               $item_code= $this->input->post('item_code');
+              
+               $data=$this->db
+        					->select('item_qty')
+        					->from('items_in_stock')
+        					->where('item_code',$item_code)
+        					->get('');
+        					return $data->result_array();
+              
+            }
+
+
         function __construct() // Construct Function check sessison else Redirect
         {
             parent::__construct();
@@ -162,5 +181,7 @@
                 redirect('login');
             }
         }
+
+    
     }
 ?>

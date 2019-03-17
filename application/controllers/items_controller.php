@@ -107,6 +107,14 @@
 
                         //Check if Session else :: Redirect Login Page
 
+                    public function select2($booksClue, $column)
+                    {
+                              $booksClue = $this->input->get('booksClue');
+                              $this->load->model('items_model');
+                    $data_book = $this->items_model->select2($booksClue, 'category_name');
+                    echo json_encode($data_book);
+                    }
+
  function __construct() 
  {
         parent::__construct();
