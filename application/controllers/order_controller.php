@@ -235,24 +235,26 @@
 
                 function auto_po_code()
                 {
-                    $this->db->select_max('po_code');
-                $result = $this->db->get('purchase_order')->result_array();
-                $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('purchase_order')->row();
-                $po_code=$row->po_code;
-                $po_code=substr($po_code,9,3);
-                // foreach($result as $result){
-                //     $po_code=$result['po_code'];
-                //     $data_code_array = explode("-", $po_code); 
-                //     $po_code=$data_code_array[1]+1;
-                // }
-                ?>
-
-                <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").'-'.$po_code+=1;?>" class="form-control"  id="po_code">
-               <?php 
-                    ?>
-                    
-                    <?php
-                }
+               $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order')->row();
+              $id= $row->id;
+              if($id==0)
+              {
+               $last_word=$id;
+              }else
+              {
+                $row=$this->db->select('po_code')->where('id',$id)->get('purchase_order')->row();
+                $po_code= $row->po_code;
+                $pieces = explode(' ', $po_code);
+                      $last_word = array_pop($pieces);
+                      $last_word=(int)$last_word;
+                      
+              } 
+              ?>
+            
+              <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").' '.$last_word+=1;?>" class="form-control"  id="po_code">
+            
+           <?php 
+              }
 
 
                 // function data_search()

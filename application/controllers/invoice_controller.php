@@ -171,24 +171,26 @@
 
           function auto_po_invoice()    
           { 
-
-            $this->db->select_max('invoice_code');  //Select Max value From invoice 
-            $result = $this->db->get('po_invoice')->result_array(); 
-
-            $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('po_invoice')->row();
-        // foreach($result as $result){
-        //     $invoice_code=$result['invoice_code'];
-        //     } 
-            $invoice_code=$row->invoice_code;
-            $invoice_code=substr($invoice_code,11,3);
-        ?>
-        <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").'-'.$invoice_code+=1?>" class="form-control"  id="invoice_code">
-      
-       <?php 
-            ?>
+            $row= $this->db->query('SELECT COALESCE(MAX(id), 0) as id FROM po_invoice')->row();
+              $id= $row->id;
+              if($id==0)
+              {
+               $last_word=$id;
+              }else
+              {
+                $row=$this->db->select('invoice_code')->where('id',$id)->get('po_invoice')->row();
+                $invoice_code= $row->invoice_code;
+                $pieces = explode(' ', $invoice_code);
+                      $last_word = array_pop($pieces);
+                      $last_word=(int)$last_word;
+                      
+              
+              }
+              ?>
+              <input type="text" readonly required="" name="invoice_code" value="<?='INPO'.date("dny").' '.$last_word+=1?>" class="form-control"  id="invoice_code">
             
-            <?php
-        }
+             <?php 
+          }
 
           function export_csv()
           {

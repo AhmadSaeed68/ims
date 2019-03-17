@@ -187,22 +187,25 @@
 		}
 
 														//Auto SO_code
-		function auto_so_code(){
-                $this->db->select_max('so_code');
-                $result = $this->db->get('sale_order')->result_array();
-                $row=$this->db->select('*')->order_by('id',"desc")->limit(1)->get('sale_order')->row();
-                
-                $so_code=$row->so_code;
-                $so_code=substr($so_code,9,3);
-                
-                ?>
-                <input type="text" readonly required="" name="so_code" value="<?='SO'.date("dny").'-'.$so_code+=1?>" class="form-control"  id="so_code">
-               <?php 
-                    ?>
-                    
-                    <?php
-					//$this->output->enable_profiler(TRUE);
-                }
+		function auto_so_code()
+		{
+			$row= $this->db->query('SELECT COALESCE(MAX(id), 0) as id FROM sale_order')->row();
+              $id= $row->id;
+              if($id==0)
+              {
+               $last_word=$id;
+              }else
+              {
+				$row=$this->db->select('so_code')->where('id',$id)->get('sale_order')->row();
+				$so_code= $row->so_code;
+				$pieces = explode(' ', $so_code);
+                $last_word = array_pop($pieces);
+                $last_word=(int)$last_word;
+			  }
+			  ?>
+			  <input type="text" readonly required="" name="so_code" value="<?='SO'.date("dny").' '.$last_word+=1?>" class="form-control"  id="so_code">
+			 <?php 
+        }
 
               function export_csv(){
                    $filename = 'Sale-Order'.date('Ymd').'.csv'; 
