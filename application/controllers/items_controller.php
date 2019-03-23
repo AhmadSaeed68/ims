@@ -115,6 +115,15 @@
                     echo json_encode($data_book);
                     }
 
+
+                    function update_item_with_input()
+                    {
+                        $this->load->model('items_model');
+                        $this->items_model->update_item_with_input();
+                       echo $item_name=$this->input->post('item_name');
+                       echo $id=$this->input->post('id');
+                    }
+
  function __construct() 
  {
         parent::__construct();

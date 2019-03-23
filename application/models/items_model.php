@@ -78,5 +78,15 @@
     return $this->db->get()->result_array();
 }
 
+    function update_item_with_input()
+    {
+         $item_name=$this->input->post('item_name');
+         $id=$this->input->post('id');
+         $data= $this->db
+                ->where('item_id', $id)
+                ->set('item_name', $item_name)
+                ->update('items');
+    }
+
     }
 ?>

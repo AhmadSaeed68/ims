@@ -1,263 +1,145 @@
 <?php include_once "login/header.php";
-
 $id=$this->session->userdata('user_id');
-
 echo $id->id;
-
 ?>
-
-
-
 <div class="">
-
-<!-- <div class='jumbotron'>
-
-<h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
-
-
-
-</div> -->
-
-<div class="card-header w3-center"> </div>
-
-<div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
-
-<div class="panel panel-default">
-
-<div class="panel-heading w3-center w3-padding-24">
-
-   <span class=" fa fa-sitemap w3-text-green fa-2x">
-       Items Detail
-   </span>
-
-    </div>
-
-    <!-- Pannel tag -->
-
+    <!-- <div class='jumbotron'>
+        <h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
+    </div> -->
+    <div class="card-header w3-center"> </div>
+    <div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
+    <div class="panel panel-default">
+        <div class="panel-heading w3-center w3-padding-24">
+            <span class=" fa fa-sitemap w3-text-green fa-2x">
+                Items Detail
+            </span>
+        </div>
+        <!-- Pannel tag -->
         <div class="panel-body">
-
-        <table id="brand_data" class="table table-bordered table-striped">
-
-<thead>
-
-    <tr>
-
-        <th>
-
-            <i class="glyphicon glyphicon-bookmark"></i>item Id
-
-        </th>
-
-        <th>
-
-            <i class="glyphicon glyphicon-user w3-text-blue"></i>category ID
-
-        </th>
-
-        <th>
-
-            <i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name
-
-        </th>
-
-        <th>
-
-            <i class="fa fa-list-alt w3-text-red"></i>Item Name
-
-        </th>
-
-        <th>
-
-            <i class="fa fa-barcode w3-text-blue"></i>item Code
-
-        </th>
-
-        <th>
-
-            <i class="fa fa-newspaper-o w3-text-green"></i>Item Description
-
-        </th>
-
-
-
-        <th>
-
-            <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
-
-        </th>
-
-        <!-- <th>
-
-            <i class="fa fa-heartbeat w3-text-orange"></i>Item Quantity
-
-        </th> -->
-
-        <th>
-
-            <i class="fa fa-scissors w3-text-orange"></i>Action
-
-        </th>
-
-
-    
-
-    
-
-    </tr>
-
-
-
-</thead>
-
-    <tbody>
-
-        <?php 
-
-        foreach($item as $item):
-
-        ?>
-
-    <tr>
-
-        <td>
-
-            <?= $item['item_id']?>
-
-        </td>
-
-        <td>
-
-            <?= $item['category_id']?>
-
-        </td>
-
-        <td>
-
-            <?= $item['category_name']?>
-
-        </td>
-
-        <td>
-
-            <?=$item['item_name']?>
-
-        </td>
-
-        <td>
-
-            <?=$item['item_code']?>
-
-        </td>
-
-        <td>
-
-            <?=$item['item_description']?>
-
-        </td>
-
-        
-
-        <td>
-<?php $status=$item['item_status']; if($status=="active"){
-                                            echo "<span class='w3-green'>Active</span>";
-                                            }else{
-                                            echo "<span class='w3-red'>Dective</span>";
-                                        }?>
-            
-        </td>
-
-        <!-- <td>
-
-            <?php //$item['item_qty']?>
-
-        </td> -->
- <td> 
-<?php 
-                                            if ($id->type=='super_user' OR $id->type=='user') {
-                                                echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
-                                            }
-                                            else{
-                                             ?>
-    <div class="dropdown">
-                                        <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
-                                        <span class="caret"></span></button>
-                                        <ul class="dropdown-menu">
-
-                                            <li>  <input type="button" class="w3-btn w3-block w3-orange edit" value="Edit" id="<?=$item['item_id']?>"></li>
-                                            <li> 
-                                                <button class="w3-button w3-block w3-red delete" id="<?=$item['item_id']?>" data-status="<?=$item['item_status']?>">Change Status</button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                <?php } ?>
-                                </td>
-        
-
-    </tr>
-
-        <?php endforeach;?>
-
-    </tbody>
-
-        </table>
-
+            <table id="brand_data" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            <i class="glyphicon glyphicon-bookmark"></i>item Id
+                        </th>
+                        <th>
+                            <i class="glyphicon glyphicon-user w3-text-blue"></i>category ID
+                        </th>
+                        <th>
+                            <i class="glyphicon glyphicon-open-file w3-text-red"></i>Category Name
+                        </th>
+                        <th>
+                            <i class="fa fa-list-alt w3-text-red"></i>Item Name
+                        </th>
+                        <th>
+                            <i class="fa fa-barcode w3-text-blue"></i>item Code
+                        </th>
+                        <th>
+                            <i class="fa fa-newspaper-o w3-text-green"></i>Item Description
+                        </th>
+                        <th>
+                            <i class="fa fa-heartbeat w3-text-orange"></i>Item Status
+                        </th>
+                        <!-- <th>
+                            <i class="fa fa-heartbeat w3-text-orange"></i>Item Quantity
+                        </th> -->
+                        <th>
+                            <i class="fa fa-scissors w3-text-orange"></i>Action
+                        </th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach($item as $item):
+                    ?>
+                    <tr>
+                        <td>
+                            <?= $item['item_id']?>
+                        </td>
+                        <td>
+                            <?= $item['category_id']?>
+                        </td>
+                        <td>
+                            <?= $item['category_name']?>
+                        </td>
+                        <td data-editable id="<?= $item['item_id']?>"><?=$item['item_name']?></td>
+                        <td>
+                            <?=$item['item_code']?>
+                        </td>
+                        <td>
+                            <?=$item['item_description']?>
+                        </td>
+                        
+                        <td>
+                            <?php $status=$item['item_status']; if($status=="active"){
+                            echo "<span class='w3-green'>Active</span>";
+                            }else{
+                            echo "<span class='w3-red'>Dective</span>";
+                            }?>
+                            
+                        </td>
+                        <!-- <td>
+                            <?php //$item['item_qty']?>
+                        </td> -->
+                        <td>
+                            <?php
+                            if ($id->type=='super_user' OR $id->type=='user') {
+                            echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                            }
+                            else{
+                            ?>
+                            <div class="dropdown">
+                                <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <li>  <input type="button" class="w3-btn w3-block w3-orange edit" value="Edit" id="<?=$item['item_id']?>"></li>
+                                    <li>
+                                        <button class="w3-button w3-block w3-red delete" id="<?=$item['item_id']?>" data-status="<?=$item['item_status']?>">Change Status</button>
+                                    </li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+                        </td>
+                        
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table>
+        </div>
     </div>
-
 </div>
-
-</div>
-
-
-
 <!-- view Modal -->
-
-    <div class="modal fade" id="phoneModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-
+<div class="modal fade" id="phoneModal" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
-
         <div class="modal-content">
-
-        <div class="modal-header">
-
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-
-            <h4 class="modal-title" id="myModalLabel"></h4>
-
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <!-- Place to print the fetched phone -->
+                <div id="phone_result"></div>
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
-
-        <div class="modal-body">
-
-            <!-- Place to print the fetched phone -->
-
-            <div id="phone_result"></div>
-
-        </div>
-
-        <div class="modal-footer">
-
-        
-
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
-
-        </div>
-
     </div>
-
-    </div>
+</div>
 <!-- jQuery JS CDN -->
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> 
-    <!-- jQuery DataTables JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
- <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<!-- jQuery DataTables JS CDN -->
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<!-- Bootstrap JS CDN -->
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+<!-- Bootstrap JS CDN -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
     <script type="text/javascript">
 
@@ -443,7 +325,43 @@ echo $id->id;
                 }
     });
   })
+  $('body').on('click', '[data-editable]', function(){
   
+  var $el = $(this);
+              
+  var $input = $('<input/>').val( $el.text() );
+  $el.replaceWith( $input );
+  
+  var save = function(){
+    var $p = $('<p data-editable />').text( $input.val() );
+
+    $input.replaceWith( $p );
+    var item_name=$input.val();
+var id= $el.attr('id') ;
+
+   $.ajax({
+   		type: "POST",
+           url: "<?php echo base_url()?>items_controller/update_item_with_input",
+			  data:{item_name:item_name,id:id},
+			 
+			  success: function(data){
+			     // $("#res").text(data);
+			     alert(data);
+			  }	  
+   });
+  };
+ 
+  /**
+    We're defining the callback with `one`, because we know that
+    the element will be gone just after that, and we don't want 
+    any callbacks leftovers take memory. 
+    Next time `p` turns into `input` this single callback 
+    will be applied again.
+  */
+  $input.one('blur', save).focus();
+
+  
+});
   $('#phoneModal').on('hidden.bs.modal', function() {
     $('.category_search').select2('destroy');
   })
