@@ -1,4 +1,5 @@
-<?php foreach($records as $data):?>
+<?php foreach($records as $data):?><?php  endforeach;
+$output = ''; ?>
 <form id="update_form">
                     <div class="row">
                         <div class="col-sm-8">
@@ -22,5 +23,4 @@
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 
 </div>
-<?php  endforeach;
-$output = '';
+</form>

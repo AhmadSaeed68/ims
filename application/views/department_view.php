@@ -6,7 +6,7 @@
             <span class="input-group-addon"> <button type="button" class="btn btn-outline btn-primary btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal">Add Department</button></span>
             <input type="text" class="form-control" placeholder="Search...." name="dept_search" id="dept_search">
             <span class="input-group-btn">
-            <button type="button" id="btn-filter" class="btn btn-primary w3-hover-teal"><i class="fa fa-search-plus"></i></button>
+            <button  type="button"  id="btn-filter" class="btn btn-primary w3-hover-teal"><i class="fa fa-search-plus"></i></button>
             </span>
             <span class="input-group-btn">
             <button type="button" id="btn-reset" class="btn btn-default w3-hover-green">Reset</button>
@@ -260,6 +260,32 @@ $('#add_dept').click(function(){
         //End AJAX function
 });
 
+
+ $(document).on('click','.delete',function(event){
+
+        var id = $(this).attr('id');
+      
+    $.ajax({
+            url: "<?php echo base_url() ?>department_controller/delete",
+            method: "POST",
+            data: {id:id},
+            success: function(data)
+            {
+            
+           swal({
+                                    title: "🛑 Deleted",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
+                                
+                                  table.ajax.reload();
+            }
+        });
+        //Start AJAX function
+       
+        //End AJAX function
+});
+
     $(document).on('submit','#form_fields', function(event){
     event.preventDefault();
     $('#submit').attr('disabled', 'disabled');
@@ -274,13 +300,16 @@ $('#add_dept').click(function(){
     
     $('#submit').attr('disabled', false);
     swal({
-    title: "Good job!",
-    text: "Department add Success",
+    title: "✅ New Department Add",
+    text: "",
     icon: "success",
     button: "OK",
     });
     table.ajax.reload();
     }
+    });
+  
+
     });
     $(document).on('submit','#update_form',function(event){
                         event.preventDefault();
@@ -292,15 +321,17 @@ $('#add_dept').click(function(){
                                 data:form_data,
                                 success:function(data)
                                 {
-                               
-                                $('#dept_Modal').modal('hide');
+                                   
+                               swal({
+                                    title: "✅ Update Success",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
+                                $('.modal').modal('hide');
                                   table.ajax.reload();
                                 }
                             });
                     });
-
-    });
-
     
     </script>
     <?php include_once "login/footer.php";?>

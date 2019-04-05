@@ -123,9 +123,18 @@ class Department_model extends CI_Model {
      function update_department(){
 
         $id= $this->input->post('id');
-        $department= $this->input->post('department');
+       $department= $this->input->post('department');
 
-      $this->db->where('id',$id)->update('department', $department);
+      $this->db->where('id',$id)->update('department', ['department'=>$department]);
+
+
+    }
+     function delete(){
+
+        $id= $this->input->post('id');
+       
+
+      $this->db->where('id',$id)->delete('department');
 
 
     }

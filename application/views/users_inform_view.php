@@ -57,7 +57,7 @@
                                         <span class="caret"></span></button>
                                         <ul class="dropdown-menu">
 
-                                            <li><input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['id']; ?>"></li>
+                                            <li><input type="button" class="w3-button w3-block w3-teal delete" value="Delete" id="<?php echo $data['id']; ?>"></li>
                                             
                                         </ul>
                                     </div>
@@ -216,14 +216,47 @@
 		              	method:"POST",
 		              	data:form_data,
 		              	success:function(data){
-		              		alert(data);
+                      swal({
+                                    title: "✅ New Customer Added",
+                                    text: data,
+                                    icon: "success",
+                                    });
+		              	
 		              		$('#modal_action').modal('hide');
+                      window.location = "<?php echo base_url() ?>users_inform_controller/user_detail";
 		              	}
 		              });
               });
 
+
              
            		});
+
+             $(document).on('click','.delete',function(event){
+
+        var id = $(this).attr('id');
+      
+    $.ajax({
+            url: "<?php echo base_url() ?>users_inform_controller/delete",
+            method: "POST",
+            data: {id:id},
+            success: function(data)
+            {
+              console.log(data);
+            
+           swal({
+                                    title: "🛑 Deleted",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
+                                
+                                 window.location = "<?php echo base_url() ?>users_inform_controller/user_detail";
+            }
+        });
+        //Start AJAX function
+       
+        //End AJAX function
+});
     		  
     	});
 

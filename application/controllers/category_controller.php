@@ -34,15 +34,15 @@
 
 
 
-    function update_category($category_id) // update category
+    function update_category() // update category
     {
-        $post=$this->input->post();
-        unset($post['submit']); //Remover "submit" From input fields
+        // $post=$this->input->post();
+        // unset($post['submit']); //Remover "submit" From input fields
         $this->load->model('category_model');
 
-        $this->category_model->update_category($category_id,$post);
-        $this->load->library('../controllers/prd');
-        $this->prd->category();
+        $this->category_model->update_category();
+        // $this->load->library('../controllers/prd');
+        // $this->prd->category();
 
     }
 

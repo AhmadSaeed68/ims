@@ -181,8 +181,7 @@
           success:  function(feedback){
             $('#feedback1').html(feedback);
             $('#add_category').modal('show');
-              datatable.ajax.reload();
-            // return false;
+            window.location = "<?php echo base_url() ?>category_controller/category";
             
           }
         });
@@ -232,6 +231,34 @@
           });
       });  
 
+            //Update Category
+          $(document).on('submit','#update_category',function(){
+            
+            event.preventDefault();
+                $('#submit').attr('disabled', 'disabled');
+                var form_data = $(this).serialize();
+
+                        $.ajax({
+                            url:"<?php echo base_url() ?>category_controller/update_category",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data){
+
+                                //$('#dynamic_field')[0].reset();
+                                swal({
+                                    title: "✅ Category Updated",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
+                                $('#Modal').modal('hide');
+                                
+                                $('#submit').attr('disabled', false);
+                                //table.ajax.reload();
+                                 window.location = "<?php echo base_url() ?>category_controller/category";
+                            }
+                        });
+        });
+
       $(document).on('click','.delete',function(){
             var category_id=$(this).attr('id');
             if(confirm("Are You sure to delete this")){
@@ -243,7 +270,7 @@
                 success:function(data)
                 {
                     
-                    dataTable.ajax.reload();
+                  window.location = "<?php echo base_url() ?>category_controller/category";
                     
                 }
             });

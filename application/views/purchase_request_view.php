@@ -3,7 +3,7 @@
 
     <!-- /.row -->
 <div class="row ">
- <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Department</button>
+ <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Make Request</button>
     <div class="col-lg-12">
     
         <div class="panel panel-default">
@@ -309,7 +309,7 @@ $(document).ready(function(){
                            
                             
                             $.ajax({
-                    url:"<?php echo base_url() ?>purchase_request_controller/delete_request",
+                    url:"<?php echo base_url() ?>purchase_request_controller/delete_request_1",
                     method:"POST",
                     data:{id:id},
                     success:function(data)

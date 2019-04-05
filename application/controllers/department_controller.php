@@ -88,11 +88,18 @@
 
         public function update_department()
         {
+          
             
             $this->load->model('department_model');
             $this->department_model->update_department();
         }
-
+ public function delete()
+        {
+          
+            
+            $this->load->model('department_model');
+            $this->department_model->delete();
+        }
         function __construct() 
         {
        parent::__construct();

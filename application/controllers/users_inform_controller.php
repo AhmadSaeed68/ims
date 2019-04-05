@@ -22,6 +22,14 @@
 
 			}
 
+			public function delete()
+			{
+				 $id= $this->input->post('id');
+       
+
+      $this->db->where('id',$id)->delete('user_inform');
+			}
+
 			 function __construct() {
         parent::__construct();
         if(!$this->session->userdata('user_id')){

@@ -43,5 +43,5 @@
 
 	
 
-<?php $this->load->view('profile_header/prf_footer.php')?>
+<?php //$this->load->view('profile_header/prf_footer.php')?>
 

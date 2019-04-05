@@ -5,7 +5,7 @@
 
         public function index()
         {
-          
+         
             $this->load->view('purchase_request_view');
         }
 
@@ -23,17 +23,20 @@
               $row[] = $query->item_code;
               $row[] = $query->department_name;
               $row[] = $query->item_qty;
-           
+             
               
               // query::DATE
-              if($query->status=="pending") //CHECK STATUS :: AND DISPLAY
+              if($query->status == "pending") //CHECK STATUS :: AND DISPLAY
               {
-               $row[]="<span class='w3-text-green'>Pending</span>";
+               $row[]="<span class='w3-text-deep-orange'>Pending</span>";
                                                                
                }
-               else
+               elseif($query->status == "success")
                {
-               $row[]= "<span class='w3-red'>Dective</span>";
+               $row[]= "<span class='w3-text-green fa fa-check-circle fa-2x'> Success </span>";
+               }else
+               {
+                $row[]= "<span class='w3-text-orange fa fa-remove'> Not Available in Stock </span>";
                }
              
                if($query->review=="")
@@ -42,7 +45,7 @@
                }
                else
                {
-                 $row[]= "<span class='w3-green>".$row->review."</span>";
+                 $row[]= "<span class='w3-green'>".$query->review."</span>";
                }
                $row[] = $query->date;
                
@@ -56,9 +59,7 @@
                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                              <span class="caret"></span></button>
                              <ul class="dropdown-menu">
-                               <li>
-                                 <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="'.$query->id.'">
-                               </li>
+                               
                                    <li>
                                      <button type="submit" class="w3-button w3-block w3-red delete" id="'.$query->id.'">Delete</button>
                                    </li>
@@ -144,14 +145,21 @@
         {
             $this->load->model('purchase_request_model');
             $data=$this->purchase_request_model->request_action();
-            
-            $this->load->view('request_action_view',['data'=>$data]);
+            $data1=$this->purchase_request_model->get_Item_Qty();
+        //    print_r($data1);
+            $this->load->view('request_action_view',compact('data','data1'));
         }
 
-        public function delete_request()
+        public function action_on_request()
+        {
+            $this->load->model('purchase_request_model');
+            $this->purchase_request_model->action_on_request();
+        }
+
+        public function delete_request_1()
         {
            $this->load->model('purchase_request_model');
-           $this->purchase_request_model->delete_request(); 
+           $this->purchase_request_model->delete_request_1(); 
         }
 
 
@@ -169,6 +177,21 @@
         					->get('');
         					return $data->result_array();
               
+            }
+
+            function item_code_value()
+            {
+                $this->load->model('purchase_request_model');
+                $item_code=$this->input->post('item_code_value');
+                for($count = 0; $count < count($item_code); $count++)
+                {
+                    
+                    $data = $this->purchase_request_model->item_code_value($item_code[$count]); 
+                    $out[] = $data;
+            
+                }
+                echo json_encode($out);
+               
             }
 
 

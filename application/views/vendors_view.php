@@ -29,7 +29,7 @@ include_once "login/header.php";
 								
 							
 								<th><span class="fa fa-eye w3-text-blue"></span>status</th>
-								<th><span class="fa fa-eye w3-text-blue"></span>View</th>
+								<!-- <th><span class="fa fa-eye w3-text-blue"></span>View</th> -->
 								<th>Action</th>
 							</tr>
 						</thead>
@@ -48,7 +48,7 @@ include_once "login/header.php";
                                             }else{
                                             echo "<span class='w3-red'>Dective</span>";
                                         }?></td>
-                             		<td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['id']?>"> View</a></span></td>
+                             		<!-- <td><span class="fa fa-eye w3-text-blue"><a class="view" id="<?=$data['id']?>"> View</a></span></td> -->
                              		
                              		
                              		
@@ -211,8 +211,13 @@ include_once "login/header.php";
 		              	method:"POST",
 		              	data:form_data,
 		              	success:function(data){
-		              		alert(data);
-		              		$('#modal_action').modal('hide');
+		              		 swal({
+                                    title: "✅ New Vendor Added",
+                                    text: data,
+                                    icon: "success",
+                                    });
+                                
+                                 window.location = "<?php echo base_url() ?>vendors_controller/vendors";
 		              	}
 		              });
               });
@@ -260,9 +265,15 @@ include_once "login/header.php";
             
                 success:function(data)
                 {
-                alert(data);
-                $('#Modal').modal('hide');
-                dataTable.ajax.reload();
+                swal({
+                                    title: "✅ Updated Successful",
+                                    text: data,
+                                    icon: "success",
+                                    });
+                                
+                                 window.location = "<?php echo base_url() ?>vendors_controller/vendors";
+                // $('#Modal').modal('hide');
+                
                 }
             });
     });
@@ -279,8 +290,13 @@ include_once "login/header.php";
 			data:{id:id, status:status, btn_action:btn_action},
 			success:function(data)
 			{
-			alert(data);
-			orderdataTable.ajax.reload();
+			swal({
+                                    title: "🛑 Status Changed",
+                                    text: data,
+                                    icon: "success",
+                                    });
+                                
+                                 window.location = "<?php echo base_url() ?>vendors_controller/vendors";
 			}
 			})
 			}

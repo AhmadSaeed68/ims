@@ -136,15 +136,144 @@
               return $query->result();
           }
 
-          public function delete_request()
+          public function action_on_request()
           {
+            
+               $id = $this->input->post('id');
+               $item_code = $this->input->post('item_code');
+               $item_qty = $this->input->post('item_qty');
+               $review = $this->input->post('review');
+
+               $data = array(
+                'review' => $review,
+                'status' => 'success',
+                'item_qty' => $item_qty
+               
+        );
+        
+            $q1 = $this->db->where('id', $id)
+           ->update('purchase_request', $data);
+           if($q1)
+           {
+           $q2= $this->db
+                    ->where('item_code',$item_code)
+                     
+                    ->set('item_qty', 'item_qty-'.$item_qty, FALSE)
+                    ->update('items_in_stock');
+           }
+
+           if(!$q1 and $q2)
+           {
+               echo "Some Error in QuerySystem";
+           }
+
+
+          }
+           public function delete_request_1()
+          {
+        
              $id=$this->input->post('id');
 
               $query=$this->db
               ->where('id',$id)
-                            ->delete('purchase_request');
+              ->delete('purchase_request');
+            //                 ->delete('purchase_request');
                             
-                            return $query;
+            //                 return $query;
+          }
+          public function delete_request()
+          {
+            $data = array(
+                'review' => 'Item Not Available in Stock',
+                'status' => 'item not available',
+                
+               
+        );
+             $id=$this->input->post('id');
+
+              $query=$this->db
+              ->where('id',$id)
+              ->update('purchase_request', $data);
+            //                 ->delete('purchase_request');
+                            
+            //                 return $query;
+          }
+
+          function get_Item_Qty()
+          {
+
+            $dept=$this->db
+                            ->select('item_code')
+                            ->from('purchase_request')
+                            ->get('')
+                          ->result_array();
+                       foreach($dept as $da)
+                       {
+                        
+                        $d[]= $da['item_code'];
+                       
+                  
+                       } 
+      $result = array_unique($d);
+
+                 $da=$this->db
+                            ->select('item_qty,item_code')
+                            ->from('items_in_stock')
+                            ->where_in('item_code',$result)
+                            ->get();
+                            return $da->result_array();
+                       
+                  
+                   
+          
+            
+               
+                    
+                      
+                    
+                        
+       
+        
+
+        //     $query=$this->db
+        // ->select('item_code')
+        // ->  get('purchase_request');
+           
+        // $data= $query->result_array();
+        // foreach($data as $data)
+        // {
+        //  $dat=$data['item_code']; 
+        //  $query=$this->db
+        // ->select('item_qty')
+        
+        // ->where('item_code',$dat[2])
+        // ->get('items_in_stock');
+        // return $query->result_array();
+        
+        // }
+        
+        // $temp = count($data);
+        // for($i=0; $i<$temp; $i++)
+        // {
+            
+        // }
+
+          }
+          function item_code_value($item_code)
+          {
+            $data=$this->db
+        					->select('item_qty,item_code')
+        					->from('items_in_stock')
+        					->where('item_code',$item_code)
+                            ->get('');
+                            if($data->num_rows() > 0){
+                                $data =  $data->row();
+                                return array("item_qty"=>$data->item_qty,"item_code"=>$data->item_code);
+                            }else{
+                                return array("item_qty"=>"0","item_code"=>"$item_code");
+                            }
+                            
+                            
           }
     }
         ?>

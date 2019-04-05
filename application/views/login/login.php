@@ -1,17 +1,18 @@
-<?php  include"header.php"; ?>
+<?php  include "header.php"; ?>
 <style>
 body,h1 {font-family: "Raleway", sans-serif}
 body, html {height: 100%}
 .bgimg {
-  background-image: url('http://www.fullhdwpp.com/wp-content/uploads/winter-mountains-with-snow-30_www.FullHDWpp.com_.jpg');
+  background-image: url('https://cdn.allwallpaper.in/wallpapers/2400x1350/1873/black-light-bulbs-minimalistic-2400x1350-wallpaper.jpg');
   min-height: 100%;
   background-position: center;
   background-size: cover;
 }
 </style>
-    <div class="container w3-padding-64" >
+<div class="bgimg">
+    <div class="container  w3-padding-64" >
          <div class="row">
-        <div class="col-sm-8 w3-card-4">
+        <div class="col-sm-8 w3-card-4 w3-white">
             <?php echo form_open('login/admin_login');?>
             <fieldset>
                 <legend class="w3-center" style="font-variant: small-caps;"><h1>Ims Login</h1></legend>
@@ -70,5 +71,5 @@ body, html {height: 100%}
             <?php echo form_close()?>
         </div>
     </div>
-    </div>
+    </div></div>
    

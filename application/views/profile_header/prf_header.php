@@ -27,14 +27,15 @@
       <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
         
         
-        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn"><span class="fa fa-gear"></span>
+        <!-- <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn"><span class="fa fa-gear"></span>
         Profile <i class="fa fa-caret-down"></i>
-      </a>
-      <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-        <a href="<?php echo base_url("profile/index")?>" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>My Profile</a>
+      </a> -->
+      <!-- <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+        <a href="" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>My Profile</a>
         <a class="w3-bar-item w3-button"></a>
         
-      </div>
+      </div> -->
+      <a href="<?php echo base_url("profile/index")?>" class="w3-bar-item w3-button"><span class="fa fa-gear w3-margin-right"></span> My Profile</a>
       <a href="<?php echo base_url("profile/profile_sales")?>" class="w3-bar-item w3-button"><span class="fa fa-money w3-text-black"></span> Sales Setting</a>
       <a href="<?php echo base_url("profile/profile_security")?>" class="w3-bar-item w3-button"><span class="fa fa-key w3-text-black"></span> Password & Security</a>
       <a href="<?php echo base_url("profile/profile_user_handle")?>" class="w3-bar-item w3-button"><span class="fa fa-group w3-text-black"></span> Users Handling</a>

@@ -1,5 +1,6 @@
 <?php include_once "login/header.php";?>
     <!-- /.row -->
+
     <div class="row ">
  
     <div class="col-lg-12">
@@ -25,22 +26,58 @@
                         </tr>
                     </thead>
                     <tbody>
+                   
         <?php $i=0; foreach($data as $data):$i++;?>
-                      
+                  
                          <tr class="odd gradeX">
                          <form id="dynamic_field">
                          <td><?=$i;?></td>
                             <td>
                             <?=$data->department_name?>
-                            <input type="hidden" readonly value="<?=$data->department_name?>"  name="department_name" id="department_name">
+                            <input type="hidden" readonly value="<?=$data->department_name ?>"  name="department_name" id="department_name">
+                            <input type="hidden" readonly value="<?=$data->id ?>"  name="id" id="id">
                             </td>
                             <td>
                             <?=$data->item_code?>
-                            <input type="hidden" readonly value="<?=$data->item_code?>"  name="item_code" id="item_code">
+                            
+                            <input type="hidden" readonly value="<?=$data->item_code?>" class="item_code"  name="item_code" id="item_code">
                             </td>
                             <td>
                             <input type="number"  value="<?=$data->item_qty?>"  name="item_qty" id="item_qty">
-                            <p class="w3-text-red">Avail Qty: 32</p>
+                            <p class="w3-text-red">Avail Qty: <span id="<?=$data->item_code?>"><?php 
+                            // var_dump($data1);
+                            // $print_warn = 0;
+                            // foreach($data1 as $da){
+                            //     if($print_warn == 0)
+                            //     if($da['item_code'] == $data->item_code){
+                            //         echo $da['item_qty'];
+                            //     } else {
+                            //         echo "Qty not Avail";
+                            //     }
+
+                            //     $print_warn = 1;
+                            // }
+                            //   
+                            foreach($data1 as $da)
+                            {}
+                                if($data->item_code==$da['item_code'])
+                                {
+                                    echo $da['item_qty'];
+                                }
+                                else
+                                {
+                                    echo "Not";
+                                }
+                            
+
+                            ?></span>
+                                <?php
+                                // foreach($data1 as $dat)
+                                // {
+                                //     echo $dat['item_qty'];
+                                // }
+                                ?>
+                            </p>
                             </td>
                             <td>
                             <textarea required  value="test" name="review" id="review"><?= $data->review?></textarea> 
@@ -74,7 +111,7 @@
                     
                      console.log(data);
                 }
-                })
+                });
                        
                        </script>
         <?php endforeach;?>
@@ -87,6 +124,7 @@
         </div>
         <!-- /.panel -->
     </div>
+    
     <!-- /.col-lg-12 -->
 </div>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -118,14 +156,27 @@ $(document).ready(function(){
                 event.preventDefault();
                
                 var form_data = $(this).serialize();
-                alert(form_data);
+                $.ajax({
+                            url:"<?php echo base_url() ?>purchase_request_controller/action_on_request",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data){
+                               
+                              table.ajax.reload();
+                              swal({
+                                    title: "Items assign to Dept",
+                                    text: "Thanks to response",
+                                    icon: "success",
+                                    });
+                            }
+                        });
                 
                 });
                 $(document).on('click', '.delete', function(){
                     var id = $(this).attr("id");
                                             swal({
-                        title: "Are you sure?",
-                        text: "Once deleted, you will not be able to recover this imaginary file!",
+                        title: "Items not Avail in Stock. Are You Sure to send req in Stock Shortage?",
+                        text: "After This you will make Purchase ORDER Manually",
                         icon: "warning",
                         buttons: true,
                         dangerMode: true,
@@ -141,8 +192,8 @@ $(document).ready(function(){
                     data:{id:id},
                     success:function(data)
                     {
+                        window.location = "<?php echo base_url() ?>purchase_request_controller/request_action";
                     
-                     table.ajax.reload();
                 }
                 })
                             swal("Poof! Your imaginary file has been deleted!", {
@@ -160,8 +211,26 @@ $(document).ready(function(){
          });
 
 
-
-              
+var item_code = $('.item_code');
+var item_code_value = [];
+   $(item_code).each(function(){
+    item_code_value.push($(this).val());
+   });
+   $.ajax({
+    url:"<?php echo base_url() ?>purchase_request_controller/item_code_value",
+    method:"POST",
+//    dataType:"json"
+    data:{item_code_value:item_code_value},
+   
+    success:function(data)
+    {
+     //   console.log(data);
+        //console.log("1");
+             $.each(data,function(index, value){
+               //  console.log('My array has at position ' + index + ', this value: ' + value);
+             });
+    }
+   })     
 
     });
 </script>

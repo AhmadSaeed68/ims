@@ -1,18 +1,15 @@
 <?php foreach($data as $row){
 ?>
-<div>
-   
-    
-</div>
-<div class="row">
+
+
     <?php //echo form_open("",['class'=>'form-vertical update_item','id'=>'update_item_form']);?>
     <form class="update_item" id="update_item_form">
         <div class="col-sm-6">
             <div class="form-row">
                 
-                
-                <?php echo form_hidden(['name'=>'id','placeholder'=>'User ID:',
-                'class'=>'form-control','disabled'=>'true','id'=>'item_id','value'=> set_value('title',$row['item_id'])])?>
+               <input type="hidden" id="item_id" name="item_id" value="<?= $row['item_id']; ?>">
+                <?php  form_hidden(['name'=>'id',
+                'class'=>'form-control','id'=>'item_id','value'=> set_value('title',$row['item_id'])])?>
                 
                 <div class="form-group col-md-4">
                     <label for="pwd">category Id:</label>
@@ -58,7 +55,7 @@
                 
             </div>
         </div>
-    </div>
+    
     
     
     

@@ -19,12 +19,24 @@
         }
 
 
-        function update_category($category_id,Array $post)
+        function update_category()
         {
             
-            return $this->db
-                            ->where('category_id',$category_id)
-                            ->update('category',$post);
+         $category_id = $this->input->post('category_id');
+         $user_id =  $this->input->post('user_id');
+       
+           $data1=array(
+
+             'category_name'=>$this->input->post('category_name'),
+             'category_status'=>$this->input->post('category_status'),
+             );
+
+           
+
+           $this->db->where('category_id', $category_id)
+                    ->where('user_id',$user_id)
+                    ->update('category', $data1);
+        
         }
         
         function add_category(Array $post)
