@@ -59,13 +59,14 @@
 
                 );
                 $item_id= $this->input->post('item_id');
-                // return $this->db
+             
+                // $this->db
 
                 // ->update('items',$insert_data)
                 // ->where('item_id',$item_id);
 
 
-                return $this->db
+               $this->db
                     ->where('item_id',$item_id)
                     ->update('items',$insert_data);
             }
@@ -82,10 +83,19 @@
     {
          $item_name=$this->input->post('item_name');
          $id=$this->input->post('id');
+        $field_name=$this->input->post('field_name');
+        $data=array(
+            
+            $field_name=>$item_name,
+            
+        );
+        print_r($data);
+         // $item_name=$this->input->post('item_name');
+         // $id=$this->input->post('id');
          $data= $this->db
                 ->where('item_id', $id)
-                ->set('item_name', $item_name)
-                ->update('items');
+                //->set('item_name', $item_name)
+                ->update('items',$data);
     }
 
     }

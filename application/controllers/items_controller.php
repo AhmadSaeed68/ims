@@ -120,8 +120,7 @@
                     {
                         $this->load->model('items_model');
                         $this->items_model->update_item_with_input();
-                       echo $item_name=$this->input->post('item_name');
-                       echo $id=$this->input->post('id');
+                      
                     }
 
  function __construct() 

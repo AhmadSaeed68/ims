@@ -61,16 +61,12 @@ echo $id->id;
                         <td>
                             <?= $item['category_id']?>
                         </td>
-                        <td>
-                            <?= $item['category_name']?>
-                        </td>
-                        <td data-editable id="<?= $item['item_id']?>"><?=$item['item_name']?></td>
+                        <td  class="category_name" id="<?= $item['item_id']?>"><?= $item['category_name']?></td>
+                        <td data-edit class="item_name" id="<?= $item['item_id']?>"><?=$item['item_name']?></td>
                         <td>
                             <?=$item['item_code']?>
                         </td>
-                        <td>
-                            <?=$item['item_description']?>
-                        </td>
+                        <td data-edit class="item_description" id="<?= $item['item_id']?>"><?=$item['item_description']?></td>
                         
                         <td>
                             <?php $status=$item['item_status']; if($status=="active"){
@@ -90,7 +86,7 @@ echo $id->id;
                             }
                             else{
                             ?>
-                            <div class="dropdown">
+                            <div class="dropdown" ng>
                                 <button class="btn w3-orange btn-default dropdown-toggle" type="button" data-toggle="dropdown">Action
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
@@ -199,11 +195,19 @@ echo $id->id;
                     //contentType:false,
                     //processData:false,
                     success:function(data){
+                         swal({
+                                    title: "✅ Item Added",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
                         $('.msg').html(data);
-                        alert('Successful insert');
+                     
+                       
                         $('#item_form')[0].reset();
                         $('#phoneModal').modal('hide');
-                        dataTable.ajax.reload();
+
+                       window.location = "<?php echo base_url() ?>items_controller/item";
+                       
                     }
                 });
         }else
@@ -212,6 +216,7 @@ echo $id->id;
         }
         });
 
+        //Update Item
         $(document).on('click','.edit',function(){
             var item_id=$(this).attr('id');
             $.ajax({
@@ -224,6 +229,7 @@ echo $id->id;
                     $('#phone_result').html(data);
                     $('#phoneModal').modal('show');
                      $('.modal-title').html("<i class='fa fa-plus w3-text-orange'></i> <span class='w3-text-orange'>Update Items</span> ");
+
                     
                 }
             });
@@ -244,8 +250,13 @@ echo $id->id;
             data:{item_id:item_id, status:status, btn_action:btn_action},
             success:function(data)
             {
-            alert(data);
-            orderdataTable.ajax.reload();
+                 swal({
+                                    title: "🛑 Status Change ",
+                                    text: data,
+                                    icon: "success",
+                                    });
+            window.location = "<?php echo base_url() ?>items_controller/item";
+            
             }
             })
             }
@@ -257,7 +268,7 @@ echo $id->id;
 
 
    
-        $(document).on('submit','#editupdate',function(event){
+        $(document).on('submit','#update_item_form',function(event){
         
             event.preventDefault();
             var item_id=$('#item_id').val();
@@ -277,12 +288,16 @@ echo $id->id;
                     //contentType:false,
                     //processData:false,
                     success:function(data){
-                        alert('Update successfull');
-                        //$('.msg').html(data);
-                        //alert(' Update Successfuly');
+                        swal({
+                                    title: "✅ Update Successfully",
+                                    text: "✔",
+                                    icon: "success",
+                                    });
+                     
                         $('#update_item_form')[0].reset();
                         $('#phoneModal').modal('hide');
-                        dataTable.ajax.reload();
+                    
+                        window.location = "<?php echo base_url() ?>items_controller/item";
                     }
                 });
         }else
@@ -325,28 +340,31 @@ echo $id->id;
                 }
     });
   })
-  $('body').on('click', '[data-editable]', function(){
+  $('body').on('click', '[data-edit]', function(){
   
   var $el = $(this);
               
-  var $input = $('<input/>').val( $el.text() );
+  var $input = $('<input />').val( $el.text() );
   $el.replaceWith( $input );
   
   var save = function(){
-    var $p = $('<p data-editable />').text( $input.val() );
+    var $p = $('<td data-edit ></td>').text( $input.val() );
 
     $input.replaceWith( $p );
     var item_name=$input.val();
-var id= $el.attr('id') ;
+    var id= $el.attr('id') ;
+    var field_name= $el.attr('class') ;
 
    $.ajax({
    		type: "POST",
            url: "<?php echo base_url()?>items_controller/update_item_with_input",
-			  data:{item_name:item_name,id:id},
+			  data:{item_name:item_name,id:id,field_name:field_name},
 			 
 			  success: function(data){
 			     // $("#res").text(data);
-			     alert(data);
+                 
+			      alert(data);
+                  
 			  }	  
    });
   };
