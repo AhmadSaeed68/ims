@@ -52,6 +52,10 @@
 </head>
 
 <body>
+<?php   $id=$this->session->userdata('user_id'); 
+			
+            if($id){
+					?>
 
  <div id="wrapper">
 
@@ -265,7 +269,7 @@
                         <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i><?= $id->email?></a>
                         </li>
                         <li><a href="<?php echo base_url('profile')?>"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
@@ -278,6 +282,7 @@
                 <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
+
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -293,6 +298,7 @@
                             </div>
                             <!-- /input-group -->
                         </li>
+                        <?php $sid = "admin"; if($sid!="dept"){?>
                         <li>
                             <a href="<?php echo base_url("admin/dashboard")?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
@@ -329,6 +335,7 @@
                         <li>
                             <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-table fa-fw"></i> Stock</a>
                         </li>
+                     
                         <li>
                             <a href="<?php echo base_url("department_controller/index");?> "><i class="fa fa-clone fa-fw"></i> Department</a>
                         </li>
@@ -356,10 +363,33 @@
                                 <li>
                                     <a href="<?php echo base_url('profile')?>">Setting</a>
                                 </li>
-                               
+                                <li>
+                                    <a href="<?php echo base_url("sale_order_controller/sales_order");?> ">Sales Order</a>
+                                </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
+                        <?php }
+                        else{
+
+                        
+                        ?>
+                        <li>
+                            <a href="<?php echo base_url("purchase_request_controller/index");?> "><i class="fa fa-edit fa-fw"></i> Requests</a>
+                        </li>
+                                 <li>
+                                    <a href="<?php echo base_url('profile')?>">Setting</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> ">Purchasers</a>
+                                </li>
+                                <li>
+                            <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-dashboard fa-fw"></i> Category</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo base_url("items_controller/item");?> "><i class="fa fa-dashboard fa-fw"></i>Items</a>
+                        </li>
+                        <?php }?>
                         <!-- <li>
                             <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -410,3 +440,8 @@
         </nav>
 
         <div id="page-wrapper" class="w3-padding-32">
+            <?php
+        } else {
+            
+        }
+            ?>
