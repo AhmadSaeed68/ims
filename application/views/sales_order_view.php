@@ -100,7 +100,7 @@ $id=$this->session->userdata('user_id');
                 <th>Customer</th>
                 <th> <span class="fa fa-code-fork w3-text-teal"></span>SO Code</th>
                 <th><span class="
-                fa fa-shield w3-text-green"></span> Invoice Code</th>
+                fa fa-shield w3-text-green"></span> Date</th>
                 <th> <span class="
                 fa fa-object-ungroup w3-text-blue"></span>item Code</th>
                 <th> <span class="fa fa-pencil-square-o w3-text-red"></span>item Qty</th>
@@ -117,7 +117,7 @@ $id=$this->session->userdata('user_id');
                 <td><?= $data['id'];?></td>
                 <td class="w3-teal w3-opacity"><?= $data['customer_name'];?></td>
                 <td><?= $data['so_code']?></td>
-                <td><?= $data['invoice_code'];?></td>
+                <td><?= $data['date'];?></td>
                 <td><?= $data['item_code']?></td>
                 <td><?= $data['item_qty'];?></td>
                 <td><?= $data['so_item_total']?></td>
@@ -180,7 +180,9 @@ $id=$this->session->userdata('user_id');
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title"></h4>
+          
           <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <div class="w3-text-red w3-wide w3-right"><?= $date = date('d-M-Y');?></div> 
         </div>
         
         <!-- Modal body -->
@@ -198,10 +200,11 @@ $id=$this->session->userdata('user_id');
                       <span id="auto_so_code"></span>
                       <!-- <input type="text" class="form-control" required name="so_code"  placeholder=""> -->
                     </div>
-                    <div class="col-sm-6">
+                    <!-- <div class="col-sm-6">
                       <label for="customer Name">Date</label>
                       <input type="date" class="form-control" name="date" required  placeholder="date">
-                    </div>
+                     
+                    </div> -->
                   </div>
                   <div class="form-group">
                     <div class="col-sm-6">
@@ -232,7 +235,7 @@ $id=$this->session->userdata('user_id');
                     
                   </div>
                   <!-- po_code -->
-                  <div class="form-group col-md-3" id="po_code">
+                  <div class="form-group col-md-8" id="po_code">
                     
                     
                   </div>
@@ -248,7 +251,8 @@ $id=$this->session->userdata('user_id');
                     
                     <div class="input-group">
                       
-                      <input type="number" class="form-control profit" required id="profit" name="profit[]" >
+                      <input type="hidden" class="form-control profit" required id="profit" name="profit[]" >
+                      <input type="number" class="form-control discount" required id="discount" name="discount[]" >
                       <span class="input-group-addon">%</span>
                       
                     </div>
@@ -264,10 +268,7 @@ $id=$this->session->userdata('user_id');
                       
                     </div>
                   </div>
-                  <div class="form-group col-sm-2">
-                    <button type="button" class="btn btn-default w3-green col-sm-3 add" id="add">+</button>
-                    <button type="button" class="btn btn-default w3-red col-sm-3 remove" >-</button>
-                  </div>
+                 
                   
                 </div>
               </div>
@@ -277,8 +278,8 @@ $id=$this->session->userdata('user_id');
           
           <!-- Modal footer -->
           <div class="modal-footer">
-            <input type="submit" name="" class="btn btn-success submit_so" value="sss">
-            <button type="submit" class="btn btn-success submit_so">Submit</button>
+            
+            <button type="submit" class="btn btn-success submit_so">➕ Add</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
           </div>
         </form>
@@ -331,16 +332,20 @@ $id=$this->session->userdata('user_id');
            $('.adddata').click(function(){
                $('#modal_action').modal('show');
                 $('.modal-title').html("<i class='fa fa-plus'></i> Create Sale Order");
+
+
                //User Detail in sale_order
- $.ajax({
+                $.ajax({
                     url:'<?php echo base_url() ?>sale_order_controller/get_item_code_in_so',
                     method:'POST',
                     success:function(data){
                           $('#so_item_code').html(data);
                     }
                });
- //User Detail in sale_order
- $.ajax({
+
+
+                //User Detail in sale_order
+                $.ajax({
                     url:'<?php echo base_url() ?>sale_order_controller/get_users_in_so',
                     method:'POST',
                     success:function(data){
@@ -379,37 +384,45 @@ $id=$this->session->userdata('user_id');
         $('#auto_so_code').html(data);
         }
     }); 
-               function item_on_change(datavalue){
-    $.ajax({
-     url:'<?php echo base_url() ?>sale_order_controller/item_on_change',
-      type:'POST',
-      data:{datapost:datavalue},
-      success:function(result){
-    
-        $('#po_code').html(result);
-      }
-    });
-  }
-          function invoice_on_change(invoice_code){
-    $.ajax({
-     url:'<?php echo base_url() ?>sale_order_controller/invoice_on_change',
-      type:'POST',
-      data:{invoice_code:invoice_code},
-      success:function(result){
+
+
+        function item_on_change(datavalue){
+          $.ajax({
+          // url:'<?php echo base_url() ?>sale_order_controller/item_on_change',
+          url:'<?php echo base_url() ?>sale_order_controller/item_data',
+            type:'POST',
+            data:{datapost:datavalue},
+            success:function(result){
+              console.log(result);
+              $('#po_code').html(result);
+            }
+          });
+        }
+  //         function invoice_on_change(invoice_code){
+  //   $.ajax({
+  //    url:'<?php echo base_url() ?>sale_order_controller/invoice_on_change',
+  //     type:'POST',
+  //     data:{invoice_code:invoice_code},
+  //     success:function(result){
         
-        $('#invoice_data').html(result);
-      }
-    });
-  }
+  //       $('#invoice_data').html(result);
+  //     }
+  //   });
+  // }
+
+  
                                                               //   // SUM total Price
   $(function() {
-    $("#item_qty, #item_rate, #profit").on("keyup keydown keyup", total);
+    //$("#item_qty, #item_rate, #profit").on("keyup keydown keyup", total);
+     $("#item_qty, #item_rate, #discount").on("click click keyup", total);
   function total() {
     var item_qty=$('#item_qty').val();
     var item_rate=$('#item_rate').val();
-    var profit=$('#profit').val();
+    var discount=$('#discount').val();
     var item_total=item_qty*item_rate;
-    var total=item_total+((profit/100)*item_total);
+//    var total=item_total+((profit/100)*item_total);total=item_total+((profit/100)*item_total);
+    var total=item_total+((discount/100)*item_total);total=item_total-((discount/100)*item_total);
+   
    
   $("#total").val(total);
  

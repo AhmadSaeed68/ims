@@ -7,7 +7,7 @@ class Sale_order_modal extends CI_Model
 
    function sales_order(){
            $data=$this->db
-            ->query('SELECT sale_order_detail.id,sale_order.customer_name,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code ORDER BY sale_order.id desc');
+            ->query('SELECT sale_order_detail.id,sale_order_detail.date as date,sale_order.customer_name,sale_order.so_status, sale_order_detail.profit,sale_order_detail.so_code,sale_order_detail.item_code,sale_order_detail.item_qty,sale_order_detail.item_rate,sale_order_detail.so_item_total,sale_order_detail.invoice_code,sale_order.so_code,sale_order.customer_name FROM sale_order_detail LEFT JOIN sale_order ON sale_order.so_code=sale_order_detail.so_code ORDER BY sale_order.id desc');
 return $data->result_array();
 
         }
@@ -82,7 +82,7 @@ return $data->result_array();
         $item_qty=$this->input->post('item_qty');
         $profit=$this->input->post('profit');
        $total=$this->input->post('total');
-         $date=$this->input->post('date');
+         $discount=$this->input->post('discount');
 
 
                                                 //   **INsert Data into batch in Sale_order 
@@ -94,7 +94,7 @@ return $data->result_array();
                                        (
                                           'so_code'=>$so_code,
                                           'customer_name'=>$business_name,
-                                          'invoice_code'=>$invoice_code[$i],
+                                          //'invoice_code'=>$invoice_code[$i],
                                         );
 
                             $this->db->insert_batch('sale_order', $data);
@@ -114,7 +114,7 @@ return $data->result_array();
                                                 // get_data_from_sale Order_by_last_insert Id
                                                   $result= $this->db
                                                           ->select('so_code')
-                                                          ->select('invoice_code')
+                                                         // ->select('invoice_code')
                                                           ->where('id',$last_id)
                                                           ->get('sale_order')
                                                            ->result_array();
@@ -126,7 +126,7 @@ return $data->result_array();
                                 foreach($result as $data)
                               {
                                 $inst_so_code=$data['so_code'];
-                                $last_invoice_code=$data['invoice_code'];
+                               // $last_invoice_code=$data['invoice_code'];
                               }
                
                 
@@ -140,12 +140,13 @@ return $data->result_array();
             $data1[]=array
             (
                 'so_code'=> $inst_so_code,
-                'invoice_code'=>$last_invoice_code,
+                //'invoice_code'=>$last_invoice_code,
                 'item_code'=>$item_code[$i],
                 'item_qty'=>$item_qty[$i],
                 'item_rate'=>$item_rate[$i],
                 'so_item_total'=>$total[$i],
                 'profit'=>$profit[$i],
+                'discount'=>$discount[$i]
               );
 
                 $insert = count($data1);
@@ -179,14 +180,14 @@ return $data->result_array();
                       $data2[]=array
                       (
                       'so_code'=>$so_code,
-                      'invoice_code'=>$invoice_code[$i],
+                      //'invoice_code'=>$invoice_code[$i],
                       );
 
 
                           //data3[] so_invoic_detail
                           $data3[]=array
                           (
-                            'invoice_code'=>$invoice_code[$i],
+                           // 'invoice_code'=>$invoice_code[$i],
                             'item_code'=>$item_code[$i],
                             'item_qty'=>$item_qty[$i],
                             'item_rate'=>$item_rate[$i],
@@ -200,7 +201,7 @@ return $data->result_array();
                     $this->db->insert_batch('so_invoice_detail',$data3);
                  $this->db
                     ->where('item_code',$item_code[$i])
-                     ->where('invoice_code',$invoice_code[$i])
+                    // ->where('invoice_code',$invoice_code[$i])
                     ->set('item_qty', 'item_qty-'.$item_qty[$i], FALSE)
                     ->update('items_in_stock');
     
@@ -276,6 +277,58 @@ return $data->result_array();
 
               
            
+       }
+
+       function item_data($item_code)
+       {
+            //Select Sales Profile
+          $data=$this->db
+          ->select('sale_pattern')
+          ->from('sales_profile')
+          ->get('')->row();
+
+             //Select_sum item qty
+        $item=$this->db
+        
+        ->select_sum('item_qty')
+        ->from('items_in_stock')
+        ->where('item_code',$item_code)
+        ->get()->row();
+
+        $pattern = $data->sale_pattern;
+
+          //Select Data According to sales_profile
+          if($pattern === 'fifo')
+          {
+          $dat = $this->db->select('item_rate')
+            ->from('items_in_stock')
+            ->where('item_code',$item_code)
+            ->order_by('date', 'desc')
+            ->limit(1)
+            ->get('')->row();
+            $price= $dat->item_rate;
+          }
+          else
+          {
+            $dat = $this->db->select('item_rate')
+            ->from('items_in_stock')
+            ->where('item_code',$item_code)
+            ->order_by('date', 'asc')
+            ->limit(1)
+            ->get('')->row();
+            $price=$dat->item_rate;
+          }
+       
+        
+    return  $result = [
+          'item_rate' => $price,
+          'item_qty' => $item->item_qty,
+        ];
+    
+       
+       
+
+
        }
 
        function so_status($status){

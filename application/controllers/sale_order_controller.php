@@ -47,6 +47,17 @@
                   <?php
 		}
 
+//****
+//
+//
+//
+//		These Quries Are not Use because On Insert new Sale order Logic Changes
+//		:::This Query Logic is When YOu Select *item_code* then select *invoice_code* after this load data 
+//
+//
+//
+// ***/
+
 		function item_on_change()
 		{
 			$item_code= $this->input->post('datapost');
@@ -74,14 +85,7 @@
                   <?php
 		}
 
-		function city_on_change()
-		{
-		 $business_name_id= $this->input->post('datapost');
-		 $this->load->model('sale_order_modal');
-		$data= $this->sale_order_modal->city_on_change($business_name_id);
-		$this->load->view('ajax_so/city_on_change',['data'=>$data]);
-		}
-
+		
 
 		function invoice_on_change()
 		{
@@ -106,6 +110,50 @@
 			<?php
 			
 		}
+
+//****
+//
+//
+//
+//		***END*** 
+//
+//
+//
+// ***/
+
+		function item_data()
+		{
+			$item_code= $this->input->post('datapost');
+			$this->load->model('sale_order_modal');
+			$result=$this->sale_order_modal->item_data($item_code);
+		
+			?>
+			<div class="form-group col-sm-6" >
+			<label for="">Quantity</label>
+		
+			<input type="number" class="form-control item_qty" required name="item_qty[]" id="item_qty" min="1" max="<?= $result['item_qty']?>" placeholder="In Stock: <?= $result['item_qty']?>">
+		</div>
+		<div class="form-group col-sm-6">
+			<label for="">Price</label>
+			<input type="number" class="form-control" required name="item_rate[]" id="item_rate" readonly name="" value="<?= $result['item_rate']?>">
+		</div>
+			
+		
+			<?php
+			
+			
+		}
+
+		function city_on_change()
+		{
+		 $business_name_id= $this->input->post('datapost');
+		 $this->load->model('sale_order_modal');
+		$data= $this->sale_order_modal->city_on_change($business_name_id);
+		$this->load->view('ajax_so/city_on_change',['data'=>$data]);
+		}
+
+
+		
 
 
 													// view_sale_order
