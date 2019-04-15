@@ -490,6 +490,7 @@ MOdal that load after gettinng data -
                                 alert(data);
                                 $('#submit').attr('disabled', false);
                                 table.ajax.reload();
+                                window.location = "<?php echo base_url() ?>order_controller/order_managment";
                             }
                         });
         });

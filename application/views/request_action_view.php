@@ -89,11 +89,12 @@
                             <div class="w3-dropdown-hover">
                                 <button class="w3-button w3-black">Actions</button>
                                     <div class="w3-dropdown-content w3-bar-block w3-border">
-                                    <button type="submit" name="submit" id="submit" class="btn btn-info btn-circle btn-lg"><i class="fa fa-check"></i>
+                                    <button type="submit" name="submit" id="submit" title="Assign" class="btn btn-info btn-circle btn-lg"><i class="fa fa-check"></i>
                             </button>
-                            <button type="button" name="submit" id="<?= $data->id;?>"  class="btn w3-red btn-circle delete btn-lg"><i class="fa fa-times"></i>
+                            <button type="button" name="submit" id="<?= $data->id;?>" title="Delete Request"  class="btn w3-red btn-circle delete btn-lg"><i class="fa fa-times"></i>
                             </button>
-                                   
+                            <button type="button" name="rqst_po" id="<?= $data->id;?>" title="Request for PO Order" class="btn w3-orange btn-circle rqst_po btn-lg"><i class="fa fa-exchange"></i>
+                            </button>       
                                     </div>
                             </div>
                             
@@ -162,15 +163,35 @@ $(document).ready(function(){
                             data:form_data,
                             success:function(data){
                                
-                              table.ajax.reload();
+                              //table.ajax.reload();
                               swal({
                                     title: "Items assign to Dept",
                                     text: "Thanks to response",
                                     icon: "success",
                                     });
+                                    window.location = "<?php echo base_url() ?>purchase_request_controller/request_action";
                             }
                         });
                 
+                });
+                $(document).on('click', '.rqst_po', function(){
+                    var id = $(this).attr("id");
+                    $.ajax({
+                            url:"<?php echo base_url() ?>purchase_request_controller/rqst_po",
+                            method:"POST",
+                            data:{id:id},
+                            success:function(data){
+                                console.log(data);
+                     
+                            //   table.ajax.reload();
+                              swal({
+                                    title: data,
+                                    text: "Wait until Order Reciving",
+                                    icon: "success",
+                                    });
+                            }
+                        });
+                    
                 });
                 $(document).on('click', '.delete', function(){
                     var id = $(this).attr("id");
@@ -192,6 +213,7 @@ $(document).ready(function(){
                     data:{id:id},
                     success:function(data)
                     {
+                    
                         window.location = "<?php echo base_url() ?>purchase_request_controller/request_action";
                     
                 }

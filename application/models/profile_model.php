@@ -33,8 +33,7 @@ class Profile_model extends CI_Model {
 		 'contact' => $contact,
 		 'address'=> $address,
 		 'name'=>	 $name,
-		
- );
+		);
 
  
 	 $this->db->where('id', $id)
@@ -48,6 +47,22 @@ class Profile_model extends CI_Model {
 				->from('sales_profile')
 				->get('');
 				return $query->result_array();
+
+	}
+
+	public function update_sales()
+	{
+		$id = $this->input->post('id');
+		$sale_pattern = $this->input->post('sale_pattern');
+		$profit = $this->input->post('profit');
+		$data = array(
+			'profit' => $profit,
+			'sale_pattern' => $sale_pattern,
+			
+		   
+	);
+	$data=$this->db->where('id', $id)
+	->update('sales_profile', $data);
 
 	}
 

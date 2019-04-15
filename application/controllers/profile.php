@@ -37,7 +37,11 @@
         	$this->load->view('profile/profile_user_handle');
         }
 
-
+        public function update_sales()
+        {
+             $this->load->model('profile_model');
+            $this->profile_model->update_sales();
+        }
 
         function add_user_data()
         {

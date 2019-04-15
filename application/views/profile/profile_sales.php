@@ -5,9 +5,10 @@
 		<div class="w3-container">
 
 			<div class="col-sm-4">
-				<form class="form-horizontal" action="">
+				<form class="form-horizontal" id="form_data">
 					<?php foreach ($data as $row): ?>
 				<div class="form-group">
+				<input type="hidden" value="<?=$row['id']?>" name="id" id="id"> 
 					<label class="control-label col-sm-4" for="profit">Profit%:</label>
 					<div class="col-sm-6">
 						<input type="number" class="form-control" id="profit" value="<?= $row['profit'];?>" placeholder="Profit" name="profit">
@@ -17,7 +18,7 @@
 					<label class="control-label col-sm-4" for="pwd">Sales Pattern:</label>
 					<div class="col-sm-6">
 						<select class="w3-select"  name="sale_pattern">
-							<option value="<?= $row['sale_pattern'];?>"><?= $row['sale_pattern'];?></option>
+						
 							<option value="fifo">(FIFO)First In First-Out</option>
 							<option value="lifo">(LIFO)Last In First-Out</option>
 							
@@ -41,7 +42,31 @@
 	</div>
 </div>
 
-	
+	<script>
+	 $(document).on('submit','#form_data', function(event){
+                event.preventDefault();
+               
+                var form_data = $(this).serialize();
+
+                        $.ajax({
+                            url:"<?php echo base_url() ?>profile/update_sales",
+                            method:"POST",
+                            data:form_data,
+                            success:function(data){
+								// swal({
+                                //     title: "Successfully Updated",
+                                //     text: "Success",
+                                //     icon: "success",
+                                //     });
+                              alert(data);
+									window.location = "<?php echo base_url() ?>profile/profile_sales";
+                               
+                                
+                             
+                            }
+                        });
+        });
+	</script>
 
 <?php //$this->load->view('profile_header/prf_footer.php')?>
 

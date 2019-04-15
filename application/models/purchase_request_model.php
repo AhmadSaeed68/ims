@@ -102,6 +102,7 @@
           function get_items(){
             $asset=$this->db
             ->select(['item_code','item_code','item_id'])
+            ->group_by('item_code')
             ->from('items')
             ->get();
     
@@ -131,6 +132,7 @@
               $query=$this->db
                           ->select('*')
                           ->where('status','pending')
+                          ->or_where('status','processing')
                           ->get('purchase_request');
                          
               return $query->result();
@@ -173,28 +175,85 @@
           {
         
              $id=$this->input->post('id');
-
-              $query=$this->db
-              ->where('id',$id)
-              ->delete('purchase_request');
+            
+            //   $query=$this->db
+            //   ->where('id',$id)
+            //   ->delete('purchase_request');
             //                 ->delete('purchase_request');
                             
             //                 return $query;
           }
-          public function delete_request()
+
+          public function rqst_po()
           {
             $data = array(
-                'review' => 'Item Not Available in Stock',
-                'status' => 'item not available',
+                'review' => 'In Processing',
+                'status' => 'processing',
                 
                
         );
-             $id=$this->input->post('id');
+             $id1=$this->input->post('id');
+                //Generate POCode
+             $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order')->row();
 
+
+                        $id= $row->id;
+              if($id==0)
+              {
+               $last_word=$id;
+              }else
+
+              {
+                $row=$this->db->select('po_code')->where('id',$id)->get('purchase_order')->row();
+                $po_code= $row->po_code;
+                $pieces = explode(' ', $po_code);
+                      $last_word = array_pop($pieces);
+                      $last_word=(int)$last_word;
+              }
+
+
+
+              
+             $q1= $this->db->select(['item_code','department_name','item_qty'])
+                           ->where('id',$id1)
+                            ->from('purchase_request')
+                            ->get()->row();
+                            $item_code = $q1->item_code;
+                            $dep_name = $q1->department_name;
+                            $item_qty = $q1->item_qty;
+                       
+              
+                            $data2 = array(
+                                'po_vendor' => 'dept '.$dep_name,
+                                'po_code'   => 'PO'.date("dny").' '.$last_word+=1,
+                                'po_description' => 'This generated from '.$dep_name.' Dept',);
+                            $data3 = array(
+                                'item_code' =>  $item_code,
+                                'po_code'   => 'PO'.date("dny").' '.$last_word+=1,
+                                'item_qty' => $item_qty,);
+                          $q1= $this->db->insert('purchase_order',$data2);
+                          if($q1){
+                            $q2= $this->db->insert('purchase_order_detail',$data3);
+
+                            if($q2){
+                                $q3 = $this->db->where('id', $id1)
+                                ->update('purchase_request',['status'=>'processing']);
+                                if($q3){
+                                    echo "PO Requested Successfully";
+                                }
+                            }
+
+                          }
+          }
+          public function delete_request()
+          {
+            
+
+            $id=$this->input->post('id');
               $query=$this->db
               ->where('id',$id)
-              ->update('purchase_request', $data);
-            //                 ->delete('purchase_request');
+              
+                           ->delete('purchase_request');
                             
             //                 return $query;
           }

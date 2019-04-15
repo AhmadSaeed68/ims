@@ -17,6 +17,7 @@ return $data->result_array();
 	{
   		 $asset=$this->db
           ->select(['item_code'])
+          ->group_by('item_code')
           ->from('items_in_stock')
           ->where('item_qty >','0')
           ->get('');

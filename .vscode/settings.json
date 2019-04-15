@@ -1,5 +1,5 @@
 {
-    "php.validate.executablePath":"/usr/lib/php/7.2",
+    "php.validate.executablePath":"E:/xampp/php/php.exe",
   
 "highlight-matching-tag.styles": {
     "opening": {

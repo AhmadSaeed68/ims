@@ -33,19 +33,22 @@
                }
                elseif($query->status == "success")
                {
-               $row[]= "<span class='w3-text-green fa fa-check-circle fa-2x'> Success </span>";
+               $row[]= "<span class='w3-text-green fa fa-check-circle fa-2x'> Assign </span>";
+               } elseif($query->status == "processing")
+               {
+               $row[]= "<span class='w3-text-orange fa fa-exchange fa-2x'> In Processing </span>";
                }else
                {
-                $row[]= "<span class='w3-text-orange fa fa-remove'> Not Available in Stock </span>";
+                $row[]= "<span class='w3-text-deep-orange fa-2x fa fa-remove'> Deleted by: Admin</span>";
                }
              
                if($query->review=="")
                {
-                  $row[]= "<span class='w3-text-orange'>***In Waiting***</span>";
+                  $row[]= '<div class="tenor-gif-embed" data-postid="6177880" data-share-method="host" data-width="50%" data-aspect-ratio="1.6490066225165563"><a href="https://tenor.com/view/patrick-star-gif-6177880">Patrick Star Spongebob GIF</a> from <a href="https://tenor.com/search/patrickstar-gifs">Patrickstar GIFs</a></div><script type="text/javascript" async src="https://tenor.com/embed.js"></script></span>'."<span class='w3-text-orange fa-2x'>***In Processing***";
                }
                else
                {
-                 $row[]= "<span class='w3-green'>".$query->review."</span>";
+                 $row[]= "<span class='w3-text-green' style='font-size:20px;font-family:Times New Roman;'>".$query->review."</span>";
                }
                $row[] = $query->date;
                
@@ -156,13 +159,17 @@
             $this->purchase_request_model->action_on_request();
         }
 
-        public function delete_request_1()
+        public function delete_request()
         {
            $this->load->model('purchase_request_model');
-           $this->purchase_request_model->delete_request_1(); 
+           $this->purchase_request_model->delete_request(); 
         }
 
-
+   public function rqst_po()
+        {
+           $this->load->model('purchase_request_model');
+           $this->purchase_request_model->rqst_po(); 
+        }
             //GEt Item_qty from Stock
 
             function item_from_stock()

@@ -9,7 +9,7 @@
     <label for="email">Item Quantity</label>
     <input type="text" class="form-control" required value="<?=$result['item_qty']?>" name="item_quantity[]" id="item_quantity">
 </div>
-<div class="form-group col-md-3">
+<div class="form-group col-md-4">
     <label for="pwd">Item Rate:</label>
     <div class="input-group">
         <span class="input-group-addon">$</span>

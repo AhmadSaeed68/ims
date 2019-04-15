@@ -312,7 +312,7 @@
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Orders<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url("order_controller/order_managment");?> ">Purchase Order</a>
+                                    <a  href="<?php echo base_url("order_controller/order_managment");?> ">Purchase Order</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url("sale_order_controller/sales_order");?> ">Sales Order</a>
@@ -326,9 +326,7 @@
                                 <li>
                                     <a href="<?php echo base_url("invoice_controller/po_invoice");?> ">PO Invoice</a>
                                 </li>
-                                <li>
-                                    <a href="<?php echo base_url("sale_order_controller/sales_order");?> ">Sales Order</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
@@ -344,6 +342,22 @@
                         </li>
                         <li>
                             <a href="<?php echo base_url("purchase_request_controller/request_action");?> "><i class="fa fa-flask  fa-fw"></i>Requests Action</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Store Detail<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                
+                                
+                                <li>
+                                    <a href="<?php echo base_url("store_controller/index");?> ">Add Stores</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo base_url("store_controller/store_detail")?>">Stores Detail</a>
+                                </li>
+                               
+                               
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-wrench fa-fw"></i> More<span class="fa arrow"></span></a>
