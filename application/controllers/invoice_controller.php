@@ -191,7 +191,21 @@
             
              <?php 
           }
-
+          public function store_detail(){
+            $this->load->model('invoice_model');
+              $result=$this->invoice_model->store_detail();
+             ?>
+             <div class="form-group">
+  <label for="sel1">Select list:</label>
+  <select class="form-control" id="store" name="store">
+  <?php foreach($result as $data){
+echo '<option id="'.$data["id"].'" value="'.$data["id"].'">'.$data["name"].'</opotion>';
+  }?>
+    
+  </select>
+</div>
+             <?php
+          }
           function export_csv()
           {
             $filename = 'PO-Invoice_'.date('Ymd').'.csv'; 

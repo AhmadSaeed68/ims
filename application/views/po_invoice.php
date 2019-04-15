@@ -228,6 +228,7 @@
                             </div>
                             <div class="col-sm-6 col-md-6">
                                 <!-- /ADD MORE/ -->
+                                <span id="store_detail"></span>
                             </div>
                         </div>
                     </div>
@@ -378,6 +379,7 @@
                         $('#make_invoice')[0].reset();
                         $('#largeModal').modal('hide');
                          table.ajax.reload();
+                         window.location = "<?php echo base_url() ?>invoice_controller/po_invoice";
                         
                         },
                     });
@@ -429,7 +431,16 @@
                     }
                 });
 
+  //Store Information
 
+             $.ajax({
+                    url: "<?php echo base_url() ?>invoice_controller/store_detail",
+                    method: "POST",
+                    success: function(data)
+                    {
+                    $('#store_detail').html(data);
+                    }
+                });
                 //Invoice Update afte Click Update Button
 
                  $(document).on('submit','#invoice_update',function(event){

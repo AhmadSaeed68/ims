@@ -7,8 +7,7 @@
     var $column_search = array('po_code','invoice_code','invoice_description','invoice_total'); //set column field database for datatable searchable 
     var $order = array('id' => 'asc'); // default order 
 
-    private function _get_datatables_query()
-    {
+    private function _get_datatables_query() {
         
         //add custom filter here
         $to_date="";
@@ -66,8 +65,7 @@
     }
 
 
-    public function get_datatables()
-    {
+    public function get_datatables(){
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
@@ -75,15 +73,13 @@
         return $query->result();
     }
 
-    public function count_filtered()
-    {
+    public function count_filtered(){
         $this->_get_datatables_query();
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all()
-    {
+    public function count_all(){
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
@@ -97,8 +93,7 @@
             $to_date="";//date("Y-m-d",strtotime($this->input->post('to_date')));
             if($from_date!="" and $to_date!=""){
                 $result= $this->db->query("SELECT * FROM `po_invoice` 
-where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
-
+                    where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
 
 ");
            
@@ -210,6 +205,7 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                     $item_rate=$this->input->post('item_rate');
                     $item_code=$this->input->post('item_code');
                     $discount=$this->input->post('discount');
+                    $store_id=$this->input->post('store');
                     // if($discount>0){
                     //   // print_r($discount);
                     //   $invoice_total= $item_quantity*$item_rate;
@@ -222,7 +218,8 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                         'po_code'=>$po_code,
                         'invoice_code'=>$invoice_code,
                         
-                        'invoice_description'=>$invoice_description
+                        'invoice_description'=>$invoice_description,
+                        'store_id'  => $store_id
                         
                     );
             
@@ -293,6 +290,7 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                                     'item_rate'=>$item_rate[$i],
                                     'discount'=>$discount[$i],
                                     'item_total'=>$item_total,
+                                    'store_id' => $store_id,
                         
                     );
                                     $update_data[]=array(
@@ -303,9 +301,18 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                                     $stock_data[]=array(
                                         'invoice_code'=>$last_insert_invoice_code,
                                         'po_code'=>$po_code,
+                                        'store_id'=>$store_id,
                                         'item_code'=>$item_code[$i],
                                         'item_qty'=>$item_quantity[$i],
                                         'item_rate'=>$item_rate[$i],
+                                    );
+                                    $store_data[]=array(
+                                        'po_invoice'=>$last_insert_invoice_code,
+                                       
+                                        'store_id'=>$store_id,
+                                        'item_code'=>$item_code[$i],
+                                        'qty'=>$item_quantity[$i],
+                                       
                                     );
                   
                     
@@ -368,6 +375,8 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
                                     if($stock){
                                         $this->db->insert_batch('items_in_stock', $stock_data);
                                         $id=$this->db->insert_id();
+                                        $this->db->insert_batch('store_track', $store_data);
+                                        
                                     }
             
             
@@ -418,6 +427,13 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
          }
    }
 
+    public function store_detail(){
+        $data=$this->db
+        ->select('*')
+        ->from('store')
+        ->get('');
+        return $data->result_array();
+    }
 
     }
 ?>
