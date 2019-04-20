@@ -88,14 +88,18 @@
             
             $field_name=>$item_name,
             
+            
         );
-        print_r($data);
+ 
          // $item_name=$this->input->post('item_name');
          // $id=$this->input->post('id');
          $data= $this->db
                 ->where('item_id', $id)
                 //->set('item_name', $item_name)
                 ->update('items',$data);
+                if($data){
+                    echo $field_name;
+                }
     }
 
     }
