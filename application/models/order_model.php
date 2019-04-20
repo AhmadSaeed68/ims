@@ -166,6 +166,7 @@ return $data->result_array();
         $asset=$this->db
         ->select(['item_name','item_code','item_id'])
         ->from('items')
+        ->group_by('item_name')
         ->get();
 
     return $asset->result_array();

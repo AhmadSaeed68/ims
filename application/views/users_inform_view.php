@@ -12,7 +12,7 @@
             <a href="largeModal" class="btn btn-primary adddata w3-right" id="adddata"  data-toggle="modal">Add Users</a>
             <div class="panel-heading w3-center w3-padding-24">
                 <span class=" fa fa-user fa-2x w3-text-red">
-                    USERS DETAIL
+                    Buyers 
                 </span>
                 </div> <!-- Modal -->
                 <!-- Large Modal HTML -->

@@ -363,8 +363,8 @@ echo $id->id;
 			  success: function(data){
 			     // $("#res").text(data);
                  
-			      alert(data);
-                  
+              alert(data + '  Update Successful');
+                                    window.location = "<?php echo base_url() ?>items_controller/item";
 			  }	  
    });
   };

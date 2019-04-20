@@ -366,10 +366,10 @@
                                     <a href="<?php echo base_url("report")?>">Report</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("users_inform_controller/user_detail")?>">Users</a>
+                                    <a href="<?php echo base_url("users_inform_controller/user_detail")?>">Buyers</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> ">Purchasers</a>
+                                    <a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> ">Buyers Purchasing Detail</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo base_url("vendors_controller/vendors")?>">Vendors</a>
