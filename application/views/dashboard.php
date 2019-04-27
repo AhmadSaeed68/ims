@@ -7,13 +7,14 @@
     $ip=$_SERVER['REMOTE_ADDR'];
     echo "IP address= $ip";
     ?>
+    
    
 <div style="background-image: url(https://bestwallpapers.co/wp-content/uploads/2018/05/http-www-designlovefest-com-wp-content-uploads-downloads-2016-07.jpg);">
     
        <div class="row">
          <div class="col-sm-8">
                      <div class="w3-center">
-         <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Stock System</h1>
+         <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Dashboard</h1>
        </div>
          </div>
          <div class="col-sm-4">
@@ -71,7 +72,7 @@ else
 ?>
   <div class="row">
       <div class="col-lg-12">
-          <h1 class="page-header">Dashboard</h1>
+          <!-- <h1 class="page-header">Dashboard</h1> -->
       </div>
                   <!-- /.col-lg-12 -->
     </div>
@@ -161,6 +162,7 @@ else
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
+                            
                         </a>
                     </div>
                 </div>

@@ -11,7 +11,8 @@
         }
 
         //Items ::
-        function item_detail(){
+        function item_detail()
+        {
         	$item_code=$this->input->post('item_code');
         	
         	$this->load->model('stock_model');

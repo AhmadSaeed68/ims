@@ -36,8 +36,11 @@ class Profile_model extends CI_Model {
 		);
 
  
-	 $this->db->where('id', $id)
+	$q= $this->db->where('id', $id)
 	 ->update('login', $data);
+	 if($q){
+		 echo "Update Successful";
+	 }
 	 }
 
 	function profile_sales()
@@ -61,8 +64,11 @@ class Profile_model extends CI_Model {
 			
 		   
 	);
-	$data=$this->db->where('id', $id)
+	$data1=$this->db->where('id', $id)
 	->update('sales_profile', $data);
+	if($data1){
+		echo "Update Successfully";
+	}
 
 	}
 
