@@ -27,6 +27,7 @@
       	<td>Invoice Code</td>
       	<td>PO Code</td>
         <td>Item Code</td>
+        <td>Store</td>
         <td>Item Qty</td>
         <td>Item Rate</td>
          <td>Date</td>
@@ -37,6 +38,7 @@
       	 <th><?=$data['invoice_code']?></th>
         <th><?=$data['po_code']?></th>
         <th><?=$data['item_code']?></th>
+        <th><?=$data['name']?></th>
         <th><?=$data['item_qty']?></th>
         <th><?=$data['item_rate']?></th>
         <th><?=$data['date']?></th>

@@ -15,12 +15,22 @@ return $data->result();
         										//get item_detail on click on ITEM QTY
 
         function item_detail($item_code){
-        	$data=$this->db
-        					->select('*')
-        					->from('items_in_stock')
-        					->where('item_code',$item_code)
-        					->get('');
-        					return $data->result_array();
+// 			$data=$this->db
+// ->query('SELECT items_in_stock.invoice_code,items_in_stock.item_code,items_in_stock.po_code,items_in_stock.item_rate,items_in_stock.item_qty,items_in_stock.date,store.name AS store_name FROM items_in_stock  LEFT JOIN store ON store.id=items_in_stock.store_id')->where('item_code',$item_code);
+// return $data->result_array();
+$result= $this->db->select('')
+                      ->from('items_in_stock')
+                      ->join('store','store.id=items_in_stock.store_id','left')
+					  ->where('item_code',$item_code)
+                                   
+                                ->get('');
+                            return $result->result_array();
+        	// $data=$this->db
+        	// 				->select('*')
+        	// 				->from('items_in_stock')
+        	// 				->where('item_code',$item_code)
+        	// 				->get('');
+        	// 				return $data->result_array();
         }
     }
 ?>
