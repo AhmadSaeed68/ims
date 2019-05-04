@@ -38,6 +38,17 @@ class store_model extends CI_Model
         $this->db->where('id', $id);
    $this->db->delete('store'); 
     }
+
+    function store_detail()
+    {
+        $result= $this->db->select('items_in_stock.id,items_in_stock.item_code,items_in_stock.item_qty,items_in_stock.item_rate,store.name')
+                      ->from('items_in_stock')
+                      ->join('store','store.id=items_in_stock.store_id','left')
+					  
+                                   
+                                ->get('');
+                            return $result->result_array();
+    }
 }
 
 ?>

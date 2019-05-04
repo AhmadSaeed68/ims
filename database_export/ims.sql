@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 17, 2019 at 10:44 PM
--- Server version: 10.1.34-MariaDB
--- PHP Version: 7.2.7
+-- Host: localhost
+-- Generation Time: May 04, 2019 at 04:39 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -579,7 +579,7 @@ CREATE TABLE `sales_profile` (
 --
 
 INSERT INTO `sales_profile` (`id`, `sale_pattern`, `profit`, `user_id`) VALUES
-(1, 'lifo', 11, 0);
+(1, 'lifo', 12, 0);
 
 -- --------------------------------------------------------
 

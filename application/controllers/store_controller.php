@@ -22,6 +22,13 @@ class store_controller extends CI_Controller {
        $data =  $this->store_model->delete();
     }
 
+    function store_detail()
+    {
+        $this->load->model('store_model');
+       $data = $this->store_model->store_detail();
+     
+      $this->load->view('store_detail',['data'=>$data]);
+    }
 
 
      function __construct() {
