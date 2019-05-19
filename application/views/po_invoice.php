@@ -1,12 +1,12 @@
 <?php include_once "login/header.php";
 ?>
-<p class='w3-code w3-smoke'><?php echo "Today is " . date("Y/m/d") . "<br>";?></p>
+<!-- <p class='w3-code w3-smoke'><?php echo "Today is " . date("Y/m/d") . "<br>";?></p> -->
 <!-- s -->
 <!-- <div class='jumbotron'>
     <h1 class='w3-center'><span class='     fa fa-themeisle w3-text-gray'> </span> Invoice Detail</h1>
 </div> -->
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+<!-- <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
     <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make PO Invoice <i class="w3-padding fa fa-pencil"></i></a>
     <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
     class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
@@ -69,18 +69,75 @@
         
     </div>
 </div>
-<!-- UPload File to csv -->
-</nav>
+<!-- UPload File to csv 
+</nav> -->
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+<!-- <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
 <span class="w3-left w3-padding">SOME NAME</span>
 <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
-</header>
+</header> -->
 <!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<!-- <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div> -->
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
-<div class="row">
+<!-- style="margin-left:300px" -->
+<div class="w3-main">
+<button onclick="myFunction('Demo1')" class="w3-button  w3-btn w3-black w3-left-align"> <i class="fa fa fa-cogs w3-spin fa-2x w3-text-red" aria-hidden="true"></i> Actions</button>
+<div id="Demo1" class="w3-hide w3-animate-zoom">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-calendar-times-o w3-text-orange" aria-hidden="true"></i>  Date Filter</h5>
+                <hr style="width:20%;border:3px solid orange" class="w3-round">
+                <div class="w3-container">
+                    <form class="form-inline" id="form-filter">
+                        <div class="input-daterange">
+                            <div class="form-group">
+                                <label><i class="fa fa-calendar-check-o"></i> From</label>
+                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
+                            </div>
+                            <div class="form-group">
+                                <label><i class="fa fa-calendar-o"></i> TO</label>
+                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required>
+                            </div>
+                            <div class="w3-center w3-padding-16">
+                                
+                                <button type="button" id="btn-filter" class="btn btn-primary w3-opacity w3-orange w3-hover-teal">Filter</button>
+                                <button type="button" id="btn-reset" class="btn btn-default w3-opacity w3-red w3-hover-green">Reset</button>
+                                
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-download w3-text-blue" style="" aria-hidden="true"></i>  Downloads</h5>
+                <hr style="width:20%;border:3px solid skyblue" class="w3-round">
+            </div>
+            <button class="w3-btn w3-black"><a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank"><span class="
+            fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></button>
+            <button class="w3-btn w3-black"><a href="<?php echo base_url("invoice_controller/export_csv")?>"><span class="
+            fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></button>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-file-excel-o w3-text-green" style="" aria-hidden="true"></i> Export CSV</h5>
+                <hr style="width:20%;border:3px solid green" class="w3-round">
+            </div>
+            <form method="post" id="import_csv" enctype="multipart/form-data">
+                <div class="form-group" >
+                    <label class="w3-text-green">Select CSV File</label>
+                    <input type="file" name="csv_file" id="csv_file" required accept=".csv" />
+                </div>
+                
+                <button type="submit" name="import_csv" class="w3-btn w3-green fa fa-cloud-upload w3-hover-teal" id="import_csv_btn"> Upload CSV</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row w3-padding-64">
     <div class="container-fluid">
         
         <div class="col-sm-12">
@@ -94,8 +151,8 @@
                         </span>
                         </div> <!-- Modal -->
                         <!-- Large Modal HTML -->
-                        <div class="panel-body">
-                            <div class="w3-responsive">
+                        <div class="panel-body ">
+                            <div class="w3-responsive ">
                                 <!--  <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
                                     <thead>
                                         <tr>
@@ -142,7 +199,7 @@
                                         <?php endforeach;?>
                                     </tbody>
                                 </table> -->
-                                <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <table id="table" style="font-family:Ubuntu"  class="table table-striped table-bordered w3-large" cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -262,6 +319,15 @@
     x.previousElementSibling.className.replace(" w3-red", "");
     }
     }
+
+      function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
     </script>
     <!--
     *************************************************
