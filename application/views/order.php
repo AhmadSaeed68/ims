@@ -12,7 +12,7 @@ width: 1200px; /* New width for large modal */
 //}
 </style> -->
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+<!-- <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
     <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make Purchase Order <i class="w3-padding fa fa-pencil"></i></a>
     <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
     class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
@@ -75,286 +75,343 @@ width: 1200px; /* New width for large modal */
         
     </div>
 </div>
-<!-- UPload File to csv -->
-</nav>
+<!-- UPload File to csv
+</nav> -->
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+<!-- <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
 <span class="w3-left w3-padding">SOME NAME</span>
 <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
-</header>
+</header> -->
 <!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<!-- <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div> -->
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
-<div class="row w3-padding-64">
-    
-    <div class="col-sm-12">
-        <div class="container-fluid">
-            <!-- <div class='jumbotron'>
-                <h1 class='w3-center'><span class='     fa fa-telegram w3-text-orange'> </span> Order Detail</h1>
-            </div> -->
-            
-            <a id="add_more" data-toggle="modal" class="btn btn-primary w3-right">Make Purchase order</a>
-            <!-- data-toggle="modal" href="#largeModal" -->
-            <div class="panel panel-default">
-                <!-- <button id="btn" class="w3-btn w3-black"><span class="fa fa-search w3-text-orange"></span> Filter</button>
-                <form id="form-filter" class="form-inline ">
-                    <div class="input-daterange">
-                        <div class="form-group">
-                            <label><i class="fa fa-calendar-check-o"></i> From</label>
-                            <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
-                        </div>
-                        <div class="form-group">
-                            <label><i class="fa fa-calendar-o"></i> TO</label>
-                            <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required>
-                        </div></div>
-                        
-                        <div class="form-group">
-                            
-                            <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
-                            <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
-                            
-                        </div>
-                    </form> -->
-                    <div class="panel-heading w3-center w3-padding-24">
-                        <!--  <div class="w3-right">
-                            
-                            <div class="dropdown">
-                                <button class="btn w3-orange dropdown-toggle" type="button" data-toggle="dropdown">Download
-                                <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#"><span class="
-                                    fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></li>
-                                    <li><a href="<?php echo base_url("order_controller/export_csv")?>"><span class="
-                                    fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></li>
-                                </ul>
+<!-- style="margin-left:300px" -->
+<div class="w3-main" >
+<button onclick="myFunction('Demo1')" class="w3-button w3-btn w3-black w3-left-align"> <i class="fa fa fa-cogs w3-spin fa-2x w3-text-red" aria-hidden="true"></i> Actions</button>
+<div id="Demo1" class="w3-hide w3-animate-zoom">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-calendar-times-o w3-text-orange" aria-hidden="true"></i>  Date Filter</h5>
+                <hr style="width:20%;border:3px solid orange" class="w3-round">
+                <div class="w3-container">
+                    <form class="form-inline" id="form-filter">
+                        <div class="input-daterange">
+                            <div class="form-group">
+                                <label><i class="fa fa-calendar-check-o"></i> From</label>
+                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
                             </div>
-                        </div> -->
-                        <span class=" fa fa-thumb-tack fa-2x w3-text-blue">
-                            Purchase Order
-                        </span>
-                    </div>
-                    <div class="panel-body">
-                        <div class="w3-responsive">
-                            <!-- <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
-                                <thead>
-                                    <tr class="w3-black">
-                                        <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
-                                        <th> <span class="fa fa-code-fork w3-text-teal"></span>PO Vendor</th>
-                                        
-                                        <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
-                                        <th>Po Total</th>
-                                        <th><span class="fa fa-calendar w3-text-red"></span> Date</th>
-                                        <th><span class="fa fa-cogs w3-text-orange"></span> Status</th>
-                                        <th><span class="
-                                        fa fa-newspaper-o w3-text-blue"></span> Order Report</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach($order_data as $data):?>
-                                    <tr>
-                                        <td><?= $data['po_code']?></td>
-                                        <td><?= $data['po_vendor']?></td>
-                                        
-                                        <td><?= $data['po_description']?></td>
-                                        <td><?php echo $data['po_total'];?></td>
-                                        
-                                        <td><?= $data['po_date']?></td>
-                                        <td>
-                                            <?php $status=$data['po_status']; if($status=="active"){
-                                            echo "<span class='w3-green'>Active</span>";
-                                            }else{
-                                            echo "<span class='w3-red'>Dective</span>";
-                                        }?></td>
-                                        <td>
-                                            <span class="order_report_span" id="<?php echo $report=$data['order_report'];?>"></span> <?php $report=$data['order_report']; if($report=="recived"){
-                                            echo "<span class='w3-text-teal fa fa-check-square-o fa-2x'></span><span class='w3-green'>Recived</span>";
-                                            }else{
-                                            echo "<span class='w3-text-orange fa fa-truck fa-2x'></span><span class='w3-deep-orange'>Pending</span>";;
-                                            }?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            if ($id->type=='super_user' OR $id->type=='user') {
-                                            echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
-                                            }
-                                            else{
-                                            ?>
-                                            
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-                                                <span class="caret"></span></button>
-                                                <ul class="dropdown-menu">
-                                                    <li>
-                                                        <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['po_code']; ?>">
-                                                    </li>
-                                                    <li>
-                                                        <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['po_status']?>">Status</button>
-                                                    </li>
-                                                    
-                                                </ul>
-                                            </div>
-                                            
-                                            
-                                            <?php } ?>
-                                        </td>
-                                        
-                                    </tr>
-                                    <?php endforeach;?>
-                                </tbody>
-                            </table> -->
-                            
-                            <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr class="w3-black">
-                                        <th> <span class="glyphicon-facetime-video w3-text-teal"></span>No</th>
-                                        <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
-                                        <th> <span class="fa fa-code-fork w3-text-teal"></span>PO Vendor</th>
-                                        
-                                        <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
-                                        <th>Po Total</th>
-                                        <th><span class="fa fa-calendar w3-text-red"></span> Date</th>
-                                        <th><span class="fa fa-cogs w3-text-orange"></span> Status</th>
-                                        <th><span class="
-                                        fa fa-newspaper-o w3-text-blue"></span> Order Report</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
+                            <div class="form-group">
+                                <label><i class="fa fa-calendar-o"></i> TO</label>
+                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required>
+                            </div>
+                            <div class="w3-center w3-padding-16">
                                 
-                            </table>
+                                <button type="button" id="btn-filter" class="btn btn-primary w3-opacity w3-orange w3-hover-teal">Filter</button>
+                                <button type="button" id="btn-reset" class="btn btn-default w3-opacity w3-red w3-hover-green">Reset</button>
+                                
+                            </div>
                         </div>
-                    </div>
+                        
+                    </form>
                 </div>
-                
-                
             </div>
         </div>
+        <div class="col-sm-3">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-download w3-text-blue" style="" aria-hidden="true"></i>  Downloads</h5>
+                <hr style="width:20%;border:3px solid skyblue" class="w3-round">
+            </div>
+            <button class="w3-btn w3-black"><a href="<?php echo base_url()?>pdf/po_order_pdf" target="_blank"><span class="
+            fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></button>
+            <button class="w3-btn w3-black"><a href="<?php echo base_url("order_controller/export_csv")?>"><span class="
+            fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></button>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <h5 style="font-family:Comic Sans MS"><i class="fa fa-file-excel-o w3-text-green" style="" aria-hidden="true"></i> Export CSV</h5>
+                <hr style="width:20%;border:3px solid green" class="w3-round">
+            </div>
+            <form method="post" id="import_csv" enctype="multipart/form-data">
+                <div class="form-group" >
+                    <label class="w3-text-green">Select CSV File</label>
+                    <input type="file" name="csv_file" id="csv_file" required accept=".csv" />
+                </div>
+                
+                <button type="submit" name="import_csv" class="w3-btn w3-green fa fa-cloud-upload w3-hover-teal" id="import_csv_btn"> Upload CSV</button>
+            </form>
+        </div>
     </div>
-    
-    <?php include_once "login/footer.php"; ?>
-    <!-- Push down content on small screens -->
-    <div class="w3-hide-large" style="margin-top:83px"></div>
-    
-    
-    
-    
-    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
-    <!-- End page content -->
+</div>
+</div>
+<div class="row w3-padding-64">
+
+<div class="col-sm-12">
+    <div class="container-fluid">
+        <!-- <div class='jumbotron'>
+            <h1 class='w3-center'><span class='     fa fa-telegram w3-text-orange'> </span> Order Detail</h1>
+        </div> -->
+        
+        <a id="add_more" data-toggle="modal" class="btn btn-primary w3-right">Make Purchase order</a>
+        <!-- data-toggle="modal" href="#largeModal" -->
+        <div class="panel panel-default">
+            <!-- <button id="btn" class="w3-btn w3-black"><span class="fa fa-search w3-text-orange"></span> Filter</button>
+            <form id="form-filter" class="form-inline ">
+                <div class="input-daterange">
+                    <div class="form-group">
+                        <label><i class="fa fa-calendar-check-o"></i> From</label>
+                        <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
+                    </div>
+                    <div class="form-group">
+                        <label><i class="fa fa-calendar-o"></i> TO</label>
+                        <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required>
+                    </div></div>
+                    
+                    <div class="form-group">
+                        
+                        <button type="button" id="btn-filter" class="btn btn-primary">Filter</button>
+                        <button type="button" id="btn-reset" class="btn btn-default">Reset</button>
+                        
+                    </div>
+                </form> -->
+                <div class="panel-heading w3-center w3-padding-24">
+                    <!--  <div class="w3-right">
+                        
+                        <div class="dropdown">
+                            <button class="btn w3-orange dropdown-toggle" type="button" data-toggle="dropdown">Download
+                            <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"><span class="
+                                fa fa-file-pdf-o w3-text-red fa-2x"></span> PDF</a></li>
+                                <li><a href="<?php echo base_url("order_controller/export_csv")?>"><span class="
+                                fa fa-file-excel-o w3-text-green fa-2x"></span> CSV</a></li>
+                            </ul>
+                        </div>
+                    </div> -->
+                    <span class=" fa fa-thumb-tack fa-2x w3-text-blue">
+                        Purchase Order
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="w3-responsive">
+                        <!-- <table class="w3-table-all table-bordered w3-hoverable" id="order_data">
+                            <thead>
+                                <tr class="w3-black">
+                                    <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
+                                    <th> <span class="fa fa-code-fork w3-text-teal"></span>PO Vendor</th>
+                                    
+                                    <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
+                                    <th>Po Total</th>
+                                    <th><span class="fa fa-calendar w3-text-red"></span> Date</th>
+                                    <th><span class="fa fa-cogs w3-text-orange"></span> Status</th>
+                                    <th><span class="
+                                    fa fa-newspaper-o w3-text-blue"></span> Order Report</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($order_data as $data):?>
+                                <tr>
+                                    <td><?= $data['po_code']?></td>
+                                    <td><?= $data['po_vendor']?></td>
+                                    
+                                    <td><?= $data['po_description']?></td>
+                                    <td><?php echo $data['po_total'];?></td>
+                                    
+                                    <td><?= $data['po_date']?></td>
+                                    <td>
+                                        <?php $status=$data['po_status']; if($status=="active"){
+                                        echo "<span class='w3-green'>Active</span>";
+                                        }else{
+                                        echo "<span class='w3-red'>Dective</span>";
+                                    }?></td>
+                                    <td>
+                                        <span class="order_report_span" id="<?php echo $report=$data['order_report'];?>"></span> <?php $report=$data['order_report']; if($report=="recived"){
+                                        echo "<span class='w3-text-teal fa fa-check-square-o fa-2x'></span><span class='w3-green'>Recived</span>";
+                                        }else{
+                                        echo "<span class='w3-text-orange fa fa-truck fa-2x'></span><span class='w3-deep-orange'>Pending</span>";;
+                                        }?>
+                                    </td>
+                                    <td>
+                                        <?php
+                                        if ($id->type=='super_user' OR $id->type=='user') {
+                                        echo "<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                                        }
+                                        else{
+                                        ?>
+                                        
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                            <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="<?php echo $data['po_code']; ?>">
+                                                </li>
+                                                <li>
+                                                    <button class="w3-button w3-block w3-red delete" id="<?php echo $data['po_code']; ?>" data-status="<?=$data['po_status']?>">Status</button>
+                                                </li>
+                                                
+                                            </ul>
+                                        </div>
+                                        
+                                        
+                                        <?php } ?>
+                                    </td>
+                                    
+                                </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table> -->
+                        
+                        <table id="table" style="font-family:Arial"  class="table table-striped table-bordered w3-large" cellspacing="0" width="100%">
+                            <thead>
+                                <tr class="w3-black">
+                                    <th> <span class="glyphicon-facetime-video w3-text-teal"></span>No</th>
+                                    <th> <span class="fa fa-code-fork w3-text-teal"></span>Po Code</th>
+                                    <th> <span class="fa fa-code-fork w3-text-teal"></span>PO Vendor</th>
+                                    
+                                    <th> <span class="fa fa-pencil-square-o w3-text-red"></span>Po Desc</th>
+                                    <th>Po Total</th>
+                                    <th><span class="fa fa-calendar w3-text-red"></span> Date</th>
+                                    <th><span class="fa fa-cogs w3-text-orange"></span> Status</th>
+                                    <th><span class="
+                                    fa fa-newspaper-o w3-text-blue"></span> Order Report</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                            
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</div>
+
+<?php include_once "login/footer.php"; ?>
+<!-- Push down content on small screens -->
+<div class="w3-hide-large" style="margin-top:83px"></div>
+
+
+
+
+<div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+<!-- End page content -->
 </div>
 <!--
 MOdal that load after gettinng data -
 -->
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header ">User Detail
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel"></h4>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header ">User Detail
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div class="modal-body">
+            <!-- Place to print the fetched phone -->
+            <div id="result">
             </div>
-            <div class="modal-body">
-                <!-- Place to print the fetched phone -->
-                <div id="result">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
     </div>
 </div>
+</div>
 <div id="largeModal" class="modal fade">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title">Large Modal</h4>
-            </div>
-            <div class="modal-body">
-                <form id="dynamic_field">
-                    
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="form-group col-sm-4">
-                                    <label for="pwd" class="">Code:</label>
-                                    <span id="auto_po_code"></span>
-                                    
-                                </div>
-                                <div class="col-sm-6">
-                                    <label for="pwd">Vendor:</label>
-                                    
-                                    <input type="hidden" value="<?php echo date("Y-m-d");?>" class="form-control" name="date[]" id="date">
-                                    <span id="vendor"></span>
-                                    
-                                </div>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Large Modal</h4>
+        </div>
+        <div class="modal-body">
+            <form id="dynamic_field">
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-group col-sm-4">
+                                <label for="pwd" class="">Code:</label>
+                                <span id="auto_po_code"></span>
+                                
                             </div>
-                            
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="po_desc" class="col-md-2">Description:</label>
-                                    <div class="col-md-10">
-                                        <textarea class="form-control" rows="4" cols="30" name="po_desc" id="po_desc" required=""></textarea>
-                                    </div>
-                                </div>
+                            <div class="col-sm-6">
+                                <label for="pwd">Vendor:</label>
+                                
+                                <input type="hidden" value="<?php echo date("Y-m-d");?>" class="form-control" name="date[]" id="date">
+                                <span id="vendor"></span>
+                                
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="row">
-                                <div class="form-row">
-                                    <div class="form-group">
-                                        <button type="button" name="add" id="add" class="btn btn-success w3-right">+</button>
-                                    </div>
+                        
+                        <div class="row">
+                            <div class="form-group">
+                                <label for="po_desc" class="col-md-2">Description:</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" rows="4" cols="30" name="po_desc" id="po_desc" required=""></textarea>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-row">
-                                    <div class="form-group col-md-5">
-                                        <label for="pwd">Item Code</label>
-                                        <span  id="span_item_details" >
-                                        </span>
-                                        <!-- <span id="user_resul"  name="item_code[]" class="show_data"></span> -->
-                                        <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="email">Item Quantity</label>
-                                        <input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun()">
-                                        <span class="w3-text-red" id="return_msg"></span>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label for="pwd">Item Rate:</label>
-                                        <input type="number" class="form-control" required="" name="item_rate[]" id="item_rate" >
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="dynamic_field_row">
-                                &nbsp;
                             </div>
                         </div>
                     </div>
-                    
-                    
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <button type="button" name="add" id="add" class="btn btn-success w3-right">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-row">
+                                <div class="form-group col-md-5">
+                                    <label for="pwd">Item Code</label>
+                                    <span  id="span_item_details" >
+                                    </span>
+                                    <!-- <span id="user_resul"  name="item_code[]" class="show_data"></span> -->
+                                    <!-- <input type="number" class="form-control" required="" name="item_code[]" id="item_code"> -->
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <label for="email">Item Quantity</label>
+                                    <input type="number" class="form-control" required="" name="item_quantity[]" id="item_quantity" onchange="myfun()">
+                                    <span class="w3-text-red" id="return_msg"></span>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label for="pwd">Item Rate:</label>
+                                    <input type="number" class="form-control" required="" name="item_rate[]" id="item_rate" >
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dynamic_field_row">
+                            &nbsp;
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    
-                    <input type="submit" class="btn btn-success" name="submit" id="submit" value="submit">
-                    <button type="button" class="btn btn-danger" id="close"  data-dismiss="modal">X</button>
-                </div></form>
-                <!-- jQuery JS CDN -->
-                <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
-    <!-- jQuery DataTables JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap JS CDN -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> 
- <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
-   
-   <script type="text/javascript">
+                
+                
+            </div>
+            <div class="modal-footer">
+                
+                <input type="submit" class="btn btn-success" name="submit" id="submit" value="submit">
+                <button type="button" class="btn btn-danger" id="close"  data-dismiss="modal">X</button>
+            </div></form>
+            <!-- jQuery JS CDN -->
+            <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
+            <!-- jQuery DataTables JS CDN -->
+            <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+            <!-- Bootstrap JS CDN -->
+            <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+            <!-- Bootstrap JS CDN -->
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+            <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+            <script type="text/javascript">
   // Script to open and close sidebar
 
             var table; 
@@ -598,7 +655,7 @@ MOdal that load after gettinng data -
    $('#row'+row_no).remove();
   });
 
-});
+        });
 
                 $('#import_csv').on('submit', function(event){
             event.preventDefault();
@@ -655,7 +712,14 @@ function w3_close() {
     x.previousElementSibling.className.replace(" w3-red", "");
     }
     }
-
+    function myFunction(id) {
+  var x = document.getElementById(id);
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
   //     $('#form-filter').hide();
   //        $(document).on('click','#btn',function(event){
   //   $("#form-filter").toggle('slow');
@@ -1006,5 +1070,5 @@ function w3_close() {
        //  });
 
 </script>
-
-<?php include_once "login/footer.php";?>
+            
+            <?php include_once "login/footer.php";?>
