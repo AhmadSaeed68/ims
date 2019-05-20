@@ -41,7 +41,7 @@
         <th><?=$data['name']?></th>
         <th><?=$data['item_qty']?></th>
         <th><?=$data['item_rate']?></th>
-        <th><?=$data['date']?></th>
+        <th><?=timeAgo($data['date']); ?></th>
        
        
       </tr>

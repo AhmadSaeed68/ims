@@ -50,7 +50,7 @@
                     <td class="w3-teal"><a id="<?=$data->item_code;?>" class="w3-text-red qty_detail"><?=$data->item_qty;?></a></td>
            <!--          <td><?=$data->item_rate;?></td>
                     <td><?=$data->item_rate*$data->item_qty;?></td> -->
-                    <td><?= $data->entry_date?></td>
+                    <td><?= timeAgo($data->entry_date);?></td>
                     </tr>
 <?php endforeach;?>
                 </tbody>
