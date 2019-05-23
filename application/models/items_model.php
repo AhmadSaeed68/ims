@@ -1,23 +1,23 @@
 <?php
     class Items_model extends CI_Model{
 
-        function item()
+        function item($user_id)
         {
             // $data=$this->db->query('SELECT category.category_name,items.item_id,category.category_id,items.item_code,items.item_name,items.item_description,items.item_status FROM category INNER JOIN items ON category.category_id=items.category_id ORDER BY items.item_id');
             // return $data->result_array();
             $data=$this->db
-                            ->query('SELECT * FROM items INNER JOIN category ON category.category_id=items.category_id');
+                            ->query('SELECT * FROM items INNER JOIN category ON category.category_id=items.category_id  WHERE items.user_id = "'.$user_id.'" and category.user_id = "'.$user_id.'"');
                 return $data->result_array();
 
         }
-        function item_search($phoneData)
+        function item_search($user_id)
         {
             // $this->db->select('');
             // $this->db->where('category_id',$phoneData);
             // $res2 = $this->db->get('items_in_stock');
             // return $res2->result_array();
             $res= $this->db
-                            ->query('SELECT category_name,category_id FROM category WHERE category_status="active"');
+                            ->query('SELECT category_name,category_id FROM category WHERE category_status="active" and user_id = "'.$user_id.'"');
                 return $res->result_array();
         }
 
@@ -26,19 +26,21 @@
 
         }
 
-        function fetch_item($prd_id){
+        function fetch_item($prd_id,$user_id){
 
             $query=  $this->db
+                        ->where('user_id',$user_id)
                         ->where('item_id',$prd_id)
                         ->get('items');
                     return $query->result_array();
 
             }
 
-            function item_status($status){
+            function item_status($status,$user_id){
               $item_id= $this->input->post('item_id');
                 $status;
             $update_status= $this->db
+            ->where('user_id',$user_id)
                 ->where('item_id', $item_id)
                 ->set('item_status', $status)
                 ->update('items');
@@ -48,7 +50,7 @@
                 }
             }
 
-            function update_item($data){
+            function update_item($data,$user_id){
                 $insert_data=array(
                     'category_id'=>$this->input->post('category_id'),
                     'item_name'=>$this->input->post('item_name'),
@@ -67,6 +69,7 @@
 
 
                $this->db
+               ->where('user_id',$user_id)
                     ->where('item_id',$item_id)
                     ->update('items',$insert_data);
             }
@@ -79,7 +82,7 @@
     return $this->db->get()->result_array();
 }
 
-    function update_item_with_input()
+    function update_item_with_input($user_id)
     {
          $item_name=$this->input->post('item_name');
          $id=$this->input->post('id');
@@ -94,6 +97,7 @@
          // $item_name=$this->input->post('item_name');
          // $id=$this->input->post('id');
          $data= $this->db
+                ->where('user_id',$user_id)
                 ->where('item_id', $id)
                 //->set('item_name', $item_name)
                 ->update('items',$data);

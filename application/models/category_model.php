@@ -1,18 +1,23 @@
 <?php
     class Category_model extends CI_Model{
-        function category()
+        
+        function category($user_id)
         {
-            $query=$this->db
+          $query=$this->db
                             ->select()
+                            ->where('user_id',$user_id)
                             ->order_by('category_id','DESC')
                             ->  get('category');
-                           
+                          
                 return $query->result();
         }
-        function category_search($category_id)
+
+
+        function category_search($category_id,$user_id)
         {
            $query= $this->db
                             ->select('')
+                            ->where('user_id',$user_id)
                             ->where('category_id',$category_id)
                             ->get('category');
             return $query->result_array();
@@ -62,5 +67,8 @@
                     ->where('category_id',$category_id)
                     ->delete("category");
         }
+
+        
+    
     }
 ?>

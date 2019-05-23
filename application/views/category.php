@@ -1,6 +1,7 @@
   <?php
       include_once "login/header.php";
       $id=$this->session->userdata('user_id');
+      
       $user_id=$id->id;
   ?>
   <input type="text" hidden="true" id='user_id' value="<?=$user_id;?>">

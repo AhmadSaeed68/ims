@@ -3,9 +3,11 @@
 
         function category() //Load Category and send to view
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id; 
             $this->load->helper('form');
             $this->load->model('category_model');
-            $category=$this->category_model->category();
+            $category=$this->category_model->category($user_id);
 
             $this->load->view('category',['category'=>$category]); // Load Into View  
 
@@ -13,20 +15,22 @@
 
         function get_category_result()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id; 
             $this->load->helper('form');
             $category_id = $this->input->post('item_id');
             
             if(isset($category_id) and !empty($category_id))
             {
                 $this->load->model('category_model');       //Load Model
-                $records = $this->category_model->category_search($category_id);
+                $records = $this->category_model->category_search($category_id,$user_id);
                 $this->load->view('ajax_load/get_category_result',['records'=>$records]); //Load View
 
 
             }
             else 
             {
-                echo '<center><ul class="list-group"><li class="list-group-item">'.'Select a Phone'.'</li></ul></center>';
+                echo '<center><ul class="list-group"><li class="list-group-item">'.'Select '.'</li></ul></center>';
             }
 
 
@@ -36,11 +40,14 @@
 
     function update_category() // update category
     {
+        
         // $post=$this->input->post();
         // unset($post['submit']); //Remover "submit" From input fields
+        $id=$this->session->userdata('user_id');
+        $user_id=$id->id; 
         $this->load->model('category_model');
 
-        $this->category_model->update_category();
+        $this->category_model->update_category($user_id);
         // $this->load->library('../controllers/prd');
         // $this->prd->category();
 
@@ -76,10 +83,14 @@
      function __construct() 
      {
         parent::__construct();
+       
         if(!$this->session->userdata('user_id'))
         {
             redirect('login');
         }
+
+        
+      
     }
  
     }
