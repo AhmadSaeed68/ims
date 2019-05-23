@@ -8,9 +8,11 @@
 
                public function po_order_ajax()
                {
+                $id=$this->session->userdata('user_id');
+                 $user_id=$id->id; 
              
                  $this->load->model('order_model');
-    $list = $this->order_model->get_datatables();
+    $list = $this->order_model->get_datatables($user_id);
     $data = array();
     $no = $_POST['start'];
     foreach ($list as $po_order) {
@@ -71,8 +73,8 @@
 
     $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->order_model->count_all(),
-            "recordsFiltered" => $this->order_model->count_filtered(),
+            "recordsTotal" => $this->order_model->count_all($user_id),
+            "recordsFiltered" => $this->order_model->count_filtered($user_id),
             "data" => $data,
         );
     //output to json format
@@ -94,12 +96,14 @@
 
         function edit_order()
         {
+          $id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
                 $this->load->helper('form');  //Load Helper
                 $order_id = $this->input->post('order_id');
                 if(isset($order_id) && !empty($order_id))
                 {
                   $this->load->model('order_model');  //Load Model
-                  $records = $this->order_model->edit_order($order_id);
+                  $records = $this->order_model->edit_order($order_id,$user_id);
                   $this->load->view('order_ajax/edit_order_ajax',['records'=>$records]);  //Load view 
                 }
       }
@@ -186,9 +190,11 @@
           //Make Order 
 
         function make_order(){
+          $id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
             $data=$this->input->post();
             $this->load->model('order_model');
-            $this->order_model->make_order();
+            $this->order_model->make_order($user_id);
 
             //$this->load->model('order_model');
             //$this->order_model->make_order($data);
@@ -216,6 +222,8 @@
             //update Order Status :: After Click 
            function order_status()
            {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id; 
                     if($_POST['btn_action'] == 'delete')
                     {
                         $status= $this->input->post('status');
@@ -227,7 +235,7 @@
                             }
 
                             $this->load->model('order_model');
-                            $this->order_model->order_status($status);
+                            $this->order_model->order_status($status, $user_id);
                     }
                 }
 
@@ -237,14 +245,16 @@
 
                 function auto_po_code()
                 {
-               $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order')->row();
+                  $id=$this->session->userdata('user_id');
+                  $user_id=$id->id; 
+               $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order where user_id="'.$user_id.'" ')->row();
               $id= $row->id;
               if($id==0)
               {
                $last_word=$id;
               }else
               {
-                $row=$this->db->select('po_code')->where('id',$id)->get('purchase_order')->row();
+                $row=$this->db->select('po_code')->where('id',$id)->where('user_id',$user_id)->get('purchase_order')->row();
                 $po_code= $row->po_code;
                 $pieces = explode(' ', $po_code);
                       $last_word = array_pop($pieces);
@@ -269,6 +279,8 @@
 
 
                 function export_csv(){
+                  $id=$this->session->userdata('user_id');
+                  $user_id=$id->id;
                    $filename = 'PO-Order'.date('Ymd').'.csv'; 
                   header("Content-Description: File Transfer");
                   header("Content-Disposition: attachment;filename=$filename");
@@ -276,7 +288,7 @@
 
                  
                       $this->load->model('order_model'); //Load MOdel
-                      $userData=$this->order_model->export_csv();
+                      $userData=$this->order_model->export_csv($user_id);
 
                       // File Creation
                     $file=fopen('php://output','w');
@@ -293,6 +305,8 @@ exit;
 
             function import_csv()
                 {
+                  $id=$this->session->userdata('user_id');
+                  $user_id=$id->id;
                   $this->load->model('order_model'); /// load it at beginning 
                   $this->load->library('csvimport');  //Load Library
 
@@ -313,7 +327,7 @@ exit;
                     );
                  // in order to insert or update ... you cannot use insert batch ....  
                  // pass it one by one 
-                $this->order_model->insert_update_data($data);
+                $this->order_model->insert_update_data($data,$user_id);
 
                   }
         
