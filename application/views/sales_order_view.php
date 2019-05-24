@@ -4,7 +4,7 @@ $id=$this->session->userdata('user_id');
 ?>
 
 <!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
+<!-- <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
     <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make Sale Order <i class="w3-padding fa fa-pencil"></i></a>
     <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu"
     class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
@@ -67,20 +67,20 @@ $id=$this->session->userdata('user_id');
         
     </div>
 </div>
-<!-- UPload File to csv -->
-</nav>
+ UPload File to csv 
+</nav> -->
 
 <!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
+<!-- <header class="w3-container w3-top w3-hide-large w3-white w3-xlarge w3-padding-16">
   <span class="w3-left w3-padding">SOME NAME</span>
   <a href="javascript:void(0)" class="w3-right w3-button w3-white" onclick="w3_open()">☰</a>
-</header>
+</header> -->
 
 <!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+<!-- <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div> -->
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px">
+<div class="w3-main">
 <div class="container-fluid w3-padding-64">
   <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
   <div class="panel panel-default">
@@ -208,7 +208,7 @@ $id=$this->session->userdata('user_id');
                   </div>
                   <div class="form-group">
                     <div class="col-sm-6">
-                      <label for="">Business Name</label>
+                      <label for="">Buyer Name</label>
                       
                       <span id="so_user_detail"></span>
                     </div>

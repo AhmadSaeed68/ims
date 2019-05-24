@@ -1,6 +1,6 @@
 
   <select class="form-control" required id="business selectpicker" name="business"  onchange="user_on_change(this.value)"  data-live-search="true">
-			 	<option readonly>Select User</option>
+			 	<option ></option>
 			 
 			 	
             <?php

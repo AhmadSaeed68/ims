@@ -121,6 +121,7 @@
                 }else{
                   ?>
                   <select class="form-control" required id="vendor selectpicker" name="vendor"  data-live-search="true">
+                    <option></option>
                   <?php
                 foreach($data as $each)
                     {

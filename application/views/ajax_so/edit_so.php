@@ -45,8 +45,8 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group col-md-5">
-                <label for="pwd">Business/Owner Name</label>
-                 <input type="text" class="form-control" value='<?php echo $data['customer_name'];?>' required name="customer_name" id="customer_name">
+                <label for="pwd">Buyer Name</label>
+                 <input type="text" readonly="true" class="form-control" value='<?php echo $data['customer_name'];?>' required name="customer_name" id="customer_name">
             </div>
         </div>
     </div>

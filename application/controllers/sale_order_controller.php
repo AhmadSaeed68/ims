@@ -7,19 +7,21 @@
 	{
 
 			//Sale Order:: Load View 
-		function sales_order()
-		{
+		function sales_order(){
+			$id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
 			$this->load->model('sale_order_modal');
-			$data=$this->sale_order_modal->sales_order();
+			$data=$this->sale_order_modal->sales_order($user_id);
             $this->load->view('sales_order_view',['data'=>$data]);
         }
 
 
         	//Get SO Code in Sale_order
-		function get_item_code_in_so()
-			{
+		function get_item_code_in_so(){
+				$id=$this->session->userdata('user_id');
+          		$user_id=$id->id; 
 				$this->load->model('sale_order_modal');
-				$item_data=$this->sale_order_modal->get_item_code_in_so();
+				$item_data=$this->sale_order_modal->get_item_code_in_so($user_id);
 				//::HTML Load
 				?>
 			
@@ -60,9 +62,11 @@
 
 		function item_on_change()
 		{
+			$id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
 			$item_code= $this->input->post('datapost');
 			$this->load->model('sale_order_modal');
-			$invoice=$this->sale_order_modal->get_invo_in_so($item_code);
+			$invoice=$this->sale_order_modal->get_invo_in_so($item_code,$user_id);
 			?>
 		
 			<label for="so_item_id">Select Invoice</label>
@@ -89,6 +93,8 @@
 
 		function invoice_on_change()
 		{
+			$id=$this->session->userdata('user_id');
+         	 $user_id=$id->id; 
 			$invoice_code= $this->input->post('invoice_code');
 			$this->load->model('sale_order_modal');
 			$invoice_data=$this->sale_order_modal->invoice_data($invoice_code);
@@ -123,20 +129,22 @@
 
 		function item_data()
 		{
+			$id=$this->session->userdata('user_id');
+          	$user_id=$id->id; 
 			$item_code= $this->input->post('datapost');
 			$this->load->model('sale_order_modal');
-			$result=$this->sale_order_modal->item_data($item_code);
+			$result=$this->sale_order_modal->item_data($item_code,$user_id);
 		
 			?>
 			<div class="form-group col-sm-6" >
 			<label for="">Quantity</label>
 		
 			<input type="number" class="form-control item_qty" required name="item_qty[]" id="item_qty" min="1" max="<?= $result['item_qty']?>" placeholder="In Stock: <?= $result['item_qty']?>">
-		</div>
-		<div class="form-group col-sm-6">
-			<label for="">Price</label>
-			<input type="number" class="form-control" required name="item_rate[]" id="item_rate" readonly name="" value="<?= $result['item_rate']?>">
-		</div>
+				</div>
+				<div class="form-group col-sm-6">
+					<label for="">Price</label>
+					<input type="number" class="form-control" required name="item_rate[]" id="item_rate" readonly name="" value="<?= $result['item_rate']?>">
+				</div>
 			
 		
 			<?php
@@ -146,9 +154,11 @@
 
 		function city_on_change()
 		{
+			$id=$this->session->userdata('user_id');
+          	$user_id=$id->id; 
 		 $business_name_id= $this->input->post('datapost');
 		 $this->load->model('sale_order_modal');
-		$data= $this->sale_order_modal->city_on_change($business_name_id);
+		$data= $this->sale_order_modal->city_on_change($business_name_id,$user_id);
 		$this->load->view('ajax_so/city_on_change',['data'=>$data]);
 		}
 
@@ -157,94 +167,106 @@
 
 
 													// view_sale_order
-			function view_so()
-			{
+			function view_so(){
+				$id=$this->session->userdata('user_id');
+          		$user_id=$id->id; 
 				 $so_code=$this->input->post('so_code');
 				$this->load->model('sale_order_modal');
-				$data=$this->sale_order_modal->view_so($so_code);
+				$data=$this->sale_order_modal->view_so($so_code,$user_id);
 				$records= $this->load->view('ajax_so/view_so',['data'=>$data]);
 	
 			}
 
 																	//EDIT_SO
-			function edit_so()
-				{
+			function edit_so(){
+					$id=$this->session->userdata('user_id');
+          			$user_id=$id->id; 
 					$so_id= $this->input->post('so_id');
 					$this->load->model('sale_order_modal');
-					$records=$this->sale_order_modal->edit_so($so_id);
+					$records=$this->sale_order_modal->edit_so($so_id,$user_id);
 					 $this->load->view('ajax_so/edit_so',['records'=>$records]);
 							 
 
-				}
+		}
 
 
 							function update_so()
 							{
+								$id=$this->session->userdata('user_id');
+          						$user_id=$id->id; 			
 								$this->load->model('sale_order_modal');
-								$this->sale_order_modal->update_so();
+								$this->sale_order_modal->update_so($user_id);
 							}
 
 
 
-							function get_users_in_so()
-								{
+							function get_users_in_so(){
+									$id=$this->session->userdata('user_id');
+          							$user_id=$id->id; 
 									$this->load->model('sale_order_modal');
-									$data=$this->sale_order_modal->get_users_in_so();
+									$data=$this->sale_order_modal->get_users_in_so($user_id);
 									$this->load->view('ajax_so/get_users_in_so',['data'=>$data]);
-
-								}
-
+							}
 
 
-							function get_default_profit()
-							{
-								 $data=$this->db->select('profit')
+
+							
+								function get_default_profit(){
+									$id=$this->session->userdata('user_id');
+          							$user_id=$id->id; 
+								 	$data=$this->db->select('profit')
 											->from('sales_profile')
+											->where('user_id',$user_id)
 											->get()->result_array();
 
-								foreach($data as $data)
-								{
-									echo $data['profit'];
-								}			
+										foreach($data as $data){
+											echo $data['profit'];
+										}			
 
 							}
 
 
 
-							function so_status()
-							{
+							function so_status(){
+								$id=$this->session->userdata('user_id');
+								$user_id=$id->id; 
+
 								 if($_POST['btn_action'] == 'delete')
-                    {
-                        $status= $this->input->post('status');
-                        if($status == 'active')
-                            {
-                            $status = 'inactive';
-                            }else{
-                                $status='active';
-                            }
+									{
+										$status= $this->input->post('status');
+										if($status == 'active')
+											{
+											$status = 'inactive';
+											}else{
+												$status='active';
+											}
 
-                            $this->load->model('sale_order_modal');
-                            $this->sale_order_modal->so_status($status);
-                    }
+											$this->load->model('sale_order_modal');
+											$this->sale_order_modal->so_status($status,$user_id);
+									}
 							}
 
-		function make_so(){
-
-			 $this->load->model('sale_order_modal');
-			 $this->sale_order_modal->make_so();
+		
+						function make_so(){
+							$id=$this->session->userdata('user_id');
+								$user_id=$id->id; 
+							$this->load->model('sale_order_modal');
+							$this->sale_order_modal->make_so($user_id);
 		}
 
 														//Auto SO_code
 		function auto_so_code()
 		{
-			$row= $this->db->query('SELECT COALESCE(MAX(id), 0) as id FROM sale_order')->row();
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id; 
+			$row= $this->db->query('SELECT COALESCE(MAX(id), 0) as id FROM sale_order where user_id = "'.$user_id.'"')->row();
               $id= $row->id;
               if($id==0)
               {
                $last_word=$id;
               }else
               {
-				$row=$this->db->select('so_code')->where('id',$id)->get('sale_order')->row();
+				$row=$this->db->select('so_code')->where('user_id',$user_id)->where('id',$id)->get('sale_order')->row();
 				$so_code= $row->so_code;
 				$pieces = explode(' ', $so_code);
                 $last_word = array_pop($pieces);

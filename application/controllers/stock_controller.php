@@ -4,8 +4,10 @@
 
         //Load Stock 
         function stock(){
+            $id=$this->session->userdata('user_id');
+			$user_id=$id->id; 
             $this->load->model('stock_model');
-            $stock=$this->stock_model->stock();
+            $stock=$this->stock_model->stock($user_id);
             $this->load->view('stock',['stock'=>$stock]);
 
         }
