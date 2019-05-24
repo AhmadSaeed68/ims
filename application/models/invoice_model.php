@@ -7,136 +7,140 @@
     var $column_search = array('po_code','invoice_code','invoice_description','invoice_total'); //set column field database for datatable searchable 
     var $order = array('id' => 'asc'); // default order 
 
-    private function _get_datatables_query() {
+             private function _get_datatables_query() {
         
-        //add custom filter here
-        $to_date="";
-        $from_date="";
-        if($this->input->post('to_date'))
-        {
-            $to_date= $this->input->post('to_date');
-        }
-        if($this->input->post('from_date'))
-        {
-            $from_date=$this->input->post('from_date');
-        }
-        if($to_date != "" AND $from_date != ""){
-            $cond = "invoice_date` BETWEEN '$from_date' And '$to_date' ";
-            $this->db->where($cond);
+                    //add custom filter here
+                    $to_date="";
+                    $from_date="";
+                    if($this->input->post('to_date'))
+                    {
+                        $to_date= $this->input->post('to_date');
+                    }
+                    if($this->input->post('from_date'))
+                    {
+                        $from_date=$this->input->post('from_date');
+                    }
+                    if($to_date != "" AND $from_date != ""){
+                        $cond = "invoice_date` BETWEEN '$from_date' And '$to_date' ";
+                        $this->db->where($cond);
 
-        }
-      
-        $this->db->from($this->table);
-        $i = 0;
-    
-        foreach ($this->column_search as $item) // loop column 
-        {
-            
-            if($_POST['search']['value']) // if datatable send POST for search
-            {
+                    }
+                
+                    $this->db->from($this->table);
+                    $i = 0;
+                
+                    foreach ($this->column_search as $item) // loop column 
+                    {
+                        
+                        if($_POST['search']['value']) // if datatable send POST for search
+                        {
 
-                if($i===0) // first loop
-                {
-                    // $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
-                    $this->db->like($item, $_POST['search']['value']);
+                            if($i===0) // first loop
+                            {
+                                // $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                                $this->db->like($item, $_POST['search']['value']);
+                            }
+                            else
+                            {
+                                $this->db->or_like($item, $_POST['search']['value']);
+                            }
+
+                            if(count($this->column_search) - 1 == $i); //last loop
+                                // $this->db->group_end(); //close bracket
+
+
+                        }
+                        $i++;
+                    }
+                    
+                        if(isset($_POST['order'])) // here order processing
+                    {
+                        $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+                    } 
+                    else if(isset($this->order))
+                    {
+                        $order = $this->order;
+                        $this->db->order_by(key($order), $order[key($order)]);
+                    }
                 }
-                else
-                {
-                    $this->db->or_like($item, $_POST['search']['value']);
+
+
+                public function get_datatables($user_id){
+                    $this->_get_datatables_query();
+                    if($_POST['length'] != -1)
+                    $this->db->where('user_id',$user_id)->limit($_POST['length'], $_POST['start']);
+                    $query = $this->db->where('user_id',$user_id)->get();
+                    return $query->result();
                 }
 
-                if(count($this->column_search) - 1 == $i); //last loop
-                    // $this->db->group_end(); //close bracket
+                public function count_filtered($user_id){
+                    $this->_get_datatables_query();
+                    $query = $this->db->where('user_id',$user_id)->get();
+                    return $query->num_rows();
+                }
 
-
-            }
-            $i++;
-        }
-        
-            if(isset($_POST['order'])) // here order processing
-        {
-            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
-        } 
-        else if(isset($this->order))
-        {
-            $order = $this->order;
-            $this->db->order_by(key($order), $order[key($order)]);
-        }
-    }
-
-
-    public function get_datatables(){
-        $this->_get_datatables_query();
-        if($_POST['length'] != -1)
-        $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
-        return $query->result();
-    }
-
-    public function count_filtered(){
-        $this->_get_datatables_query();
-        $query = $this->db->get();
-        return $query->num_rows();
-    }
-
-    public function count_all(){
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
+                public function count_all($user_id){
+                    $this->db->where('user_id',$user_id)->from($this->table);
+                    return $this->db->where('user_id',$user_id)->count_all_results();
     }
 
         function po_invoice(){
-            //         $data=$this->db
-            //         ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
-            // return $data->result_array();
+                    //         $data=$this->db
+                    //         ->query('SELECT * FROM po_invoice inner JOIN po_invoice_detail ON po_invoice.invoice_code=po_invoice_detail.invoice_code ');
+                    // return $data->result_array();
 
-            $from_date="";//date("Y-m-d",strtotime($this->input->post('from_date')));
-            $to_date="";//date("Y-m-d",strtotime($this->input->post('to_date')));
-            if($from_date!="" and $to_date!=""){
-                $result= $this->db->query("SELECT * FROM `po_invoice` 
-                    where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')
-
-");
-           
-            //->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
-                       //->order_by('po_invoice.id','desc')   
-                         
-               
-                  return $result->result_array();
-            }else{
-                $result= $this->db->select('')
-            ->from('po_invoice')
-            //->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
-                       //->order_by('po_invoice.id','desc')   
-                         
-                      ->get('');
-                  return $result->result_array();
+                    $from_date="";//date("Y-m-d",strtotime($this->input->post('from_date')));
+                    $to_date="";//date("Y-m-d",strtotime($this->input->post('to_date')));
+                    if($from_date!="" and $to_date!=""){
+                        $result= $this->db->query("SELECT * FROM `po_invoice` 
+                            where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
+                
+                    //->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+                            //->order_by('po_invoice.id','desc')   
+                                
+                    
+                        return $result->result_array();
+                    }else{
+                        $result= $this->db->select('')
+                    ->from('po_invoice')
+                    //->join('po_invoice_detail','po_invoice.invoice_code=po_invoice_detail.invoice_code','inner')
+                            //->order_by('po_invoice.id','desc')   
+                                
+                            ->get('');
+                        return $result->result_array();
             }
             
             
             
-                }
-                function view_invoice($id){
+ }
+               
+ 
+            function view_invoice($id, $user_id){
                     $result= $this->db->select('')
-                      ->from('po_invoice_detail')
-                      ->join('po_invoice','po_invoice_detail.invoice_code=po_invoice.invoice_code','inner')
-                                    ->where('po_invoice.id',$id)
+                        ->from('po_invoice_detail')
+                        ->join('po_invoice','po_invoice_detail.invoice_code=po_invoice.invoice_code','inner')
+                        ->where('po_invoice.user_id',$user_id)
+                        ->where('po_invoice_detail.user_id',$user_id)
+                        ->where('po_invoice.id',$id)
                                    
                                 ->get('');
                             return $result->result_array();
                             
-                }
+     }
             
-                function edit_invoice($id){
+                function edit_invoice($id,$user_id){
                     $result= $this->db->select('')
                       ->from('po_invoice_detail')
                       ->join('po_invoice','po_invoice_detail.invoice_code=po_invoice.invoice_code','inner')
+                                    ->where('po_invoice.user_id',$user_id)
+                                    ->where('po_invoice_detail.user_id',$user_id)
                                     ->where('po_invoice.id',$id)
                                    
                                 ->get('');
                             return $result->result_array();
                 }
             
-                function update_invoice($data){
+                function update_invoice($data,$user_id){
                     $id=$this->input->post('id');
                     $po_code=$this->input->post('po_code');
                     $invoice_code=$this->input->post('invoice_code');
@@ -163,41 +167,51 @@
                         'invoice_total'=>$item_rate*$item_qty
                      );
             
-              $q2=$this->db->where('id', $id)
+                     $q2=$this->db
+                                ->where('id', $id)
+                                ->where('user_id',$user_id)
                                 ->update('po_invoice', $data2);
-                                $q1= $this->db->where('invoice_code',$invoice_code)
-                                                ->where('item_code',$item_code)
+
+                     $q1= $this->db
+                                ->where('user_id',$user_id)
+                                ->where('invoice_code',$invoice_code)
+                                ->where('item_code',$item_code)
                                  ->update('po_invoice_detail',$data1) ;
-            // if($q1&$q2){
-            // echo 'success';
-            // }else{
-            //   echo 'some errror';  
-            // }
+                    // if($q1&$q2){
+                    // echo 'success';
+                    // }else{
+                    //   echo 'some errror';  
+                    // }
                 }
             
-                function get_PoCode_in_invoice(){
+                function get_PoCode_in_invoice($user_id){
                     $asset=$this->db
                     ->select(['po_code','id'])
+                    ->where('user_id',$user_id)
                     ->where('po_status','active')
                     ->where('order_report','pending')
                     ->from('purchase_order')
                     ->get();
                     
-                return $asset->result_array();
+                    return $asset->result_array();
                 }
             
-                function get_PoCode_item($po_code){
+                function get_PoCode_item($po_code,$user_id){
                     $result= $this->db->select('')
-                    ->from('purchase_order')
-                    ->join('purchase_order_detail','purchase_order_detail.po_code=purchase_order.po_code','inner')
-                                  ->where('purchase_order_detail.po_code',$po_code)
+                            ->from('purchase_order')
+                            ->join('purchase_order_detail','purchase_order_detail.po_code=purchase_order.po_code','inner')
+                            ->where('purchase_order_detail.user_id',$user_id)
+                             ->where('purchase_order.user_id',$user_id)
+                            ->where('purchase_order_detail.po_code',$po_code)
                                  
                               ->get('');
                           return $result->result_array();
             
-                        }
+ }
+
+
             
-                        function make_invoice(){
+                function make_invoice($user_id){
                     $po_code=$this->input->post('po_code');
                     $invoice_code=$this->input->post('invoice_code');
                     $invoice_description=$this->input->post('invoice_description');
@@ -219,7 +233,8 @@
                         'invoice_code'=>$invoice_code,
                         
                         'invoice_description'=>$invoice_description,
-                        'store_id'  => $store_id
+                        'store_id'  => $store_id,
+                        'user_id'   =>$user_id
                         
                     );
             
@@ -237,7 +252,7 @@
                     //                         po_invoice Table  
                     //                                          by last Insert ID*********
                     $this->db->select('invoice_code');
-                    $this->db->where('id',$id);
+                    $this->db->where('id',$id)->where('user_id',$user_id);
                     $res2 = $this->db->get('po_invoice');
                     $res2= $res2->result_array();
                     foreach($res2 as $data){
@@ -245,16 +260,16 @@
                     }
                     /**GEt Last PO_CODE AND UPDATE ORDER TO BLOCKED */
                     $this->db->select('po_code');
-                    $this->db->where('id',$id);
+                    $this->db->where('id',$id)->where('user_id',$user_id);
                     $res2 = $this->db->get('po_invoice');
                     $res2= $res2->result_array();
                     foreach($res2 as $data){
                     $last_poCode= $data['po_code'];
                     }
-                    $this->db->where('po_code', $last_poCode);
-            $this->db->update('purchase_order', ['order_report'=>"recived"]);
-            $this->db->where('po_code', $last_poCode);
-            $this->db->update('purchase_order_detail', ['order_report'=>"recived"]);  
+                    $this->db->where('user_id',$user_id)->where('po_code', $last_poCode);
+                    $this->db->update('purchase_order', ['order_report'=>"recived"]);
+                    $this->db->where('user_id',$user_id)->where('po_code', $last_poCode);
+                    $this->db->update('purchase_order_detail', ['order_report'=>"recived"]);  
                      $last_insert_invoice_code;
             
             
@@ -283,14 +298,15 @@
             
                                      //**End CALCULATE DISCOUNT */
             
-                                        $data2[]=array(
-                                    'invoice_code'=>$last_insert_invoice_code,
-                                    'item_code'=>$item_code[$i],
-                                    'item_qty'=>$item_quantity[$i],
-                                    'item_rate'=>$item_rate[$i],
-                                    'discount'=>$discount[$i],
-                                    'item_total'=>$item_total,
-                                    'store_id' => $store_id,
+                                    $data2[]=array(
+                                        'user_id'       =>$user_id,
+                                        'invoice_code'  =>  $last_insert_invoice_code,
+                                        'item_code'     =>  $item_code[$i],
+                                        'item_qty'      =>  $item_quantity[$i],
+                                        'item_rate'     =>  $item_rate[$i],
+                                        'discount'      =>  $discount[$i],
+                                        'item_total'    =>  $item_total,
+                                        'store_id'      =>  $store_id,
                         
                     );
                                     $update_data[]=array(
@@ -299,19 +315,20 @@
                                     );
 
                                     $stock_data[]=array(
-                                        'invoice_code'=>$last_insert_invoice_code,
-                                        'po_code'=>$po_code,
-                                        'store_id'=>$store_id,
-                                        'item_code'=>$item_code[$i],
-                                        'item_qty'=>$item_quantity[$i],
-                                        'item_rate'=>$item_rate[$i],
+                                        'user_id'       =>  $user_id,
+                                        'invoice_code'  =>  $last_insert_invoice_code,
+                                        'po_code'       =>  $po_code,
+                                        'store_id'      =>  $store_id,
+                                        'item_code'     =>  $item_code[$i],
+                                        'item_qty'      =>    $item_quantity[$i],
+                                        'item_rate'     =>       $item_rate[$i],
                                     );
                                     $store_data[]=array(
-                                        'po_invoice'=>$last_insert_invoice_code,
-                                       
-                                        'store_id'=>$store_id,
-                                        'item_code'=>$item_code[$i],
-                                        'qty'=>$item_quantity[$i],
+                                        'po_invoice'    =>  $last_insert_invoice_code,
+                                        'user_id'       =>  $user_id,
+                                        'store_id'      =>  $store_id,
+                                        'item_code'     =>   $item_code[$i],
+                                        'qty'           => $item_quantity[$i],
                                        
                                     );
                   
@@ -335,7 +352,7 @@
 
                             //
                             $this->db->select('invoice_code');
-                            $this->db->where('id',$id2);
+                            $this->db->where('id',$id2)->where('user_id',$user_id);
                             $res3 = $this->db->get('po_invoice_detail');
                             $res3= $res3->result_array();
                             foreach($res3 as $data)
@@ -347,25 +364,26 @@
                                                 //SUM ITEM_TOTAL FROM LAST INSERT PO_CODE
 
 
-                            $test=$this->db->query('SELECT SUM(item_total) as sum_value
-            FROM po_invoice_detail WHERE invoice_code="'.$last_in_invoice_code2.'"')->result_array();
+                                            $test=$this->db->query('SELECT SUM(item_total) as sum_value
+                            FROM po_invoice_detail WHERE user_id  = "'.$user_id.'" and invoice_code="'.$last_in_invoice_code2.'"')->result_array();
 
-           foreach($test as $data)
-           {
-            $sum_data=$data['sum_value'];
-           }
+                        foreach($test as $data)
+                        {
+                            $sum_data=$data['sum_value'];
+                        }
 
-                                         //UPDATE VALUE OF INVOICE_TOTAL SUM VALUE
-        $this->db
-                ->where('invoice_code', $last_in_invoice_code2)
-                ->set('invoice_total', $sum_data)
-                ->update('po_invoice');
+                                                        //UPDATE VALUE OF INVOICE_TOTAL SUM VALUE
+                        $this->db
+                                ->where('user_id',$user_id)
+                                ->where('invoice_code', $last_in_invoice_code2)
+                                ->set('invoice_total', $sum_data)
+                                ->update('po_invoice');
 
 
-                          //*******************************************************//
+                                  //*******************************************************//
 
                                  // PROCESS FINISH SUM VALUE and UPDATE into po_invoie//
-                //******************************************//
+                            //******************************************//
                       
                             echo"Invoice Make Successful";
                             }else{
@@ -384,16 +402,16 @@
             
                             
                            
-                        }
+}
 
-            function export_csv()       //Export CSV
+            function export_csv($user_id)       //Export CSV
             {
                  
                 $response = array();
      
                 // Select record
                 $this->db->select('id,invoice_code,item_code,item_qty,item_rate,discount,item_total,date');
-                $q = $this->db->get('po_invoice_detail');
+                $q = $this->db->where('user_id',$user_id)->get('po_invoice_detail');
                 $data = $q->result_array();
              
                 return $data;
@@ -402,35 +420,46 @@
             function insert_data($data)          //Import CSV
             {
                 $this->db->insert_batch('user_track',$data);
-            //    $sql = $this->db->insert_string('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
-            //    implode(', ', $data);
-            //    $this->db->query($sql); 
+                    //    $sql = $this->db->insert_string('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
+                    //    implode(', ', $data);
+                    //    $this->db->query($sql); 
 
-            // $sql = $this->db->insert_batch('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
-            //         implode(', ', $data);    
-            //         $this->db->query($sql);
-            // $this->db->on_duplicate('user_track', $data);
+                    // $sql = $this->db->insert_batch('user_track', $data) . ' ON DUPLICATE KEY UPDATE ' .
+                    //         implode(', ', $data);    
+                    //         $this->db->query($sql);
+                    // $this->db->on_duplicate('user_track', $data);
         }
 
-        function insert_update_data($data)          //Add & Update table with "CSV"
-    {
-    //$this->db->insert_batch('user_track',$data);
-       $this->db->where('id',$data['id']);
-        $this->db->where('invoice_code',$data['invoice_code']);
-        $q = $this->db->get('po_invoice_detail');
-         if($q->num_rows() > 0){
-          $this->db->where('id',$data['id']);
-          $this->db->where('invoice_code',$data['invoice_code']);
-          $this->db->update('po_invoice_detail',$data);
-         } else {
-          $this->db->insert('po_invoice_detail',$data);
-         }
+        function insert_update_data($data,$data2,$user_id){          //Add & Update table with "CSV"
+
+                //$this->db->insert_batch('user_track',$data);
+                $this->db->where('id',$data['id'])->where('user_id',$user_id);
+                    $this->db->where('invoice_code',$data['invoice_code']);
+                    $q = $this->db->get('po_invoice_detail');
+                    if($q->num_rows() > 0){
+                    $this->db->where('id',$data['id']);
+                    $this->db->where('user_id',$user_id)->where('invoice_code',$data['invoice_code']);
+                    $this->db->update('po_invoice_detail',$data);
+
+                    $this->db->where('user_id',$user_id);
+                    $this->db->where('invoice_code',$data['invoice_code']);
+                    $q2 = $this->db->get('po_invoice');
+                    if($q2->num_rows() > 0){
+                       
+                        $this->db->where('user_id',$user_id)->where('invoice_code',$data['invoice_code']);
+                        $this->db->update('po_invoice',$data2);
+                    }
+    
+                    } else {
+                    $this->db->insert('po_invoice_detail',$data);
+                    }
    }
 
-    public function store_detail(){
+    public function store_detail($user_id){
         $data=$this->db
         ->select('*')
         ->from('store')
+        ->where('user_id',$user_id)
         ->get('');
         return $data->result_array();
     }

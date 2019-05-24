@@ -12,73 +12,73 @@
                  $user_id=$id->id; 
              
                  $this->load->model('order_model');
-    $list = $this->order_model->get_datatables($user_id);
-    $data = array();
-    $no = $_POST['start'];
-    foreach ($list as $po_order) {
-      $no++;
-      $row = array();
-      $row[] = $no;
-      $row[] = $po_order->po_code;
-      $row[] = $po_order->po_vendor;
-      $row[] = $po_order->po_description;
-      $row[] = $po_order->po_total;
-      
-     $row[] = timeAgo($po_order->po_date);   // PO_ORDER::DATE
-     if($po_order->po_status=="active") //CHECK STATUS :: AND DISPLAY
-     {
-      $row[]="<span class='w3-green'>Active</span>";
-                                                      
-      }
-      else
-      {
-      $row[]= "<span class='w3-red'>Dective</span>";
-      }
-    
-      if($po_order->order_report=="recived")
-      {
-         $row[]= "<span class='w3-text-teal fa fa-check-square-o fa-2x'></span><span class='w3-green'>Recived</span>";
-      }
-      else
-      {
-        $row[]= "<span class='w3-text-orange fa fa-truck fa-2x'></span><span class='w3-deep-orange'>Pending</span>";
-      }
-   
-      
-      $id=$this->session->userdata('user_id');
-    if ($id->type=='super_user' OR $id->type=='user') 
-    {
-      $row[]="<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
-    }
-      else{
-        $row[]='<div class="dropdown">
-                  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
-                    <span class="caret"></span></button>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="'.$po_order->po_code.'">
-                      </li>
-                          <li>
-                            <button class="w3-button w3-block w3-red delete" id="'.$po_order->po_code.'" data-status="'.$po_order->po_status.'">Status</button>
-                          </li>
-                                                                
-                    </ul>
-                </div>';
-      }
-      
+                  $list = $this->order_model->get_datatables($user_id);
+                  $data = array();
+                  $no = $_POST['start'];
+                  foreach ($list as $po_order) {
+                    $no++;
+                    $row = array();
+                    $row[] = $no;
+                    $row[] = $po_order->po_code;
+                    $row[] = $po_order->po_vendor;
+                    $row[] = $po_order->po_description;
+                    $row[] = $po_order->po_total;
+                    
+                  $row[] = timeAgo($po_order->po_date);   // PO_ORDER::DATE
+                  if($po_order->po_status=="active") //CHECK STATUS :: AND DISPLAY
+                  {
+                    $row[]="<span class='w3-green'>Active</span>";
+                                                                    
+                    }
+                    else
+                    {
+                    $row[]= "<span class='w3-red'>Dective</span>";
+                    }
+                  
+                    if($po_order->order_report=="recived")
+                    {
+                      $row[]= "<span class='w3-text-teal fa fa-check-square-o fa-2x'></span><span class='w3-green'>Recived</span>";
+                    }
+                    else
+                    {
+                      $row[]= "<span class='w3-text-orange fa fa-truck fa-2x'></span><span class='w3-deep-orange'>Pending</span>";
+                    }
+                
+                    
+                    $id=$this->session->userdata('user_id');
+                  if ($id->type=='super_user' OR $id->type=='user') 
+                  {
+                    $row[]="<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
+                  }
+                    else{
+                      $row[]='<div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                                  <span class="caret"></span></button>
+                                  <ul class="dropdown-menu">
+                                    <li>
+                                      <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="'.$po_order->po_code.'">
+                                    </li>
+                                        <li>
+                                          <button class="w3-button w3-block w3-red delete" id="'.$po_order->po_code.'" data-status="'.$po_order->po_status.'">Status</button>
+                                        </li>
+                                                                              
+                                  </ul>
+                              </div>';
+                    }
+                    
 
 
-      $data[] = $row;
-    }
+                    $data[] = $row;
+                  }
 
-    $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->order_model->count_all($user_id),
-            "recordsFiltered" => $this->order_model->count_filtered($user_id),
-            "data" => $data,
-        );
-    //output to json format
-    echo json_encode($output);
+                  $output = array(
+                          "draw" => $_POST['draw'],
+                          "recordsTotal" => $this->order_model->count_all($user_id),
+                          "recordsFiltered" => $this->order_model->count_filtered($user_id),
+                          "data" => $data,
+                      );
+                  //output to json format
+                  echo json_encode($output);
   }
 
 
@@ -110,24 +110,33 @@
 
         function get_vendor()
         {
+          $id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
               $this->load->model('order_model');
-              $data= $this->order_model->get_vendor();
-              //::HTML Load 
-            ?>
-           <select class="form-control" required id="vendor selectpicker" name="vendor"  data-live-search="true">
-            <?php
-          foreach($data as $each)
-              {
-                echo $each['item_code'];
+              $data= $this->order_model->get_vendor($user_id);
+                if(empty($data)){
                   ?>
-                  <option id="<?php echo $each['id']; ?>"
-                  value="<?php echo $each['vendor_name'] ?>"
-                ><?php echo $each['vendor_name']?>
-              </option>';
-                      <?php 
-                } ?>
-                  </select>
+                  <a class='w3-text-blue' href="<?php echo base_url("vendors_controller/vendors")?>">Click!! Add Vendor First</a>
+                <?php
+                }else{
+                  ?>
+                  <select class="form-control" required id="vendor selectpicker" name="vendor"  data-live-search="true">
                   <?php
+                foreach($data as $each)
+                    {
+                      echo $each['item_code'];
+                        ?>
+                        <option id="<?php echo $each['id']; ?>"
+                        value="<?php echo $each['vendor_name'] ?>"
+                      ><?php echo $each['vendor_name']?>
+                    </option>';
+                            <?php 
+                      } ?>
+                        </select>
+                        <?php
+                }
+              //::HTML Load 
+           
 
         }
 
@@ -136,17 +145,20 @@
 
         function update_order()
           {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id; 
                 $this->load->model('order_model');
-                $this->order_model->update_order();
+                $this->order_model->update_order($user_id);
           }
 
 
           //Get Item Code :: order
         function get_itemCode_in_order()
         {
-
+          $id=$this->session->userdata('user_id');
+          $user_id=$id->id; 
             $this->load->model('order_model');  //Load Model
-           $item_data= $this->order_model->get_itemCode_in_order();
+           $item_data= $this->order_model->get_itemCode_in_order($user_id);
 
            //Load ::HTML
            ?>
@@ -220,8 +232,7 @@
         }
 
             //update Order Status :: After Click 
-           function order_status()
-           {
+           function order_status(){
             $id=$this->session->userdata('user_id');
             $user_id=$id->id; 
                     if($_POST['btn_action'] == 'delete')
@@ -237,36 +248,35 @@
                             $this->load->model('order_model');
                             $this->order_model->order_status($status, $user_id);
                     }
-                }
+    }
 
 
 
                 //Auto PoCode
 
-                function auto_po_code()
-                {
+                function auto_po_code(){
                   $id=$this->session->userdata('user_id');
                   $user_id=$id->id; 
-               $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order where user_id="'.$user_id.'" ')->row();
-              $id= $row->id;
-              if($id==0)
-              {
-               $last_word=$id;
-              }else
-              {
-                $row=$this->db->select('po_code')->where('id',$id)->where('user_id',$user_id)->get('purchase_order')->row();
-                $po_code= $row->po_code;
-                $pieces = explode(' ', $po_code);
-                      $last_word = array_pop($pieces);
-                      $last_word=(int)$last_word;
-                      
-              } 
-              ?>
-            
-              <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").' '.$last_word+=1;?>" class="form-control"  id="po_code">
-            
-           <?php 
-              }
+                    $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order where user_id="'.$user_id.'" ')->row();
+                    $id= $row->id;
+                    if($id==0)
+                    {
+                    $last_word=$id;
+                    }else
+                    {
+                      $row=$this->db->select('po_code')->where('id',$id)->where('user_id',$user_id)->get('purchase_order')->row();
+                      $po_code= $row->po_code;
+                      $pieces = explode(' ', $po_code);
+                            $last_word = array_pop($pieces);
+                            $last_word=(int)$last_word;
+                            
+                    } 
+                    ?>
+                  
+                    <input type="text" readonly required="" name="po_code" value="<?='PO'.date("dny").' '.$last_word+=1;?>" class="form-control"  id="po_code">
+                  
+                      <?php 
+                }
 
 
                 // function data_search()
@@ -279,32 +289,31 @@
 
 
                 function export_csv(){
-                  $id=$this->session->userdata('user_id');
-                  $user_id=$id->id;
-                   $filename = 'PO-Order'.date('Ymd').'.csv'; 
-                  header("Content-Description: File Transfer");
-                  header("Content-Disposition: attachment;filename=$filename");
-                  header("Content-Type: application/csv; ");
+                      $id=$this->session->userdata('user_id');
+                      $user_id=$id->id;
+                      $filename = 'PO-Order'.date('Ymd').'.csv'; 
+                      header("Content-Description: File Transfer");
+                      header("Content-Disposition: attachment;filename=$filename");
+                      header("Content-Type: application/csv; ");
 
-                 
-                      $this->load->model('order_model'); //Load MOdel
-                      $userData=$this->order_model->export_csv($user_id);
+                    
+                          $this->load->model('order_model'); //Load MOdel
+                          $userData=$this->order_model->export_csv($user_id);
 
-                      // File Creation
-                    $file=fopen('php://output','w');
-                    $array_data=array("id","Po Code","Po Vendor","Total","Desc","Report","Date");
-                    fputcsv($file,$array_data);
-foreach($userData as $value){
-  fputcsv($file,$value);
-}
-fclose($file);
-exit;
+                          // File Creation
+                        $file=fopen('php://output','w');
+                        $array_data=array("id","Po Code","Po Vendor","Total","Desc","Report","Date");
+                        fputcsv($file,$array_data);
+                          foreach($userData as $value){
+                            fputcsv($file,$value);
+                          }
+                          fclose($file);
+                          exit;
                 }
 
 
 
-            function import_csv()
-                {
+            function import_csv(){
                   $id=$this->session->userdata('user_id');
                   $user_id=$id->id;
                   $this->load->model('order_model'); /// load it at beginning 
@@ -334,7 +343,7 @@ exit;
        
                  //  $this->invoice_model->insert_data($data);
 
-                }       
+    }       
 
 
                   //Check If Session :: Else Redirect 
@@ -342,32 +351,32 @@ exit;
                    
         parent::__construct();
         function timeAgo($timestamp){
-          $datetime1=new DateTime("now");
-          $datetime2=date_create($timestamp);
-          $diff=date_diff($datetime1, $datetime2);
-          $timemsg='';
-          if($diff->y > 0){
-              $timemsg = $diff->y .' year'. ($diff->y > 1?"'s":'');
-      
+                $datetime1=new DateTime("now");
+                $datetime2=date_create($timestamp);
+                $diff=date_diff($datetime1, $datetime2);
+                $timemsg='';
+                if($diff->y > 0){
+                    $timemsg = $diff->y .' year'. ($diff->y > 1?"'s":'');
+            
+                }
+                else if($diff->m > 0){
+                $timemsg = $diff->m . ' month'. ($diff->m > 1?"'s":'');
+                }
+                else if($diff->d > 0){
+                $timemsg = $diff->d .' day'. ($diff->d > 1?"'s":'');
+                }
+                else if($diff->h > 0){
+                $timemsg = $diff->h .' hour'.($diff->h > 1 ? "'s":'');
+                }
+                else if($diff->i > 0){
+                $timemsg = $diff->i .' minute'. ($diff->i > 1?"'s":'');
+                }
+                else if($diff->s > 0){
+                $timemsg = $diff->s .' second'. ($diff->s > 1?"'s":'');
           }
-          else if($diff->m > 0){
-           $timemsg = $diff->m . ' month'. ($diff->m > 1?"'s":'');
-          }
-          else if($diff->d > 0){
-           $timemsg = $diff->d .' day'. ($diff->d > 1?"'s":'');
-          }
-          else if($diff->h > 0){
-           $timemsg = $diff->h .' hour'.($diff->h > 1 ? "'s":'');
-          }
-          else if($diff->i > 0){
-           $timemsg = $diff->i .' minute'. ($diff->i > 1?"'s":'');
-          }
-          else if($diff->s > 0){
-           $timemsg = $diff->s .' second'. ($diff->s > 1?"'s":'');
-          }
-      
-      $timemsg = $timemsg.' ago';
-      return $timemsg;
+                
+                $timemsg = $timemsg.' ago';
+                return $timemsg;
       
       }
         if(!$this->session->userdata('user_id')){

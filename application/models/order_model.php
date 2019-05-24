@@ -121,18 +121,18 @@ return $data->result_array();
                 return $result->result_array();
 
         }
-        function get_vendor(){
+        function get_vendor($user_id){
             $asset=$this->db
                     ->select(['vendor_name','id'])
                     ->where('status','active')
-                    
+                    ->where('user_id',$user_id)
                     ->from('vendors')
                     ->get();
                     
                 return $asset->result_array();
         }
 
-        function update_order(){
+        function update_order($user_id){
 
             $id= $this->input->post('id');
             $po_code= $this->input->post('po_code');
@@ -155,10 +155,15 @@ return $data->result_array();
                'po_description'=>$item_description,
                'po_status'=>$status,
            );
-           $upd1=  $this->db->where('id', $id)
-   ->update('purchase_order_detail', $data1);
-    $upd2= $this->db->where('po_code', $po_code)
-     ->update('purchase_order', $data2);
+           $upd1=  $this->db
+           ->where('id', $id)
+           ->where('user_id',$user_id)
+           ->update('purchase_order_detail', $data1);
+
+        $upd2= $this->db
+        ->where('po_code', $po_code)
+        ->where('user_id',$user_id)
+        ->update('purchase_order', $data2);
      if($upd1 AND $upd2){
          echo"Update Successfuly";
      }else{
@@ -166,10 +171,11 @@ return $data->result_array();
      }
         }
 
-      function get_itemCode_in_order(){
+      function get_itemCode_in_order($user_id){
         $asset=$this->db
         ->select(['item_name','item_code','item_id'])
         ->from('items')
+        ->where('user_id',$user_id)
         ->group_by('item_name')
         ->get();
 
@@ -202,46 +208,46 @@ return $data->result_array();
 
         $id=$this->db->insert_id();
 
-    $this->db->select('po_code');
-    $this->db->where('id',$id)->where('user_id',$user_id);
-    $res2 = $this->db->get('purchase_order');
-    $res2= $res2->result_array();
-    foreach($res2 as $data){
-    $last_in_Po_code= $data['po_code'];
-    }
+        $this->db->select('po_code');
+        $this->db->where('id',$id)->where('user_id',$user_id);
+        $res2 = $this->db->get('purchase_order');
+        $res2= $res2->result_array();
+        foreach($res2 as $data){
+        $last_in_Po_code= $data['po_code'];
+                            }
 
 
 
 
-    //$last_in_Po_code = array_column($res2, 'po_code');
+            //$last_in_Po_code = array_column($res2, 'po_code');
 
 
 
-    //
+            //
 
-    //          PO Code Get after  Insert into *Purchase order*
-    //
-    //
-    $item_code=$this->input->post('item_code');
-      $item_quantity=$this->input->post('item_quantity');
-      $temp = count($item_code);
-      for($i=0; $i<$temp; $i++){
+            //          PO Code Get after  Insert into *Purchase order*
+            //
+            //
+            $item_code=$this->input->post('item_code');
+            $item_quantity=$this->input->post('item_quantity');
+            $temp = count($item_code);
+            for($i=0; $i<$temp; $i++){
 
 
 
-        $item_code=$this->input->post('item_code');
-        $item_quantity=$this->input->post('item_quantity');
-        $item_rate=$this->input->post('item_rate');
+            $item_code=$this->input->post('item_code');
+            $item_quantity=$this->input->post('item_quantity');
+            $item_rate=$this->input->post('item_rate');
 
-        $data1[] = array(
-            'po_code'=>$last_in_Po_code,
-            'user_id'   =>  $user_id,
-            'item_code'=>$item_code[$i],
-            'item_qty'=>$item_quantity[$i],
-            'item_rate'=>$item_rate[$i],
-            'po_item_total'=>$item_rate[$i]*$item_quantity[$i],
+            $data1[] = array(
+                'po_code'=>$last_in_Po_code,
+                'user_id'   =>  $user_id,
+                'item_code'=>$item_code[$i],
+                'item_qty'=>$item_quantity[$i],
+                'item_rate'=>$item_rate[$i],
+                'po_item_total'=>$item_rate[$i]*$item_quantity[$i],
 
-            );
+                );
 
                   /**
          *
@@ -249,71 +255,74 @@ return $data->result_array();
          * ORDER Remove Item QTY
          * ACORDING TO PO _ORDER
          *
-         *
-         * */
-    $this->db->query('UPDATE items
-    SET item_qty = item_qty-"'.$item_quantity[$i].'"
-    WHERE item_code = "'.$item_code[$i].'" and user_id= "'.$user_id.'"');
+                *
+                * */
+            $this->db->query('UPDATE items
+            SET item_qty = item_qty-"'.$item_quantity[$i].'"
+            WHERE item_code = "'.$item_code[$i].'" and user_id= "'.$user_id.'"');
 
 
-    }
-    $insert = count($data1);
+            }
+            $insert = count($data1);
 
-    if($insert)
-    {
-    $this->db->insert_batch('purchase_order_detail', $data1);
+            if($insert)
+            {
+            $this->db->insert_batch('purchase_order_detail', $data1);
 
-       //***********************************************************************//
-                                    //GET LAST VALUE FROM LAST INSERT BATCH DATE AND GET SUM VALUES OF ALL LAST PO DATA//
-                                            //PROCESSING START//
-                            //GET PO_CODE FROM LAST INSERT ID
-                                        //
-                                        //
-                                        //*******GET LAST insert 
-                                        //                      FROM PURCHASE_ORDER_DETAIL****************************
-    $id2=$this->db->insert_id();
+            //***********************************************************************//
+                                            //GET LAST VALUE FROM LAST INSERT BATCH DATE AND GET SUM VALUES OF ALL LAST PO DATA//
+                                                    //PROCESSING START//
+                                    //GET PO_CODE FROM LAST INSERT ID
+                                                //
+                                                //
+                                                //*******GET LAST insert 
+                                                //                      FROM PURCHASE_ORDER_DETAIL****************************
+            $id2=$this->db->insert_id();
 
-    $this->db->select('po_code');
-    $this->db->where('id',$id2)->where('user_id',$user_id);
-    $res3 = $this->db->get('purchase_order_detail');
-    $res3= $res3->result_array();
-    foreach($res2 as $data)
-    {
-        $last_in_Po_code2= $data['po_code'];
-    }
+            $this->db->select('po_code');
+            $this->db->where('id',$id2)->where('user_id',$user_id);
+            $res3 = $this->db->get('purchase_order_detail');
+            $res3= $res3->result_array();
+            foreach($res2 as $data)
+            {
+                $last_in_Po_code2= $data['po_code'];
+            }
 
-                                            // SUM ALL PURCHASE ORDER FROM LAST ID and get From foreach
+                                                    // SUM ALL PURCHASE ORDER FROM LAST ID and get From foreach
 
-       $test=$this->db->query('SELECT SUM(po_item_total) as sum_value
-            FROM purchase_order_detail WHERE po_code="'.$last_in_Po_code2.'" and user_id = "'.$user_id.'"')->result_array();
+            $test=$this->db->query('SELECT SUM(po_item_total) as sum_value
+                    FROM purchase_order_detail WHERE po_code="'.$last_in_Po_code2.'" and user_id = "'.$user_id.'"')->result_array();
 
-           foreach($test as $data)
-           {
-            $sum_data=$data['sum_value'];
-           }
+                foreach($test as $data)
+                {
+                    $sum_data=$data['sum_value'];
+                }
 
-        $this->db
-                ->where('po_code', $last_in_Po_code2)
-                ->where('user_id',$user_id)
-                ->set('po_total', $sum_data)
-                ->update('purchase_order');
+                $this->db
+                        ->where('po_code', $last_in_Po_code2)
+                        ->where('user_id',$user_id)
+                        ->set('po_total', $sum_data)
+                        ->update('purchase_order');
 
-                            //*******************************************************//
+                                    //*******************************************************//
 
-                                             // PROCESS FINISH SUM VALUE and UPDATE into po_ORDER//
-                            //******************************************//
-                echo"****Purchase Order Successfuly***";
+                                                    // PROCESS FINISH SUM VALUE and UPDATE into po_ORDER//
+                                    //******************************************//
+                        echo"****Purchase Order Successfuly***";
 
-    }
-    $item_quantity=$this->input->post('item_quantity');
-    $item_rate=$this->input->post('item_rate');
+            }
+            $item_quantity=$this->input->post('item_quantity');
+            $item_rate=$this->input->post('item_rate');
 
 
 }
+
+
             function order_status($status,$user_id){
+
                 $order_code= $this->input->post('order_code');
                 $status;
-            $update_status= $this->db
+                $update_status= $this->db
                 ->where('po_code', $order_code)
                 ->where('user_id',$user_id)
                 ->set('status', $status)
@@ -334,7 +343,7 @@ return $data->result_array();
                   $from_date= $this->input->post('from_date');
                     $to_date= $this->input->post('to_date');
                     $result= $this->db->query("SELECT * FROM `po_invoice` 
-where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
+                where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
            
                
                   return $result->result_array();
@@ -343,14 +352,14 @@ where invoice_date >= date('$from_date') and invoice_date <= date('$to_date')");
             function export_csv($user_id)
             {
                  
-    $response = array();
- 
-    // Select record
-    $this->db->select('id,po_code,po_vendor,po_total,po_description,order_report,po_date');
-    $q = $this->db->where('user_id',$user_id)->get('purchase_order');
-    $data = $q->result_array();
- 
-    return $data;
+                $response = array();
+            
+                // Select record
+                $this->db->select('id,po_code,po_vendor,po_total,po_description,order_report,po_date');
+                $q = $this->db->where('user_id',$user_id)->get('purchase_order');
+                $data = $q->result_array();
+            
+                return $data;
             }
 
 
