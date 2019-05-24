@@ -11,8 +11,10 @@
 
         public function purchase_request_by_json()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
             $this->load->model('purchase_request_model');
-            $list = $this->purchase_request_model->get_datatables();
+            $list = $this->purchase_request_model->get_datatables($user_id);
             $data = array();
             $no = $_POST['start'];
             foreach ($list as $query) {
@@ -79,8 +81,8 @@
         
             $output = array(
                     "draw" => $_POST['draw'],
-                    "recordsTotal" => $this->purchase_request_model->count_all(),
-                    "recordsFiltered" => $this->purchase_request_model->count_filtered(),
+                    "recordsTotal" => $this->purchase_request_model->count_all($user_id),
+                    "recordsFiltered" => $this->purchase_request_model->count_filtered($user_id),
                     "data" => $data,
                 );
             //output to json format
@@ -89,9 +91,11 @@
 
         function get_department_in_request()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
 
             $this->load->model('purchase_request_model');  //Load Model
-           $department= $this->purchase_request_model->get_department_in_request();
+           $department= $this->purchase_request_model->get_department_in_request($user_id);
 
            //Load ::HTML
            ?>
@@ -114,9 +118,11 @@
 
         function get_items()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
 
             $this->load->model('purchase_request_model');  //Load Model
-           $item_data= $this->purchase_request_model->get_items();
+           $item_data= $this->purchase_request_model->get_items($user_id);
 
            //Load ::HTML
            ?>
@@ -140,46 +146,57 @@
 
         public function make_request()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
             $this->load->model('purchase_request_model');
-            $this->purchase_request_model->make_request();
+            $this->purchase_request_model->make_request($user_id);
         }
 
         public function request_action()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
             $this->load->model('purchase_request_model');
-            $data=$this->purchase_request_model->request_action();
-            $data1=$this->purchase_request_model->get_Item_Qty();
+            $data=$this->purchase_request_model->request_action($user_id);
+            $data1=$this->purchase_request_model->get_Item_Qty($user_id);
         //    print_r($data1);
             $this->load->view('request_action_view',compact('data','data1'));
         }
 
         public function action_on_request()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
             $this->load->model('purchase_request_model');
-            $this->purchase_request_model->action_on_request();
+            $this->purchase_request_model->action_on_request($user_id);
         }
 
         public function delete_request()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
            $this->load->model('purchase_request_model');
-           $this->purchase_request_model->delete_request(); 
+           $this->purchase_request_model->delete_request($user_id); 
         }
 
    public function rqst_po()
         {
+            $id=$this->session->userdata('user_id');
+            $user_id=$id->id;
            $this->load->model('purchase_request_model');
-           $this->purchase_request_model->rqst_po(); 
+           $this->purchase_request_model->rqst_po($user_id); 
         }
             //GEt Item_qty from Stock
 
-            function item_from_stock()
-            {
-                
+            function item_from_stock(){
+                $id=$this->session->userdata('user_id');
+                $user_id=$id->id;
                $item_code= $this->input->post('item_code');
               
                $data=$this->db
         					->select('item_qty')
-        					->from('items_in_stock')
+                            ->from('items_in_stock')
+                            ->where('user_id',$user_id)
         					->where('item_code',$item_code)
         					->get('');
         					return $data->result_array();
@@ -188,12 +205,14 @@
 
             function item_code_value()
             {
+                $id=$this->session->userdata('user_id');
+                $user_id=$id->id;
                 $this->load->model('purchase_request_model');
                 $item_code=$this->input->post('item_code_value');
                 for($count = 0; $count < count($item_code); $count++)
                 {
                     
-                    $data = $this->purchase_request_model->item_code_value($item_code[$count]); 
+                    $data = $this->purchase_request_model->item_code_value($item_code[$count],$user_id); 
                     $out[] = $data;
             
                 }

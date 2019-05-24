@@ -15,10 +15,12 @@
         //Items ::
         function item_detail()
         {
+            $id=$this->session->userdata('user_id');
+			$user_id=$id->id; 
         	$item_code=$this->input->post('item_code');
         	
         	$this->load->model('stock_model');
-        	$result=$this->stock_model->item_detail($item_code);
+        	$result=$this->stock_model->item_detail($item_code,$user_id);
         	$this->load->view('ajax_stock/item_detail_view',['result'=>$result]);
         	
         }

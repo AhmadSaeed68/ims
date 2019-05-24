@@ -57,26 +57,26 @@ class Department_model extends CI_Model {
         }
     }
 
-    public function get_datatables()
+    public function get_datatables($user_id)
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
-        $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
+        $this->db->where('user_id',$user_id)->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->where('user_id',$user_id)->get();
         return $query->result();
     }
 
-    public function count_filtered()
+    public function count_filtered($user_id)
     {
         $this->_get_datatables_query();
-        $query = $this->db->get();
+        $query = $this->db->where('user_id',$user_id)->get();
         return $query->num_rows();
     }
 
-    public function count_all()
+    public function count_all($user_id)
     {
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
+        $this->db->from($this->table)->where('user_id',$user_id);
+        return $this->db->where('user_id',$user_id)->count_all_results();
     }
 
 
@@ -87,14 +87,15 @@ class Department_model extends CI_Model {
         //|
         //|
 
-    public function add_department()
+    public function add_department($user_id)
     {
         $department=$this->input->post('department');
         
         $temp=count($department);
          for($i=0;$i<$temp;$i++){
         $data[]= array(
-            'department'=>$department[$i],
+            'user_id'       =>    $user_id,
+            'department'    =>  $department[$i],
          );
 
           }
@@ -109,32 +110,38 @@ class Department_model extends CI_Model {
         //|
         //|
 
-    function edit_department($department_id){
+    function edit_department($department_id,$user_id){
         //$result= $this->db->query('SELECT * FROM purchase_order inner JOIN purchase_order_detail ON purchase_order_detail.id=purchase_order.id');
        $result= $this->db->select('')
        ->from('department')
-       
+       ->where('user_id',$user_id)
         ->where('id',$department_id)
         ->get('');
              return $result->result_array();
 
      }
 
-     function update_department(){
+     function update_department($user_id){
 
         $id= $this->input->post('id');
        $department= $this->input->post('department');
 
-      $this->db->where('id',$id)->update('department', ['department'=>$department]);
+      $this->db
+        ->where('id',$id)
+        ->where('user_id',$user_id)
+        ->update('department', ['department'=>$department]);
 
 
     }
-     function delete(){
+     function delete($user_id){
 
         $id= $this->input->post('id');
        
 
-      $this->db->where('id',$id)->delete('department');
+      $this->db
+        ->where('id',$id)
+        ->where('user_id',$user_id)
+        ->delete('department');
 
 
     }

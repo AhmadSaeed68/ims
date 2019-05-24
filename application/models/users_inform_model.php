@@ -8,6 +8,8 @@
 		
 		function user_detail()
 		{
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id; 
 			$data=$this->db
 						->select('*')
 						->from('user_inform')

@@ -64,52 +64,54 @@
     }
 
 
-    public function get_datatables()
+    public function get_datatables($user_id)
     {
         $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
-        $query = $this->db->get();
+        $query = $this->db->where('user_id',$user_id)->get();
         return $query->result();
     }
 
-    public function count_filtered()
+    public function count_filtered($user_id)
     {
         $this->_get_datatables_query();
-        $query = $this->db->get();
+        $query = $this->db->where('user_id',$user_id)->get();
         return $query->num_rows();
     }
 
-    public function count_all()
+    public function count_all($user_id)
     {
-        $this->db->from($this->table);
-        return $this->db->count_all_results();
+        $this->db->where('user_id',$user_id)->from($this->table);
+        return $this->db->where('user_id',$user_id)->count_all_results();
     }
 
 
                 //Ajax JSON END//
         //****************************************//
         //**Get department_model */
-        function get_department_in_request(){
+        function get_department_in_request($user_id){
             $query=$this->db
             ->select(['department','id'])
             ->from('department')
+            ->where('user_id',$user_id)
             ->get();
     
         return $query->result_array();
           }
 
-          function get_items(){
+          function get_items($user_id){
             $asset=$this->db
             ->select(['item_code','item_code','item_id'])
             ->group_by('item_code')
             ->from('items')
+            ->where('user_id',$user_id)
             ->get();
     
         return $asset->result_array();
           }
 
-          public function make_request()
+          public function make_request($user_id)
           {
             $department=$this->input->post('department');
             $temp = count($department);
@@ -118,27 +120,29 @@
                 $item_code=$this->input->post('item_code');
                 $item_quantity=$this->input->post('item_quantity');
                 $data[] = array(
-                    'department_name'=>$department[$i],
-                    'item_code'=>$item_code[$i],
-                    'item_qty'=>$item_quantity[$i],
+                    'department_name'   =>  $department[$i],
+                    'item_code'         =>  $item_code[$i],
+                    'item_qty'          =>  $item_quantity[$i],
+                    'user_id'           => $user_id,
                     );
                      
             }
             $this->db->insert_batch('purchase_request', $data);
           }
 
-          public function request_action()
+          public function request_action($user_id)
           {
               $query=$this->db
                           ->select('*')
                           ->where('status','pending')
                           ->or_where('status','processing')
+                          ->where('user_id',$user_id)
                           ->get('purchase_request');
                          
               return $query->result();
           }
 
-          public function action_on_request()
+          public function action_on_request($user_id)
           {
             
                $id = $this->input->post('id');
@@ -151,13 +155,14 @@
                 'status' => 'success',
                 'item_qty' => $item_qty
                
-        );
+                );
         
-            $q1 = $this->db->where('id', $id)
+            $q1 = $this->db->where('user_id',$user_id)->where('id', $id)
            ->update('purchase_request', $data);
            if($q1)
            {
            $q2= $this->db
+                    ->where('user_id',$user_id)
                     ->where('item_code',$item_code)
                      
                     ->set('item_qty', 'item_qty-'.$item_qty, FALSE)
@@ -184,17 +189,17 @@
             //                 return $query;
           }
 
-          public function rqst_po()
+          public function rqst_po($user_id)
           {
             $data = array(
                 'review' => 'In Processing',
                 'status' => 'processing',
                 
                
-        );
+                );
              $id1=$this->input->post('id');
                 //Generate POCode
-             $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order')->row();
+             $row= $this->db->query('SELECT COALESCE(MAX(id),0) as id FROM purchase_order where user_id="'.$user_id.'"')->row();
 
 
                         $id= $row->id;
@@ -204,7 +209,7 @@
               }else
 
               {
-                $row=$this->db->select('po_code')->where('id',$id)->get('purchase_order')->row();
+                $row=$this->db->select('po_code')->where('user_id',$user_id)->where('id',$id)->get('purchase_order')->row();
                 $po_code= $row->po_code;
                 $pieces = explode(' ', $po_code);
                       $last_word = array_pop($pieces);
@@ -215,6 +220,7 @@
 
               
              $q1= $this->db->select(['item_code','department_name','item_qty'])
+                             ->where('user_id',$user_id)
                            ->where('id',$id1)
                             ->from('purchase_request')
                             ->get()->row();
@@ -236,7 +242,7 @@
                             $q2= $this->db->insert('purchase_order_detail',$data3);
 
                             if($q2){
-                                $q3 = $this->db->where('id', $id1)
+                                $q3 = $this->db->where('user_id',$user_id)->where('id', $id1)
                                 ->update('purchase_request',['status'=>'processing']);
                                 if($q3){
                                     echo "PO Requested Successfully";
@@ -245,42 +251,49 @@
 
                           }
           }
-          public function delete_request()
+          public function delete_request($user_id)
           {
             
 
             $id=$this->input->post('id');
               $query=$this->db
-              ->where('id',$id)
-              
-                           ->delete('purchase_request');
+                ->where('user_id',$user_id)
+                ->where('id',$id)
+                ->delete('purchase_request');
                             
             //                 return $query;
           }
 
-          function get_Item_Qty()
-          {
+          function get_Item_Qty($user_id){
 
             $dept=$this->db
                             ->select('item_code')
                             ->from('purchase_request')
+                            ->where('user_id',$user_id)
                             ->get('')
                           ->result_array();
-                       foreach($dept as $da)
-                       {
-                        
-                        $d[]= $da['item_code'];
+                          if(empty($dept)){
+                            return "No Request Comming";
+                        }else{
+                            foreach($dept as $da)
+                            {
+                            
+                             $d[]= $da['item_code'];
+                            
                        
-                  
-                       } 
-      $result = array_unique($d);
-
-                 $da=$this->db
-                            ->select('item_qty,item_code')
-                            ->from('items_in_stock')
-                            ->where_in('item_code',$result)
-                            ->get();
-                            return $da->result_array();
+                            } 
+                      $result = array_unique($d);
+     
+                      $da=$this->db
+                                 ->select_sum('item_qty')
+                                 ->select('item_code')
+                                 ->from('items_in_stock')
+                                 ->where('user_id',$user_id)
+                                 ->where_in('item_code',$result)
+                                 ->get();
+                                 return $da->result_array();
+                        }
+                      
                        
                   
                    
@@ -294,35 +307,36 @@
        
         
 
-        //     $query=$this->db
-        // ->select('item_code')
-        // ->  get('purchase_request');
-           
-        // $data= $query->result_array();
-        // foreach($data as $data)
-        // {
-        //  $dat=$data['item_code']; 
-        //  $query=$this->db
-        // ->select('item_qty')
-        
-        // ->where('item_code',$dat[2])
-        // ->get('items_in_stock');
-        // return $query->result_array();
-        
-        // }
-        
-        // $temp = count($data);
-        // for($i=0; $i<$temp; $i++)
-        // {
-            
-        // }
+                    //     $query=$this->db
+                    // ->select('item_code')
+                    // ->  get('purchase_request');
+                    
+                    // $data= $query->result_array();
+                    // foreach($data as $data)
+                    // {
+                    //  $dat=$data['item_code']; 
+                    //  $query=$this->db
+                    // ->select('item_qty')
+                    
+                    // ->where('item_code',$dat[2])
+                    // ->get('items_in_stock');
+                    // return $query->result_array();
+                    
+                    // }
+                    
+                    // $temp = count($data);
+                    // for($i=0; $i<$temp; $i++)
+                    // {
+                        
+                    // }
 
           }
-          function item_code_value($item_code)
+          function item_code_value($item_code, $user_id)
           {
             $data=$this->db
         					->select('item_qty,item_code')
-        					->from('items_in_stock')
+                            ->from('items_in_stock')
+                            ->where('user_id',$user_id)
         					->where('item_code',$item_code)
                             ->get('');
                             if($data->num_rows() > 0){
