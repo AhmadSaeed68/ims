@@ -249,59 +249,64 @@
                         </li> -->
                         <?php $sid = "admin"; if($sid!="dept"){?>
                         <li>
-                            <a href="<?php echo base_url("admin/dashboard")?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="<?php echo base_url("admin/dashboard")?>"><i class="fa w3-text-green fa-2x fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-dashboard fa-fw"></i> Category</a>
+                            <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-2x w3-text-lime fa-crosshairs fa-fw"></i> Category</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url("items_controller/item");?> "><i class="fa fa-dashboard fa-fw"></i>Items</a>
+                            <a href="<?php echo base_url("items_controller/item");?> "><i class="fa fa-2x w3-text-light-green fa-briefcase fa-fw"></i>Items</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Orders<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-shopping-basket fa-2x w3-text-indigo fa-fw"></i>  Orders<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a  href="<?php echo base_url("order_controller/order_managment");?> ">Purchase Order</a>
+                                <a href="<?php echo base_url("order_controller/order_managment");?>"><i class="fa w3-text-light-blue  fa-edit fa-fw"></i> Purchase Order</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("sale_order_controller/sales_order");?> ">Sales Order</a>
+                                <a href="<?php echo base_url("sale_order_controller/sales_order");?> "><i class="fa w3-text-cyan  fa-crop fa-fw"></i> Sales Order</a>
+                                   
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i>Invoices<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-braille fa-2x w3-text-deep-orange fa-fw"></i>  Invoices<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url("invoice_controller/po_invoice");?> ">PO Invoice</a>
+                                <a href="<?php echo base_url("invoice_controller/po_invoice");?> "><i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i> PO Invoices</a>
+                                   
                                 </li>
                                 
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-table fa-fw"></i> Stock</a>
+                            <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-database w3-text-teal fa-2x fa-fw"></i> Stock</a>
                         </li>
                      
                         <li>
-                            <a href="<?php echo base_url("department_controller/index");?> "><i class="fa fa-clone fa-fw"></i> Department</a>
+                            <a href="<?php echo base_url("department_controller/index");?> "><i class="fa fa-university fa-2x w3-text-purple fa-fw"></i> Department</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url("purchase_request_controller/index");?> "><i class="fa fa-edit fa-fw"></i> Requests</a>
+                            <a href="<?php echo base_url("purchase_request_controller/index");?> "><i class="fa fa-sticky-note fa-2x w3-text-pink fa-fw"></i> Requests</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url("purchase_request_controller/request_action");?> "><i class="fa fa-flask  fa-fw"></i>Requests Action</a>
+                            <a href="<?php echo base_url("purchase_request_controller/request_action");?> "><i class="fa fa-flask fa-2x w3-text-blue-gray fa-fw"></i> Requests Action</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> Store Detail<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-server fa-2x w3-text-red fa-fw"></i> Store Detail<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 
                                 
                                 <li>
-                                    <a href="<?php echo base_url("store_controller/index");?> ">Add Stores</a>
+                                <a href="<?php echo base_url("store_controller/index");?> "><i class="fa fa-fire  w3-text-orange fa-fw"></i> Add Stores</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("store_controller/store_detail")?>">Stores Detail</a>
+                                <a href="<?php echo base_url("store_controller/store_detail")?>"><i class="fa fa-deaf  w3-text-orange fa-fw"></i> Store Detail</a>
+                                    
                                 </li>
                                
                                
@@ -309,26 +314,29 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> More<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-shekel fa-2x w3-text-yellow fa-fw"></i> More<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo base_url("report")?>">Report</a>
+                                <a href="<?php echo base_url("report")?>"><i class="fa fa-file-text  w3-text-orange  fa-fw"></i> Report</a>
+                                    
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("users_inform_controller/user_detail")?>">Buyers</a>
+                                <a href="<?php echo base_url("users_inform_controller/user_detail")?>"><i class="fa fa-blind w3-text-blue  fa-fw"></i> Buyers</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> ">Buyers Purchasing Detail</a>
+                                <a href="<?php echo base_url("purchasers_controller/purchasers_detail");?> "><i class="fa fa-users w3-text-brown  fa-fw"></i> Buyers Purchasing Detail</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url("vendors_controller/vendors")?>">Vendors</a>
+                                <a href="<?php echo base_url("vendors_controller/vendors")?>"><i class="fa fa-universal-access w3-text-deep-purple  fa-fw"></i>  Vendors</a>
+                                   
                                 </li>
                                 <li>
-                                    <a href="<?php echo base_url('profile')?>">Setting</a>
+                                <a href="<?php echo base_url('profile')?>"><i class="fa fa-gear w3-text-black  fa-fw"></i> Setting</a>
+                                   
                                 </li>
-                                <li>
-                                    <a href="<?php echo base_url("sale_order_controller/sales_order");?> ">Sales Order</a>
-                                </li>
+                                
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>

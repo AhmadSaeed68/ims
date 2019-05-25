@@ -5,14 +5,15 @@
 
  <div class=" w3-padding-64">
 
-        <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+        <!-- <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span> -->
 
 
         <div class="panel panel-default">
-            <a href="largeModal" class="btn btn-primary adddata w3-right" id="adddata"  data-toggle="modal">Add Users</a>
+        <button href="largeModal" type="button" class="btn btn-outline w3-right btn-primary adddata w3-black w3-hover-green btn-xs" id="adddata" data-toggle="modal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Buyers</button>
+            <!-- <a href="largeModal" class="btn btn-primary adddata w3-right" id="adddata"  data-toggle="modal">Add Users</a> -->
             <div class="panel-heading w3-center w3-padding-24">
-                <span class=" fa fa-user fa-2x w3-text-red">
-                    Buyers 
+                <span class=" fa-2x">
+                <i class="fa fa-blind w3-text-blue  fa-fw"></i>   Buyers 
                 </span>
                 </div> <!-- Modal -->
                 <!-- Large Modal HTML -->
@@ -104,14 +105,14 @@
                          </div>
                            <div class="col-sm-4">
                            <label for="customer Name">Business Name</label>
-                           <input type="text" class="form-control" name="business_name" required placeholder="@X trade Corp.">
+                           <input type="text" class="form-control" name="business_name" placeholder="@X trade Corp.">
                          </div>
                        </div>
                       
                        <div class="form-group">
                        	 <div class="col-sm-12">
                            <label for="customer Name">Address</label>
-                           <textarea type="text" class="form-control" name="address" required  placeholder="120N,XYZ Road,Pakistan PO-BOX:1233"></textarea>
+                           <textarea type="text" class="form-control" name="address"   placeholder="120N,XYZ Road,Pakistan PO-BOX:1233"></textarea>
                          </div>
                        </div>
 
@@ -124,7 +125,7 @@
                     		<div class="form-group">
                          <div class="col-sm-6">
                            <label for="customer Name">Email</label>
-                           <input type="email" class="form-control" name="email" required  placeholder="Email@xyx.com">
+                           <input type="email" class="form-control" name="email"   placeholder="Email@xyx.com">
                          </div>
                          <div class="col-sm-5">
                            <label for="customer Name">City</label>
@@ -136,7 +137,7 @@
                        <div class="form-group">
                          <div class="col-sm-4">
                            <label for="customer Name">Contact</label>
-                           <input type="number" placeholder="0300000000" name="contact" minlength="11" maxlength="11"  required class="form-control">
+                           <input type="number" placeholder="0300000000" name="contact" minlength="11" maxlength="11"   class="form-control">
                          </div>
                         
                        </div>

@@ -151,8 +151,8 @@ width: 1200px; /* New width for large modal */
         <!-- <div class='jumbotron'>
             <h1 class='w3-center'><span class='     fa fa-telegram w3-text-orange'> </span> Order Detail</h1>
         </div> -->
-        
-        <a id="add_more" data-toggle="modal" class="btn btn-primary w3-right">Make Purchase order</a>
+        <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_more" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Make Purchase order</button>
+        <!-- <a id="add_more" data-toggle="modal" class="btn btn-primary w3-right">Make Purchase order</a> -->
         <!-- data-toggle="modal" href="#largeModal" -->
         <div class="panel panel-default">
             <!-- <button id="btn" class="w3-btn w3-black"><span class="fa fa-search w3-text-orange"></span> Filter</button>
@@ -188,8 +188,8 @@ width: 1200px; /* New width for large modal */
                             </ul>
                         </div>
                     </div> -->
-                    <span class=" fa fa-thumb-tack fa-2x w3-text-blue">
-                        Purchase Order
+                    <span class="fa-2x ">
+                    <i class="fa w3-text-light-blue  fa-edit fa-fw"></i> Purchase Order
                     </span>
                 </div>
                 <div class="panel-body">

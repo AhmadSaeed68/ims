@@ -3,13 +3,20 @@
 
     <!-- /.row -->
 <div class="row ">
- <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Make Request</button>
+ 
     <div class="col-lg-12">
     
         <div class="panel panel-default">
-            <div class="panel-heading">
-               Department view
+            <div class="panel-heading w3-center w3-padding-24">
+              
+               <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Make Request</button>
+               <span class="fa-2x">
+               <i class="fa fa-sticky-note fa-2x w3-text-pink fa-fw"></i>  Make Purchase Request
+   </span>
+
+    </div>
             </div>
+            
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover " id="table">

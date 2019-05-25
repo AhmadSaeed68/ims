@@ -40,9 +40,7 @@
       <a href="<?php echo base_url("profile/profile_security")?>" class="w3-bar-item w3-button"><span class="fa fa-key w3-text-black"></span> Password & Security</a>
       <a href="<?php echo base_url("profile/profile_user_handle")?>" class="w3-bar-item w3-button"><span class="fa fa-group w3-text-black"></span> Users Handling</a>
     </div>
-    <a href="#footer" class="w3-bar-item w3-button w3-padding">Contact</a>
-    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Newsletter</a>
-    <a href="#footer"  class="w3-bar-item w3-button w3-padding">Subscribe</a>
+   
   </nav>
   <!-- Top menu on small screens -->
   <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">

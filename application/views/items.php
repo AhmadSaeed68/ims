@@ -7,11 +7,12 @@ echo $id->id;
         <h1 class='w3-center'><span class='fa fa-file-text-o w3-text-blue-gray'> </span> Available items Detail</h1>
     </div> -->
     <div class="card-header w3-center"> </div>
-    <div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" value="Add Item" id="<?php echo $id->id; ?>"></div>
+    <button type="button" class="btn add_data btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="<?php echo $id->id; ?>"  style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Items</button>
+    <!-- <div class="w3-right"><input type="button" class=" btn btn-info btn-sm add_data" id="<?php  $id->id; ?>" value="Add Item" ></div> -->
     <div class="panel panel-default">
         <div class="panel-heading w3-center w3-padding-24">
-            <span class=" fa fa-sitemap w3-text-green fa-2x">
-                Items Detail
+            <span class="fa-2x">
+            <i class="fa fa-2x w3-text-light-green fa-briefcase fa-fw"></i>    Items Detail
             </span>
         </div>
         <!-- Pannel tag -->

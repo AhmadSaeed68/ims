@@ -13,8 +13,8 @@
     <div class="panel panel-default">
     <div class="panel-heading w3-center w3-padding-24">
 
-   <span class="fa fa-line-chart fa-2x w3-text-teal">
-       Stock
+   <span class="fa-2x ">
+   <i class="fa fa-deaf  w3-text-orange fa-fw"></i>   Store Detail
    </span>
 
     </div>

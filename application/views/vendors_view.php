@@ -3,12 +3,13 @@ include_once "login/header.php";
 ?>
 <div class=" w3-padding-64">
 	
-	<span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+	<!-- <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span> -->
 	<div class="panel panel-default">
-		<a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Add Vendors</a>
+  <button href="largeModal" type="button" class="btn btn-outline adddata w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Vendors</button>
+		<!-- <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Add Vendors</a> -->
 		<div class="panel-heading w3-center w3-padding-24">
-			<span class=" fa fa-qrcode fa-2x w3-text-red">
-				Vendors Detail
+			<span class=" fa-2x">
+			<i class="fa fa-universal-access w3-text-deep-purple  fa-fw"></i>	Vendors Detail
 			</span>
 			</div> <!-- Modal -->
 			<!-- Large Modal HTML -->
@@ -124,7 +125,7 @@ include_once "login/header.php";
                          </div>
                           <div class="col-sm-4">
                            <label for="customer Name">Contact</label>
-                           <input type="number" placeholder="0300000000" name="contact" minlength="11" maxlength="11"  required class="form-control">
+                           <input type="number" placeholder="0300000000" name="contact"    class="form-control">
                          </div>
                         
                            
@@ -145,7 +146,7 @@ include_once "login/header.php";
                     		<div class="form-group">
                          <div class="col-sm-6">
                            <label for="customer Name">Email</label>
-                           <input type="email" class="form-control" name="email" required  placeholder="Email@xyx.com">
+                           <input type="email" class="form-control" name="email"  placeholder="Email@xyx.com">
                          </div>
                          <div class="col-sm-5">
                            <label for="customer Name">City</label>

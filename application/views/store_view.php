@@ -42,10 +42,19 @@ $id=$this->session->userdata('user_id');
     </div>
   </div>
 </div>
-<div class="container">
-<button type="button" class="btn btn-outline addstore  btn-primary w3-black w3-hover-green btn-xs" id="addstore" data-toggle="modal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Store</button>
 
-  <table class="table table-hover order_data" id="order_data">
+<div class="container">
+  <h2>Panel Heading</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading w3-center w3-padding-24">
+    <span class="fa-2x">
+<i class="fa fa-deaf  w3-text-orange fa-fw"></i>  Store Detail
+   </span>
+<button type="button" class="btn btn-outline addstore w3-right btn-primary w3-black w3-hover-green btn-xs" id="addstore" data-toggle="modal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Store</button>
+
+    </div>
+    <div class="panel-body">
+    <table class="table table-hover order_data" id="order_data">
     <thead>
       <tr>
         <th>ID</th>
@@ -82,6 +91,12 @@ $id=$this->session->userdata('user_id');
       
     </tbody>
   </table>
+
+    </div>
+  </div>
+</div>
+
+  
 </div>
   <!-- jQuery JS CDN -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>

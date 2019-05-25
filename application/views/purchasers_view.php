@@ -3,12 +3,12 @@
 	include_once "login/header.php";
 ?>
 <div class="w3-padding-64">
-	<span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Downloada</a></span>
+	<!-- <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Downloada</a></span> -->
 	<div class="panel panel-default">
-		<a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal"></a>
+		<!-- <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal"></a> -->
 		<div class="panel-heading w3-center w3-padding-24">
-			<span class="  fa fa-grav fa-2x w3-text-orange">
-				Buyers Order Details 
+			<span class="fa-2x">
+			<i class="fa fa-users w3-text-brown  fa-fw"></i> Buyers Purchasing Detail	
 			</span>
 			</div> <!-- Modal -->
 			<!-- Large Modal HTML -->

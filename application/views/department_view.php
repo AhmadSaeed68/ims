@@ -1,26 +1,15 @@
 <?php include_once "login/header.php";
 ?>
-<div class="row w3-paddinng-64">
-    <div class="col-sm-6 w3-right">
-        <div class="form-group input-group">
-            <span class="input-group-addon"> <button type="button" class="btn btn-outline btn-primary btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal">Add Department</button></span>
-            <input type="text" class="form-control" placeholder="Search...." name="dept_search" id="dept_search">
-            <span class="input-group-btn">
-            <button  type="button"  id="btn-filter" class="btn btn-primary w3-hover-teal"><i class="fa fa-search-plus"></i></button>
-            </span>
-            <span class="input-group-btn">
-            <button type="button" id="btn-reset" class="btn btn-default w3-hover-green">Reset</button>
-            </span>
-        </div>
-    </div>
-</div>
+
 <!-- /.row -->
 <div class="row w3-paddinng-64">
     <div class="col-lg-12">
         <div class="panel panel-default">
-            <div class="panel-heading">
-               Department view
+            <div class="panel-heading fa-2x w3-center w3-padding-24">
+            <i class="fa fa-university fa-2x w3-text-purple fa-fw"></i>  Department view
+               <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Department</button>
             </div>
+            
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <table width="100%" class="table table-striped table-bordered table-hover" id="table">
@@ -29,7 +18,7 @@
                             <th>ID</th>
                             <th>Department</th>
                             <th>Action(s)</th>
-                            <
+                            
                         </tr>
                     </thead>
                     <tbody>

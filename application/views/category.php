@@ -22,7 +22,7 @@
 
       <div class="">
           <div class="card border-primary mb-6 sm-6" style="max-width: 200rem;">
-      <div class="card-header w3-center"><div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa-2x fa fa-address-card-o w3-text-yellow" ></i> Category Detail</h2> </div> </div>
+      <div class="card-header w3-center"><div class="card-header w3-center"> <h2 class="w3-center"> <i class="fa fa-2x w3-text-lime fa-crosshairs fa-fw"></i> Category Detail</h2> </div> </div>
       
       <div class="card-body">
       
@@ -30,46 +30,10 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
+    <button type="button" class="btn btn-outline w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#add_category" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Add Category</button>
     <div class="pull pull-right w3-padding-24">
        
-        <input type="button" class="btn btn-outline-success w3-red " data-toggle="modal" data-target="#add_category" value="Add Category" aria-hidden="true">
-        <div id="add_category" class="modal" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Add Category</h4>
-        </div>
-        <div class="modal-body">
-        <?php //echo form_open("prd/add_category/{$user_id}");?>
-        <form method="POST">
-              <div class="form-group">
-                  <label for="usr">Category Name:</label>
-                  <input type="text" class="form-control" id="category_name" name="category_name">
-                  </div>
-                  <div class="form-group">
-                  <label for="pwd">Status:</label>
-                  
-                      <select class="form-control" name="category_status" id="category_status">
-                        <option value="active">active</option>
-                        <option value="inactive">Inactive</option>
-                      </select>
-              </div>
-              <div class="form_group"><input type="submit" value="submit"  id="category_submit" name="category_submit"></div>
-              
-              
-              </form>
-            
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
+       
         </div>
     <div class="panel-body">
   <div class="col-sm-12">
@@ -129,7 +93,44 @@
       </div>
       </div>
       </div>
-     
+      
+      <div id="add_category" class="modal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Add Category</h4>
+        </div>
+        <div class="modal-body">
+        <?php //echo form_open("prd/add_category/{$user_id}");?>
+        <form method="POST">
+              <div class="form-group">
+                  <label for="usr">Category Name:</label>
+                  <input type="text" class="form-control" id="category_name" name="category_name">
+                  </div>
+                  <div class="form-group">
+                  <label for="pwd">Status:</label>
+                  
+                      <select class="form-control" name="category_status" id="category_status">
+                        <option value="active">active</option>
+                        <option value="inactive">Inactive</option>
+                      </select>
+              </div>
+              <div class="form_group"><input type="submit" value="submit"  id="category_submit" name="category_submit"></div>
+              
+              
+              </form>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
       <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">

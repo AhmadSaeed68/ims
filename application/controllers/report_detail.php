@@ -8,9 +8,12 @@
 		
 		function total_purchase_items_detail()
 		{
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id;
 		$query=$this->db
                 ->select('*')
-                ->from('purchase_order_detail')
+								->from('purchase_order_detail')
+								->where('user_id',$user_id)
                   //->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
                 ->get();
              $data =$query->result_array();
@@ -19,9 +22,12 @@
 		}
 function total_sale_items_30_days()
 		{
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id;
 		$query=$this->db
                 ->select('*')
-                ->from('purchase_order_detail')
+								->from('purchase_order_detail')
+								->where('user_id',$user_id)
                   ->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
                 ->get();
              $data =$query->result_array();
@@ -29,9 +35,12 @@ function total_sale_items_30_days()
 			
 		}
 		function total_sale_items_detail(){
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id;
 			$query=$this->db
                 ->select('*')
-                ->from('sale_order_detail')
+								->from('sale_order_detail')
+								->where('user_id',$user_id)
                 ->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
                 ->get();
              $data =$query->result_array();
@@ -41,9 +50,12 @@ function total_sale_items_30_days()
 		}
 
 		function total_item_remain_detail(){
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id;
 			$query=$this->db
                 ->select('*')
-                ->from('items_in_stock')
+								->from('items_in_stock')
+								->where('user_id',$user_id)
                 //->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
                 ->get();
              $data =$query->result_array();
@@ -51,9 +63,12 @@ function total_sale_items_30_days()
 		}
 
 		function total_recived_invoices_detail(){
+			$id=$this->session->userdata('user_id');
+				$user_id=$id->id;
 			$query=$this->db
 							->select('*')
 							->from('purchase_order_detail')
+							->where('user_id',$user_id)
 							->where('order_report','recived')
 							->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
 							->get();
@@ -62,9 +77,12 @@ function total_sale_items_30_days()
 
 		}
 		function total_category_you_deal_detail(){
+			$id=$this->session->userdata('user_id');
+			$user_id=$id->id;
 			$query=$this->db
 							->select('*')
 							->from('category')
+							->where('user_id',$user_id)
 							->where('category_status','active')
 							
 							->get();
@@ -75,9 +93,12 @@ function total_sale_items_30_days()
 
 
 	function total_items_you_deal_detail(){
+		$id=$this->session->userdata('user_id');
+		$user_id=$id->id;
 			$query=$this->db
 							->select('*')
 							->from('items')
+							->where('user_id',$user_id)
 							->where('item_status','active')
 							
 							->get();
@@ -86,9 +107,12 @@ function total_sale_items_30_days()
 
 		}
    function total_pending_invoices_detail(){
+		$id=$this->session->userdata('user_id');
+		$user_id=$id->id;
 			$query=$this->db
 							->select('*')
 							->from('purchase_order_detail')
+							->where('user_id',$user_id)
 							->where('order_report','pending')
 							->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
 							->get();

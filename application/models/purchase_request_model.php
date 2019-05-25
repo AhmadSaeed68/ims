@@ -134,9 +134,11 @@
           {
               $query=$this->db
                           ->select('*')
+                          //->from('purchase_request')
+                          ->where('user_id',$user_id)
                           ->where('status','pending')
                           ->or_where('status','processing')
-                          ->where('user_id',$user_id)
+                         
                           ->get('purchase_request');
                          
               return $query->result();
@@ -273,7 +275,7 @@
                             ->get('')
                           ->result_array();
                           if(empty($dept)){
-                            return "No Request Comming";
+                            return "No Request Available";
                         }else{
                             foreach($dept as $da)
                             {

@@ -6,8 +6,10 @@
     <div class="col-lg-12">
     
         <div class="panel panel-default">
-            <div class="panel-heading">
-               Comming Purchase Rrquests
+            <div class="panel-heading w3-center w3-padding-24">
+            <span class="fa-2x">
+            <i class="fa fa-flask fa-2x w3-text-blue-gray fa-fw"></i>  Respond to Requests
+   </span>
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -27,11 +29,11 @@
                     </thead>
                     <tbody>
                    
-        <?php $i=0; foreach($data as $data):$i++;?>
+        <?php $i=1; foreach($data as $data):;?>
                   
                          <tr class="odd gradeX">
                          <form id="dynamic_field">
-                         <td><?=$i;?></td>
+                         <td><?=$i++;?></td>
                             <td>
                             <?=$data->department_name?>
                             <input type="hidden" readonly value="<?=$data->department_name ?>"  name="department_name" id="department_name">

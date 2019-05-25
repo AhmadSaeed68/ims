@@ -35,9 +35,9 @@
        
     
       </tr>
-       <?php foreach($data as $data):?>
+       <?php $i=1; foreach($data as $data):?>
       <tr>
-        <th></th>
+        <th><?=$i++;?></th>
       	  <th><?=$data['date']?></th>
         <th><?=$data['po_code']?></th>
         

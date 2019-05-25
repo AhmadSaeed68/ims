@@ -3,16 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Vendors_model extends CI_Model {
 	
-	function vendors()
+	function vendors($user_id)
 		{
 			$data=$this->db
 						->select('*')
 						->from('vendors')
+						->where('user_id',$user_id)
 						->get('');
 						return $data->result_array();
 		}
 
-	function add_vendors(){
+	function add_vendors($user_id){
 		
 			$data=array(
 				'vendor_name'=>$this->input->post('vendor_name'),
@@ -22,6 +23,7 @@ class Vendors_model extends CI_Model {
 				'contact'=>$this->input->post('contact'),
 				'address'=>$this->input->post('address'),
 				'email'=>$this->input->post('email'),
+				'user_id'	=>	$user_id,
 			);
 
 
@@ -38,22 +40,21 @@ class Vendors_model extends CI_Model {
 	//Get EDIT DATA
 	//********************//
 
-		function edit_vendor($vendor_id){
+		function edit_vendor($vendor_id,$user_id){
 
 			
                     $result= $this->db->select('')
-                      ->from('vendors')
-                    
-                                    ->where('id',$vendor_id)
-                                   
-                                ->get('');
+                      	->from('vendors')
+					  	->where('user_id',$user_id)
+                    	->where('id',$vendor_id)
+        		        ->get('');
                             return $result->result_array();
                
 		}
 
 
 
-		function update_vendor(){
+		function update_vendor($user_id){
 			$id=$this->input->post('id');
 			$data=array(
 				'vendor_name'=>$this->input->post('vendor_name'),
@@ -65,7 +66,10 @@ class Vendors_model extends CI_Model {
 				'email'=>$this->input->post('email'),
 			);
 
-			 $q1=$this->db->where('id', $id)->update('vendors', $data);
+			 $q1=$this->db
+			 	->where('user_id',$user_id)		 
+			 	->where('id', $id)
+			 	->update('vendors', $data);
 			 
 			 if($q1){
 			 	echo "Update Successfully";
@@ -76,13 +80,15 @@ class Vendors_model extends CI_Model {
 		}
 
 
-		function vendor_status($status){
+		function vendor_status($status,$user_id){
                 $id= $this->input->post('id');
                 $status;
-            $update_status= $this->db
-                ->where('id', $id)
-                ->set('status', $status)
-                ->update('vendors');
+			$update_status= 
+				$this->db
+							->where('user_id',$user_id)
+                			->where('id', $id)
+                			->set('status', $status)
+                			->update('vendors');
                 
                 if($update_status){
                     echo "Status Changed";

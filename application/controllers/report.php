@@ -9,8 +9,11 @@
 
             function user_count()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                   $query=$this->db
                     ->select('email')
+                    ->where('user_id',$user_id)
                     ->get('login');
                     $rowcount = $query->num_rows();
                     print_r($rowcount);
@@ -20,9 +23,11 @@
 
             function count_category()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select('category_name')
-                    
+                    ->where('user_id',$user_id)
                     ->where('category_status','active')
                    ->get('category');
                    
@@ -33,9 +38,11 @@
 
             function count_items()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select('item_name')
-                    
+                    ->where('user_id',$user_id)
                     ->where('item_status','active')
                    ->get('items');
                    
@@ -46,9 +53,11 @@
 
                 function total_po_invoices()
                 {
+                    $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                   $query=$this->db
                       ->select('po_code')
-                      
+                      ->where('user_id',$user_id)
                       ->where('order_report','recived')
                      ->get('purchase_order');
                      
@@ -61,9 +70,11 @@
 
             function count_order()
               {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                   $query=$this->db
                   ->select('po_code')
-                  
+                  ->where('user_id',$user_id)
                   ->where('po_status','active')
                  ->get('purchase_order');
                  
@@ -73,9 +84,11 @@
 
             function count_pending_po_invoices()
               {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                   $query=$this->db
                   ->select('po_code')
-                  
+                  ->where('user_id',$user_id)
                   ->where('order_report','pending')
                  ->get('purchase_order');
                  
@@ -87,10 +100,12 @@
 
             function order_value()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                // $result= $this->db->select_sum('po_item_total')
                //  ->get('purchase_order_detail')
                 $result=$this->db
-                ->query('SELECT SUM(po_item_total) as po_item_total FROM purchase_order_detail WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
+                ->query('SELECT SUM(po_item_total) as po_item_total FROM purchase_order_detail WHERE user_id="'.$user_id.'" and date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
 AND NOW()')
                  ->result_array();  
 
@@ -102,10 +117,12 @@ AND NOW()')
 
          }       
             function invoice_value(){
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                // $result= $this->db->select_sum('item_total')
                 //->get('po_invoice_detail')
                  $result=$this->db
-                ->query('SELECT SUM(item_total) as item_total FROM po_invoice_detail WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
+                ->query('SELECT SUM(item_total) as item_total FROM po_invoice_detail WHERE WHERE user_id="'.$user_id.'" and date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY)
 AND NOW()')
                 
                 ->result_array();  
@@ -118,8 +135,11 @@ AND NOW()')
 
             function item_sale()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                             ->select('item_code')
+                            ->where('user_id',$user_id)
                             ->get('sale_order_detail');
 
                     $rowcount = $query->num_rows();
@@ -130,10 +150,13 @@ AND NOW()')
 
             function item_qty()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('item_qty')
                     
                     ->from('sale_order_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data){
                     echo $data;
@@ -144,10 +167,13 @@ AND NOW()')
 
             function total_sales()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('so_item_total')
                     
                     ->from('sale_order_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data)
                    {
@@ -157,8 +183,11 @@ AND NOW()')
 
                 function no_customers()
                 {
+                    $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                  $query=$this->db
                             ->select('customer_name')
+                            ->where('user_id',$user_id)
                             ->get('sale_order');
 
                     $rowcount = $query->num_rows();
@@ -168,9 +197,11 @@ AND NOW()')
 
             function customer_total_purchasing()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                 ->select('po_code')
-                
+                ->where('user_id',$user_id)
                 ->where('po_status','active')
                ->get('purchase_order');
                
@@ -180,8 +211,10 @@ AND NOW()')
 
             function estimate_profit()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $this->load->model('Report_detail');
-               $data= $this->Report_detail->estimate_profit();
+               $data= $this->Report_detail->estimate_profit($user_id);
                foreach($data as $data){
 
                echo $data['profit_price']-$data['actual_price'];
@@ -196,8 +229,11 @@ AND NOW()')
 
             function item_types_stock()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                     $query=$this->db
                             ->select('item_code')
+                            ->where('user_id',$user_id)
                             ->get('items_in_stock');
 
                     $rowcount = $query->num_rows();
@@ -207,10 +243,13 @@ AND NOW()')
 
                function total_item_qty_in_stock()
                {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('item_qty')
                     
                     ->from('items_in_stock')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data)
                    {
@@ -223,8 +262,10 @@ AND NOW()')
 
               function total_stock_value()
               {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                $this->load->model('report_detail');
-               $data=$this->report_detail->total_stock_value();
+               $data=$this->report_detail->total_stock_value($user_id);
 
                 foreach($data as $data)
                           {
@@ -242,8 +283,11 @@ AND NOW()')
 
             function po_item_types()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                             ->select('item_code')
+                            ->where('user_id',$user_id)
                             ->get('items_in_stock');
 
                     $rowcount = $query->num_rows();
@@ -252,10 +296,13 @@ AND NOW()')
 
             function total_po_qty()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('item_qty')
                     
                     ->from('purchase_order_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data)
                    {
@@ -265,11 +312,15 @@ AND NOW()')
             
   function total_purchase_items_30_days()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('item_qty')
-                    
+                    ->where('user_id',$user_id)
                     ->from('purchase_order_detail')
+                    
                     ->where('date BETWEEN DATE_SUB(NOW(), INTERVAL 30 DAY) AND NOW()')
+                    
                    ->get();
                    foreach($query->row_array() as $data){
                     echo $data;
@@ -277,10 +328,13 @@ AND NOW()')
             }
             function total_po_value()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('po_item_total')
                     
                     ->from('purchase_order_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data){
                     echo $data;
@@ -289,8 +343,11 @@ AND NOW()')
 
             function recived_po()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
               $query=$this->db
                             ->select('po_code')
+                            ->where('user_id',$user_id)
                             ->where('order_report','recived')
                             ->get('purchase_order');
 
@@ -300,8 +357,11 @@ AND NOW()')
 
             function pending_po()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                             ->select('po_code')
+                            ->where('user_id',$user_id)
                             ->where('order_report','pending')
                             ->get('purchase_order');
 
@@ -317,10 +377,13 @@ AND NOW()')
 
             function total_invoice_qty()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                     ->select_sum('item_qty')
                     
                     ->from('po_invoice_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data){
                     echo $data;
@@ -329,11 +392,14 @@ AND NOW()')
 
             function total_invoice_value()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
 
                 $query=$this->db
                     ->select_sum('item_total')
                     
                     ->from('po_invoice_detail')
+                    ->where('user_id',$user_id)
                    ->get();
                    foreach($query->row_array() as $data){
                     echo $data;
@@ -343,8 +409,11 @@ AND NOW()')
 
             function recived_invoices()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                     $query=$this->db
                             ->select('po_code')
+                            ->where('user_id',$user_id)
                             ->where('order_report','recived')
                             ->get('purchase_order');
 
@@ -354,8 +423,11 @@ AND NOW()')
 
             function pending_invoices()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                             ->select('po_code')
+                            ->where('user_id',$user_id)
                             ->where('order_report','pending')
                             ->get('purchase_order');
 
@@ -365,8 +437,11 @@ AND NOW()')
 
             function total_category_you_deal()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                 $query=$this->db
                             ->select('category_name')
+                            ->where('user_id',$user_id)
                             ->where('category_status','active')
                             ->get('category');
 
@@ -376,8 +451,11 @@ AND NOW()')
 
             function total_items_you_deal()
             {
+                $id=$this->session->userdata('user_id');
+				$user_id=$id->id;
                  $query=$this->db
                             ->select('item_name')
+                            ->where('user_id',$user_id)
                             ->where('item_status','active')
                             ->get('items');
 

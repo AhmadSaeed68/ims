@@ -24,6 +24,7 @@
   <div class="form-row">
     <table class="table table-bordered">
       <tr class="warning">
+        <td>No</td>
       	<td>PO Code</td>
       	<td>Item Code</td>
        
@@ -33,8 +34,9 @@
          <td>Date</td>
     
       </tr>
-       <?php foreach($data as $data):?>
+       <?php $i=1; foreach($data as $data):?>
       <tr>
+        <th><?= $i++;?></th>
       	 <th><?=$data['po_code']?></th>
         <th><?=$data['item_code']?></th>
         
