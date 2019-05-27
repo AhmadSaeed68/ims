@@ -9,9 +9,18 @@ body, html {height: 100%}
   background-size: cover;
 }
 </style>
-<div class="bgimg">
+
+<header class="w3-container w3-center w3-padding-48 w3-white">
+      <h1 class="w3-jumbo w3-animate-zoom"><img src="http://localhost/ims/assets/web/owl.gif" height="10%" width="10%" alt="OWL-IMS"><b>OWL-IMS</b></h1>
+      <h3 class="w3-animate-right w3-xlarge"><span class="w3-tag">Test Version</span></h3>
+
+     
+    </header>
+
+    
+<!-- <div class="bgimg">
     <div class="container  w3-padding-64" >
-         <div class="row">
+         <div class="row"> -->
         <div class="col-sm-8 w3-card-4 w3-white">
             <?php echo form_open('login/admin_login');?>
             <fieldset>
@@ -20,7 +29,7 @@ body, html {height: 100%}
                 <div class="form-group row">
                     <label for="staticEmail" class="col-sm-2 col-form-label w3-text-red">Note:</label>
                     <div class="col-sm-10 w3-padding">
-                        <span  class="form-control-plaintext" id="staticEmail">If Login Failed, Please Contact Administrator</span>
+                        <span  class="form-control-plaintext w3-xlarge" id="staticEmail">If Login Failed, Please<i class="fa fa-fw fa-envelope w3-text-red"></i> <a href="mailto:pakjalihouse@gmail.com?subject=Why login fail" "email me">email us</a></span>
                     </div>
                 </div>
                 <?php
@@ -70,6 +79,6 @@ body, html {height: 100%}
             
             <?php echo form_close()?>
         </div>
-    </div>
-    </div></div>
+    <!-- </div>
+    </div></div> -->
    

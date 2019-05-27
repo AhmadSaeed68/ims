@@ -2,28 +2,27 @@
 
 <?php include "login/header.php"; 
      $id=$this->session->userdata('user_id');
-    echo $id->type;
+     $id->id;
     
-    $ip=$_SERVER['REMOTE_ADDR'];
-    echo "IP address= $ip";
+    // $ip=$_SERVER['REMOTE_ADDR'];
+    // echo "IP address= $ip";
     ?>
     
-   
-<div style="background-image: url(https://bestwallpapers.co/wp-content/uploads/2018/05/http-www-designlovefest-com-wp-content-uploads-downloads-2016-07.jpg);">
-    
-       <div class="row">
-         <div class="col-sm-8">
-                     <div class="w3-center">
-         <h1 class=" fa-3x"><i class="fa fa-address-book w3-text-deep-orange"></i> Dashboard</h1>
-       </div>
-         </div>
-         <div class="col-sm-4">
-           <div class="w3-card-4" style="width:100%">
-    <header class="w3-container w3-teal">
-      <h4><strong>Welcome back: </strong><?php echo $id->email;?></h4>
+    <div class="row">
+        <div class="col-sm-8">
+        <header class="w3-container w3-center w3-padding-16 w3-white">
+      <h1 class="w3-jumbo w3-animate-zoom"><img src="http://localhost/ims/assets/web/owl.gif" height="10%" width="10%" alt="OWL-IMS"><b>Dashboard</b></h1>
+      <h3 class="w3-animate-right w3-xlarge"><span class="w3-tag">Test Version</span></h3>
+      <h4 class="w3-tag w3-wide"><?="Your ID is: ". $id->id;?></h4>
+
+     
     </header>
-    <div class="container-fluid w3-padding-24">
-    <?php
+        </div>
+        <div class="col-sm-4">
+        <div class="panel panel-default">
+  <div class="panel-heading w3-teal"><h4><strong>Welcome back: </strong><?php echo $id->email;?></h4></div>
+  <div class="panel-body">
+      <?php
 //date_default_timezone_set('Asia/Calcutta'); - You can choose any timezone
  
 //Calculate 60 days in the future
@@ -36,17 +35,20 @@ if(isset($_COOKIE['lastVisit']))
 {
 $visit = $_COOKIE['lastVisit'];
 ?>
-<span class="w3-text-black  w3-codespan"><?php  echo "Last Visit: </span><span class=''>". $visit?> </span>
+<span class="fa-2x  w3-tag"><?php  echo "Last Visit: </span><span class='fa-2x'>". $visit?> </span>
 <?php
 
 }
 else
  echo "Welcome to System: Hope Fully you Enjoy YOur Work:)";
 ?>
+  </div>
+</div>
+        </div>
     </div>
-     </div>
-         </div>
-       </div>
+<div >
+    
+       
    
       
        

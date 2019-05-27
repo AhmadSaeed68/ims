@@ -41,7 +41,7 @@
 <!-- DataTables Responsive CSS -->
 <link href="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet">
 
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
 
   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -53,7 +53,7 @@
 
 </head>
 
-<body style="font-family:Tw Cen MT">
+<body style="font-family:Karma;font-size:16px" >
 <?php   $id=$this->session->userdata('user_id'); 
 			
             if($id){
@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand w3-wide fa-2x" href="<?php echo base_url("admin/dashboard")?>">Inventory System</a>
+                <a class="navbar-brand w3-wide fa-2x" href="<?php echo base_url("admin/dashboard")?>">Inventory Managment System</a>
             </div>
             <!-- /.navbar-header -->
 
@@ -253,7 +253,7 @@
                         </li>
                         
                         <li>
-                            <a href="#"><i class="fa fa-shopping-basket fa-2x w3-text-indigo fa-fw"></i> Category & items<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-first-order fa-2x w3-text-green fa-fw"></i> Category & items<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                             <li>
                             <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-2x w3-text-lime fa-crosshairs fa-fw"></i> Category</a>
