@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>IMS</title>
+   
+    <meta name="Musawer" content="">
+    <link rel="icon" href="http://localhost/ims/assets/web/owl.gif" type="image/x-icon"/>
+  <title>OWL-IMS</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
                  
                       
@@ -251,14 +251,21 @@
                         <li>
                             <a href="<?php echo base_url("admin/dashboard")?>"><i class="fa w3-text-green fa-2x fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
+                        
                         <li>
+                            <a href="#"><i class="fa fa-shopping-basket fa-2x w3-text-indigo fa-fw"></i> Category & items<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li>
                             <a href="<?php echo base_url("category_controller/category")?>"><i class="fa fa-2x w3-text-lime fa-crosshairs fa-fw"></i> Category</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url("items_controller/item");?> "><i class="fa fa-2x w3-text-light-green fa-briefcase fa-fw"></i>Items</a>
                         </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
                         <li>
-                            <a href="#"><i class="fa fa-shopping-basket fa-2x w3-text-indigo fa-fw"></i>  Orders<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-shopping-basket fa-2x w3-text-indigo fa-fw"></i>Purchase & Sales Orders<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                 <a href="<?php echo base_url("order_controller/order_managment");?>"><i class="fa w3-text-light-blue  fa-edit fa-fw"></i> Purchase Order</a>
@@ -272,7 +279,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-braille fa-2x w3-text-deep-orange fa-fw"></i>  Invoices<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-braille fa-2x w3-text-deep-orange fa-fw"></i>  Order Confirmations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
                                 <a href="<?php echo base_url("invoice_controller/po_invoice");?> "><i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i> PO Invoices</a>
