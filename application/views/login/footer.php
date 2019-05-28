@@ -1,5 +1,10 @@
+
 </div>
+<span  class="w3-padding-64" id="staticEmail"> <span class="w3-tag"> If you face issues in System</span>
+<i class="fa fa-fw fa-envelope w3-text-red"></i> 
+<a href="mailto:pakjalihouse@gmail.com?subject=Face Troubles?id:<?=$id->id;?>?email:<?=$id->email;?>?promo:<?=$id->promo;?>?contact:<?=$id->contact;?>" "email me">email us</a></span>
 </div>
+
   <script>
   //notify_purchse_req
    $.ajax({
@@ -14,14 +19,14 @@
                         }
                 });
   </script>
-<script src="<?php echo base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script> -->
+    <!-- <script src="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.js"></script> -->
       <!-- jQuery -->
       <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
 <!-- Bootstrap Core JavaScript -->
-<script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!-- <script src="<?php echo base_url(); ?>assets/vendor/bootstrap/js/bootstrap.min.js"></script> -->
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<?php echo base_url(); ?>assets/vendor/metisMenu/metisMenu.min.js"></script>

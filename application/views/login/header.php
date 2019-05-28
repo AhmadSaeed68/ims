@@ -46,10 +46,10 @@
   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+    <!-- [if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <![endif] -->
 
 </head>
 
@@ -187,11 +187,16 @@
                 </li> -->
                 <!-- /.dropdown-tasks -->
                 <!-- /.dropdown -->
+                <?php
+                    if($id->promo =='basic'):
+                    ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
                     </a>
+                   
                     <ul class="dropdown-menu dropdown-alerts">
+                   
                         <li>
                             <a href="#">
                                 <div>
@@ -212,6 +217,7 @@
                     </ul>
                     <!-- /.dropdown-alerts -->
                 </li>
+                    <?php endif;?>
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -282,7 +288,7 @@
                             <a href="#"><i class="fa fa-braille fa-2x w3-text-deep-orange fa-fw"></i>  Order Confirmations<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                <a href="<?php echo base_url("invoice_controller/po_invoice");?> "><i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i> PO Invoices</a>
+                                <a href="<?php echo base_url("invoice_controller/po_invoice");?> "><i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i> confirm PO Order</a>
                                    
                                 </li>
                                 
@@ -292,8 +298,11 @@
                         <li>
                             <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-database w3-text-teal fa-2x fa-fw"></i> Stock</a>
                         </li>
-                     
+                        <?php if($id->promo=='basic'):?>
                         <li>
+                            <a href="#"><i class="fa fa-hdd-o fa-2x w3-text-pink fa-fw"></i>Dept. & Requests<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                            <li>
                             <a href="<?php echo base_url("department_controller/index");?> "><i class="fa fa-university fa-2x w3-text-purple fa-fw"></i> Department</a>
                         </li>
                         <li>
@@ -302,6 +311,10 @@
                         <li>
                             <a href="<?php echo base_url("purchase_request_controller/request_action");?> "><i class="fa fa-flask fa-2x w3-text-blue-gray fa-fw"></i> Requests Action</a>
                         </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <?php endif;?>
                         <li>
                             <a href="#"><i class="fa fa-server fa-2x w3-text-red fa-fw"></i> Store Detail<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -346,7 +359,7 @@
                                 
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
+                       </li> 
                         <?php }
                         else{
 

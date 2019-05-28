@@ -194,7 +194,7 @@ else
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <!-- <div class="col-lg-3 col-md-6">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -215,7 +215,7 @@ else
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> -->
                 <div class="col-lg-3 col-md-6">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
@@ -727,7 +727,7 @@ else
     <!-- <div class="div-action pull pull-right">
      
      <?php //anchor('prd/load_prd_view',' Add Stock',['class'=>'btn btn-outline-success w3-red fa fa-plus-square',])?> <!-- 'data-toggle'=>'modal' -->
-      <!-- </div> --> -->
+      <!-- </div>  -->
    
       
     
@@ -799,21 +799,18 @@ else
 <!-- </div>
 </div>
 </div> -->
-<link href="<?php echo base_url(); ?>assets/vendor/select2.min.css" rel="stylesheet">
-<script src="<?php echo base_url(); ?>assets/vendor/datatables/js/jquery.dataTables.min.js"></script>
-<script src="<?php echo base_url(); ?>assets/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/vendor/datatables-responsive/dataTables.responsive.js"></script>
+
+
       <!-- jQuery -->
       <script src="<?php echo base_url(); ?>assets/vendor/jquery/jquery.min.js"></script>
-      <script src="<?php echo base_url(); ?>assets/vendorselect2.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script> -->
+
+
 <!-- Bootstrap JS CDN -->
 <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
 <!-- Bootstrap JS CDN -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
 
 <script>
     $(document).ready(function(){
