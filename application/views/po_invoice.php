@@ -144,11 +144,11 @@
             <div class="w3-container">
                 <span class="w3-left w3-hide-large"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
                 <div class="panel panel-default">
-                <button type="button" href="largeModal" class="btn btn-outline adddata w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> Make Invoice</button>
+                <button type="button" href="largeModal" class="btn btn-outline adddata w3-right btn-primary w3-black w3-hover-green btn-xs" id="add_dept" data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span> confirm order</button>
                     <!-- <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Invoice</a> -->
                     <div class="panel-heading w3-center w3-padding-24">
                         <span class="fa-2x ">
-                        <i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i>   PO Invoice
+                        <i class="fa w3-text-orange  fa-object-ungroup fa-fw"></i>   Order Confirmation
                         </span>
                         </div> <!-- Modal -->
                         <!-- Large Modal HTML -->
@@ -233,7 +233,7 @@
     
     
     
-    <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
+    
     <!-- End page content -->
 </div>
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
@@ -260,13 +260,13 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <legend class="w3-center w3-padding">
-                    <h1 class="w3-text-green">Make Invoice</h1>
+                    <h1 class="w3-text-green">Order Confirmation</h1>
                 </legend>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <form id="make_invoice">
-                        <div class="col-sm-6 col-md-7">
+                        <div class="col-sm-10 col-md-10">
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="pwd">Po Code:</label>

@@ -9,7 +9,7 @@
     </div> -->
 
 <div class="panel-group">
-   <a href="<?php echo base_url() ?>prd/pdf" class="w3-right" target="_blank"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a>
+   <!-- <a href="<?php echo base_url() ?>prd/pdf" class="w3-right" target="_blank"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a> -->
     <div class="panel panel-default">
     <div class="panel-heading w3-center w3-padding-24">
 
@@ -61,7 +61,7 @@
 <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header ">User Detail
+            <div class="modal-header ">Stock Detail
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel"></h4>
             </div>

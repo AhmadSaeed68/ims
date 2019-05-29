@@ -9,17 +9,17 @@
     <label for="email">Item Quantity</label>
     <input type="text" class="form-control" required value="<?=$result['item_qty']?>" name="item_quantity[]" id="item_quantity">
 </div>
-<div class="form-group col-md-4">
+<div class="form-group col-md-3">
     <label for="pwd">Item Rate:</label>
     <div class="input-group">
         <span class="input-group-addon">$</span>
         <input type="number" value='<?=$result['item_rate']?>' class="form-control" required=""  name="item_rate[]" id="item_rate">
     </div>
 </div>
-<div class='form-group col-md-3'>
+<div class='form-group col-md-2'>
     <label for="pwd">Discount:</label>
     <div class="input-group">
-        <input type="text" class="form-control" name="discount[]" aria-label="Amount (to the nearest dollar)">
+        <input type="text" class="form-control" name="discount[]" aria-label="discount" min="0" max="100">
         <span class="input-group-addon">%</span>
     </div>
 </div>

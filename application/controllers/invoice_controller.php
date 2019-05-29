@@ -35,9 +35,7 @@
                                 <li>
                                   <input type="button" class="w3-button w3-block w3-teal edit" value="Edit" id="'.$po_invoice->id.'">
                                 </li>
-                                <li>
-                                  <input type="button" class="w3-button w3-block w3-red  delete" value="Delete" id="'.$po_invoice->id.'">
-                                </li>
+                               
                                                               </ul>
                                                           </div>
                 ';
@@ -213,12 +211,13 @@
             $this->load->model('invoice_model');
               $result=$this->invoice_model->store_detail($user_id);
               if(empty($result)){
+                ?>
+                <a href="<?php echo base_url("store_controller/index");?> ">Click!! Add Store First</a>
+              <?php
                 echo ' <div class="form-group">
                  <label required="true" for="store">Select Store:</label>
                  <select class="form-control" required="true" id="store" name="store">';
-                  ?>
-                    <a href="<?php echo base_url("store_controller/index");?> ">Click!! Add Store First</a>
-                  <?php
+                 
               }else{
                 ?>
                <div class="form-group">

@@ -3,7 +3,7 @@
  <div class="well"><h2> Stock Detail</h2></div>
 <div class="col-sm-12 col-md-12">
  
-  <span> <a href="<?php echo base_url() ?>pdf/single_invoice_pdf/" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+ 
   <span></span>
   <div class="form-row">
     <div class="form-group col-md-6">

@@ -177,11 +177,11 @@
                                 ->where('invoice_code',$invoice_code)
                                 ->where('item_code',$item_code)
                                  ->update('po_invoice_detail',$data1) ;
-                    // if($q1&$q2){
-                    // echo 'success';
-                    // }else{
-                    //   echo 'some errror';  
-                    // }
+                    if($q1&$q2){
+                    echo 'Successfully updated';
+                    }else{
+                      echo 'some errror';  
+                    }
                 }
             
                 function get_PoCode_in_invoice($user_id){

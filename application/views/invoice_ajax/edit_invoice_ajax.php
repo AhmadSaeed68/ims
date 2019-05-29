@@ -31,11 +31,11 @@
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="pwd">Item Rate:</label>
-                    <input type="text" class="form-control" value='<?php echo $data['item_rate'];?>' required name="item_rate" id="item_rate">
+                    <input type="text" class="form-control" readonly value='<?php echo $data['item_rate'];?>' required name="item_rate" id="item_rate">
                 </div>
                 <div class="form-group col-md-4">
                     <label for="email">Item Quantity</label>
-                    <input type="text" class="form-control" value='<?php echo $data['item_qty'];?>' required name="item_qty" id="item_qty">
+                    <input type="text" class="form-control" readonly value='<?php echo $data['item_qty'];?>' required name="item_qty" id="item_qty">
                 </div>
             </div>
         </div>

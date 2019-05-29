@@ -44,7 +44,7 @@ $id=$this->session->userdata('user_id');
 </div>
 
 <div class="container">
-  <h2>Panel Heading</h2>
+
   <div class="panel panel-default">
     <div class="panel-heading w3-center w3-padding-24">
     <span class="fa-2x">

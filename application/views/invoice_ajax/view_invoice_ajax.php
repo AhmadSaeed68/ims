@@ -1,7 +1,7 @@
 
 <div class="col-sm-12 col-md-12">
    <?php foreach($records as $data1):endforeach;?>
-  <span> <a href="<?php echo base_url() ?>pdf/single_invoice_pdf/<?=$data1['invoice_code']?>" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+  <!-- <span> <a href="<?php echo base_url() ?>pdf/single_invoice_pdf/<?=$data1['invoice_code']?>" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span> -->
   <span>Date: <?=$data1['date']?></span>
   <div class="form-row">
     <div class="form-group col-md-6">
