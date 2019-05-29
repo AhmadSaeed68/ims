@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Profile_model extends CI_Model {
 
-	function index()
+	function index($user_id)
 	{
 		$session=$this->session->userdata('user_id');
 		 $email=$session->email;
@@ -13,12 +13,13 @@ class Profile_model extends CI_Model {
 				->from('login')
 				->where('email',$email)
 				->where('id',$id)
+				
 				->get('');
 				return $query->result_array();
 		
 	}
 
-	public function update_detail()
+	public function update_detail($user_id)
 	{
 		$id = $this->input->post('id');
 		$email = $this->input->post('email');
@@ -36,24 +37,27 @@ class Profile_model extends CI_Model {
 		);
 
  
-	$q= $this->db->where('id', $id)
+	$q= $this->db
+	->where('id', $id)
+	
 	 ->update('login', $data);
 	 if($q){
 		 echo "Update Successful";
 	 }
 	 }
 
-	function profile_sales()
+	function profile_sales($user_id)
 	{
 		$query=$this->db
 				->select('*')
 				->from('sales_profile')
+				->where('user_id',$user_id)
 				->get('');
 				return $query->result_array();
 
 	}
 
-	public function update_sales()
+	public function update_sales($user_id)
 	{
 		$id = $this->input->post('id');
 		$sale_pattern = $this->input->post('sale_pattern');
@@ -64,7 +68,9 @@ class Profile_model extends CI_Model {
 			
 		   
 	);
-	$data1=$this->db->where('id', $id)
+	$data1=$this->db
+	->where('id', $id)
+	->where('user_id',$user_id)
 	->update('sales_profile', $data);
 	if($data1){
 		echo "Update Successfully";
@@ -72,7 +78,7 @@ class Profile_model extends CI_Model {
 
 	}
 
-	public function add_subusers()
+	public function add_subusers($user_id)
 	{
 		$id = $this->input->post('id');
 		$name = $this->input->post('name');
@@ -89,6 +95,7 @@ class Profile_model extends CI_Model {
 			'password' => $password,
 			'email' => $email,
 			'role' => $type,
+			'user_id'	=>	$user_id
 			
 		);
 		$q1 = $this->db->insert('sub_users', $data);
@@ -101,7 +108,7 @@ class Profile_model extends CI_Model {
 				echo "❌Some Internal error❌";
 			}
 	}
-		function add_user_data(){
+		function add_user_data($user_id){
 			$data=array(
 				'email'=>$this->input->post('email'),
 				'password'=>$this->input->post('password'),
@@ -109,6 +116,7 @@ class Profile_model extends CI_Model {
 				'type'=>$this->input->post('type'),
 				'contact'=>$this->input->post('contact'),
 				'address'=>$this->input->post('address'),
+				'user_id' =>	$user_id,
 
 
 				
@@ -116,7 +124,7 @@ class Profile_model extends CI_Model {
 			$this->db->insert('login',$data);
 		}
 
-		public function pwd_change()
+		public function pwd_change($user_id)
 		{
 			$session=$this->session->userdata('user_id');
 		 $id=$session->id;
@@ -126,6 +134,7 @@ class Profile_model extends CI_Model {
 				->select('password')
 				->from('login')
 				->where('id',$id)
+				
 				->get('')
 				 ->row();
 			$pwd=$query->password;
@@ -136,10 +145,11 @@ class Profile_model extends CI_Model {
 				if($q1)
 				{
 					echo "✅ Password Updated Successful";
+					
 				}
 			}else
 			{
-				echo "❌Password Not Matched❌ Old Password is ".$pwd;
+				echo "❌Password Not Matched❌ Old Password is: ( ".$pwd."  )";
 			}
 		}
 }

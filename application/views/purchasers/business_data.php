@@ -4,7 +4,7 @@
 <div class="well"><h2> Business/Owner purchasing Detail</h2></div>
 <div class="col-sm-12 col-md-12">
   
-  <span> <a href="<?php echo base_url() ?>pdf/single_invoice_pdf/" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+  <!-- <span> <a href="<?php echo base_url() ?>pdf/single_invoice_pdf/" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span> -->
   <span></span>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -34,7 +34,7 @@
         <th>rate</th>
         <th>Profit%</th>
         <th>Total</th>
-        <th>Calculation</th>
+        <th>Total Purchasing</th>
       </tr>
       <?php $sum=0; foreach($data as $data):?>
       <tr>

@@ -82,7 +82,7 @@ $id=$this->session->userdata('user_id');
 <!-- !PAGE CONTENT! -->
 <div class="w3-main">
 <div class="container-fluid w3-padding-64">
-  <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span>
+  <!-- <span class="w3-left"> <a href="<?php echo base_url()?>pdf/invoice_pdf" target="_blank" class="w3-right"> <span class="fa fa-file-pdf-o w3-text-red fa-2x"></span> Download</a></span> -->
   <div class="panel panel-default">
   <button type="button" href="largeModal" class="btn btn-outline adddata w3-right btn-primary w3-black w3-hover-green btn-xs"  data-toggle="modal" data-target="#myModal" style="margin-bottom:20px;"><span class="fa fa-plus-square w3-text-red"></span>Make Sale Order</button>
     <!-- <a href="largeModal" class="btn btn-primary adddata w3-right"  data-toggle="modal">Make Sale Order</a> -->

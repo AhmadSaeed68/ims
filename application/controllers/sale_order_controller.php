@@ -205,8 +205,19 @@
           							$user_id=$id->id; 
 									$this->load->model('sale_order_modal');
 									$data=$this->sale_order_modal->get_users_in_so($user_id);
+									?>
+									
+									<?php
+									if(empty($data)){
+										?>
+										<a class='w3-text-blue' href="<?php echo base_url("users_inform_controller/user_detail")?>">Click!! Add Buyers First</a>
+										<select class="form-control" required id="business selectpicker" name="business"  onchange="user_on_change(this.value)"  data-live-search="true">
+                    						<option></option>
+										
+									  <?php
+									  }else{
 									$this->load->view('ajax_so/get_users_in_so',['data'=>$data]);
-							}
+							}}
 
 
 

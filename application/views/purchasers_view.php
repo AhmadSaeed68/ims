@@ -59,7 +59,7 @@
 	<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true" style="margin-top: -20px;">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				<div class="modal-header ">User Detail
+				<div class="modal-header ">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					<h4 class="modal-title" id="myModalLabel"></h4>
 				</div>

@@ -80,7 +80,7 @@
       
         <!-- Modal Header -->
         <div class="modal-header">
-          <h4 class="modal-title"></h4>
+          <h4 class="modal-title">Add Buyers</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
@@ -105,7 +105,7 @@
                          </div>
                            <div class="col-sm-4">
                            <label for="customer Name">Business Name</label>
-                           <input type="text" class="form-control" name="business_name" placeholder="@X trade Corp.">
+                           <input type="text" class="form-control" required name="business_name" placeholder="@X trade Corp.">
                          </div>
                        </div>
                       
