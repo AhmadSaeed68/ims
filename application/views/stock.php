@@ -47,7 +47,7 @@
                     <!-- <td><?php //$data->invoice_code;?></td>
                     <td><?php //$data->po_code;?></td> -->
                     <td><?=$data->category_id;?></td>
-                    <td class="w3-teal"><a id="<?=$data->item_code;?>" class="w3-text-red qty_detail"><?=$data->item_qty;?></a></td>
+                    <td class="w3-teal"><a id="<?=$data->item_code;?>" class="w3-text-white fa-2x qty_detail"><?=$data->item_qty;?></a></td>
            <!--          <td><?=$data->item_rate;?></td>
                     <td><?=$data->item_rate*$data->item_qty;?></td> -->
                     <td><?= timeAgo($data->entry_date);?></td>

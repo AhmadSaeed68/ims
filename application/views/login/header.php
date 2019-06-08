@@ -189,7 +189,7 @@
                 <!-- /.dropdown-tasks -->
                 <!-- /.dropdown -->
                 <?php
-                    if($id->promo =='basic'):
+                    if($id->promo =='pro'):
                     ?>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -299,7 +299,7 @@
                         <li>
                             <a href="<?php echo base_url("stock_controller/stock");?> "><i class="fa fa-database w3-text-teal fa-2x fa-fw"></i> Stock</a>
                         </li>
-                        <?php if($id->promo=='basic'):?>
+                        <?php if($id->promo=='pro'):?>
                         <li>
                             <a href="#"><i class="fa fa-hdd-o fa-2x w3-text-pink fa-fw"></i>Dept. & Requests<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

@@ -12,22 +12,22 @@
             <ul class="list-group">
             <div class="col-sm-6">
               <li class="list-group-item d-flex w3-light-green justify-content-between align-items-center">
-                  <b>Recived PO Invoices</b>
-                  <span class="badge badge-primary badge-pill"><a id="total_recived_invoices" class="w3-text-white"></a></span>
+                  <b>Recived Orders</b>
+                  <span class="badge badge-primary badge-pill"><a id="total_recived_invoices" class=" w3-text-white fa-2x"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-lime justify-content-between align-items-center">
-                  <b>Pending PO_invoices</b>
-                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white" id="total_pending_invoices"></a></span>
+                  <b>Pending Reciving Orders</b>
+                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white fa-2x" id="total_pending_invoices"></a></span>
                 </li>
             </div>
             <div class="col-sm-6">
               <li class="list-group-item d-flex w3-amber justify-content-between align-items-center">
                   <b>Total Category You Deals</b>
-                  <span class="badge badge-primary badge-pill"><a class="w3-text-white" id="total_category_you_deal"></a></span>
+                  <span class="badge badge-primary badge-pill"><a class="w3-text-white fa-2x" id="total_category_you_deal"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-khaki justify-content-between align-items-center">
                   <b>Total Items You Deals</b>
-                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white" id="total_items_you_deal"></a></span>
+                  <span class="badge badge-primary  badge-pill"><a class="w3-text-white fa-2x" id="total_items_you_deal"></a></span>
                 </li>
             </div>
             
@@ -42,15 +42,15 @@
              
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Purchase Items</b>
-                  <span class="badge badge-primary badge-pill"><a id="total_purchase_items_30_days" class="w3-text-white"></a> </span>
+                  <span class="badge badge-primary badge-pill"><a id="total_purchase_items_30_days" class="fa-2x w3-text-white"></a> </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sale items</b>
-                  <span class="badge badge-primary badge-pill"><a id="total_sale_items" class="w3-text-white"></a></span>
+                  <span class="badge badge-primary badge-pill"><a id="total_sale_items" class="fa-2x w3-text-white"></a></span>
                 </li>
                 <li class="list-group-item d-flex w3-light-blue justify-content-between align-items-center">
                   <b>Total Items Remaning</b>
-                  <span class="badge badge-primary w3-green badge-pill"><a id="total_item_remain" class="w3-text-white"></a></span>
+                  <span class="badge badge-primary w3-green badge-pill"><a id="total_item_remain" class="fa-2x w3-text-white"></a></span>
                 </li>
                 
               </ul>
@@ -60,15 +60,15 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Purchase Value</b>
-                  <span class="badge badge-primary badge-pill w3-sand">PKR <span id="total_purchase_value"></span> =/</span>
+                  <span class="badge badge-primary badge-pill w3-sand">PKR <span id="total_purchase_value" class="fa-2x"></span> =/</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sales Value</b>
-                  <span class="badge badge-primary badge-pill w3-blue">PKR: <span id="total_sale_value"></span> =/</span>
+                  <span class="badge badge-primary badge-pill w3-blue">PKR: <span id="total_sale_value" class="fa-2x"></span> =/</span>
                 </li>
                 <li class="list-group-item w3-light-blue d-flex justify-content-between align-items-center">
                   <b> Total Estimate Profit</b>
-                  <span class="badge badge-primary w3-green badge-pill">PKR: <span id="total_estimate_profit"></span> =/</span>
+                  <span class="badge badge-primary w3-green badge-pill">PKR: <span id="total_estimate_profit" class="fa-2x"></span> =/</span>
                 </li>
 
               </ul>
@@ -94,15 +94,15 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Items Sales </b>
-                  <span class="badge badge-primary badge-pill"><span id="item_sale"></span> </span>
+                  <span class="badge badge-primary badge-pill"><span id="item_sale" class="fa-2x"></span> </span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sales items</b>
-                  <span class="badge badge-primary badge-pill"><span id="item_qty"></span></span>
+                  <span class="badge badge-primary badge-pill"><span id="item_qty" class="fa-2x"></span></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Total Sales Value</b>
-                  <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_sales"></span> =/</span>
+                  <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_sales" class="fa-2x"></span> =/</span>
                 </li>
               </ul>
             </div>
@@ -111,15 +111,15 @@
               <ul class="list-group">
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>No. of Customers</b>
-                  <span class="badge badge-primary badge-pill"><span id="no_customers"></span></span>
+                  <span class="badge badge-primary badge-pill"><span id="no_customers" class="fa-2x"></span></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Customers Total Purchasing</b>
-                  <span class="badge badge-primary badge-pill w3-blue">PKR: <span id="customer_total_purchasing"></span> =/</span>
+                  <span class="badge badge-primary badge-pill w3-blue">PKR: <span id="customer_total_purchasing" class="fa-2x"></span> =/</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                   <b>Estimated Profit Ratio</b>
-                  <span class="badge badge-primary w3-green badge-pill">PKR: <span id="estimate_profit"></span> =/</span>
+                  <span class="badge badge-primary w3-green badge-pill">PKR: <span id="estimate_profit" class="fa-2x"></span> =/</span>
                 </li>
               </ul>
             </div>
@@ -140,15 +140,15 @@
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Item types  </b>
-                <span class="badge badge-primary badge-pill"><span id="item_types_stock"></span> </span>
+                <span class="badge badge-primary badge-pill"><span id="item_types_stock" class="fa-2x"></span> </span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Total items QTY in Stock</b>
-                <span class="badge badge-primary badge-pill"><span id="total_item_qty_in_stock"></span></span>
+                <span class="badge badge-primary badge-pill"><span id="total_item_qty_in_stock" class="fa-2x"></span></span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Total Stock Value</b>
-                <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_stock_value"></span> =/</span>
+                <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_stock_value" class="fa-2x"></span> =/</span>
               </li>
             </ul>
           </div>
@@ -157,7 +157,7 @@
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>No. Days</b>
-                <span class="badge badge-primary badge-pill"><span id="no_days"></span></span>
+                <span class="badge badge-primary badge-pill"><span id="no_days" class="fa-2x"></span></span>
               </li>
               
               
@@ -178,15 +178,15 @@
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Purchase Item types  </b>
-                <span class="badge badge-primary badge-pill"><span id="po_item_types"></span> </span>
+                <span class="badge badge-primary badge-pill"><span id="po_item_types" class="fa-2x"></span> </span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Total PO QTY</b>
-                <span class="badge badge-primary badge-pill"><span id="total_po_qty"></span></span>
+                <span class="badge badge-primary badge-pill"><span id="total_po_qty" class="fa-2x"></span></span>
               </li>
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Total PO Value</b>
-                <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_po_value"></span> =/</span>
+                <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_po_value" class="fa-2x"></span> =/</span>
               </li>
             </ul>
           </div>
@@ -195,12 +195,12 @@
             <ul class="list-group">
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Recived PO.</b>
-                <span class="badge badge-primary badge-pill"><span id="recived_po"></span></span>
+                <span class="badge badge-primary badge-pill"><span id="recived_po" class="fa-2x"></span></span>
               </li>
               
               <li class="list-group-item d-flex justify-content-between align-items-center">
                 <b>Pendings PO.</b>
-                <span class="badge badge-primary badge-pill"><span id="pending_po"></span></span>
+                <span class="badge badge-primary badge-pill"><span id="pending_po" class="fa-2x"></span></span>
               </li>
             </ul>
           </div>
@@ -212,19 +212,19 @@
         <div class="row w3-padding-24">
           <div class="
             Panel panel-info w3-show">
-            <div class="panel-heading w3-center"><h4><b class="w3-wide">PO INVOICES Report</b></h4></div>
+            <div class="panel-heading w3-center"><h4><b class="w3-wide">Recived Order Report</b></h4></div>
             <div class="panel-body">
               <div class="row">
                 <div class="col-sm-6">
                   <ul class="list-group">
                     
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <b>Total Invoice QTY</b>
-                      <span class="badge badge-primary badge-pill"><span id="total_invoice_qty"></span></span>
+                      <b>Total Order Recived QTY</b>
+                      <span class="badge badge-primary badge-pill"><span id="total_invoice_qty" class="fa-2x"></span></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <b>Total Value of Invoice</b>
-                      <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_invoice_value"></span> =/</span>
+                      <b>Total Value of Recived Order</b>
+                      <span class="badge badge-primary w3-teal badge-pill">PKR: <span id="total_invoice_value" class="fa-2x"></span> =/</span>
                     </li>
                   </ul>
                 </div>
@@ -232,13 +232,13 @@
                   
                   <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <b>Recived Invoices.</b>
-                      <span class="badge badge-primary badge-pill"><span id="recived_invoices"></span></span>
+                      <b>Recived Order.</b>
+                      <span class="badge badge-primary badge-pill"><span id="recived_invoices" class="fa-2x"></span></span>
                     </li>
                     
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                      <b>Pendings Invoices.</b>
-                      <span class="badge badge-primary badge-pill"><span id="pending_invoices"></span></span>
+                      <b>Pendings Reciving Orders.</b>
+                      <span class="badge badge-primary badge-pill"><span id="pending_invoices" class="fa-2x"></span></span>
                     </li>
                   </ul>
                 </div>

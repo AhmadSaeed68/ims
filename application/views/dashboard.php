@@ -84,7 +84,7 @@ else
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa fa-crosshairs fa-5x w3-text-lime"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div id="count_category" class="huge"></div>
@@ -92,13 +92,13 @@ else
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -106,7 +106,7 @@ else
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-database w3-text-teal fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div id="count_items" class="huge"></div>
@@ -114,13 +114,13 @@ else
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -128,21 +128,21 @@ else
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                    <i class="fa  w3-text-light-blue  fa-edit fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div id="count_order" class="huge"></div>
-                                    <div>Total PO`s</div>
+                                    <div>Total Purchase Order</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -150,22 +150,22 @@ else
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-support fa-5x"></i>
+                                    <i class="fa w3-text-orange  fa-object-ungroup fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div id="count_pending_po_invoices" class="huge"></div>
-                                    <div>Pending Po Invoices</div>
+                                    <div>Pending Order Confirmations</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
                             
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
@@ -177,21 +177,21 @@ else
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-comments fa-5x"></i>
+                                    <i class="fa w3-text-green  fa-object-ungroup fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div id="total_po_invoices" class="huge"></div>
-                                    <div>PO Invoices</div>
+                                    <div>Recives Orders</div>
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <!-- <div class="col-lg-3 col-md-6">
@@ -229,13 +229,13 @@ else
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
@@ -251,13 +251,13 @@ else
                                 </div>
                             </div>
                         </div>
-                        <a href="#">
+                        <!-- <a href="#">
                             <div class="panel-footer">
                                 <span class="pull-left">View Details</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                 <div class="clearfix"></div>
                             </div>
-                        </a>
+                        </a> -->
                     </div>
                 </div>
             </div>
