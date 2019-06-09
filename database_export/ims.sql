@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: May 25, 2019 at 07:01 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- Host: 127.0.0.1
+-- Generation Time: Jun 09, 2019 at 02:33 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,7 +57,8 @@ INSERT INTO `category` (`category_id`, `user_id`, `category_name`, `category_sta
 (76, 5, 'Keyboard', 'active'),
 (77, 5, 'LCD', 'active'),
 (78, 5, 'CPU', 'active'),
-(79, 6, 'Laptop', 'active');
+(82, 6, 'Laptop', 'active'),
+(83, 7, 'Laptop', 'active');
 
 -- --------------------------------------------------------
 
@@ -155,9 +156,11 @@ INSERT INTO `items` (`item_id`, `category_id`, `brand_id`, `item_name`, `item_co
 (46, 61, 0, 'wer', 'rw', 'test', 'active', 0, 0),
 (47, 64, 0, 'core i5', 'dell7440', 'core i 5 dell', 'active', -5743, 0),
 (48, 63, 0, '640 upper', 'Pipe', 'this is just test', 'active', -8651, 0),
-(49, 67, 0, 'Gaming Mouse', 'bldms12', 'bloddy mouse', 'active', -226, 4),
+(49, 67, 0, 'Gaming Mouse', 'bldms12', 'bloddy mouse', 'active', -291, 4),
 (50, 61, 0, 'prm 640', 'prime', '640', 'active', 0, 2),
-(51, 64, 0, 'Dell 7440', 'dell7440', 'Core i5 3230m\n8gb\n320 gb', 'active', -220, 2);
+(51, 64, 0, 'Dell 7440', 'dell7440', 'Core i5 3230m\n8gb\n320 gb', 'active', -220, 2),
+(52, 81, 0, 'dell 7440', 'dell7440 i5', 'Dell Latitude 7440\ncore i5 2.6 ghz\n8gb ram\n500gb hdd', 'active', -10, 6),
+(53, 83, 0, 'dell 7440', 'dell7440 i5', 'Dell Latitude i5', 'active', -100, 7);
 
 -- --------------------------------------------------------
 
@@ -217,7 +220,9 @@ INSERT INTO `items_in_stock` (`id`, `entry_date`, `category_id`, `brand_id`, `it
 (113, '2019-05-24 08:37:58', 0, 0, '', 'bldms12', NULL, 'PO23519 22', 'INPO24519 1', '40', '4422.00', '2019-05-24 08:37:58', 2, 2),
 (114, '2019-05-24 09:04:46', 0, 0, '', 'dell7440', NULL, 'PO24519 23', 'INPO24519 2', '20', '26000.00', '2019-05-24 09:04:46', 2, 2),
 (115, '2019-05-24 11:43:55', 0, 0, '', 'dell7440', NULL, 'PO24519 24', 'INPO24519 3', '200', '43000.00', '2019-05-24 11:43:55', 2, 2),
-(116, '2019-05-24 11:45:39', 0, 0, '', 'bldms12', NULL, 'PO24519 7', 'INPO24519 23', '48', '23.00', '2019-05-24 11:45:39', 3, 4);
+(116, '2019-05-24 11:45:39', 0, 0, '', 'bldms12', NULL, 'PO24519 7', 'INPO24519 23', '48', '23.00', '2019-05-24 11:45:39', 3, 4),
+(117, '2019-05-29 11:38:18', 0, 0, '', 'dell7440 i5', NULL, 'PO29519 1', 'INPO29519 1', '7', '27000.00', '2019-05-29 11:38:18', 4, 6),
+(118, '2019-06-02 13:08:19', 0, 0, '', 'dell7440 i5', NULL, 'PO02619 1', 'INPO02619 1', '88', '12000.00', '2019-06-02 13:08:19', 5, 7);
 
 -- --------------------------------------------------------
 
@@ -237,17 +242,19 @@ CREATE TABLE `login` (
   `name` varchar(200) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `session_id` int(100) NOT NULL,
-  `session_sub_id` int(200) NOT NULL
+  `session_sub_id` int(200) NOT NULL,
+  `promo` enum('basic','pro','premium','') NOT NULL DEFAULT 'basic'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `login`
 --
 
-INSERT INTO `login` (`id`, `email`, `password`, `cnic`, `security_question`, `type`, `contact`, `address`, `name`, `updated_at`, `session_id`, `session_sub_id`) VALUES
-(2, 'pakjalihouse@yahoo.com', 'admin123', '3120269441941', 'yes', 'master', 2147483647, 'pak jali house, Near Shama Canima Multan Road Bahawalpur.', 'Musawer ALi', '2019-03-31 11:33:23', 0, 0),
-(4, 'liaquat31202@gmail.com', 'admin123', '31202899321', '', 'master', 2147483647, 'pak jali ', 'Musawer ali', '2019-03-31 11:33:23', 0, 0),
-(6, 'admin@admin.com', 'adminadmin', '12345678900', '', 'master', 0, 'XXXXXXXXXXXXX', 'admin', '2019-05-25 07:00:13', 0, 0);
+INSERT INTO `login` (`id`, `email`, `password`, `cnic`, `security_question`, `type`, `contact`, `address`, `name`, `updated_at`, `session_id`, `session_sub_id`, `promo`) VALUES
+(2, 'pakjalihouse@yahoo.com', 'admin123', '3120269441941', 'yes', 'master', 2147483647, 'pak jali house, Near Shama Canima Multan Road Bahawalpur.', 'Musawer ALi', '2019-03-31 11:33:23', 0, 0, 'basic'),
+(4, 'liaquat31202@gmail.com', 'admin123', '31202899321', '', 'master', 2147483647, 'pak jali ', 'Musawer ali', '2019-03-31 11:33:23', 0, 0, 'basic'),
+(6, 'admin@admin.com', 'adminadmin', '12345678900', '', 'master', 0, 'XXXXXXXXXXXXX', 'admin', '2019-05-25 07:00:13', 0, 0, 'pro'),
+(7, 'user@user.com', 'useruser', '1234567890', '', 'master', 1234567890, 'bwp', 'user', '2019-06-01 04:22:58', 0, 0, 'basic');
 
 -- --------------------------------------------------------
 
@@ -341,7 +348,9 @@ INSERT INTO `po_invoice` (`id`, `po_code`, `invoice_code`, `invoice_total`, `inv
 (141, 'PO23519 22', 'INPO24519 1', '190146.00', '2019-05-24 08:37:57', 'sdA', 'Active', 2, 2),
 (142, 'PO24519 23', 'INPO24519 2', '494000.00', '2019-05-24 09:04:46', 'Bilty no:3123\nRecived by Owner', 'Active', 2, 2),
 (143, 'PO24519 24', 'INPO24519 3', '8084000.00', '2019-05-24 11:43:55', 'test recive', 'Active', 2, 2),
-(144, 'PO24519 7', 'INPO24519 23', '571.32', '2019-05-24 11:45:38', 'fdszfsdf', 'Active', 3, 4);
+(144, 'PO24519 7', 'INPO24519 23', '571.32', '2019-05-24 11:45:38', 'fdszfsdf', 'Active', 3, 4),
+(145, 'PO29519 1', 'INPO29519 1', '270000.00', '2019-05-29 11:38:18', 'Recived by XXXX\nbilty no: xxxxx\n..etc...........\n', 'Active', 4, 6),
+(146, 'PO02619 1', 'INPO02619 1', '1188000.00', '2019-06-02 13:08:19', 'Some Description', 'Active', 5, 7);
 
 -- --------------------------------------------------------
 
@@ -397,7 +406,9 @@ INSERT INTO `po_invoice_detail` (`id`, `invoice_code`, `item_code`, `item_qty`, 
 (150, 'INPO24519 1', 'bldms12', 43, '4422.00', '2019-05-24 08:37:58', '190146.00', 0, 2, 2),
 (151, 'INPO24519 2', 'dell7440', 20, '26000.00', '2019-05-24 09:04:46', '494000.00', 5, 2, 2),
 (152, 'INPO24519 3', 'dell7440', 200, '43000.00', '2019-05-24 11:43:55', '8084000.00', 6, 2, 2),
-(153, 'INPO24519 23', 'bldms12', 54, '23.00', '2019-05-24 11:45:38', '571.32', 54, 3, 4);
+(153, 'INPO24519 23', 'bldms12', 54, '23.00', '2019-05-24 11:45:38', '571.32', 54, 3, 4),
+(154, 'INPO29519 1', 'dell7440 i5', 10, '27000.00', '2019-05-29 11:38:18', '270000.00', 0, 4, 6),
+(155, 'INPO02619 1', 'dell7440 i5', 100, '12000.00', '2019-06-02 13:08:19', '1188000.00', 1, 5, 7);
 
 -- --------------------------------------------------------
 
@@ -525,7 +536,10 @@ INSERT INTO `purchase_order` (`id`, `po_code`, `po_vendor`, `po_total`, `po_date
 (407, 'PO24519 6', '0', '989.00', '2019-05-24 07:08:59', 'ewdsadf', 'active', 'recived', 0, 0, 4),
 (408, 'PO24519 7', '0', '1242.00', '2019-05-24 07:45:00', 'rewdfsf', 'active', 'recived', 0, 0, 4),
 (409, 'PO24519 23', 'Haroon Traders', '520000.00', '2019-05-24 09:03:46', 'Online 200000', 'active', 'recived', 0, 0, 2),
-(410, 'PO24519 24', 'Haroon Traders', '8600000.00', '2019-05-24 11:43:32', 'trst', 'active', 'recived', 0, 0, 2);
+(410, 'PO24519 24', 'Haroon Traders', '8600000.00', '2019-05-24 11:43:32', 'trst', 'active', 'recived', 0, 0, 2),
+(411, 'PO29519 1', 'ABC Traders', '270000.00', '2019-05-29 10:35:50', 'order to manager', 'active', 'recived', 0, 0, 6),
+(412, 'PO02619 1', 'ABC Traders', '1200000.00', '2019-06-02 09:30:33', 'Some description about purchase order', 'active', 'recived', 0, 0, 7),
+(413, 'PO09619 8', 'Haroon Traders', '2210.00', '2019-06-09 10:34:23', 'r;l', 'active', 'pending', 0, 0, 4);
 
 -- --------------------------------------------------------
 
@@ -583,7 +597,10 @@ INSERT INTO `purchase_order_detail` (`id`, `po_code`, `item_code`, `item_qty`, `
 (381, 'PO24519 6', 'bldms12', 43, '23.00', '2019-05-24 07:08:59', '989.00', 'active', 'recived', 0, 4),
 (382, 'PO24519 7', 'bldms12', 54, '23.00', '2019-05-24 07:45:00', '1242.00', 'active', 'recived', 0, 4),
 (383, 'PO24519 23', 'dell7440', 20, '26000.00', '2019-05-24 09:03:46', '520000.00', 'active', 'recived', 0, 2),
-(384, 'PO24519 24', 'dell7440', 200, '43000.00', '2019-05-24 11:43:32', '8600000.00', 'active', 'recived', 0, 2);
+(384, 'PO24519 24', 'dell7440', 200, '43000.00', '2019-05-24 11:43:32', '8600000.00', 'active', 'recived', 0, 2),
+(385, 'PO29519 1', 'dell7440 i5', 10, '27000.00', '2019-05-29 10:35:50', '270000.00', 'active', 'recived', 0, 6),
+(386, 'PO02619 1', 'dell7440 i5', 100, '12000.00', '2019-06-02 09:30:34', '1200000.00', 'active', 'recived', 0, 7),
+(387, 'PO09619 8', 'bldms12', 65, '34.00', '2019-06-09 10:34:23', '2210.00', 'active', 'pending', 0, 4);
 
 -- --------------------------------------------------------
 
@@ -651,7 +668,9 @@ CREATE TABLE `sales_profile` (
 --
 
 INSERT INTO `sales_profile` (`id`, `sale_pattern`, `profit`, `user_id`) VALUES
-(1, 'lifo', 12, 2);
+(1, 'fifo', 12, 2),
+(2, 'lifo', 10, 6),
+(3, 'lifo', 8, 7);
 
 -- --------------------------------------------------------
 
@@ -686,7 +705,9 @@ INSERT INTO `sale_order` (`id`, `so_code`, `customer_name`, `so_total`, `so_date
 (154, 'SO11419 7', 'Madni Ent.', NULL, '2019-04-11 07:00:00', NULL, 'active', 'pending', '', 0),
 (155, 'SO11419 8', 'Pak Jali House', NULL, '2019-04-11 10:08:08', NULL, 'active', 'pending', '', 0),
 (156, 'SO24519 9', 'Madni Ent.', NULL, '2019-05-24 04:18:28', NULL, 'active', 'pending', '', 2),
-(157, 'SO24519 10', 'Madni Ent.', NULL, '2019-05-24 06:42:38', NULL, 'active', 'pending', '', 2);
+(157, 'SO24519 10', 'Madni Ent.', NULL, '2019-05-24 06:42:38', NULL, 'active', 'pending', '', 2),
+(158, 'SO29519 1', 'John Simith', NULL, '2019-05-29 12:43:28', NULL, 'active', 'pending', '', 6),
+(159, 'SO07619 1', 'Individual ', NULL, '2019-06-07 16:35:53', NULL, 'active', 'pending', '', 7);
 
 -- --------------------------------------------------------
 
@@ -724,7 +745,9 @@ INSERT INTO `sale_order_detail` (`id`, `so_code`, `item_code`, `item_qty`, `item
 (110, 'SO11419 7', 'ovn 02 o3', 4, '10000.00', '2019-04-11 03:00:43', '38000.00', 'active', 'pending', 10, '', 5, 0),
 (111, 'SO11419 8', 'allwin6408f', 3, '10000.00', '2019-04-11 03:14:23', '26400.00', 'active', 'pending', 10, '', 12, 0),
 (112, 'SO24519 9', 'allwin6408f', 32, '10000.00', '2019-05-24 09:18:28', '358400.00', 'active', 'pending', 12, '', 43, 2),
-(113, 'SO24519 10', 'bldms12', 3, '4422.00', '2019-05-24 11:42:39', '11939.40', 'active', 'pending', 12, '', 10, 2);
+(113, 'SO24519 10', 'bldms12', 3, '4422.00', '2019-05-24 11:42:39', '11939.40', 'active', 'pending', 12, '', 10, 2),
+(114, 'SO29519 1', 'dell7440 i5', 3, '27000.00', '2019-05-29 17:43:28', '89100.00', 'active', 'pending', 10, '', 12, 6),
+(115, 'SO07619 1', 'dell7440 i5', 12, '12000.00', '2019-06-07 21:35:54', '129600.00', 'active', 'pending', 8, '', 10, 7);
 
 -- --------------------------------------------------------
 
@@ -771,7 +794,9 @@ INSERT INTO `so_customer_detail` (`id`, `business_name`, `ntn`, `email`, `contac
 (109, 'Madni Ent.', '17921-TR', 'liaquatali31202@gmail.com', 2147483647, 'Near GEn Bus Stand.Mina-re-Pakistan Laore', 'SO11419 7', '2019-04-11 03:00:44', 'Lahore', 9, 0),
 (110, 'Pak Jali House', '57N-N432', 'pakjalihouse@gmail.com', 2147483647, 'Bahawalpur Main Road', 'SO11419 8', '2019-04-11 03:14:23', 'Bahawalpur', 8, 0),
 (111, 'Madni Ent.', '17921-TR', 'liaquatali31202@gmail.com', 2147483647, 'Near GEn Bus Stand.Mina-re-Pakistan Laore', 'SO24519 9', '2019-05-24 09:18:28', 'Lahore', 9, 0),
-(112, 'Madni Ent.', '17921-TR', 'liaquatali31202@gmail.com', 2147483647, 'Near GEn Bus Stand.Mina-re-Pakistan Laore', 'SO24519 10', '2019-05-24 11:42:39', 'Lahore', 9, 2);
+(112, 'Madni Ent.', '17921-TR', 'liaquatali31202@gmail.com', 2147483647, 'Near GEn Bus Stand.Mina-re-Pakistan Laore', 'SO24519 10', '2019-05-24 11:42:39', 'Lahore', 9, 2),
+(113, 'John Simith', '', '', 0, 'USA Street 123', 'SO29519 1', '2019-05-29 17:43:28', 'NY', 14, 6),
+(114, 'Individual ', '', '', 0, '', 'SO07619 1', '2019-06-07 21:35:54', 'NY', 16, 7);
 
 -- --------------------------------------------------------
 
@@ -814,7 +839,9 @@ INSERT INTO `so_invoice` (`id`, `so_code`, `invoice_code`, `so_total`, `so_date`
 (68, 'SO11419 7', NULL, NULL, '2019-04-11 03:00:44', NULL, 'Active', 0),
 (69, 'SO11419 8', NULL, NULL, '2019-04-11 03:14:23', NULL, 'Active', 0),
 (70, 'SO24519 9', NULL, NULL, '2019-05-24 09:18:28', NULL, 'Active', 0),
-(71, 'SO24519 10', NULL, NULL, '2019-05-24 11:42:39', NULL, 'Active', 2);
+(71, 'SO24519 10', NULL, NULL, '2019-05-24 11:42:39', NULL, 'Active', 2),
+(72, 'SO29519 1', NULL, NULL, '2019-05-29 17:43:28', NULL, 'Active', 6),
+(73, 'SO07619 1', NULL, NULL, '2019-06-07 21:35:54', NULL, 'Active', 7);
 
 -- --------------------------------------------------------
 
@@ -858,7 +885,9 @@ INSERT INTO `so_invoice_detail` (`id`, `invoice_code`, `item_code`, `item_qty`, 
 (56, NULL, 'ovn 02 o3', 4, '10000.00', '2019-04-11 03:00:44', '38000.00', 10, 0),
 (57, NULL, 'allwin6408f', 3, '10000.00', '2019-04-11 03:14:23', '26400.00', 10, 0),
 (58, NULL, 'allwin6408f', 32, '10000.00', '2019-05-24 09:18:28', '182400.00', 12, 0),
-(59, NULL, 'bldms12', 3, '4422.00', '2019-05-24 11:42:39', '11939.40', 12, 2);
+(59, NULL, 'bldms12', 3, '4422.00', '2019-05-24 11:42:39', '11939.40', 12, 2),
+(60, NULL, 'dell7440 i5', 3, '27000.00', '2019-05-29 17:43:28', '71280.00', 10, 6),
+(61, NULL, 'dell7440 i5', 12, '12000.00', '2019-06-07 21:35:54', '129600.00', 8, 7);
 
 -- --------------------------------------------------------
 
@@ -879,7 +908,9 @@ CREATE TABLE `store` (
 
 INSERT INTO `store` (`id`, `name`, `description`, `user_id`) VALUES
 (2, 'Store 1', 'Model Town c', '2'),
-(3, 'Store 2', 'Loc2', '4');
+(3, 'Store 2', 'Loc2', '4'),
+(4, 'Store 1', 'near metro station', '6'),
+(5, 'Store 1', 'Near XYZ', '7');
 
 -- --------------------------------------------------------
 
@@ -920,7 +951,9 @@ INSERT INTO `store_track` (`id`, `user_id`, `po_invoice_id`, `po_invoice`, `date
 (15, 2, 0, 'INPO24519 1', '2019-05-24 08:37:58', 2, 'bldms12', 43),
 (16, 2, 0, 'INPO24519 2', '2019-05-24 09:04:46', 2, 'dell7440', 20),
 (17, 2, 0, 'INPO24519 3', '2019-05-24 11:43:55', 2, 'dell7440', 200),
-(18, 4, 0, 'INPO24519 23', '2019-05-24 11:45:39', 3, 'bldms12', 54);
+(18, 4, 0, 'INPO24519 23', '2019-05-24 11:45:39', 3, 'bldms12', 54),
+(19, 6, 0, 'INPO29519 1', '2019-05-29 11:38:18', 4, 'dell7440 i5', 10),
+(20, 7, 0, 'INPO02619 1', '2019-06-02 13:08:19', 5, 'dell7440 i5', 100);
 
 -- --------------------------------------------------------
 
@@ -977,7 +1010,10 @@ INSERT INTO `user_inform` (`id`, `user_name`, `ntn`, `contact`, `business_name`,
 (9, 'Liaquat', '17921-TR', '03086854734', 'Madni Ent.', 'Lahore', 'Near GEn Bus Stand.Mina-re-Pakistan Laore', 'liaquatali31202@gmail.com', '2018-10-31 11:47:38', 2),
 (10, 'Ali', '3409-N78', '03086854734', 'AK Corp.', 'Karachi', 'Near Port Qasimm Road.Korangi 12N Karachi', 'musawer79@ovi.com', '2018-10-31 11:49:23', 0),
 (11, 'Zhoe Feng ', 'CN-8632HND/PK', '8645209234521', 'Zoefeng Parts', 'Beijing', 'Shenzen China Port', 'ZoefengParts@gmail.com', '2018-11-17 19:01:25', 0),
-(12, 'Individual', '', '', '', 'BWP', '', '', '2019-05-25 09:52:32', 4);
+(12, 'Individual', '', '', '', 'BWP', '', '', '2019-05-25 09:52:32', 4),
+(15, 'Smith', '', '', 'John Simith', 'NY', 'USA', '', '2019-05-29 18:55:11', 6),
+(16, 'Individual', '', '', 'Individual ', 'NY', '', '', '2019-06-07 18:59:15', 7),
+(17, 'Smith', '1234312', '02001234123', 'Xyz Auto', 'CL', '123,abc Street, USA', 'xyz@gmail.com', '2019-06-07 19:00:41', 7);
 
 -- --------------------------------------------------------
 
@@ -1024,7 +1060,9 @@ INSERT INTO `vendors` (`id`, `vendor_name`, `manager_name`, `city`, `email`, `co
 (5, 'Prime', 'ALi', 'Bahawalpur', 'pakjalihouse@gmail.com', '', '03336513516', 'pak jali house, Near Shama Canima Multan Road Bahawalpur', 'active', 0),
 (6, 'as Traders', 'ali', 'Bahawalpur', 'musawer79@ovi.com', '', '92943234', 'pak jali house, Near Shama Canima Multan Road Bahawalpur', 'active', 0),
 (7, 'Haroon Traders', 'ALi', 'Karachi', 'haroonTraders@gmail.com', '', '03097782030', 'Millat Road Karachi', 'active', 2),
-(8, 'Haroon Traders', 'ALi', 'Karachi', 'haroonTraders@gmail.com', '', '033462345', 'Korangi town', 'inactive', 4);
+(8, 'Haroon Traders', 'ALi', 'Karachi', 'haroonTraders@gmail.com', '', '033462345', 'Korangi town', 'active', 4),
+(9, 'ABC Traders', 'john', 'NY', 'john@example.com', '', '123456789', 'USA ,NY street xyz', 'active', 6),
+(10, 'ABC Traders', 'John', 'NY', 'john@example.com', '', '', 'XYZ ,00 street ,Near XYZ', 'active', 7);
 
 --
 -- Indexes for dumped tables
@@ -1188,152 +1226,127 @@ ALTER TABLE `vendors`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
-
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT for table `chat`
 --
 ALTER TABLE `chat`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
-
 --
 -- AUTO_INCREMENT for table `department`
 --
 ALTER TABLE `department`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
 --
 -- AUTO_INCREMENT for table `items`
 --
 ALTER TABLE `items`
-  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
-
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 --
 -- AUTO_INCREMENT for table `items_in_stock`
 --
 ALTER TABLE `items_in_stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=117;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `phones`
 --
 ALTER TABLE `phones`
   MODIFY `phone_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `po_invoice`
 --
 ALTER TABLE `po_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 --
 -- AUTO_INCREMENT for table `po_invoice_detail`
 --
 ALTER TABLE `po_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
 --
 -- AUTO_INCREMENT for table `purchase`
 --
 ALTER TABLE `purchase`
   MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=411;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=414;
 --
 -- AUTO_INCREMENT for table `purchase_order_detail`
 --
 ALTER TABLE `purchase_order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=385;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=388;
 --
 -- AUTO_INCREMENT for table `purchase_request`
 --
 ALTER TABLE `purchase_request`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
 --
 -- AUTO_INCREMENT for table `sales_profile`
 --
 ALTER TABLE `sales_profile`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sale_order`
 --
 ALTER TABLE `sale_order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=160;
 --
 -- AUTO_INCREMENT for table `sale_order_detail`
 --
 ALTER TABLE `sale_order_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 --
 -- AUTO_INCREMENT for table `so_customer_detail`
 --
 ALTER TABLE `so_customer_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 --
 -- AUTO_INCREMENT for table `so_invoice`
 --
 ALTER TABLE `so_invoice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 --
 -- AUTO_INCREMENT for table `so_invoice_detail`
 --
 ALTER TABLE `so_invoice_detail`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=60;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 --
 -- AUTO_INCREMENT for table `store`
 --
 ALTER TABLE `store`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `store_track`
 --
 ALTER TABLE `store_track`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `sub_users`
 --
 ALTER TABLE `sub_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
 -- AUTO_INCREMENT for table `user_inform`
 --
 ALTER TABLE `user_inform`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `user_track`
 --
 ALTER TABLE `user_track`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `vendors`
 --
 ALTER TABLE `vendors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-COMMIT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

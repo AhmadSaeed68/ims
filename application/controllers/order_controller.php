@@ -51,6 +51,12 @@
                     $row[]="<span class='w3-text-red fa fa-warning '>  Access Forbidden</span>";
                   }
                     else{
+                      if($po_order->order_report=="recived")
+                      {
+                        $row[]= '<div class="dropdown">
+                        <button disabled class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+                          <span class="caret"></span></button></div>';
+                      }else{
                       $row[]='<div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
                                   <span class="caret"></span></button>
@@ -64,7 +70,7 @@
                                                                               
                                   </ul>
                               </div>';
-                    }
+                    }}
                     
 
 
