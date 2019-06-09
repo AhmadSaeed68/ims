@@ -298,6 +298,21 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+            $(function () {
+                $('#from_date').datetimepicker({
+                    format: 'YYYY/MM/DD',
+                   
+                    maxDate: moment()
+                    
+                });
+                $('#to_date').datetimepicker({
+                    format: 'YYYY/MM/DD',
+                   
+                    maxDate: moment()
+                });
+            });
+        </script>
     <script>
     var openInbox = document.getElementById("myBtn");
     openInbox.click();
@@ -346,6 +361,7 @@
                <!-- jQuery JS CDN -->
                 <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
     <!-- jQuery DataTables JS CDN -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <!-- Bootstrap JS CDN -->
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
@@ -743,5 +759,11 @@
  // });
 
     </script>
-    <p id='fd' class='fd'>
+                 <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+
+         
+                                                      <p id='fd' class='fd'>
     </p>

@@ -3,6 +3,7 @@ include_once "login/header.php";
 $id=$this->session->userdata('user_id');
 ?>
 
+
 <!-- Sidebar/menu -->
 <!-- <nav class="w3-sidebar w3-bar-block w3-white w3-animate-left w3-text-grey w3-collapse w3-top w3-center" style="z-index:3;width:300px;font-weight:bold" id="mySidebar"><br>
     <a href="largeModal" class="btn btn-primary w3-padding-64 w3-bar-item w3-button w3-border-bottom w3-large adddata w3-right" id="add_more" data-toggle="modal">Make Sale Order <i class="w3-padding fa fa-pencil"></i></a>
@@ -308,6 +309,7 @@ $id=$this->session->userdata('user_id');
   </div>
   
   <!-- jQuery JS CDN -->
+  <!-- <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <!-- jQuery DataTables JS CDN -->
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
@@ -617,3 +619,4 @@ function w3_close() {
     }
     </script>
     <span id="return_msg"></span>
+   

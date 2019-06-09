@@ -1,6 +1,8 @@
 <?php include_once "login/header.php";
 $id=$this->session->userdata('user_id');
 ?>
+
+       
 <!-- <style type="text/css">
 // .bs-example{
 margin: 20px;
@@ -99,11 +101,12 @@ width: 1200px; /* New width for large modal */
                         <div class="input-daterange">
                             <div class="form-group">
                                 <label><i class="fa fa-calendar-check-o"></i> From</label>
-                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" name="from_date" id="from_date" required>
+                                <input class="form-control w3-border" type="text" placeholder="YYY MM DD" name="from_date" id="from_date" required>
                             </div>
+                            
                             <div class="form-group">
                                 <label><i class="fa fa-calendar-o"></i> TO</label>
-                                <input class="form-control w3-border" type="text" placeholder="DD MM YYYY" id="to_date" name="to_date" required>
+                                <input class="form-control w3-border" type="text" placeholder="YYYY MM DD" id="to_date" name="to_date" required>
                             </div>
                             <div class="w3-center w3-padding-16">
                                 
@@ -403,6 +406,7 @@ MOdal that load after gettinng data -
             <!-- jQuery JS CDN -->
             <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>  -->
             <!-- jQuery DataTables JS CDN -->
+            <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
             <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
             <!-- Bootstrap JS CDN -->
             <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
@@ -411,6 +415,21 @@ MOdal that load after gettinng data -
             <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script> -->
             <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
             <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+            <script type="text/javascript">
+            $(function () {
+                $('#from_date').datetimepicker({
+                    format: 'YYYY/MM/DD',
+                   
+                    maxDate: moment()
+                    
+                });
+                $('#to_date').datetimepicker({
+                    format: 'YYYY/MM/DD',
+                   
+                    maxDate: moment()
+                });
+            });
+        </script>
             <script type="text/javascript">
   // Script to open and close sidebar
 
@@ -1070,5 +1089,10 @@ function w3_close() {
        //  });
 
 </script>
-            
-            <?php include_once "login/footer.php";?>
+  <?php include_once "login/footer.php";?>
+             <link href="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment-with-locales.js"></script>
+<script src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/e8bddc60e73c1ec2475f827be36e1957af72e2ea/src/js/bootstrap-datetimepicker.js"></script>
+
+          
